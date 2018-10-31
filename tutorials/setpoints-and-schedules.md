@@ -118,9 +118,9 @@ Setpoints are executed strictly in order of time. If two setpoints have the same
 With $$t_1 \leq ... \leq t_n$$ wlog., a schedule thus executes as follows:
 
 * The schedule starts with execution of $$s_1$$ at time $$t_1$$ where $$v_1$$ is written.
-* Setpoint $s_i$ is written at time $t\_i$ and overwrites the previous value_ $$v_{i-1}$$ with $$v_i$$ .
-  * If $s\_i$ lies in the past, i.e., $S$ is created after $t\_i$, $s\_i$ is written immediately.
-* The schedule ends with execution of $s\_n$ \(we refer to this as the _stop event_\) at time $t\_n$ where $v\_n$ is written.
+* Setpoint $$s_i$$ is written at time $$t_i$$ and overwrites the previous value_ $$v_{i-1}$$ with $$v_i$$ .
+  * If $$s_i$$ lies in the past, i.e., $$S$$ is created after $$t\_i$$, $s$_i$$ is written immediately.
+* The schedule ends with execution of $$s_n$$ \(we refer to this as the _stop event_\) at time $$t_n$$ where $$v_n$$ is written.
 
 {% hint style="info" %}
 To reset the system in its state before the schedule, the user should usually set $$v_n =$$ 'reset'.
@@ -242,7 +242,7 @@ This order of applying updates means that one could add a new setpoint, modify i
 {% endhint %}
 
 {% hint style="warning" %}
-**Deleting stop events:** When the stop event $s\_n$ is deleted, the latest \(time-wise\) remaining setpoint $s\_i$ becomes the new stop event, including its original value $v\_i$. When a setpoint $s\_m$ with $t\_m &gt; t\_n$ is added, $s\_m$ becomes the new stop event, including its original value $v\_m$. The bottom line is that the user must take care while adding, modifying, and deleting setpoints from a schedule that the last \(time-wise\) setpoint "correctly" resets the system. In the 99%, this will mean defining _'reset'_ as the value of the time-wise last setpoint _after_ addition, modification, and deletion of setpoints.
+**Deleting stop events:** When the stop event $$s_n$$ is deleted, the latest \(time-wise\) remaining setpoint $$s_i$$ becomes the new stop event, including its original value $$v_i$$. When a setpoint $$s_m$$ with $$t_m \gt t_n$$ is added, $$s_m$$ becomes the new stop event, including its original value $$v_m$$. The bottom line is that the user must take care while adding, modifying, and deleting setpoints from a schedule that the last \(time-wise\) setpoint "correctly" resets the system. In the 99%, this will mean defining _'reset'_ as the value of the time-wise last setpoint _after_ addition, modification, and deletion of setpoints.
 {% endhint %}
 
 #### **Minimalistic example in Python:**
@@ -353,5 +353,5 @@ A setpoint or schedule operation will have no effect if the data point has alrea
 In order to preserve life safety mechanism, the API will generally refuse to write at priorities higher than 8 \(= manual operator\). Higher priorities can be unlocked on request to support@aedifion.com and require written consent.
 
 **What are stop events?**  
-We refer to the time-wise last element $s\_n$ in a schedule as the stop event. The stop event defines the state the data point is left in after the schedule has finished. In 99% of the use cases, a user would choose $v\_n =$ 'reset' which instructs the system to clean up and reset to the initial state \(automatically determined before writing anything\) after finishing with the schedule However, a user may set $v\_n$ to other values to set the system into a different state than before the schedule, if this is explicitly desired.
+We refer to the time-wise last element $$s_n$$ in a schedule as the stop event. The stop event defines the state the data point is left in after the schedule has finished. In 99% of the use cases, a user would choose $$v_n =$$ 'reset' which instructs the system to clean up and reset to the initial state \(automatically determined before writing anything\) after finishing with the schedule However, a user may set $$v_n$$ to other values to set the system into a different state than before the schedule, if this is explicitly desired.
 
