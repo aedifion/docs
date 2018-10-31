@@ -1,14 +1,18 @@
+---
+description: Tutorial on writing setpoints and schedules for active building control.
+---
+
 # Setpoints and schedules
 
 ## Summary
 
-The aedifion Setpoint Writer is a lightweight piece of software capable of running on a small industrial pc that allows writing setpoints \(or whole schedules consisting of many setpoints\) to any writable datapoint on any building automation component in the attached building network. The aedifion Setpoint Writer's semantics completely abstract from the underlying building network and provide a unified, fine-grained control of the building's automation components.
+The aedifion Setpoint Writer is a lightweight piece of software capable of running on a small industrial pc that allows writing setpoints \(or whole schedules consisting of many setpoints\) to any writable datapoint on any building automation component in the attached building network. The semantics of writing setpoints and schedules completely abstracts from the underlying building networks and automation protocols and thereby provides a unified, fine-grained control of the building's automation components.
 
-## Setpoints vs. Schedules: What is what? When to use which?
+## Setpoints vs. Schedules
 
 ### Setpoints
 
-_Setpoints_ are single one-shot best-effort low-overhead irrevocable write operations.
+Setpoints are single one-shot best-effort low-overhead irrevocable write operations.
 
 * No direct feedback is given about the success or failure of a setpoint write operation.
 * No state is kept for a setpoint write operation.
@@ -19,7 +23,7 @@ _Setpoints_ are single one-shot best-effort low-overhead irrevocable write opera
 
 ### Schedules
 
-_Schedules_ are comprised of multiple subsequent setpoint write operations. They are stateful, acknowledged, robust, and modifiable:
+Schedules are comprised of multiple subsequent setpoint write operations. They are stateful, acknowledged, robust, and modifiable:
 
 * The state of a schedule and corresponding state transitions are logged and can be queried through the API.
 * The current state of the datapoint that is written to is saved before overwriting it.
@@ -118,8 +122,8 @@ Setpoints are executed strictly in order of time. If two setpoints have the same
 With $$t_1 \leq ... \leq t_n$$ wlog., a schedule thus executes as follows:
 
 * The schedule starts with execution of $$s_1$$ at time $$t_1$$ where $$v_1$$ is written.
-* Setpoint $$s_i$$ is written at time $$t_i$$ and overwrites the previous value_ $$v_{i-1}$$ with $$v_i$$ .
-  * If $$s_i$$ lies in the past, i.e., $$S$$ is created after $$t\_i$$, $s$_i$$ is written immediately.
+* Setpoint $$s_i$$ is written at time $$t_i$$ and overwrites the previous value _$$v_{i-1}$$with$$v\_i$$ .
+  * If $$s_i$$ lies in the past, i.e., $$S$$ is created after $$t\_i$$, $s$\_i$$ is written immediately.
 * The schedule ends with execution of $$s_n$$ \(we refer to this as the _stop event_\) at time $$t_n$$ where $$v_n$$ is written.
 
 {% hint style="info" %}
@@ -215,7 +219,7 @@ The caller can/must provide:
 
   * `setpoints_add` \[optional\]: A list of _new_ setpoints to add to the schedule.
 
-     If a new setpoint has the same `id` as an existing setpoint, the update is rejected.
+    If a new setpoint has the same `id` as an existing setpoint, the update is rejected.
 
   * `setpoints_modify` \[optional\]: A list of _existing_ setpoints to modify identified by their `id`.
 
@@ -333,16 +337,18 @@ else:
 
 ## Examples
 
-## Frequently Asked Questions:
+Coming soon, stay tuned.
+
+## FAQ
 
 **What happens if the setpoint writer looses internet connection?**  
 Since all current schedules are replicated on the setpoint writer, all schedules continue running without any interruption. However, the setpoint writer can no longer receive heartbeats from the API. Thus, all schedules with a heartbeat will eventually time-out and then be safely reset.
 
-**What happens when the setpoint writer crashes?**   
+**What happens when the setpoint writer crashes?**  
 All schedules \(and their state\) are persisted in a local database on the HD of the setpoint writer. The setpoint writer is set to automatically reboot when it crashes and will reload and reactivate all running schedules \(as long as the HD is intact\). This process takes no more than one minute. As everything, crash events and subsequent reloads are logged to the API.
 
 **Why can't I add, modify, or delete setpoints of a running schedules that lie in the past?**  
- The short answer: We do our very best, but what's past is past and nobody can change it.
+The short answer: We do our very best, but what's past is past and nobody can change it.
 
 The long answer: While there may be valid use cases for adding, modifying, or deleting setpoints with a start time in the past, this is deliberately prevented for different reasons: First, there is no intuitive well-defined semantics for changing setpoints in the present that have already been written in the past -- _altering the past_ would almost certainly result in a state of the system that is different to what the user expects. Second, all actions are logged on the API and this log should be an exact transcript of all written setpoints -- adding, modifying, and deleting setpoints in the past would render this log inconsistent with the actual course of events.
 

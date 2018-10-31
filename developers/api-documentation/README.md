@@ -1,4 +1,6 @@
 # HTTP API
 
-Coming soon ...
+{% hint style="danger" %}
+Under construction
+{% endhint %}
 

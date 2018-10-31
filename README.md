@@ -1,10 +1,12 @@
 ---
-description: Official documentation of the aedifion.io cloud platform.
+description: Official documentation portal of aedifion.
 ---
 
 # Welcome
 
-You've reached the official documentation site of aedifion. 
-
+{% hint style="danger" %}
 Documentation pages are currently being built. Please check back later.
+{% endhint %}
+
+
 
