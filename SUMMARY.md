@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Welcome](README.md)
+* [Overview](README.md)
 * [Frontend](frontend.md)
 * [APIs](apis.md)
 * [Integrations](integrations.md)
@@ -10,7 +10,6 @@
 * [Administration](tutorials/coming-soon-....md)
 * [Alarming](tutorials/alarming.md)
 * [Setpoints and schedules](tutorials/setpoints-and-schedules.md)
-* [Customization](tutorials/customization.md)
 * [Tagging](tutorials/tagging.md)
 
 ## Developers
