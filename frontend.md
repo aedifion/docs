@@ -10,11 +10,19 @@ Under construction
 
 ## Logging in
 
+### Resetting the password
+
 ## Favorites
 
 ## Datapointkeys
 
-## Plotviews
+## Plotting
+
+### Simple plots
+
+### Multiplots
+
+### Plotviews
 
 
 
