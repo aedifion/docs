@@ -4,6 +4,7 @@
 * [Frontend](frontend.md)
 * [APIs](apis.md)
 * [Integrations](integrations.md)
+* [Glossary](glossary.md)
 * [Contact](contact.md)
 
 ## Tutorials
