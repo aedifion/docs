@@ -9,7 +9,7 @@
 
 ## Tutorials
 
-* [Administration](tutorials/coming-soon-....md)
+* [Administration](tutorials/administration.md)
 * [Alarming](tutorials/alarming.md)
 * [Setpoints and schedules](tutorials/setpoints-and-schedules.md)
 * [Tagging](tutorials/tagging.md)

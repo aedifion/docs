@@ -178,7 +178,7 @@ Let's inspect the answer piece-by-piece.
 * `'operation': 'create'` tells us that a new resource was created.
 * The `resource` field contains two further objects, i.e., the resources that were created
   * The first resource, `'project':{...}` , is the project that we set out to create. Note how the new project has been assigned a unique id \(20\) in addition to the information that we provided in the `POST` request.
-  * The second resource, `'role:{...}'`, has been created automatically. It is the default _admin_ role for that project and has been automatically assigned to you, i.e., the user that who the project. Do not worry about the other details of the newly created role. We will cover them later in the section on [managing permissions](coming-soon-....md#managing-permissions).
+  * The second resource, `'role:{...}'`, has been created automatically. It is the default _admin_ role for that project and has been automatically assigned to you, i.e., the user that who the project. Do not worry about the other details of the newly created role. We will cover them later in the section on [managing permissions](administration.md#managing-permissions).
 
 Log in to the [frontend](https://www.aedifion.io) or call the `GET /v2/user/projects` endpoint to see the newly created simulation project listed in your projects. 
 
@@ -236,7 +236,7 @@ Let's imagine there was an error in the project name and description and we want
       <td style="text-align:left">My second simulation project.</td>
     </tr>
   </tbody>
-</table>As in [the previous example](coming-soon-....md#adding-projects), we encode the body parameters in a single [JSON-formatted](https://www.json.org/) object.
+</table>As in [the previous example](administration.md#adding-projects), we encode the body parameters in a single [JSON-formatted](https://www.json.org/) object.
 
 ```javascript
 { 
@@ -362,7 +362,7 @@ Deleting a project deletes the project together with _all project-specific meta 
 
 ## Managing users
 
-The flow for managing users is mostly the same as for [managing projects](coming-soon-....md#managing-projects). There is, however, one crucial difference: _Users can add other users but cannot modify or delete them_. More figuratively, once a user is born into the company, he/she immediately enters adulthood.
+The flow for managing users is mostly the same as for [managing projects](administration.md#managing-projects). There is, however, one crucial difference: _Users can add other users but cannot modify or delete them_. More figuratively, once a user is born into the company, he/she immediately enters adulthood.
 
 ### Adding users
 
@@ -448,7 +448,7 @@ New users are created through the `POST /v2/user` API endpoint. As usual, you ne
 }
 ```
 
-We post this request with the login of our _current user_ since Jane Doe cannot create herself, evidently. Refer to the [previous section](coming-soon-....md#managing-projects) for examples on how to issue this request.
+We post this request with the login of our _current user_ since Jane Doe cannot create herself, evidently. Refer to the [previous section](administration.md#managing-projects) for examples on how to issue this request.
 
 The response has the usual format. Note that just as for the new project before, the new user has received a unique numeric id \(which we will need later to assign roles to this user\).
 
@@ -591,7 +591,7 @@ You may have noticed that this call did not require the user's id, unlike the `P
 
 ### Deleting users
 
-To delete a user, just call the `DELETE /v2/user` endpoint with the login of the user that should be deleted. Again, this implied that a user can only delete him/herself. The call is thus even simpler than the analog call for [deleting a project](coming-soon-....md#deleting-projects).
+To delete a user, just call the `DELETE /v2/user` endpoint with the login of the user that should be deleted. Again, this implied that a user can only delete him/herself. The call is thus even simpler than the analog call for [deleting a project](administration.md#deleting-projects).
 
 {% hint style="danger" %}
 Deleting a user deletes the user together with _all user-specific meta data_, including favorites, plotviews, and so forth. Handle this endpoint with great care.
