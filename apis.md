@@ -10,6 +10,14 @@ Under construction
 
 ## HTTP API
 
+### Design principles
+
+#### Idempotency
+
+#### JSON
+
+#### Consistent use of HTTP Methods
+
 ## Websocket API
 
 ## MQTT API

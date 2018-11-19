@@ -13,6 +13,7 @@
 * [Alarming](tutorials/alarming.md)
 * [Setpoints and schedules](tutorials/setpoints-and-schedules.md)
 * [Tagging](tutorials/tagging.md)
+* [Data import](tutorials/data-import.md)
 
 ## Developers
 
