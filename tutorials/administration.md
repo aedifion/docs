@@ -944,5 +944,9 @@ print(r.text)
 
 Deleting roles is done through the DELETE /v2/project/{project\_id}/role/{role\_id} endpoint.
 
+TODO
+
 ### A note on escalation of privileges
+
+TODO
 
