@@ -1,7 +1,7 @@
 ---
 description: >-
-  Guide and tutorial for the administration of users, projects, and associated
-  permissions via the HTTP API.
+  Tutorial for the administration of users, projects, and associated permissions
+  via the HTTP API.
 ---
 
 # Administration
@@ -36,58 +36,17 @@ In this section, we first add a demo project, then modify its details, and final
 
 Projects are created through the `POST /v2/project` API endpoint. You need to supply the details of the new project in [JSON-format](https://www.json.org/) in the body of this request. The JSON should contain the following name/value-pairs:
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Parameter</th>
-      <th style="text-align:center">Datatype</th>
-      <th style="text-align:center">Type</th>
-      <th style="text-align:center">Required</th>
-      <th style="text-align:left">Description</th>
-      <th style="text-align:left">Example</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left"><b>company_id</b>
-      </td>
-      <td style="text-align:center">integer</td>
-      <td style="text-align:center">
-        <p>body</p>
-        <p>(JSON)</p>
-      </td>
-      <td style="text-align:center">yes</td>
-      <td style="text-align:left">The numeric id of your company (can be obtained through the <code>GET /v2/company</code> endpoint
-        if unknown).</td>
-      <td style="text-align:left">1</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><b>name</b>
-      </td>
-      <td style="text-align:center">string</td>
-      <td style="text-align:center">body (JSON)</td>
-      <td style="text-align:center">yes</td>
-      <td style="text-align:left">The name of the project.</td>
-      <td style="text-align:left">simu_01</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><b>description</b>
-      </td>
-      <td style="text-align:center">string</td>
-      <td style="text-align:center">body (JSON)</td>
-      <td style="text-align:center">no</td>
-      <td style="text-align:left">An optional free text description of this project, e.g., something to
-        help others understand what this project is about.</td>
-      <td style="text-align:left">My first simulation project.</td>
-    </tr>
-  </tbody>
-</table>This information must be encoded as a [valid JSON](https://jsonlint.com/):
+| Parameter | Datatype | Type | Required | Description | Example |
+| :--- | :---: | :---: | :---: | :--- | :--- |
+| **name** | string | body \(JSON\) | yes | The name of the project. | simu\_01 |
+| **description** | string | body \(JSON\) | no | An optional free text description of this project, e.g., something to help others understand what this project is about. | My first simulation project. |
+
+This information must be encoded as a [valid JSON](https://jsonlint.com/):
 
 ```javascript
 {
-	"company_id": 1,
-	"description": "My first simulation project.",
-	"name": "simu_01"
+	"name": "simu_01",
+	"description": "My first simulation project."
 }
 ```
 
@@ -106,7 +65,8 @@ new_project =  {
 	"description": "My first simulation project.",
 	"name": "simu_01"
 }
-r = requests.post("https://api.aedifion.io/v2/project", auth=auth, json=new_project)
+r = requests.post("https://api.aedifion.io/v2/project", 
+	              auth=auth, json=new_project)
 ```
 
 3. Inspect the response code and body.
@@ -256,7 +216,8 @@ update =  {
 	"name": "SIMU02",
 	"description": "My second simulation project."
 }
-r = requests.put("https://api.aedifion.io/v2/project/20", auth=auth, json=update)
+r = requests.put("https://api.aedifion.io/v2/project/20", 
+				 auth=auth, json=update)
 ```
 {% endtab %}
 
@@ -318,7 +279,8 @@ update =  {
 	"name": "SIMU02",
 	"description": "My second simulation project."
 }
-r = requests.put("https://api.aedifion.io/v2/project/20", auth=auth, json=update)
+r = requests.put("https://api.aedifion.io/v2/project/20", 
+				 auth=auth, json=update)
 ```
 {% endtab %}
 
@@ -381,19 +343,6 @@ New users are created through the `POST /v2/user` API endpoint. As usual, you ne
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left"><b>company_id</b>
-      </td>
-      <td style="text-align:center">integer</td>
-      <td style="text-align:center">
-        <p>body</p>
-        <p>(JSON)</p>
-      </td>
-      <td style="text-align:center">yes</td>
-      <td style="text-align:left">The numeric id of your company (can be obtained through the <code>GET /v2/company</code> endpoint
-        if unknown).</td>
-      <td style="text-align:left">1</td>
-    </tr>
-    <tr>
       <td style="text-align:left"><b>firstName</b>
       </td>
       <td style="text-align:center">string</td>
@@ -440,7 +389,6 @@ New users are created through the `POST /v2/user` API endpoint. As usual, you ne
 
 ```javascript
 {
-  "company_id": 1,
   "email": "jane.dow@newco.com",
   "firstName": "Jane",
   "lastName": "Doe",
@@ -450,7 +398,7 @@ New users are created through the `POST /v2/user` API endpoint. As usual, you ne
 
 We post this request with the login of our _current user_ since Jane Doe cannot create herself, evidently. Refer to the [previous section](administration.md#managing-projects) for examples on how to issue this request.
 
-The response has the usual format. Note that just as for the new project before, the new user has received a unique numeric id \(which we will need later to assign roles to this user\).
+The response has the usual format. Note that just as for the new project before, the new user has received a unique numeric id \(which we will need later to assign roles to this user\) and has been added to the company of the creating user.
 
 ```javascript
 {
@@ -541,7 +489,8 @@ update =  {
 	"email": "jm.doe@newco.com",
 	"password": "my0wnsup3rs3cr3tpw"
 }
-r = requests.put("https://api.aedifion.io/v2/project/20", auth=auth, json=update)
+r = requests.put("https://api.aedifion.io/v2/project/20", 
+ 				 auth=auth, json=update)
 ```
 {% endtab %}
 
@@ -599,13 +548,401 @@ Deleting a user deletes the user together with _all user-specific meta data_, in
 
 ## Managing permissions
 
+Permissions to access resources on the aedifion.io platform can be controlled in a very fine granular manner using a role-based access control \(RBAC\) system. In this section, we will review the basic concept behind the permission management then go through the process of defining a new role, modifying its permissions, assigning it to a user, and finally deleting the role.
+
 ### Conceptual overview
+
+There exist two types of roles on the aedifion.io platform:
+
+* _Company roles_ define permissions within the whole company. In particular, they apply to all of that company's projects. Company roles are meant as administrative roles, i.e., they allow editing project meta data but deliberately do not grant access to the datapoints of individual projects, e.g., the raw time series measured for a building.
+* _Project roles_ define permissions within a single project and, especially, permissions to access the datapoints and time series in that project. They are thus always associated with a specific project and any permissions granted within the role are limited to that project.
+
+The _permission set_ of a user is the _union_ of the sets of permissions granted to him/her by his/her project and company roles. It is important to note that this is a strict _whitelisting_ approach, i.e., 
+
+* Per default, access to all resources is forbidden.
+* Access to a resource must be explicitly granted through a role.
+* If a user is granted the permission to access resource _R_ through role _A_ then this access is not revoked by any subsequently assigned role that does not grant access to R_._
+* A user can only grant access to resources that he/she has access to him/herself.
+
+{% hint style="info" %}
+**Example:**
+
+Imagine the following setup:
+
+* Company _NewCo_ has defined two company roles:
+  * Role _admin_ with permissions to read and write resources.
+  * Role _reader_ with permissions to read all resources.
+* _NewCo_  has two projects:
+  * Project _Headquarters_ with roles _reader_ and _writer._
+  * Project _FactoryFloor_ with roles _reader_ and _writer._
+* User Alice is _NewCo's_ system administrator and has roles {_NewCo/admin_},
+* User Bob is a worker and has roles {_NewCo/reader_, _Newco/FactoryFloor/writer_}.
+* _NewCo_ uses their headquarters as a demo building and grant role {_NewCo/Headquarters/reader_} to any guest.
+
+Now, what permissions do Alice, Bob, and the guests have?
+
+* Alice has access to all of _NewCo's_ resources and projects __since she has the default admin company role. She does not need any specific project role to edit projects' meta data but cannot read or write any of the projects' datapoints.
+* Bob's company role _NewCo/reader_ allows him to read all of _NewCo's_ resources but not to change them. Since Bob is working in the factory, he is granted permissions to read and change datapoints from the factory floor, e.g., write a setpoint for the room temperature, through the project role _NewCo/FactoryFloor/writer._
+* Guests only have rights to read resources \(including datapoints\) of the project _Headquarters,_ but cannot access any other project or company resources.
+{% endhint %}
+
+The above example serves to illustrate the basic concept of a user's permission set on a very high and abstract level. So far, we only talked about "access to resources" but did not really specify what these resources really are.
+
+* **API endpoints:** Access is granted/restricted to _API endpoints:_ Each company or project role lists those [HTTP API endpoints](../developers/api-documentation/) that this role is allowed to access. The role _reader_ from our high level example could then be implemented as a role that allows access only to `GET` endpoints. As you have already guessed, the role _writer_ would grant access also to `POST`, `PUT`, and `DELETE` endpoints.
+* **Datapoints:** Some API endpoints, e.g. `POST /v2/datapoint/setpoint`, work on the datapoints of a project. A datapoint is usually associated with real time series data, e.g., measured from a real building. Such data can be sensitive and may require additional protection. Any project role must thus further whitelist the specific datapoints of the projects to which access is granted via the authorized endpoints. 
+* **Read/Write:** Write access to a datapoint, e.g., posting a room temperature setpoint or switching off the heating, is a often a more critical action than just reading the current or paste state of a datapoint. Thus, access to datapoints is further divided into read or write access \(or both\).
+
+No enough for the boring theory, let's dive into practice. 
+
+### Viewing roles
+
+We first examine the roles that we already got. To this end, we use the `GET /v2/user` endpoint which will return a comprehensive summary of the logged-in user's resources. We use the following script to parse the output to a more readable form:
+
+```python
+import requests
+
+# Short print for long lists
+def list2string(l):
+    if len(l) <= 6:
+        return ", ".join(map(str, l))
+    else:
+        return ", ".join(map(str, l[:3])) + ", ..., " + ", ".join(map(str, l[-3:]))
+
+# credentials
+john = ("john.doe@aedifion.com", "s3cr3tp4assw0rd")
+
+# make the request and parse the answer
+r = requests.get("https://api.aedifion.io/v2/user", auth=john)
+if r.status_code != 200:
+    print(r.text)
+else:
+    j = r.json()
+    print("User '{} {}'".format(j['user']['firstName'], j['user']['lastName']))
+    print("- Project roles:")
+    for r in j['roles']:
+        print(" -> {} ({})".format(r['name'], r['description']))
+        print("  * authorized endpoints: {}".format(list2string(r['authed_endpoints'])))
+        print("  * authorized tags:")
+        for t in r['authed_tags']:
+            print("   + {}".format(t))
+    print("- CompanyRoles")
+    for r in j['companyroles']:
+        print("  -> {} ({}): {}".format(r['name'], r['description'], list2string(r['authed_endpoints'])))
+```
+
+The response is similar to the following shortened output:
+
+```text
+User 'Jan Henrik Ziegeldorf'
+- Project roles:
+ -> admin (Admin project role for EON ERC MainBuilding)
+  * authorized endpoints: 1, 2, 3, ..., 72, 73, 74
+  * authorized tags:
+   + {'id': 1, 'key': 'name', 'read': True, 'value': '*', 'write': False}
+   + {'id': 3, 'key': 'name', 'read': True, 'value': 'bacnet512-4120L01_DASBM06_Abluftventilator', 'write': True}
+   + {'id': 4, 'key': 'name', 'read': True, 'value': 'bacnet512-4120L01_VEGYSW__Abluft-Druck', 'write': True}
+   + {'id': 5, 'key': 'name', 'read': True, 'value': 'bacnet510-4120L04_VEGYSW__Druck-Abluft', 'write': True}
+   + {'id': 6, 'key': 'name', 'read': True, 'value': 'bacnet510-4120L04_VEGYSW__Druck-Zuluft', 'write': True}
+   + {'id': 7, 'key': 'name', 'read': True, 'value': 'bacnet512-4120L022VEGSHSB_Anlage-L22', 'write': True}
+- CompanyRoles
+  -> admin (Admin company role for aedifion GmbH): 1, 2, 3, ..., 72, 73, 74
+```
+
+The output contains the following information:
+
+* I have one project role, _admin_ on the E.ON ERC MainBuilding. 
+  * The admin project role grants access to endpoints 1, 2, 3, ..., 74. These ids correspond to the output of `GET /v2/meta/endpoints`and determine the endpoints to which I have access - all endpoints, in this case.
+  * The admin project role grants read access to all datapoints \(`'value': '*'`\) and write access to five explicitly specified datapoints, e.g., `bacnet512-4120L01_DASBM06_Abluftventilator.`
+* I have one company role, _admin_, which grants access to all endpoints.
 
 ### Adding roles
 
-### Modifying roles
+Let's [add another project](administration.md#adding-projects) then re-run the above script and see what happens.
+
+```python
+newproject = {
+    "company_id":1, 
+    "name":"TestProject01", 
+    "description":"A first test project."
+    }
+requests.post(api_url + "/v2/project", auth=john, json=newproject)
+```
+
+```text
+- Project roles:
+...
+ -> admin (Admin role for project TestProject01)
+  * authorized endpoints: 1, 2, 3, ..., 72, 73, 74
+  * authorized tags:
+   + {'id': 1, 'key': 'name', 'read': True, 'value': '*', 'write': True}
+...
+```
+
+Note that one new project roles has appeared. This role was automatically created when we created the new project and assigned to the creating user. 
+
+{% hint style="info" %}
+Automatic creation of the _admin_ role on new projects ensures that there is at least one user who has access to the project and can grant access to other users of his/her company.
+{% endhint %}
+
+In many use cases, we would, however, like to restrict access to our new _TestProject01._ To this end, we have to define a new role which is done through the `POST /v2/project/{project_id}/role` endpoint. 
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Parameter</th>
+      <th style="text-align:center">Datatype</th>
+      <th style="text-align:center">Type</th>
+      <th style="text-align:center">Required</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>project_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">path</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The numeric id of the project for which to create the role.</td>
+      <td style="text-align:left">21</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>name</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">body (JSON)</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The name of the new role.</td>
+      <td style="text-align:left">Maintainer</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>description</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">A short free text description of the new role that should shortly describe
+        the permissions granted by this role.</td>
+      <td style="text-align:left">Limited access for maintainers of TestProject01.</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>rights_level</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">A number between 0 and 100 which serves to create a strict ordering of
+        roles.</td>
+      <td style="text-align:left">50</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>authed_<br />endpoints</b>
+      </td>
+      <td style="text-align:center">list of integer</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The list of numeric ids of endpoints that this role grants permissions
+        for (ids can be obtained through <code>GET /v2/meta/endpoints</code>). <code>id=0</code> is
+        a special short-hand for all endpoints.</td>
+      <td style="text-align:left">[22, 52]</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>authed_<br />tags</b>
+      </td>
+      <td style="text-align:center">list of object</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">The list of tags that this role grants permissions for. A tag has a <em>key</em> (string)
+        and <em>value</em> (string) as well as <em>read</em> (boolean) and <em>write</em> (boolean)
+        flags.</td>
+      <td style="text-align:left">[{"key":"name", "value": "*", "read": True, "write": False}]</td>
+    </tr>
+  </tbody>
+</table>Do not worry about the _rights\_level_ for now \(it is treated in detail in in the section on [escalation of privileges](administration.md#a-note-on-escalation-of-privileges)\). Also, we do not care about _authed\_tags_ at this point. The request then is built is follows:
+
+{% tabs %}
+{% tab title="Python" %}
+```python
+# Helper function to retrieve the numeric id of an endpoint         
+def getEndpointId(method, path):
+    j = get(api_url + "/v2/meta/endpoints").json()
+    for endpoint in j:
+        if endpoint['path'] == path and endpoint['request_method'] == method:
+            return endpoint['id']
+    return None
+
+new_project_id = 21
+id_get_project = getEndpointId("GET", "/v2/project/{project_id}")
+id_put_project = getEndpointId("PUT", "/v2/project/{project_id}")
+newrole = {
+    "name":"Maintainer",
+    "description": "Limited access for maintainers of TestProject01",
+    "authed_endpoints": [id_get_project, id_put_project],
+    "rights_level": 50
+}
+r = post(api_url + "/v2/project/{}/role".format(new_project_id), 
+         auth=john, json=newrole)
+print(r.text)
+```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Navigate to the _Meta_ tag and drop down the `GET /v2/meta/endpoints` endpoint.
+2. Click _Try it out!_ and note down the numeric ids of the desired endpoints.
+3. Navigate to the _Project_ tag and drop down the `POST /v2/project/{project_id}/role` endpoint.
+4. Enter the _project\_id._ Copy paste the example value into the _role\_definition_ and edit _name, description,_ and _authed\_endpoints_. Delete the dummy _authed\_tags_ object and put a _rights\_level_ of 50.
+5. Click _Try it out!_ and inspect the response.
+{% endtab %}
+{% endtabs %}
+
+As usual, the response confirms success and returns the created role.
+
+```javascript
+{
+    "operation": "create",
+    "success": true
+    "resource": {
+        "id": 41,
+        "name": "Maintainer",
+        "description": "Limited access for maintainers of TestProject01",        
+        "project_id": 21,
+        "rights_level": 50
+        "authed_endpoints": [22,52],
+        "authed_tags": [],
+    }
+}
+```
 
 ### Assigning roles to users
 
+We can now assign the role created in the previous section to other users in order to grant them \(limited\) access to our new project. In the following, we [create a test user](administration.md#adding-users) then assign this user the previously created _Maintainer_ role.
+
+```python
+# Create a new user
+newuser = {
+    "firstName":"Jane", 
+    "lastName":"Doe", 
+    "email":"jane.doe@aedifion.com", 
+    "password":"ch4ng3m3"
+}
+r = post(api_url + "/v2/user", auth=auth, json=newuser)
+new_user_id = r.json()['resource']['id']
+
+# Assign the role to the new user
+new_role_id = 41
+r = post(api_url + "/v2/project/role/{}/user/{}".format(new_role_id, new_user_id),
+         auth=john)
+print(r.text)
+```
+
+In the response, the role assignment is confirmed. Since an assignment from a role to a user is a relation \(role, user\), the resources field returns this relation.
+
+```javascript
+{
+    "success": true,
+    "operation": "create",
+    "resource":{
+        "role":{
+            "id": 41,
+            "name": "Maintainer",
+            "project_id": 21,
+            "rights_level": 50,
+            "authed_endpoints": [22, 52],
+            "authed_tags": [],
+            "description": "Limited access for maintainers of TestProject01"
+        },
+        "user":{
+            "id": 102,
+            "firstName":"Jane",
+            "lastName":"Doe",
+            "company_id": 1,
+            "email":"jane.doe@aedifion.com",
+        }
+    }
+}
+```
+
+Querying the user confirms that the role has been created:
+
+```python
+jane = ("jane.doe@aedifion.com", "ch4ngem3")
+printUserRoles(jane)
+```
+
+```text
+User 'Jane Doe'
+- Project roles:
+ -> Maintainer (Limited access for maintainers of TestProject01)
+  * authorized endpoints: 22, 52
+  * authorized tags:
+- CompanyRoles
+```
+
+### Modifying roles
+
+Modifying roles is done through the `PUT /v2/project/{project_id}/role/{role_id}` endpoint. The process is the same as [modifying projects](administration.md#modifying-projects) or [users](administration.md#modifying-users). It should however be noted that _authed\_endpoints_ and _authed\_tags_ are completely replaced by the update \(and not appended or preserved otherwise\).
+
+For the sake of completeness, we continue our example and edit all attributes of the previously created _Maintainer_ role.
+
+```python
+new_project_id = 21
+new_role_id    = 41
+id_get_project = getEndpointId("GET", "/v2/project/{project_id}")
+id_put_project = getEndpointId("PUT", "/v2/project/{project_id}")
+id_get_alerts  = getEndpointId("GET", "/v2/project/{project_id}/alerts")
+id_get_dpks    = getEndpointId("GET", "/v2/project/{project_id}/datapointkeys")
+role_update = {
+    "name":"Extended-Maintainer",
+    "description": "Extended access for maintainers of TestProject01",
+    "authed_endpoints": [
+        id_get_project, 
+        id_put_project, 
+        id_get_dpks, 
+        id_get_alerts
+    ],
+    "authed_tags": [
+        {"key":"name", "value":"*", "read":True, "write":False}
+    ],
+    "rights_level": 30}
+r = put(api_url + "/v2/project/{}/role/{}".format(new_project_id, new_role_id),
+        auth=john, json=role_update)
+print(r.text)
+```
+
+```javascript
+{
+    "success":true,
+    "operation": "update",
+    "resource": {
+        "id": 41,
+        "name": "Extended-Maintainer",
+        "project_id": 21,
+        "rights_level": 30,
+        "authed_endpoints": [15,22,23,52],
+        "description":"Extended access for maintainers of TestProject01"
+        "authed_tags": [
+            {"id":2,"key":"name","read":true,"value":"*","write":false}
+        ],
+    }
+}
+```
+
 ### Deleting roles
+
+Deleting roles is done through the DELETE /v2/project/{project\_id}/role/{role\_id} endpoint.
+
+### A note on escalation of privileges
 
