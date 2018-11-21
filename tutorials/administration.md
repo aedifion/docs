@@ -582,7 +582,7 @@ Imagine the following setup:
 Now, what permissions do Alice, Bob, and the guests have?
 
 * Alice has access to all of _NewCo's_ resources and projects __since she has the default admin company role. She does not need any specific project role to edit projects' meta data but cannot read or write any of the projects' datapoints.
-* Bob's company role _NewCo/reader_ allows him to read all of _NewCo's_ resources but not to change them. Since Bob is working in the factory, he is granted permissions to read and change datapoints from the factory floor, e.g., write a setpoint for the room temperature, through the project role _NewCo/FactoryFloor/writer._
+* Bob's company role _NewCo/reader_ allows him to read all of _NewCo's_ resources but not to change them. Since Bob is working in the factory, he is granted permissions to change datapoints from the factory floor, e.g., write a setpoint for the room temperature, through the project role _NewCo/FactoryFloor/writer._
 * Guests only have rights to read resources \(including datapoints\) of the project _Headquarters,_ but cannot access any other project or company resources.
 {% endhint %}
 
@@ -608,26 +608,31 @@ def list2string(l):
     else:
         return ", ".join(map(str, l[:3])) + ", ..., " + ", ".join(map(str, l[-3:]))
 
+# Print a user's roles
+def printUserRoles(auth):
+    r = get(api_url + "/v2/user", auth=auth)
+    if r.status_code != 200:
+        print(r.text)
+    else:
+        j = r.json()
+        print("User '{} {}'".format(j['user']['firstName'], j['user']['lastName']))
+        print("- Project roles:")
+        for r in j['roles']:
+            print(" -> {} ({})".format(r['name'], r['description']))
+            print("  * authorized endpoints: {}".format(list2string(r['authed_endpoints'])))
+            print("  * authorized tags:")
+            for t in r['authed_tags']:
+                print("   + {}".format(t))
+        print("- CompanyRoles")
+        for r in j['companyroles']:
+            print(" -> {} ({})".format(r['name'], r['description']))
+            print("  * authorized endpoints: {}".format(list2string(r['authed_endpoints'])))
+
 # credentials
 john = ("john.doe@aedifion.com", "s3cr3tp4assw0rd")
 
-# make the request and parse the answer
-r = requests.get("https://api.aedifion.io/v2/user", auth=john)
-if r.status_code != 200:
-    print(r.text)
-else:
-    j = r.json()
-    print("User '{} {}'".format(j['user']['firstName'], j['user']['lastName']))
-    print("- Project roles:")
-    for r in j['roles']:
-        print(" -> {} ({})".format(r['name'], r['description']))
-        print("  * authorized endpoints: {}".format(list2string(r['authed_endpoints'])))
-        print("  * authorized tags:")
-        for t in r['authed_tags']:
-            print("   + {}".format(t))
-    print("- CompanyRoles")
-    for r in j['companyroles']:
-        print("  -> {} ({}): {}".format(r['name'], r['description'], list2string(r['authed_endpoints'])))
+# make the GET request and parse the answer
+printUserRoles(john)
 ```
 
 The response is similar to the following shortened output:
@@ -645,7 +650,8 @@ User 'Jan Henrik Ziegeldorf'
    + {'id': 6, 'key': 'name', 'read': True, 'value': 'bacnet510-4120L04_VEGYSW__Druck-Zuluft', 'write': True}
    + {'id': 7, 'key': 'name', 'read': True, 'value': 'bacnet512-4120L022VEGSHSB_Anlage-L22', 'write': True}
 - CompanyRoles
-  -> admin (Admin company role for aedifion GmbH): 1, 2, 3, ..., 72, 73, 74
+ -> admin (Admin company role for aedifion GmbH): 
+  * authorized endpoints: 1, 2, 3, ..., 72, 73, 74
 ```
 
 The output contains the following information:
@@ -656,6 +662,8 @@ The output contains the following information:
 * I have one company role, _admin_, which grants access to all endpoints.
 
 ### Adding roles
+
+#### Automatic role creation
 
 Let's [add another project](administration.md#adding-projects) then re-run the above script and see what happens.
 
@@ -683,6 +691,8 @@ Note that one new project roles has appeared. This role was automatically create
 {% hint style="info" %}
 Automatic creation of the _admin_ role on new projects ensures that there is at least one user who has access to the project and can grant access to other users of his/her company.
 {% endhint %}
+
+#### Adding project roles
 
 In many use cases, we would, however, like to restrict access to our new _TestProject01._ To this end, we have to define a new role which is done through the `POST /v2/project/{project_id}/role` endpoint. 
 
@@ -826,9 +836,47 @@ As usual, the response confirms success and returns the created role.
 }
 ```
 
+#### Adding company roles
+
+If we have added many projects, a company-wide maintainer role is probably required that defines access on all projects and automatically extends also to future projects that have not been created, yet. Company roles address this objective.
+
+As en example , we create a _company role_ through the _POST /v2/company/role_ endpoint that allows creation, modification, and deletion of projects. The process is the same as for adding a project role except that company roles do not require the _authed\_tags_ list, since they do not grant access to a projects time series data \(again: only a project role can do that\).
+
+```python
+# Define and add the role
+id_post_project   = getEndpointId("POST", "/v2/project")
+id_put_project    = getEndpointId("PUT", "/v2/project/{project_id}")
+id_delete_project = getEndpointId("DELETE", "/v2/project/{project_id}")
+newrole = {
+    "name":"Project Admin",
+    "description": "Role for maintaining projects company-wide",
+    "authed_endpoints": [id_post_project, id_put_project, id_delete_project],
+    "rights_level": 50
+}
+r = post(api_url + "/v2/company/role", auth=john, json=newrole)
+print(r.text)
+```
+
+Response from `POST /v2/company/role`:
+
+```javascript
+{
+    "success":true,
+    "operation": "create",
+    "resource": {
+        "id": 32,
+        "name": "Project Admin",
+        "description": "Role for maintaining projects company-wide",
+        "company_id": 1,        
+        "rights_level": 50,
+        "authed_endpoints": [7, 40, 52]
+    }
+}
+```
+
 ### Assigning roles to users
 
-We can now assign the role created in the previous section to other users in order to grant them \(limited\) access to our new project. In the following, we [create a test user](administration.md#adding-users) then assign this user the previously created _Maintainer_ role.
+We can now assign the company and project roles created in the previous section to other users in order to grant them \(limited\) access to our company and new project. In the following, we [create a test user](administration.md#adding-users) then assign this user the previously created _Maintainer_ project role as well as the _Project Admin_ company role.
 
 ```python
 # Create a new user
@@ -841,14 +889,22 @@ newuser = {
 r = post(api_url + "/v2/user", auth=auth, json=newuser)
 new_user_id = r.json()['resource']['id']
 
-# Assign the role to the new user
-new_role_id = 41
-r = post(api_url + "/v2/project/role/{}/user/{}".format(new_role_id, new_user_id),
+# Assign the project role to the new user
+project_role_id = 41
+r = post(api_url + "/v2/project/role/{}/user/{}".format(project_role_id, new_user_id),
+         auth=john)
+print(r.text)
+
+# Assing the company role tot the new user
+company_role_id = 32
+r = post(api_url + "/v2/company/role/{}/user/{}".format(company_role_id, new_user_id),
          auth=john)
 print(r.text)
 ```
 
 In the response, the role assignment is confirmed. Since an assignment from a role to a user is a relation \(role, user\), the resources field returns this relation.
+
+The response to the assignment of the project role:
 
 ```javascript
 {
@@ -875,7 +931,33 @@ In the response, the role assignment is confirmed. Since an assignment from a ro
 }
 ```
 
-Querying the user confirms that the role has been created:
+The response to the assignment of the company role:
+
+```javascript
+{
+    "success": true,
+    "operation": "create",
+    "resource": {
+        "role": {
+            "id": 32,
+            "name": "Project Admin",
+            "description": "Role for maintaining projects company-wide",
+            "rights_level": 50,
+            "company_id": 1,
+            "authed_endpoints": [7, 40, 52]
+        },
+        "user": {
+            "id": 102,        
+            "firstName": "Jane",
+            "lastName":"Doe",
+            "email": "jane.doe@aedifion.com",
+            "company_id": 1,
+        }
+    }
+}
+```
+
+Querying the user confirms that both roles have been created:
 
 ```python
 jane = ("jane.doe@aedifion.com", "ch4ngem3")
@@ -889,13 +971,15 @@ User 'Jane Doe'
   * authorized endpoints: 22, 52
   * authorized tags:
 - CompanyRoles
+ -> Project Admin (Role for maintaining projects company-wide)
+  * authorized endpoints: 7, 40, 52
 ```
 
 ### Modifying roles
 
 Modifying roles is done through the `PUT /v2/project/{project_id}/role/{role_id}` endpoint. The process is the same as [modifying projects](administration.md#modifying-projects) or [users](administration.md#modifying-users). It should however be noted that _authed\_endpoints_ and _authed\_tags_ are completely replaced by the update \(and not appended or preserved otherwise\).
 
-For the sake of completeness, we continue our example and edit all attributes of the previously created _Maintainer_ role.
+For the sake of completeness, we continue our example and edit all attributes of the previously created _Maintainer_ role \(editing a company role in an analogous manner\).
 
 ```python
 new_project_id = 21
@@ -935,18 +1019,56 @@ print(r.text)
         "description":"Extended access for maintainers of TestProject01"
         "authed_tags": [
             {"id":2,"key":"name","read":true,"value":"*","write":false}
-        ],
+        ]
     }
 }
 ```
 
-### Deleting roles
+### Deleting roles and role assignments
 
-Deleting roles is done through the DELETE /v2/project/{project\_id}/role/{role\_id} endpoint.
+Deleting a role assignment without deleting the role itself is done through the `DELETE /v2/project/role/{role_id}/user/{user_id}` and `DELETE /v2/company/role/{role_id}/user/{user_id}` endpoints for project and company roles, respectively. In contrast, deleting a role including all assignments of that role users is done through the `DELETE /v2/project/{project_id}/role/{role_id}` and `DELETE /v2/company/roles/{role_id}` endpoints
 
-TODO
+Continuing our running example, we delete the _Project Admin_ company role and the assignment of the _Maintainer_ project role to Jane Doe.
 
-### A note on escalation of privileges
+```python
+maintainer_project_role_id    = 41
+projectadmin_company_role_id  = 32
+jane_id = 102
+
+# delete and unassign roles
+r = delete(api_url + "/v2/company/role/{}".format(projectadmin_company_role_id), 
+           auth=john)
+r = delete(api_url + "/v2/project/role/{}/user/{}".format(maintainer_project_role_id, jane_id), 
+           auth=john)
+
+printUserRoles(jane)
+```
+
+Jane Doe now holds no more roles in our company:
+
+```text
+User 'Jane Doe'
+- Project roles:
+- CompanyRoles
+```
+
+However, the _Maintainer_ project role on project _TestProject01_ \(id=21\) still exists, as we can verify by calling the `GET /v2/project/{project_id}/roles` endpoint:
+
+```python
+project_id = 21
+r = get(api_url + "/v2/project/{}/roles".format(project_id), auth=john)
+print("Roles on project: {}".format(project_id))
+for role in r.json():
+    print("-> " + role['name'])
+```
+
+```text
+Roles on project 21:
+-> admin
+-> Extended-Maintainer
+```
+
+### Preventing escalation of privileges
 
 TODO
 
