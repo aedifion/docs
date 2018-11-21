@@ -1068,7 +1068,29 @@ Roles on project 21:
 -> Extended-Maintainer
 ```
 
-### Preventing escalation of privileges
+## Preventing escalation of privileges
+
+Since this is not a crime novel, let's start with a spoiler: 
+
+{% hint style="info" %}
+You do not have to do anything to prevent privilege escalation - the RBAC system rigorously enforces that no user can create or assign to him/herself or other users permissions that he/she does not hold already.
+{% endhint %}
+
+Still, a rough understanding of privilege escalation does not hurt, so please read on. Wikipedia defines [privileges escalation](https://en.wikipedia.org/wiki/Privilege_escalation) as 
+
+> the act of exploiting a bug, design flaw or configuration oversight \[...\] to gain elevated access to resources that are normally protected \[...\] The result is that an application \[...\] can perform unauthorized actions.
+
+What would be privilege escalation in the context of the RBAC system presented in this article? Let's assume the following example:
+
+* Eve has a role _Maintainer_ that allows her to create, edit, and delete different project-related resources.
+* In particular, Eve has permissions to create and edit roles.
+* Eve tries to misuse her permission on `POST /v2/project/role/{role_id}/user/{user_id}` to assign to herself the default admin role for a sensitive project to gain access to that project's raw data.
+
+Clearly, this case \(or more elaborate ways of privilege escalation\) must be prevented. The following measures ensure this in aedifion.io's RBAC system:
+
+* A user can only assign roles if he/she has permission to the respective endpoints.
+* A user with the permission to assign roles can only assign roles that he/she holds him/herself.
+* ...
 
 TODO
 
