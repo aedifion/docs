@@ -554,15 +554,15 @@ Permissions to access resources on the aedifion.io platform can be controlled in
 
 There exist two types of roles on the aedifion.io platform:
 
-* _Company roles_ define permissions within the whole company. In particular, they apply to all of that company's projects. Company roles are meant as administrative roles, i.e., they allow editing project meta data but deliberately do not grant access to the datapoints of individual projects, e.g., the raw time series measured for a building.
-* _Project roles_ define permissions within a single project and, especially, permissions to access the datapoints and time series in that project. They are thus always associated with a specific project and any permissions granted within the role are limited to that project.
+* _Company roles_ define permissions within the whole company. In particular, they apply to all projects of a specific company. _Company roles_ are meant as administrative roles, i.e., they allow editing project meta data, but deliberately do not grant access to the datapoints of individual projects, e.g., a raw time series measured for a building.
+* _Project roles_ define permissions within a single project and in particular permissions to access individual datapoints and time series in that project. They are thus always associated with a specific project and any permissions granted within the role are limited to that project.
 
 The _permission set_ of a user is the _union_ of the sets of permissions granted to him/her by his/her project and company roles. It is important to note that this is a strict _whitelisting_ approach, i.e., 
 
 * Per default, access to all resources is forbidden.
 * Access to a resource must be explicitly granted through a role.
-* If a user is granted the permission to access resource _R_ through role _A_ then this access is not revoked by any subsequently assigned role that does not grant access to R_._
-* A user can only grant access to resources that he/she has access to him/herself.
+* If a user is granted the permission to access resource _R '_through role _A_ then this access is not revoked by any subsequently assigned role that does not grant access to _R._
+* A user can only grant resources access to other users/roles that he/she has access to him/herself.
 
 {% hint style="info" %}
 **Example:**
@@ -570,7 +570,7 @@ The _permission set_ of a user is the _union_ of the sets of permissions granted
 Imagine the following setup:
 
 * Company _NewCo_ has defined two company roles:
-  * Role _admin_ with permissions to read and write resources.
+  * Role _admin_ with permissions to read and write all resources.
   * Role _reader_ with permissions to read all resources.
 * _NewCo_  has two projects:
   * Project _Headquarters_ with roles _reader_ and _writer._
@@ -590,7 +590,7 @@ The above example serves to illustrate the basic concept of a user's permission 
 
 * **API endpoints:** Access is granted/restricted to _API endpoints:_ Each company or project role lists those [HTTP API endpoints](../developers/api-documentation/) that this role is allowed to access. The role _reader_ from our high level example could then be implemented as a role that allows access only to `GET` endpoints. As you have already guessed, the role _writer_ would grant access also to `POST`, `PUT`, and `DELETE` endpoints.
 * **Datapoints:** Some API endpoints, e.g. `POST /v2/datapoint/setpoint`, work on the datapoints of a project. A datapoint is usually associated with real time series data, e.g., measured from a real building. Such data can be sensitive and may require additional protection. Any project role must thus further whitelist the specific datapoints of the projects to which access is granted via the authorized endpoints. 
-* **Read/Write:** Write access to a datapoint, e.g., posting a room temperature setpoint or switching off the heating, is a often a more critical action than just reading the current or paste state of a datapoint. Thus, access to datapoints is further divided into read or write access \(or both\).
+* **Read/Write:** Write access to a datapoint, e.g., posting a room temperature setpoint or switching off the heating, is a more critical action than just reading the current or paste state of a datapoint. Thus, access to datapoints is further divided into read or write access \(or both\).
 
 No enough for the boring theory, let's dive into practice. 
 
