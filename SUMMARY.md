@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Overview](README.md)
+* [Welcome](README.md)
 * [Frontend](frontend.md)
 * [APIs](apis.md)
 * [Integrations](integrations.md)
