@@ -10,12 +10,12 @@ description: >-
 
 In this tutorial, we cover user and project management as well as the associated role-based access control \(RBAC\) system. You will learn how to add, modify, and delete users and projects as well as how to add new roles, manage permissions of a role, and assign roles to users -- all easily automatable through the [HTTP API](../developers/api-documentation/).
 
-If you haven't already, please shortly look over the definition of [special terminology](../glossary.md). We recapitulate the most important concepts and their relation with a focus on their administration in the following:
+If you haven't already, please skim through the definition of [special terminology](../glossary.md). We recapitulate the most important concepts and their relation with a focus on their administration in the following:
 
-* _Companies_ are administration-wise the topmost entity on the aedifion.io platform_._ Companies are created and managed by aedifion. They can neither be created nor modified or deleted by their users. Companies are strictly separated administration domains that never share any resources.
-* A company has arbitrary many _users_ and each user belongs to exactly one company. __Users can modify their personal details and \(with sufficient permissions\), create new users within their company, and delete their own accounts.
+* _Companies_ are administration-wise the topmost entity on the aedifion.io platform_._ Companies are created and managed by aedifion. They can neither be created nor modified or deleted by users. Companies are created by aedifion as strictly separated administration domains that never share any resources.
+* A company has arbitrary many _users_ and each user belongs to exactly one company. Users can \(with sufficient permissions\) create and add further users to their company, but can only modify or delete their own account and never that of another user.
 * A company has arbitrary many _projects_ and each project belongs to exactly one company. Projects can be considered administrative subspaces within a company.
-* _Roles_ define permissions for resource access for a specific project or company-wide, i.e., spanning all of that company's projects. A special "admin" role is automatically created by default for each company and each project with all permissions. A role can be assigned to arbitrary many users in the company and a single user can have multiple roles. They thus connect users to projects.
+* _Roles_ define a set of permissions. A special _admin_ role is automatically created by default for each company and each project with all permissions in the respective scope. A role can be assigned to arbitrary many users in the company and a single user can have multiple roles.
 
 ### Prerequisites
 
@@ -548,28 +548,35 @@ Deleting a user deletes the user together with _all user-specific meta data_, in
 
 ## Managing permissions
 
-Permissions to access resources on the aedifion.io platform can be controlled in a very fine granular manner using a role-based access control \(RBAC\) system. In this section, we will review the basic concept behind the permission management then go through the process of defining a new role, modifying its permissions, assigning it to a user, and finally deleting the role.
+Permissions to access resources on the aedifion.io platform can be controlled in a very fine granular manner using a role-based access control \(RBAC\) system. In this section, we will review the basic concepts behind the permission management then go through the process of defining a new role, modifying its permissions, assigning it to a user, and finally deleting the role.
 
 ### Conceptual overview
 
-There exist two types of roles on the aedifion.io platform:
+We first have to define what we mean by _permission to access a resource:_
 
-* _Company roles_ define permissions within the whole company. In particular, they apply to all projects of a specific company. _Company roles_ are meant as administrative roles, i.e., they allow editing project meta data, but deliberately do not grant access to the datapoints of individual projects, e.g., a raw time series measured for a building.
-* _Project roles_ define permissions within a single project and in particular permissions to access individual datapoints and time series in that project. They are thus always associated with a specific project and any permissions granted within the role are limited to that project.
+* A _resource_ is any kind of collection or individual piece of \(meta-\)data on the aedifion.io platform, e.g., a project, datapointkey, tag, datapoint, time series, setpoint, alert, role, and so forth. 
+* These resources are _accessed_ through different [HTTP API endpoints](../developers/api-documentation/). An API endpoint may touch more than one resource.
+* _Permissions_ grant the right to use an API endpoint on a specific resource. Permissions either have project or company scope. Company-scoped permissions apply to all of that company's resources including all projects while project-scoped permissions are limited to the resources of a single project.
+* An important resource in projects are datapoints as they are usually associated with real time series data, e.g., measured from a real building. Due to their special importance, permissions can be further limited to specific datapoints using TagAuths_. TagAuths_ allow filtering over the names or tagged attributes of datapoints to limit defined permissions, e.g., to _"all datapoints with unit=CO2"  or "all datapoints of component x"_. Write access to a datapoint, e.g., posting a room temperature setpoint or switching off the heating, is a more critical action than just reading the current or paste state of a datapoint. Thus, TagAuths additionally allow limiting access to read or write \(or both\).
 
-The _permission set_ of a user is the _union_ of the sets of permissions granted to him/her by his/her project and company roles. It is important to note that this is a strict _whitelisting_ approach, i.e., 
+Permissions and TagAuths are bundled in _two types of roles_:
 
-* Per default, access to all resources is forbidden.
+* _Company roles_ define resource access within the whole company, i.e., all resource access permissions granted through a company role are company-scoped. E.g., providing permission to endpoint `GET /v2/project/{project_id}` allows retrieving the meta-data of all projects of that company. Hence company roles are low maintenance as they provide broad and automatic access even to new projects that are added to the company's portfolio. Company roles are best used as high-level administrative roles and should thus be assigned sparingly and carefully.
+* _Project roles_ define permissions for single projects, i.e., all permissions granted through a project role are project-scoped. E.g., granting permission to `GET /v2/project/{project_id}` within a project role allows retrieving the meta-data of only the associated project. Project roles are thus the means of choice to grant fine granular access to \(meta-\)data in most use cases. They can be assigned more generously and freely than company roles.
+
+A user's _permission set_ is defined as the union over the permission sets of all his/her project and company roles. A user is granted access to an API endpoint that works on a certain set of resources if the corresponding permission is in his/her permission set. It is important to note that this is a strict _whitelisting_ approach with the following important properties:
+
+* Per default, access to all resources is forbidden except for the user's own meta-data.
 * Access to a resource must be explicitly granted through a role.
-* If a user is granted the permission to access resource _R '_through role _A_ then this access is not revoked by any subsequently assigned role that does not grant access to _R._
-* A user can only grant resources access to other users/roles that he/she has access to him/herself.
+* If a user is granted the permission to access resource _R '_through role _A_ then this access is not revoked by any other assigned role _B_ that does not grant access to _R._
+* A user can only grant resource access permissions to other users/roles that are in his/her own permission set \(to [prevent privilege escalation](administration.md#preventing-escalation-of-privileges)\).
 
 {% hint style="info" %}
 **Example:**
 
 Imagine the following setup:
 
-* Company _NewCo_ has defined two company roles:
+* Company _NewCo_ has two company roles:
   * Role _admin_ with permissions to read and write all resources.
   * Role _reader_ with permissions to read all resources.
 * _NewCo_  has two projects:
@@ -577,27 +584,23 @@ Imagine the following setup:
   * Project _FactoryFloor_ with roles _reader_ and _writer._
 * User Alice is _NewCo's_ system administrator and has roles {_NewCo/admin_},
 * User Bob is a worker and has roles {_NewCo/reader_, _Newco/FactoryFloor/writer_}.
-* _NewCo_ uses their headquarters as a demo building and grant role {_NewCo/Headquarters/reader_} to any guest.
+* _NewCo_ uses their headquarters as a demo building and grants role {_NewCo/Headquarters/reader_} to any guest.
 
 Now, what permissions do Alice, Bob, and the guests have?
 
-* Alice has access to all of _NewCo's_ resources and projects __since she has the default admin company role. She does not need any specific project role to edit projects' meta data but cannot read or write any of the projects' datapoints.
-* Bob's company role _NewCo/reader_ allows him to read all of _NewCo's_ resources but not to change them. Since Bob is working in the factory, he is granted permissions to change datapoints from the factory floor, e.g., write a setpoint for the room temperature, through the project role _NewCo/FactoryFloor/writer._
-* Guests only have rights to read resources \(including datapoints\) of the project _Headquarters,_ but cannot access any other project or company resources.
+* Alice has access to all of _NewCo's_ resources and projects __since she is assigned the root _admin_ company role. She does not need any specific project role to edit projects' meta data as her company role extends to all projects.
+* Bob's company role _NewCo/reader_ allows him to read all of _NewCo's_ resources but not to change them \(e.g., granting access only to `GET` methods and not to `POST`, `PUT`, or `DELETE`\). Since Bob is working in the factory, he is also granted permissions to change datapoints from the factory floor, e.g., write a setpoint for the room temperature, through the project role _NewCo/FactoryFloor/writer._
+* Guests only have rights to read resources \(including datapoints\) of the project _Headquarters,_ but cannot access any other project or company resources. 
 {% endhint %}
 
-The above example serves to illustrate the basic concept of a user's permission set on a very high and abstract level. So far, we only talked about "access to resources" but did not really specify what these resources really are.
-
-* **API endpoints:** Access is granted/restricted to _API endpoints:_ Each company or project role lists those [HTTP API endpoints](../developers/api-documentation/) that this role is allowed to access. The role _reader_ from our high level example could then be implemented as a role that allows access only to `GET` endpoints. As you have already guessed, the role _writer_ would grant access also to `POST`, `PUT`, and `DELETE` endpoints.
-* **Datapoints:** Some API endpoints, e.g. `POST /v2/datapoint/setpoint`, work on the datapoints of a project. A datapoint is usually associated with real time series data, e.g., measured from a real building. Such data can be sensitive and may require additional protection. Any project role must thus further whitelist the specific datapoints of the projects to which access is granted via the authorized endpoints. 
-* **Read/Write:** Write access to a datapoint, e.g., posting a room temperature setpoint or switching off the heating, is a more critical action than just reading the current or paste state of a datapoint. Thus, access to datapoints is further divided into read or write access \(or both\).
-
-No enough for the boring theory, let's dive into practice. 
+Now, enough for the boring theory, let's dive into practice.
 
 ### Viewing roles
 
 We first examine the roles that we already got. To this end, we use the `GET /v2/user` endpoint which will return a comprehensive summary of the logged-in user's resources. We use the following script to parse the output to a more readable form:
 
+{% tabs %}
+{% tab title="Python" %}
 ```python
 import requests
 
@@ -634,13 +637,15 @@ john = ("john.doe@aedifion.com", "s3cr3tp4assw0rd")
 # make the GET request and parse the answer
 printUserRoles(john)
 ```
+{% endtab %}
+{% endtabs %}
 
 The response is similar to the following shortened output:
 
 ```text
-User 'Jan Henrik Ziegeldorf'
+User 'John Doe'
 - Project roles:
- -> admin (Admin project role for EON ERC MainBuilding)
+ -> admin (Admin project role for MainBuilding)
   * authorized endpoints: 1, 2, 3, ..., 72, 73, 74
   * authorized tags:
    + {'id': 1, 'key': 'name', 'read': True, 'value': '*', 'write': False}
@@ -650,16 +655,18 @@ User 'Jan Henrik Ziegeldorf'
    + {'id': 6, 'key': 'name', 'read': True, 'value': 'bacnet510-4120L04_VEGYSW__Druck-Zuluft', 'write': True}
    + {'id': 7, 'key': 'name', 'read': True, 'value': 'bacnet512-4120L022VEGSHSB_Anlage-L22', 'write': True}
 - CompanyRoles
- -> admin (Admin company role for aedifion GmbH): 
+ -> reader (Reader company role for aedifion GmbH): 
   * authorized endpoints: 1, 2, 3, ..., 72, 73, 74
+  * authorized tags:
+   + {'id': 1, 'key': 'name', 'read': True, 'value': '*', 'write': False}  
 ```
 
 The output contains the following information:
 
-* I have one project role, _admin_ on the E.ON ERC MainBuilding. 
+* User John Doe has one project role, _admin_ on the _MainBuilding_ project. 
   * The admin project role grants access to endpoints 1, 2, 3, ..., 74. These ids correspond to the output of `GET /v2/meta/endpoints`and determine the endpoints to which I have access - all endpoints, in this case.
-  * The admin project role grants read access to all datapoints \(`'value': '*'`\) and write access to five explicitly specified datapoints, e.g., `bacnet512-4120L01_DASBM06_Abluftventilator.`
-* I have one company role, _admin_, which grants access to all endpoints.
+  * The admin project role grants read access to all datapoints \(the tag `'key':'name', value': '*'` filters by name and allows all values\) and write access to five explicitly specified datapoints, e.g., `bacnet512-4120L01_DASBM06_Abluftventilator.`
+* The user has one company role, _reader_, which grants read access to all endpoints.
 
 ### Adding roles
 
@@ -686,10 +693,10 @@ requests.post(api_url + "/v2/project", auth=john, json=newproject)
 ...
 ```
 
-Note that one new project roles has appeared. This role was automatically created when we created the new project and assigned to the creating user. 
+Note that one new project role has appeared. This _admin_ role was automatically created when we created the new project and assigned to the creating user.
 
 {% hint style="info" %}
-Automatic creation of the _admin_ role on new projects ensures that there is at least one user who has access to the project and can grant access to other users of his/her company.
+Automatic creation and assignment of the _admin_ role on new projects ensures that there is at least one user who has access to the project and can grant access to other users of his/her company.
 {% endhint %}
 
 #### Adding project roles
@@ -740,19 +747,6 @@ In many use cases, we would, however, like to restrict access to our new _TestPr
       <td style="text-align:left">Limited access for maintainers of TestProject01.</td>
     </tr>
     <tr>
-      <td style="text-align:left"><b>rights_level</b>
-      </td>
-      <td style="text-align:center">integer</td>
-      <td style="text-align:center">
-        <p>body</p>
-        <p>(JSON)</p>
-      </td>
-      <td style="text-align:center">yes</td>
-      <td style="text-align:left">A number between 0 and 100 which serves to create a strict ordering of
-        roles.</td>
-      <td style="text-align:left">50</td>
-    </tr>
-    <tr>
       <td style="text-align:left"><b>authed_<br />endpoints</b>
       </td>
       <td style="text-align:center">list of integer</td>
@@ -781,7 +775,7 @@ In many use cases, we would, however, like to restrict access to our new _TestPr
       <td style="text-align:left">[{"key":"name", "value": "*", "read": True, "write": False}]</td>
     </tr>
   </tbody>
-</table>Do not worry about the _rights\_level_ for now \(it is treated in detail in in the section on [escalation of privileges](administration.md#a-note-on-escalation-of-privileges)\). Also, we do not care about _authed\_tags_ at this point. The request then is built is follows:
+</table>We do not care about _authed\_tags_ at this point since the specified endpoints do not touch datapoint resources. The request is then built as follows:
 
 {% tabs %}
 {% tab title="Python" %}
@@ -798,10 +792,9 @@ new_project_id = 21
 id_get_project = getEndpointId("GET", "/v2/project/{project_id}")
 id_put_project = getEndpointId("PUT", "/v2/project/{project_id}")
 newrole = {
-    "name":"Maintainer",
+    "name": "Maintainer",
     "description": "Limited access for maintainers of TestProject01",
-    "authed_endpoints": [id_get_project, id_put_project],
-    "rights_level": 50
+    "authed_endpoints": [id_get_project, id_put_project]
 }
 r = post(api_url + "/v2/project/{}/role".format(new_project_id), 
          auth=john, json=newrole)
@@ -813,7 +806,7 @@ print(r.text)
 1. Navigate to the _Meta_ tag and drop down the `GET /v2/meta/endpoints` endpoint.
 2. Click _Try it out!_ and note down the numeric ids of the desired endpoints.
 3. Navigate to the _Project_ tag and drop down the `POST /v2/project/{project_id}/role` endpoint.
-4. Enter the _project\_id._ Copy paste the example value into the _role\_definition_ and edit _name, description,_ and _authed\_endpoints_. Delete the dummy _authed\_tags_ object and put a _rights\_level_ of 50.
+4. Enter the _project\_id._ Copy paste the example value into the _role\_definition_ and edit _name, description,_ and _authed\_endpoints_. Delete the dummy _authed\_tags_ object.
 5. Click _Try it out!_ and inspect the response.
 {% endtab %}
 {% endtabs %}
@@ -829,7 +822,6 @@ As usual, the response confirms success and returns the created role.
         "name": "Maintainer",
         "description": "Limited access for maintainers of TestProject01",        
         "project_id": 21,
-        "rights_level": 50
         "authed_endpoints": [22,52],
         "authed_tags": [],
     }
@@ -838,9 +830,9 @@ As usual, the response confirms success and returns the created role.
 
 #### Adding company roles
 
-If we have added many projects, a company-wide maintainer role is probably required that defines access on all projects and automatically extends also to future projects that have not been created, yet. Company roles address this objective.
+If we have added many projects, a company-wide maintainer role is probably required that defines access on all projects and automatically extends also to future projects that have not been created, yet. [As explained above](administration.md#conceptual-overview), company roles address this objective.
 
-As en example , we create a _company role_ through the _POST /v2/company/role_ endpoint that allows creation, modification, and deletion of projects. The process is the same as for adding a project role except that company roles do not require the _authed\_tags_ list, since they do not grant access to a projects time series data \(again: only a project role can do that\).
+As en example, we create a _company role_ through the _POST /v2/company/role_ endpoint that allows creation, modification, and deletion of projects. The process is the same as for adding a project role.
 
 ```python
 # Define and add the role
@@ -848,10 +840,9 @@ id_post_project   = getEndpointId("POST", "/v2/project")
 id_put_project    = getEndpointId("PUT", "/v2/project/{project_id}")
 id_delete_project = getEndpointId("DELETE", "/v2/project/{project_id}")
 newrole = {
-    "name":"Project Admin",
+    "name": "Project Admin",
     "description": "Role for maintaining projects company-wide",
-    "authed_endpoints": [id_post_project, id_put_project, id_delete_project],
-    "rights_level": 50
+    "authed_endpoints": [id_post_project, id_put_project, id_delete_project]
 }
 r = post(api_url + "/v2/company/role", auth=john, json=newrole)
 print(r.text)
@@ -867,8 +858,7 @@ Response from `POST /v2/company/role`:
         "id": 32,
         "name": "Project Admin",
         "description": "Role for maintaining projects company-wide",
-        "company_id": 1,        
-        "rights_level": 50,
+        "company_id": 1,
         "authed_endpoints": [7, 40, 52]
     }
 }
@@ -876,7 +866,7 @@ Response from `POST /v2/company/role`:
 
 ### Assigning roles to users
 
-We can now assign the company and project roles created in the previous section to other users in order to grant them \(limited\) access to our company and new project. In the following, we [create a test user](administration.md#adding-users) then assign this user the previously created _Maintainer_ project role as well as the _Project Admin_ company role.
+We can now assign the company and project roles created in the previous section to other users to grant them \(limited\) access to our company and new project. In the following, we [create a test user](administration.md#adding-users) then assign this user the previously created _Maintainer_ project role as well as the _Project Admin_ company role.
 
 ```python
 # Create a new user
@@ -931,7 +921,7 @@ The response to the assignment of the project role:
 }
 ```
 
-The response to the assignment of the company role:
+Similarly, the response to the assignment of the company role:
 
 ```javascript
 {
@@ -1059,13 +1049,13 @@ project_id = 21
 r = get(api_url + "/v2/project/{}/roles".format(project_id), auth=john)
 print("Roles on project: {}".format(project_id))
 for role in r.json():
-    print("-> " + role['name'])
+    print("-> {}: {}".format(role['name'], role['description']))
 ```
 
 ```text
-Roles on project 21:
--> admin
--> Extended-Maintainer
+Roles on project: 21
+-> admin: Admin role for project TestProject01
+-> Extended-Maintainer: Extended access for maintainers of TestProject01
 ```
 
 ## Preventing escalation of privileges
@@ -1073,7 +1063,7 @@ Roles on project 21:
 Since this is not a crime novel, let's start with a spoiler: 
 
 {% hint style="info" %}
-You do not have to do anything to prevent privilege escalation - the RBAC system rigorously enforces that no user can create or assign to him/herself or other users permissions that he/she does not hold already.
+You do not have to do anything to prevent privilege escalation - the RBAC system rigorously enforces that no user can create or assign to him/herself or other users permissions that he/she does not hold him/herself already.
 {% endhint %}
 
 Still, a rough understanding of privilege escalation does not hurt, so please read on. Wikipedia defines [privileges escalation](https://en.wikipedia.org/wiki/Privilege_escalation) as 
@@ -1086,11 +1076,11 @@ What would be privilege escalation in the context of the RBAC system presented i
 * In particular, Eve has permissions to create and edit roles.
 * Eve tries to misuse her permission on `POST /v2/project/role/{role_id}/user/{user_id}` to assign to herself the default admin role for a sensitive project to gain access to that project's raw data.
 
-Clearly, this case \(or more elaborate ways of privilege escalation\) must be prevented. The following measures ensure this in aedifion.io's RBAC system:
+Clearly, this case \(or more elaborate ways of privilege escalation\) must be prevented. The following simple measure ensure this in aedifion.io's RBAC system: When creating a new role or assigning an existing role,
 
-* A user can only assign roles if he/she has permission to the respective endpoints.
-* A user with the permission to assign roles can only assign roles that he/she holds him/herself.
-* ...
+1. the permission set $$P_R$$ of that role is built,
+2. the permission set $$P_U$$of the creating/assigning user is built, and
+3. the request is granted if and only if $$P_R \subseteq P_U$$\(and the user has permission to create/assign roles\).
 
-TODO
+This way a user can never assign or create roles with more permissions than his/her own.
 
