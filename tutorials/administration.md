@@ -61,9 +61,8 @@ You can write this JSON by hand, use an [editor](https://jsoneditoronline.org/),
 import requests
 auth = ("john.doe@newco.com", "s3cr3tp4ssw0rd")
 new_project =  {
-	"company_id": 1,
-	"description": "My first simulation project.",
-	"name": "simu_01"
+	"name": "simu_01",
+	"description": "My first simulation project."
 }
 r = requests.post("https://api.aedifion.io/v2/project", 
 	              auth=auth, json=new_project)
@@ -119,14 +118,13 @@ The answer is a JSON-parsable object containing similar to the following:
             'id': 35,
             'name': 'admin',
             'project_id': 20, 
-            'description': 'Admin role for project simu_02',                                  
-            'rights_level': 0            
+            'description': 'Admin role for project simu_02',                                              
             'authed_endpoints': [
                 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74
-                ], 
+            ], 
             'authed_tags': [
                 {'id': 1, 'key': 'name', 'read': True, 'value': '*', 'write': True}
-                ],  
+            ]  
         }
     }
 }
@@ -911,7 +909,6 @@ The response to the assignment of the project role:
             "id": 41,
             "name": "Maintainer",
             "project_id": 21,
-            "rights_level": 50,
             "authed_endpoints": [22, 52],
             "authed_tags": [],
             "description": "Limited access for maintainers of TestProject01"
@@ -920,8 +917,8 @@ The response to the assignment of the project role:
             "id": 102,
             "firstName":"Jane",
             "lastName":"Doe",
-            "company_id": 1,
-            "email":"jane.doe@aedifion.com",
+            "email":"jane.doe@aedifion.com",            
+            "company_id": 1
         }
     }
 }
@@ -938,7 +935,6 @@ Similarly, the response to the assignment of the company role:
             "id": 32,
             "name": "Project Admin",
             "description": "Role for maintaining projects company-wide",
-            "rights_level": 50,
             "company_id": 1,
             "authed_endpoints": [7, 40, 52]
         },
@@ -947,7 +943,7 @@ Similarly, the response to the assignment of the company role:
             "firstName": "Jane",
             "lastName":"Doe",
             "email": "jane.doe@aedifion.com",
-            "company_id": 1,
+            "company_id": 1
         }
     }
 }
@@ -996,7 +992,7 @@ role_update = {
     "authed_tags": [
         {"key":"name", "value":"*", "read":True, "write":False}
     ],
-    "rights_level": 30}
+}
 r = put(api_url + "/v2/project/{}/role/{}".format(new_project_id, new_role_id),
         auth=john, json=role_update)
 print(r.text)
@@ -1010,7 +1006,6 @@ print(r.text)
         "id": 41,
         "name": "Extended-Maintainer",
         "project_id": 21,
-        "rights_level": 30,
         "authed_endpoints": [15,22,23,52],
         "description":"Extended access for maintainers of TestProject01"
         "authed_tags": [
