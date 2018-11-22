@@ -555,20 +555,26 @@ Permissions to access resources on the aedifion.io platform can be controlled in
 We first have to define what we mean by _permission to access a resource:_
 
 * A _resource_ is any kind of collection or individual piece of \(meta-\)data on the aedifion.io platform, e.g., a project, datapointkey, tag, datapoint, time series, setpoint, alert, role, and so forth. 
-* These resources are _accessed_ through different [HTTP API endpoints](../developers/api-documentation/). An API endpoint may touch more than one resource.
-* _Permissions_ grant the right to use an API endpoint on a specific resource. Permissions either have project or company scope. Company-scoped permissions apply to all of that company's resources including all projects while project-scoped permissions are limited to the resources of a single project.
-* An important resource in projects are datapoints as they are usually associated with real time series data, e.g., measured from a real building. Due to their special importance, permissions can be further limited to specific datapoints using TagAuths_. TagAuths_ allow filtering over the names or tagged attributes of datapoints to limit defined permissions, e.g., to _"all datapoints with unit=CO2"  or "all datapoints of component x"_. Write access to a datapoint, e.g., posting a room temperature setpoint or switching off the heating, is a more critical action than just reading the current or paste state of a datapoint. Thus, TagAuths additionally allow limiting access to read or write \(or both\).
+* These resources are _accessed_ through different [HTTP API endpoints](../developers/api-documentation/). An API endpoint may touch on more than one resource.
+* _Permissions_ grant the right to call an API endpoint on a specific resource, e.g., modify \(the endpoint\) project _A_ \(the resource\). Permissions either have project or company scope. _Company-scoped_ permissions apply to all of that company's resources including all projects while _project-scoped_ permissions are limited to the resources of a single project.
+* An important resource in projects are datapoints as they are usually associated with real time series data, e.g., measured from a real building. Due to their special importance, permissions can be further limited to specific datapoints using TagAuths_. TagAuths_ allow filtering over the names or [tags](tagging.md) of datapoints to limit defined permissions, e.g., to _"all datapoints with unit=CO2"  or "all datapoints of component x"_. Write access to a datapoint, e.g., posting a room temperature setpoint or switching off the heating, is a more critical action than just reading the current or paste state of a datapoint. Thus, TagAuths additionally allow limiting access to read or write \(or both\).
 
 Permissions and TagAuths are bundled in _two types of roles_:
 
 * _Company roles_ define resource access within the whole company, i.e., all resource access permissions granted through a company role are company-scoped. E.g., providing permission to endpoint `GET /v2/project/{project_id}` allows retrieving the meta-data of all projects of that company. Hence company roles are low maintenance as they provide broad and automatic access even to new projects that are added to the company's portfolio. Company roles are best used as high-level administrative roles and should thus be assigned sparingly and carefully.
-* _Project roles_ define permissions for single projects, i.e., all permissions granted through a project role are project-scoped. E.g., granting permission to `GET /v2/project/{project_id}` within a project role allows retrieving the meta-data of only the associated project. Project roles are thus the means of choice to grant fine granular access to \(meta-\)data in most use cases. They can be assigned more generously and freely than company roles.
+* _Project roles_ define permissions for single projects, i.e., all permissions granted through a project role are project-scoped. E.g., granting permission to `GET /v2/project/{project_id}` within a project role allows retrieving the meta-data of only the project associated with that role. Project roles are thus the means of choice to grant fine granular access to \(meta-\)data in the majority of use cases. They can be assigned more generously and freely than company roles. It should also be noted that a project role cannot grant permission on company-related resources, i.e., on the API endpoints with _Company_ tag such as `POST /v2/company/user` __or `PUT /v2/company/role/{role_id}`.
 
-A user's _permission set_ is defined as the union over the permission sets of all his/her project and company roles. A user is granted access to an API endpoint that works on a certain set of resources if the corresponding permission is in his/her permission set. It is important to note that this is a strict _whitelisting_ approach with the following important properties:
+Putting it all together, a user's _permission set_ is defined as the union over the permission sets of all his/her project and company roles. A user is then granted access to call a certain API endpoint on a certain set of resources if the corresponding permission is in his/her permission set. 
+
+{% hint style="info" %}
+Intuitively, we can think of _company roles_ as being one hierarchy above _project roles,_ i.e., a company role can grant all permissions that a project role can grant - and more. In particular, the _permission set_ of a company role that grants access to a set of endpoints and datapoints is always a superset of the permission set of a project role for the same set of endpoints and datapoints.
+{% endhint %}
+
+Finally, it is important to note that the permission system is a strict _whitelisting_ approach with the following important properties:
 
 * Per default, access to all resources is forbidden except for the user's own meta-data.
 * Access to a resource must be explicitly granted through a role.
-* If a user is granted the permission to access resource _R '_through role _A_ then this access is not revoked by any other assigned role _B_ that does not grant access to _R._
+* If a user is granted the permission to access resource _R_ through role _A_ then this access is not revoked by any other assigned role _B_ that does not grant access to _R._
 * A user can only grant resource access permissions to other users/roles that are in his/her own permission set \(to [prevent privilege escalation](administration.md#preventing-escalation-of-privileges)\).
 
 {% hint style="info" %}
