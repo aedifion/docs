@@ -8,7 +8,7 @@ description: >-
 
 ## Overview
 
-In this tutorial, we cover user and project management as well as the associated role-based access control \(RBAC\) system. You will learn how to add, modify, and delete users and projects as well as how to add new roles, manage permissions of a role, and assign roles to users -- all easily automatable through the [HTTP API](../developers/api-documentation/).
+In this tutorial, we cover user and project management as well as the associated role-based access control \(RBAC\) system. You will learn how to add, modify, and delete users and projects as well as how to add new roles, manage permissions of a role, and assign roles to users -- all easily automatable through the [HTTP API](../developers/api-documentation.md).
 
 If you haven't already, please skim through the definition of [special terminology](../glossary.md). We recapitulate the most important concepts and their relation with a focus on their administration in the following:
 
@@ -553,7 +553,7 @@ Permissions to access resources on the aedifion.io platform can be controlled in
 We first have to define what we mean by _permission to access a resource:_
 
 * A _resource_ is any kind of collection or individual piece of \(meta-\)data on the aedifion.io platform, e.g., a project, datapointkey, tag, datapoint, time series, setpoint, alert, role, and so forth. 
-* These resources are _accessed_ through different [HTTP API endpoints](../developers/api-documentation/). An API endpoint may touch on more than one resource.
+* These resources are _accessed_ through different [HTTP API endpoints](../developers/api-documentation.md). An API endpoint may touch on more than one resource.
 * _Permissions_ grant the right to call an API endpoint on a specific resource, e.g., modify \(the endpoint\) project _A_ \(the resource\). Permissions either have project or company scope. _Company-scoped_ permissions apply to all of that company's resources including all projects while _project-scoped_ permissions are limited to the resources of a single project.
 * An important resource in projects are datapoints as they are usually associated with real time series data, e.g., measured from a real building. Due to their special importance, permissions can be further limited to specific datapoints using TagAuths_. TagAuths_ allow filtering over the names or [tags](tagging.md) of datapoints to limit defined permissions, e.g., to _"all datapoints with unit=CO2"  or "all datapoints of component x"_. Write access to a datapoint, e.g., posting a room temperature setpoint or switching off the heating, is a more critical action than just reading the current or paste state of a datapoint. Thus, TagAuths additionally allow limiting access to read or write \(or both\).
 

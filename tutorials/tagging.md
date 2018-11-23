@@ -83,7 +83,7 @@ The following example excerpt shows a tag assigned to a datapoint by aedifion's 
 
 ## API Examples
 
-In this section, we provide concrete examples on how to use the aedifion [HTTP API](../developers/api-documentation/) to create, inspect, modify and delete tags and tag assignments to datapoints. We explain all the necessary methods by the example of tagging all the datapoints within your office.
+In this section, we provide concrete examples on how to use the aedifion [HTTP API](../developers/api-documentation.md) to create, inspect, modify and delete tags and tag assignments to datapoints. We explain all the necessary methods by the example of tagging all the datapoints within your office.
 
 ### Adding tags
 

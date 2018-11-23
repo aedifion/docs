@@ -84,7 +84,7 @@ For example:
 
 ## API Tutorial
 
-Setpoints and schedules are written through the [aedifion HTTP API](../developers/api-documentation/).
+Setpoints and schedules are written through the [aedifion HTTP API](../developers/api-documentation.md).
 
 ### Preliminaries
 
