@@ -20,7 +20,7 @@ To ensure storage efficiency, the software only records change-of-value events \
 
 Time synchronization takes place via the Network Time Protocol via the standard time servers: \(0.ubuntu.pool.ntp.org, 1.ubuntu.pool.ntp.org, 2.ubuntu.pool.ntp.org, 3.ubuntu.pool.ntp.org, ntp.ubuntu.com\). Despite the actual location and the local time, all timestamps are stored in Greenwith Mean Time \(UTC+00\). Eventually, one needs to regrad the given local time whils processing and visualizing the data. 
 
-#### BACnet data exploration 
+#### Plug-and-play integration of BACnet-based plants
 
 In the case of a local plant automation using the BACnet protocol, the BACnet software on the aedifion.device carries out network an exploration upon successful access to the local plant network. Using the Whois-paradigm it discovers all available BACnet datapoints and starts collecting observations. 
 

@@ -12,3 +12,7 @@ Documentation pages are currently being built. Please check back later.
 
 ### Target audience
 
+This documentation focuses on users of aedifion.io to get informed about the basic conecepts and principles, on aedifion.io admins and for developers using the aedifion.io infrastructure to build applications.  
+
+
+
