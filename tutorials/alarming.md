@@ -21,6 +21,10 @@ Further types of alarms will be added in future. If you have a special request, 
 
 A new alarm is created through the `POST /v2/project/{project_id}/alert` endpoint. The parameters that specify the alarm must be encoded as a [JSON](https://www.json.org/) object and send in the body of the request. Since the list of parameters is quite involved, we start with the set of parameters for threshold alarms.
 
+### Adding a threshold alarm
+
+Threshold alarms are defined through the following parameters.
+
 <table>
   <thead>
     <tr>
@@ -155,8 +159,8 @@ A new alarm is created through the `POST /v2/project/{project_id}/alert` endpoin
         <p>(JSON)</p>
       </td>
       <td style="text-align:center">yes</td>
-      <td style="text-align:left">The time period after which an alert is resent when in critical state.
-        h = hours, m = minutes, s = seconds.</td>
+      <td style="text-align:left">The time period after which an alert is resent when in critical state
+        (h = hours, m = minutes, s = seconds).</td>
       <td style="text-align:left">2h</td>
     </tr>
   </tbody>
@@ -188,7 +192,7 @@ r = post(api_url + "/v2/project/{}/alert".format(project_id),
          auth=john,
          json=newalert)
 
-print(f"{r.status_code} - {r.text}")
+print(r.text)
 ```
 {% endtab %}
 
@@ -202,8 +206,6 @@ Coming soon 🐒
 {% endtabs %}
 
 The JSON-formatted response confirms that the alarm was successfully created and returns the details of the alarm:
-
-
 
 ```javascript
 {
@@ -228,7 +230,196 @@ The JSON-formatted response confirms that the alarm was successfully created and
 
 Note that the alarm has received a unique numeric id \(6\), the period of 2 hours has been translated into nanoseconds, and it has already been enabled.
 
-You may already receive alarms or could try to provoke some by gathering a few people in your office, or directly breathing into the CO2 sensor. Otherwise, don't worry and head over to the next section where we are going to speed things up a bit.
+You may already receive alarms or try to provoke some by gathering a few people in your office or by directly breathing into the CO2 sensor. Otherwise, don't worry, we will later [modify the alarm](alarming.md#modifying-alarms) such that it will definitely trigger alarms even without having a party in your office. Before, we add an alarm of the second type, i.e., throughput.
+
+### Adding a throughput alarm
+
+Throughput alarms are defined through the following parameters.
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left"><b>name</b>
+      </th>
+      <th style="text-align:center">string</th>
+      <th style="text-align:center">body (JSON)</th>
+      <th style="text-align:center">yes</th>
+      <th style="text-align:left">The name of the new alarm. The name needs to be unique within the project
+        scope.</th>
+      <th style="text-align:left">CO2_Office-100</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>alert_<br />type</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The type of the alarm, either 'threshold' or 'throughput'.</td>
+      <td style="text-align:left">threshold</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>telegram_<br />chatid</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">body (JSON)</td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">The id of a Telegram chat where notifications are sent to when the alarm
+        is triggered (must be a chat that involves @aedifion_bot)</td>
+      <td style="text-align:left">-219643311</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>email</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">A comma-separated list of email recipients to which notifications are
+        sent when the alarm is triggered.</td>
+      <td style="text-align:left">
+        <p>john.doe@aedifion.com, jane.doe@aedifion.com,</p>
+        <p>alarm@aedifion.com</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>dataPointID</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">The alphanumeric id of the datapoint on which to measure throughput. If
+        not provided, throughput of the whole project is measured.</td>
+      <td style="text-align:left">bacnet100-4120-CO2</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p><b>threshold_</b>
+        </p>
+        <p><b>info</b>
+        </p>
+      </td>
+      <td style="text-align:center">float</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">First threshold below which throughput is considered slightly lower than
+        usual.</td>
+      <td style="text-align:left">50</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p><b>threshold_</b>
+        </p>
+        <p><b>warn</b>
+        </p>
+      </td>
+      <td style="text-align:center">float</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">Second threshold below which throughput is considered significantly lower
+        than usual.</td>
+      <td style="text-align:left">20</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p><b>threshold_</b>
+        </p>
+        <p><b>crit</b>
+        </p>
+      </td>
+      <td style="text-align:center">float</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">Third threshold below which throughput is considered critically low.</td>
+      <td
+      style="text-align:left">10</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>period</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">Time period over which to measure throughput (h = hours, m = minutes,
+        s = seconds).</td>
+      <td style="text-align:left">10m</td>
+    </tr>
+  </tbody>
+</table>{% tabs %}
+{% tab title="Python" %}
+```python
+project_id = 4
+api_url = "https://api.aedifion.io"
+
+newalert = {
+    'name': 'EON_ERC_Throughput',
+    'alert_type': 'throughput',
+    'telegram_chatid': '-219643311',
+    'email': 'john.doe@aedifion.com',
+    'threshold_info': 1000,
+    'threshold_warn': 500,
+    'threshold_crit': 100,
+    'period': '30s'    
+}
+
+r = post(api_url + "/v2/project/{}/alert".format(project_id),
+         auth=john,
+         json=newalert)
+
+print(f"{r.status_code} - {r.text}")
+```
+{% endtab %}
+
+{% tab title="Curl" %}
+
+{% endtab %}
+{% endtabs %}
+
+As usual, the confirmation comes with the response.
+
+```javascript
+{
+    "success":true,
+    "operation": "create",
+    "resource": {
+        "id":8,
+        "created": "2018-11-23T12:08:43.994355154Z",
+        "dataPointID": "bacnet100-4120-CO2",
+        "email": "john.doe@aedifion.com",
+        "name": "EON_ERC_Throughput", 
+        "period":30000000000, 
+        "project_id": 4,
+        "status": "enabled",
+        "telegram_chatid": "-219643311",
+        "threshold_crit": 1000,
+        "threshold_info": 500,
+        "threshold_warn": 100
+    }
+}
+```
+
+We would now need to 
 
 ## Modifying alarms
 
@@ -248,7 +439,7 @@ r = put(api_url + f"/v2/project/{project_id}/alert/{alert_id}",
         auth=john,
         json=updatealert)
 
-print(f"{r.status_code} - {r.text}")
+print(r.text)
 ```
 {% endtab %}
 
@@ -276,7 +467,7 @@ The response confirms that the alarm has been updated as requested:
         "period": 30000000000,
         "project_id": 4,
         "status": "enabled",
-        "telegram_chatid": "-270800953",
+        "telegram_chatid": "-219643311",
         "threshold_crit": 200,
         "threshold_dead": 100,
         "threshold_ok": 900
@@ -288,6 +479,10 @@ You will soon see the alerts from @aedifion\_bot dropping in to your Telegram ch
 
 ![Telegram alerts on CO2 concentration in action](../.gitbook/assets/alerts_w_chat.png)
 
+We can also modify the throughput alarm with ridiculously high thresholds on throughput to provoke an alarm, e.g., `"threshold_crit": 20000`.`"threshold_warn": 50000` and `"threshold_info": 100000`.
+
+![Telegram alert on project throughput in action](../.gitbook/assets/alert_throughput.png)
+
 ## Plotting alarms in Telegram
 
 When we receive an alarm, e.g., on Telegram, we want to get a quick idea of what triggered the alarm. The first thing is then to actually look at the time series. Conveniently, we can do this through @aedifion\_bot right there in Telegram where the alerts are received. 
@@ -295,6 +490,8 @@ When we receive an alarm, e.g., on Telegram, we want to get a quick idea of what
 {% hint style="warning" %}
 Due to data privacy protection, the plotting feature must first be activated for your Telegram chat. Please [contact the technical support](../contact.md) in this matter.  If it is not yet activated you will receive an error message accordingly. 
 {% endhint %}
+
+### Plotting a threshold alarm
 
 Follow the next four steps to plot the time series of a datapoint on which a threshold alert was triggered:
 
@@ -304,9 +501,7 @@ Follow the next four steps to plot the time series of a datapoint on which a thr
 
 2. Reply to the selected alert with the message "/plot" \(messages starting with a slash `/` are interpreted as commands to the bot by the Telegram Bot API.\).
 
-![](../.gitbook/assets/alert_plot_02.png)
-
-  3. Select how much history you need.
+3. Select how much history you need.
 
 ![](../.gitbook/assets/alert_plot_03.png)
 
@@ -316,15 +511,155 @@ Follow the next four steps to plot the time series of a datapoint on which a thr
 
 In this example, we can observe that CO2 level started to rise rapidly with the beginning of the workday. This is quite normal and nothing to worry about.
 
+### Plotting a throughput alarm
+
+You can also plot throughput in exactly the same manner as [plotting threshold alarms](alarming.md#plotting-a-threshold-alarm) - you only need to reply "/plot" to a throughput alarm notification sent by the bot.
+
+![](../.gitbook/assets/alert_reply_throughput.png)
+
+As before, select the amount of history you need and wait for the plot be received.
+
+![](../.gitbook/assets/alert_plot_throughput.png)
+
 ## Pausing alarms
 
+Since the alarm is now triggering notifications every 30 seconds, let's take a break and pause the alarm. The `PUT /v2/project/{project_id}/alert/{alert_id}/toggle` endpoint is a shorthand for this task.
 
+{% tabs %}
+{% tab title="Python" %}
+```python
+alert_id = 6
+r = put(api_url + f"/v2/project/{project_id}/alert/{alert_id}/toggle", 
+        auth=john)
+print(r.text)
+```
+{% endtab %}
+
+{% tab title="Curl" %}
+Coming soon 🐒
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+Coming soon 🐒
+{% endtab %}
+{% endtabs %}
+
+The response tells us that the alarm has been switched off.
+
+```javascript
+{
+    "success": true,
+    "operation": "update",
+    "resource": "Alert switched off!"
+}
+```
+
+Calling the endpoint a second time, would switch the alarm back on again. But let's leave it switched off for now.
 
 ## Listing alarms
 
-You can list all alarams \(act
+You can list all alarms using the `GET /v2/project/{project_id}/alerts` endpoint.
+
+{% tabs %}
+{% tab title="Python" %}
+```python
+r = get(api_url + f"/v2/project/{project_id}/alerts")
+print(r.text)
+```
+{% endtab %}
+
+{% tab title="Curl" %}
+Coming soon 🐒
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+Coming soon 🐒
+{% endtab %}
+{% endtabs %}
+
+The answer is a list of alarms among which we find the one we defined previously. Note that it has `"status": "disabled"` because we paused it.
+
+```javascript
+[
+   ...
+    {
+        "id":6,
+        "created": "2018-11-23T08:28:43.526937933Z",
+        "dataPointID": "bacnet100-4120-CO2",
+        "email": "john.doe@aedifion.com",
+        "name": "CO2_Office100",
+        "period": 30000000000,
+        "project_id": 4,
+        "status": "disabled",
+        "telegram_chatid": "-219643311",
+        "threshold_crit":200,
+        "threshold_dead":100,
+        "threshold_ok":100
+    },
+    {
+        "id":7,
+        "created": "2018-11-23T12:08:43.994355154Z",
+        "dataPointID": "bacnet100-4120-CO2",
+        "email": "john.doe@aedifion.com",
+        "name":"EON_ERC_Throughput",
+        "period":30000000000,
+        "project_id": 4,
+        "status": "enabled",
+        "telegram_chatid": "-219643311",
+        "threshold_crit": 20000,
+        "threshold_info":100000,
+        "threshold_warn":50000
+    },
+  ...
+]
+```
 
 ## Deleting alarms
+
+Deleting an alarm is a simple matter of calling `DELETE /v2/project/{project_id}/alert/{alert_id}`. As an example, we now delete the threshold alarm that we have previously created and modified.
+
+{% tabs %}
+{% tab title="Python" %}
+```python
+alert_id = 6 
+r = delete(api_url + f"/v2/project/{project_id}/alert/{alert_id}", auth=john)
+print(r.text)
+```
+{% endtab %}
+
+{% tab title="Curl" %}
+
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+
+{% endtab %}
+{% endtabs %}
+
+The response confirms the deletion and returns the details of the deleted alarm.
+
+```javascript
+{
+    "success": true,
+    "operation": "delete",
+    "resource": {
+        "id":6,
+        "created": "2018-11-23T08:28:43.526937933Z",
+        "dataPointID": "bacnet100-4120-CO2",
+        "email": "john.doe@aedifion.com",
+        "name": "CO2_Office100",
+        "period": 30000000000,
+        "project_id": 4,
+        "status": "disabled",
+        "telegram_chatid": "-219643311",
+        "threshold_crit":200,
+        "threshold_dead":100,
+        "threshold_ok":100
+    }
+}
+```
+
+Go ahead and delete also the throughput alarm then call `GET /v2/project/{project_id}/alerts`  to verify that both alarms are really gone.
 
  
 
