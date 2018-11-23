@@ -28,6 +28,10 @@ Datapointkeys define how [datapoints](glossary.md#datapoint) are named and allow
 
 A physical building automation device, e.g., a programmable logic controller, connected to a building automation network, e.g., via BACnet or Modbus.
 
+### Local plant
+
+Local plant summarizes all locally connected entities of automation hardware, sensors and actors. In many cases, it is synonymously used with building automation system, energy system or building energy system. 
+
 ### Measurement
 
 Strictly speaking a special case of an [observation](glossary.md#observation) but mostly used synonymously.

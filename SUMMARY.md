@@ -1,6 +1,9 @@
 # Table of contents
 
 * [Welcome](README.md)
+* [What is aedifion.io](what-is-aedifion.io.md)
+* [Getting started](getting-started.md)
+* [aedifion.device](aedifion.device.md)
 * [Frontend](frontend.md)
 * [APIs](apis.md)
 * [Integrations](integrations.md)
