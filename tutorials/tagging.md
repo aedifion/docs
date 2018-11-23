@@ -29,7 +29,7 @@ Tags are inherently only a key-value pair with an additional unique numeric id f
 A tag can be assigned to multiple datapoints. All tag assignments have a sources**.** Currently, sources are one of the following but may be extended in future: 
 
 * _user:_ The tag has been assigned by a user. Any tag assigned through the API is designated a user generated tag assignment.
-* _AI:_ The tag has been assigned by an artificial intelligence \(AI\).
+* _ai:_ The tag has been assigned by an artificial intelligence \(ai\).
 * _bacnet:_ The tag assignment has been derived from BACnet meta data.
 
 In the following, we will often use the terms tag and tag assignment synonymously since the difference rather lies in the implementation than in the concept.
@@ -89,171 +89,211 @@ In this section, we provide concrete examples on how to use the aedifion [HTTP A
 
 The API allows to create tags as key-value pairs. Subsequently, you can assign this tag to a datapoint. We want to create the tag `('location', 'Office A113')` to some of our datapoints. To this end, we use the `POST /v2/project/{project_id}/tag` which takes the following parameters:
 
-
-
-{% api-method method="post" host="https://api-dev.aedifion.io" path="/v2/project/{project\_id}/tag" %}
-{% api-method-summary %}
-Add a tag to a project
-{% endapi-method-summary %}
-
-{% api-method-description %}
-
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="project\_id" type="integer" required=true %}
-The id of the project where to create the tag
-{% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
-
-{% api-method-body-parameters %}
-{% api-method-parameter name="tag" type="object" required=true %}
-A dictionary with a _key_ and a _value_
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```javascript
-{
-  "operation": "create",
-  "resource": {
-    "id": 42,
-    "key": "tag key",
-    "value": "tag value"
-  },
-  "success": true
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Parameter</th>
+      <th style="text-align:center">Datatype</th>
+      <th style="text-align:center">Type</th>
+      <th style="text-align:center">Required</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>project_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">path</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The numeric id of the project for which to create the tag.</td>
+      <td style="text-align:left">1</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>key</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">body (JSON)</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The key of the tag.</td>
+      <td style="text-align:left">location</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>value</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">The value of the tag.</td>
+      <td style="text-align:left">Office A113</td>
+    </tr>
+  </tbody>
+</table>_project\_id_ is a path parameter, i.e., it is entered directly in the requests path while the parameters _key_ and _value_ must be encoded as a valid [JSON](https://www.json.org/) and sent in the body of the request.
 
 {% tabs %}
 {% tab title="Python" %}
 ```python
 import requests
+api_url = "https://api.aedifion.io"
+john = ("john.doe@aedifion.com", "mys3cr3tp4ss0wrd")
 project_id = 1
-r = requests.post(f"https://api-dev.aedifion.io/v2/project/{project_id}/tag", 
-         auth=("email", "password"),
-         data={'tag': {'key': 'location', 'value': 'Office A113'}})
+newtag = {'key': 'location', 'value': 'Office A113'}
+r = requests.post(api_url + f"/v2/project/{project_id}/tag", 
+                  auth=john,
+                  json=newtag)
 print(r.status_code, r.json())
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
+{% tab title="Curl" %}
+1. Copy-paste the JSON into a file, e.g., named new_tag.json._
 
+   {% code-tabs %}
+   {% code-tabs-item title="newtag.json" %}
+   ```javascript
+   {
+       "key": "location",
+       "value": "Office A113"
+   }
+   ```
+   {% endcode-tabs-item %}
+   {% endcode-tabs %}
+
+2. Open a commandline.
+3. Execute the following command.
+
+   ```bash
+   curl https://api.aedifion.io/v2/project/1/tag
+     -X POST
+     -u john.doe@aedifion.com:mys3cr3tp4ss0wrd
+     -d @newtag.json 
+     -H "Content-Type: application/json" 
+   ```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login.
+3. From the main tags \(Meta, Company, ...\) select the _Project_ tag ,then the `POST /v2/project/{project_id}/tag` endpoint \(green\).
+4. Copy-paste the above JSON into the value of the _tag_ parameter and fill out the _project\_id_.
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
 {% endtab %}
 {% endtabs %}
 
-We get the following response from the API which states that the tag has been successfully created.
+We get the following JSON-formatted response from the API which states that the tag has been successfully created as indicated by the return code: 201 \(Created\).
 
 ```javascript
 {
+  "success": true,
   "operation": "create",
   "resource": {
     "id": 42,
     "key": "location",
     "value": "Office A113"
-  },
-  "success": true
+  }
 }
 ```
+
+Go ahead and create the same tag, i.e., same key and value, a second time. Note how this will not produce an error but instead return the already existing tag and change return code to 200 \(OK\).
 
 {% hint style="info" %}
 You can only create a tag with the **same** _key_ **and** _value pair once. But you can use the tag multiple times._
 {% endhint %}
 
-The now created tag is not assigned to any datapoint. Let us now assign this tag to an existing datapoint. For this we have to use the following method \[LINK\].
+For now, our newly created tag is not assigned to any datapoint. Let's now assign this tag to an existing datapoint. For this we have to use the _POST /v2/datapoint/tag_ endpoint which requires the following parameters:
 
-{% api-method method="post" host="https://api-dev.aedifion.io" path="/v2/datapoint/tag " %}
-{% api-method-summary %}
-Assign tag to datapoint
-{% endapi-method-summary %}
-
-{% api-method-description %}
-
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-query-parameters %}
-{% api-method-parameter name="dataPointID" type="string" required=true %}
-The alphanumeric dataPointID of the datapoint to assign the tag to
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="project\_id" type="integer" required=true %}
-The numeric ID of the project
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="tag\_id" type="integer" required=true %}
-The numeric ID of the tag, which to assign to the dataPoint
-{% endapi-method-parameter %}
-{% endapi-method-query-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```javascript
-{
-  "operation": "create",
-  "resource": {
-    "datapoint": {
-      "dataPointID": "the_datapointID_with_the_new_tag",
-      "hash_id": "ABCD1234",
-      "id": 99,
-      "project_id": 4
-    },
-    "tag": {
-      "id": 42,
-      "key": "tag key",
-      "protected": false,
-      "source": "user",
-      "value": "tag value"
-    }
-  },
-  "success": true
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Parameter</th>
+      <th style="text-align:center">Datatype</th>
+      <th style="text-align:center">Type</th>
+      <th style="text-align:center">Required</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>project_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">query</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The numeric id of the project from which to assign a tag.</td>
+      <td style="text-align:left">1</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>dataPointID</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">query</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The alphanumeric id of the datapoint which to assign a tag to.</td>
+      <td
+      style="text-align:left">
+        <p>datapoint_</p>
+        <p>within_</p>
+        <p>your_office</p>
+        </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>tag_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">query</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The numeric id of the tag to assign.</td>
+      <td style="text-align:left">42</td>
+    </tr>
+  </tbody>
+</table>Note that all parameters are _query parameters_, i.e., they're added in [url-encoded form](https://de.wikipedia.org/wiki/URL-Encoding) to the query part of the requested URL \(the part following the domain and path separated by a question mark\).
 
 {% tabs %}
 {% tab title="Python" %}
 ```python
 import requests
 project_id = 1
-r = requests.post(f"https://api-dev.aedifion.io/v2/datapoint/tag", 
-         auth=("email", "password"),
-         params={
-                  'dataPointID': 'datapoint_within_your_office',
-                  'tag_id': 42,
-                  'project_id': 1,
-         })
+dataPointID = 'datapoint_within_your_office'
+tag_id = 42
+r = requests.post(api_url + "/v2/datapoint/tag", 
+         auth=john,
+         params={'project_id':project_id,
+                  'dataPointID': dataPointID,
+                  'tag_id':tag_id})
 print(r.status_code, r.json())
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
+{% tab title="Curl" %}
+1. Open a commandline.
+2. Execute the following command.
 
+   ```bash
+   curl 'https://api.aedifion.io/v2/project/1/tag?project_id=1&\
+     dataPointID=datapoint_within_your_office&tag_id=42'
+     -X POST
+     -u john.doe@aedifion.com:mys3cr3tp4ss0wrd
+     -H "Content-Type: application/json"
+   ```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login.
+3. From the main tags \(Meta, Company, ...\) select the _Datapoint_ tag ,then the `POST /v2/datapoint/tag` endpoint \(green\).
+4. Fill out all the neccessary parameters.
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
 {% endtab %}
 {% endtabs %}
 
-We get the following response from the API which indicates a successful assignment of the tag to the datapoint. It also returns the **datapoint** and the **assigned tag** as additional resource.
+We get the following response from the API which indicates a successful assignment of the tag to the datapoint. Since an assignment is a relation between two entities, it returns both entities, the datapoint and the assigned tag, in the resource field. Note that `"source": "user"` was added automatically.
 
 ```javascript
 {
@@ -262,7 +302,7 @@ We get the following response from the API which indicates a successful assignme
     "datapoint": {
       "dataPointID": "datapoint_within_your_office",
       "hash_id": "ABCD1234",
-      "project_id": 4
+      "project_id": 1
     },
     "tag": {
       "id": 42,
@@ -278,56 +318,14 @@ We get the following response from the API which indicates a successful assignme
 
 ### Listing tags
 
-Since we just created the tag we knew the required **tag\_id** to assign it to a datapoint. If you want to assign a previously created tag but you do not know the tag\_id, you can get an overview of all possible key-value pairs in combination with their IDs \(tag\_id\) by using the following method of Aedifion's API.
+Since we just created the tag we knew the required _tag\_id_ to assign it to a datapoint. If you want to assign a previously created tag but you do not know the tag\_id, you can get an overview of all possible key-value pairs in combination with their IDs \(tag\_id\) by using the `GET /v2/project/{project_id}/tags` endpoint with the following parameters:
 
-{% api-method method="get" host="https://api-dev.aedifion.io" path="/v2/project/{project\_id}/tags " %}
-{% api-method-summary %}
-List all tags
-{% endapi-method-summary %}
+| Parameter | Datatype | Type | Required | Description | Example |
+| :--- | :---: | :---: | :---: | :--- | :--- |
+| **project\_id** | integer | path | yes | The numeric id of the project from which to assign a tag. | 1 |
+| **key** | string | query | no | Optional key to filter the returned tags by their key. | location |
 
-{% api-method-description %}
-This methods lists all tags of a project.
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="project\_id" type="integer" required=true %}
-The numeric ID of a project
-{% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
-
-{% api-method-query-parameters %}
-{% api-method-parameter name="key" type="string" required=false %}
-A string used to filter the tag key
-{% endapi-method-parameter %}
-{% endapi-method-query-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```javascript
-[
-  {
-    "id": 42,
-    "key": "first tag",
-    "value": "first value"
-  },
-  {
-    "id": 43,
-    "key": "second tag",
-    "value": "second value"
-  }
-]
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+For this method we need a GET request. Therefore, we use `requests.get`.
 
 {% tabs %}
 {% tab title="Python" %}
@@ -335,15 +333,32 @@ A string used to filter the tag key
 import requests
 project_id = 1
 
-r = requests.get(f"https://api-dev.aedifion.io/v2/project/{project_id}/tags", 
+r = requests.get(apif"/v2/project/{project_id}/tags", 
          auth=("email", "password"),
-         params={'key': 'location')
+         params={'key': 'location'})
 print(r.status_code, r.json())
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
+{% tab title="Curl" %}
+1. Open a commandline.
+2. Execute the following command.
 
+   ```bash
+   curl 'https://api.aedifion.io/v2/project/1/tags?key=location'
+     -X GET
+     -u john.doe@aedifion.com:mys3cr3tp4ss0wrd
+     -H "Content-Type: application/json"
+   ```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login.
+3. From the main tags \(Meta, Company, ...\) select the _Project_ tag ,then the `GET /v2/datapoint/tag` endpoint \(blue\).
+4. Fill out all the neccessary parameters.
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
 {% endtab %}
 {% endtabs %}
 
@@ -364,182 +379,167 @@ Since we provided the optional key parameter only the tags with the key "locatio
 ]
 ```
 
-### 
-
 ### Modifying tags
 
-With the Aedifion API you can either modify the **tag** directly \(i.e. the _key_ or the _value_\) or the **tag assignment** \(i.e. the confirmed status\). The first method affects all assignments the user has made. This method is conceived e.g. for fixing typos in the tags. The second method is to verify the tag assignment.
+With the Aedifion API you can either modify the **tag** directly \(i.e. the _key_ or the _value_\) or the **tag assignment** \(i.e. the confirmed status\). The first method affects **all assignments** the user has made. This method is conceived e.g. for fixing typos in the tags. The second method is to **verify** the tag assignment \(set the confirmed status\).
 
-For example if your company decides to rename the offices \(e.g. from A113 to B113\), you do not need to recreate all the tags; you can just modify them. To modify the _key_ and/or the _value_ of the tag use the following API method \[LINK\].
+For example if your company decides to rename the offices \(e.g. from A113 to B113\), you do not need to recreate all the tags; you can just modify them. To modify the _key_ and/or the _value_ of the tag use the  API endpoint `PUT /v2/project/{project_id}/tag/{tag_id}`. It requires the following parameters:
 
-{% api-method method="put" host="https://api-dev.aedifion.io" path="/v2/project/{project\_id}/tag/{tag\_id}" %}
-{% api-method-summary %}
-Modify tag
-{% endapi-method-summary %}
+| Parameter | Datatype | Type | Required | Description | Example |
+| :--- | :---: | :---: | :---: | :--- | :--- |
+| **project\_id** | integer | path | yes | The numeric id of the project from which to assign a tag. | 1 |
+| **tag\_id** | integer | path | yes | The numeric id of the tag. | 42 |
+| **key** | string | body \(JSON\) | no | The new key of the tag. | Location |
+| **value** | string | body \(JSON\) | no | The new value of the tag. | Office B113 |
 
-{% api-method-description %}
-This method modifies a tag within a project. With this you can change the key and/or value assigned to multiple datapoints.
-{% endapi-method-description %}
+Let us now rename the created tag to the new Office name. We have to provide the project\_id, tag\_id, and the new value.
 
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="project\_id" type="integer" required=true %}
-The numeric ID of the project
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="tag\_id" type="integer" required=true %}
-The numeric ID of the tag
-{% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
-
-{% api-method-body-parameters %}
-{% api-method-parameter name="tag" type="object" required=true %}
-A dictionary with key and/or value.
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```javascript
-{
-  "operation": "update",
-  "resource": {
-    "id": 42,
-    "key": "new tag key",
-    "value": "new tag value"
-  },
-  "success": true
-}
+{% tabs %}
+{% tab title="Python" %}
+```python
+import requests
+project_id = 1
+tag_id = 42
+r = requests.put(api_url + f"/v2/project/{project_id}/tag/{tag_id}",
+         auth=john,
+         json={"value": "Office B113"})
+print(r.status_code, r.json())
 ```
-{% endapi-method-response-example %}
+{% endtab %}
 
-{% api-method-response-example httpCode=201 %}
-{% api-method-response-example-description %}
-A new tag is generated, since the old tag could not be changed directly \(e.g. because bacnet has assigned the tag to new datapoints\). The relevant associations are updated accordingly.
-{% endapi-method-response-example-description %}
+{% tab title="Curl" %}
+1. Copy-paste the JSON into a file, e.g., named update_tag.json._
 
-```javascript
-{
-  "operation": "update",
-  "resource": {
-    "id": 43,
-    "key": "new tag key",
-    "value": "new tag value"
-  },
-  "success": true
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+   {% code-tabs %}
+   {% code-tabs-item title="updatetag.json" %}
+   ```javascript
+   {
+       "key": "location",
+       "value": "Office B113"
+   }
+   ```
+   {% endcode-tabs-item %}
+   {% endcode-tabs %}
+
+2. Open a commandline.
+3. Execute the following command.
+
+   ```bash
+   curl https://api.aedifion.io/v2/project/1/tag/42
+     -X PUT
+     -u john.doe@aedifion.com:mys3cr3tp4ss0wrd
+     -d @updatetag.json 
+     -H "Content-Type: application/json" 
+   ```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login.
+3. From the main tags \(Meta, Company, ...\) select the _Project_ tag ,then the `PUT /v2/project/{project_id}/tag/{tag_id}` endpoint \(yellow\).
+4. Copy-paste the above JSON into the value of the _tag_ parameter and fill out the the neccessary parameters.
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
+{% endtab %}
+{% endtabs %}
+
+As a response we either get a 200 or 201 status code. This depends on whether the API edited the tag in-place or had to create a new tag. The latter case might have happened if for example the BACnet logger has assigned the same tag to another datapoint. In this case all user-made assignments are updated to use the new tag\_id.
 
 {% hint style="warning" %}
 If there are tags assigned by another source or protected tag assignments, a **new tag** \(with a new **tag\_id**\) is created and a 201 HTTP response is returned.
 {% endhint %}
 
 {% tabs %}
-{% tab title="Python" %}
-```python
-import requests
-project_id = 1
-tag_id = 42
-r = requests.put(f"https://api-dev.aedifion.io/v2/project/{project_id}/tag/{tag_id}", 
-         auth=("email", "password"),
-         data={"tag": {"value": "B113"}})
-print(r.status_code, r.json())
-```
-{% endtab %}
-
-{% tab title="Second Tab" %}
-
-{% endtab %}
-{% endtabs %}
-
-We get the following response which indicates a successful change of the tag including the properties of the changed tag.
-
+{% tab title="200 \(in place\)" %}
 ```javascript
 {
   "operation": "update",
   "resource": {
     "id": 42,
     "key": "location",
-    "value": "B113"
+    "value": "Office B113"
   },
   "success": true
 }
 ```
+{% endtab %}
 
-
-
-You can also modify the tag assignment to a datapoint \(here: confirm or reject the assignment\). This is especially useful for **automatically generated tags** \(e.g. from bacnet or from machine learning\). Modifying these will help find faulty datapoints and improve our machine learning systems.
-
-{% api-method method="put" host="https://api-dev.aedifion.io" path="/v2/datapoint/tag/{tag\_id} " %}
-{% api-method-summary %}
-Modify tag assignment
-{% endapi-method-summary %}
-
-{% api-method-description %}
-With this method you can modify the confirmed status of an assigned tag.
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="" type="integer" required=true %}
-The numeric tag id
-{% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
-
-{% api-method-query-parameters %}
-{% api-method-parameter name="dataPointID" type="string" required=false %}
-The alphanumeric dataPointID
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="project\_id" type="integer" required=true %}
-The numeric project ID
-{% endapi-method-parameter %}
-{% endapi-method-query-parameters %}
-
-{% api-method-body-parameters %}
-{% api-method-parameter name="tag" type="object" required=true %}
-A dictionary with the key confirmed.
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
+{% tab title="201 \(new tag\)" %}
 ```javascript
 {
   "operation": "update",
-  "resource": [
-    {
-      "confirmed": true,
-      "id": 42,
-      "key": "tag key",
-      "protected": false,
-      "source": "user",
-      "value": "tag value"
-    }
-  ],
+  "resource": {
+    "id": 43,
+    "key": "location",
+    "value": "Office B113"
+  },
   "success": true
 }
 ```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+{% endtab %}
+{% endtabs %}
+
+### Modifying tag assignments
+
+You can also modify the tag assignment to a datapoint \(here: confirm or reject the assignment\). This is especially useful for **automatically generated tags** \(e.g. from BACnet or from machine learning\). Modifying these will help find faulty datapoints and improve our machine learning systems. For this we use the endpoint `put /v2/datapoint/tag/{tag_id}` with the following parameters:
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Parameter</th>
+      <th style="text-align:center">Datatype</th>
+      <th style="text-align:center">Type</th>
+      <th style="text-align:center">Required</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>project_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">query</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The numeric id of the project from which to assign a tag.</td>
+      <td style="text-align:left">1</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>tag_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">path</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The numeric id of the tag.</td>
+      <td style="text-align:left">42</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>dataPointID</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">query</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The alphanumeric id of the datapoint which to assign a tag to.</td>
+      <td
+      style="text-align:left">
+        <p>datapoint_</p>
+        <p>within_</p>
+        <p>your_office</p>
+        </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>confirmed</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">body (JSON)</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The confirmed status of the assignment. Either "true" (correct assignment),
+        "false" (incorrect assignment) or "unconfirmed" (unknown assignment).</td>
+      <td
+      style="text-align:left">"true"</td>
+    </tr>
+  </tbody>
+</table>With this method we can now confirm our created tag as an example.
 
 {% tabs %}
 {% tab title="Python" %}
@@ -547,23 +547,54 @@ A dictionary with the key confirmed.
 import requests
 project_id = 1
 tag_id = 42
-r = requests.put(f"https://api-dev.aedifion.io/v2/project/{project_id}/tag/{tag_id}", 
-         auth=("email", "password"),
+r = requests.put(api_url + f"/v2/datapoint/tag/{tag_id}", 
+         auth=john
          params = {
                   "dataPointID": "datapoint_within_your_office",
                   "project_id": project_id,
          },
-         data={'tag': {'confirmed': True}})
+         json={'confirmed': 'true'})
 print(r.status_code, r.json())
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
+{% tab title="CURL" %}
+1. Copy-paste the JSON into a file, e.g., named _confirmedtag.json._
 
+   {% code-tabs %}
+   {% code-tabs-item title="confirmedtag.json" %}
+   ```javascript
+   {
+       "confirmed": "true"
+   }
+   ```
+   {% endcode-tabs-item %}
+   {% endcode-tabs %}
+
+2. Open a commandline.
+3. Execute the following command.
+
+   ```bash
+   curl 'https://api.aedifion.io/v2/datapoint/tag/42?
+     dataPointID=datapoint_within_your_office&project_id=1'
+     -X PUT
+     -u john.doe@aedifion.com:mys3cr3tp4ss0wrd
+     -d @confirmedtag.json 
+     -H "Content-Type: application/json" 
+   ```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login.
+3. From the main tags \(Meta, Company, ...\) select the _Datapoint_ tag ,then the `PUT /v2/project/{project_id}/tag/{tag_id}` endpoint \(yellow\).
+4. Copy-paste the above JSON into the value of the _tag_ parameter and fill out the the neccessary parameters.
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
 {% endtab %}
 {% endtabs %}
 
-The response for this API method returns the modified tag associated with this datapoint. If a tag is assigned my **multiple sources** to this datapoint, **all** assignments are modified.
+The response for this API method returns the modified tag associated with this datapoint. If a tag is assigned by **multiple sources** \(e.g. "user" and "bacnet"\) to this datapoint, **all** of these assignments are modified. Note, that the "confirmed" parameter is now set to `true`.
 
 ```javascript
 {
@@ -584,91 +615,60 @@ The response for this API method returns the modified tag associated with this d
 
 ### Filtering datapoints by tag
 
-You can retrieve all datapoints corresponding to different tags. You **must** provide a tag **key**. Optional parameters are the tag **value**, the assigning **source**, or the **confirmed** status. The API call returns a list of all datapoints conforming with all those filters combined with the conforming tags.
+You can retrieve all datapoints corresponding to different tags. You **must** provide a tag _key_. Optional parameters are the tag _value_, the assigning _source_, or the _confirmed_ status. The API call returns a list of all datapoints conforming with all those filters combined with the relevant tags.
 
-This method is intended for fast retrieval of datapoints with tags assigned to it. For example one could get the list of all datapoints with a unit assigned to it \(key='unit'\) which are unconfirmed \(confirmed='unconfirmed'\). The returned tag assignments can now be easily confirmed or rejected to improve finding faulty datapoints or the machine learning system.
+This method is intended for fast retrieval of datapoints with _tags assigned_ to it. For example one could get the list of all datapoints with a unit assigned to it \(key='unit'\) which are unconfirmed \(confirmed='unconfirmed'\). The returned tag assignments can now be easily confirmed or rejected to improve finding faulty datapoints or the machine learning system.
 
-{% api-method method="get" host="https://api-dev.aedifion.io" path="/v2/project/{project\_id}/datapoints/byTag" %}
-{% api-method-summary %}
-Retrieve datapoints by tag
-{% endapi-method-summary %}
+The relevant API endpoint is `GET /v2/project/{project_id}/datapoints/byTag` and the parameters are as follows:
 
-{% api-method-description %}
-This method retrieves all datapoints by different tag filters.
-{% endapi-method-description %}
+| Parameter | Datatype | Type | Required | Description | Example |
+| :--- | :---: | :---: | :---: | :--- | :--- |
+| **project\_id** | integer | query | yes | The numeric id of the project from which to assign a tag. | 1 |
+| **key** | string | query | yes | The key of the tags we filter for. | location |
+| **value** | string | query | no | The value of the tags we filter for. | Office B113 |
+| **source** | string | query | no | The source of the tag assignment we filter for. | user |
+| **confirmed** | string | query | no | The confirmed status of the assignment. Either "true" \(correct assignment\), "false" \(incorrect assignment\) or "unconfirmed" \(unknown assignment\). | "true" |
 
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="project\_id" type="integer" required=true %}
-The numeric ID of the project
-{% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
-
-{% api-method-query-parameters %}
-{% api-method-parameter name="key" type="string" required=true %}
-The key of the tag
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="value" type="string" required=false %}
-The value of the tag
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="source" type="string" required=false %}
-The assigning source of the tag
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="confirmed" type="string" required=false %}
-One of 'true', 'false', or 'unconfirmed'
-{% endapi-method-parameter %}
-{% endapi-method-query-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```javascript
-[
-  {
-    "dataPointID": "datapointID_with_tag",
-    "tags": [
-      {
-        "id": 42,
-        "key": "tag key",
-        "protected": false,
-        "source": "user",
-        "value": "tag value"
-      }
-    ]
-  }
-]
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+Let us now query all datapoints we assigned a location tag to which are confirmed. Since we just confirmed the assignment before, we should get returned the just assigned tag to the datapoint.
 
 {% tabs %}
 {% tab title="Python" %}
 ```python
 import requests
 project_id = 1
-r = requests.get(f"https://api-dev.aedifion.io/v2/project/{project_id}/datapoints/byTag", 
-         auth=("email", "password"),
-         params={'key': 'location'})
+r = requests.get(api_url + f"/v2/project/{project_id}/datapoints/byTag", 
+         auth=john,
+         params={
+                  'key': 'location',
+                  'confirmed': 'unconfirmed',
+         })
 print(r.status_code, r.json())
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
+{% tab title="CURL" %}
+1. Open a commandline.
+2. Execute the following command.
 
+   ```bash
+   curl 'https://api.aedifion.io/v2/project/1/datapoints/byTag?key=location'
+     -X GET
+     -u john.doe@aedifion.com:mys3cr3tp4ss0wrd
+     -H "Content-Type: application/json"
+   ```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login.
+3. From the main tags \(Meta, Company, ...\) select the _Datapoint_ tag ,then the `GET /v2/project/{project_id}/datapoints/byTag` endpoint \(blue\).
+4. Fill out the the neccessary parameters.
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
 {% endtab %}
 {% endtabs %}
 
-The result returns a list of all datapoints where a location-tag is assigned to:
+We get the following list as result:
 
 ```javascript
 [
@@ -676,104 +676,109 @@ The result returns a list of all datapoints where a location-tag is assigned to:
     "dataPointID": "datapoint_within_your_office",
     "tags": [
       {
-        "confirmed": true,
+        "confirmed": true
         "id": 42,
         "key": "location",
         "protected": false,
         "source": "user",
-        "value": "B113"
+        "value": "Office B113"
       }
     ]
   }
 ]
 ```
 
-### Deleting tags and assignments
+### Deleting tag assignments
 
-The Aedifion API allows you to delete tag assignments \(remove tag from a datapoint\) or to delete a tag entirely. You cannot delete a tag assignment which is **protected**. Also you cannot delete a tag from a project which has protected assignments or is assigned by another source as _user_ \(e.g. _bacnet_\).
+The Aedifion API allows you to delete tag assignments \(remove tag from a datapoint\) or to delete a tag entirely. You cannot delete a tag assignment which is **protected**. Also you cannot delete a tag completely from a project which has protected assignments or is assigned by another source as _user_ \(e.g. BAC_net_\).
 
 {% hint style="danger" %}
 Deleting a tag or a tag assignment cannot be undone.
 {% endhint %}
 
-{% api-method method="delete" host="https://api-dev.aedifion.io" path="/v2/datapoint/tag/{tag\_id} " %}
-{% api-method-summary %}
-Delete tag assignments
-{% endapi-method-summary %}
+Let us now delete the assignment of the created location tag from the datapoint. For this we need the API endpoint `DELETE /v2/datapoint/tag/{tag_id}`. The parameters are as follows:
 
-{% api-method-description %}
-Calling this method removes an assignment of a tag from a datapoint.
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="tag\_id" type="integer" required=true %}
-The numeric ID of the tag
-{% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
-
-{% api-method-query-parameters %}
-{% api-method-parameter name="dataPointID" type="string" required=true %}
-The alphanumeric dataPointID
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="project\_id" type="integer" required=true %}
-The numeric ID of the project
-{% endapi-method-parameter %}
-{% endapi-method-query-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```javascript
-{
-  "operation": "delete",
-  "resource": {
-    "datapoint": {
-      "dataPointID": "dataPointID_to_remove_from",
-      "hash_id": "ABCD1234",
-      "id": 1,
-      "project_id": 1
-    },
-    "tag": {
-      "id": 42,
-      "key": "tag key",
-      "value": "tag value"
-    }
-  },
-  "success": true
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
-If a tag has been erroneously assigned to a datapoint, you can remove this assignment with the following API method \[LINK\].
-
-{% tabs %}
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Parameter</th>
+      <th style="text-align:center">Datatype</th>
+      <th style="text-align:center">Type</th>
+      <th style="text-align:center">Required</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>project_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">query</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The numeric id of the project where the tag belongs to.</td>
+      <td style="text-align:left">1</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>tag_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">path</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The id of the tag we want to delete from the datapoint.</td>
+      <td style="text-align:left">42</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>dataPointID</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">query</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The alphanumeric id of the datapoint from which we want to delete the
+        tag.</td>
+      <td style="text-align:left">
+        <p>datapoint_</p>
+        <p>within_</p>
+        <p>your_office</p>
+      </td>
+    </tr>
+  </tbody>
+</table>{% tabs %}
 {% tab title="Python" %}
 ```python
 import requests
 project_id = 1
 tag_id = 42
-r = requests.delete(f"https://api-dev.aedifion.io/v2/datapoint/tag/{tag_id}", 
-         auth=("email", "password"),
+r = requests.delete(api_url + f"/v2/datapoint/tag/{tag_id}", 
+         auth=john,
          params = {
-                  'dataPointID': 'wrong_dataPointID',
+                  'dataPointID': 'datapoint_within_your_office',
                   'project_id': project_id,
          })
 print(r.status_code, r.json())
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
+{% tab title="CURL" %}
+1. Open a commandline.
+2. Execute the following command.
 
+   ```bash
+   curl 'https://api.aedifion.io/v2/datapoint/tag/42?
+     dataPointID=datapoint_within_your_office&project_id=1'
+     -X DELETE
+     -u john.doe@aedifion.com:mys3cr3tp4ss0wrd
+     -H "Content-Type: application/json"
+   ```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login.
+3. From the main tags \(Meta, Company, ...\) select the _Datapoint_ tag ,then the `DELETE /v2/datapoint/tag/{tag_id}` endpoint \(red\).
+4. Fill out the the neccessary parameters.
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
 {% endtab %}
 {% endtabs %}
 
@@ -784,70 +789,35 @@ The result returns the tag and the datapoint from which the assignment was delet
   "operation": "delete",
   "resource": {
     "datapoint": {
-      "dataPointID": "wrong_dataPointID",
-      "hash_id": "WXYZ9876",
-      "id": 77,
+      "dataPointID": "datapoint_within_your_office",
       "project_id": 1
     },
     "tag": {
       "id": 42,
       "key": "location",
-      "value": "B113"
+      "value": "Office B113"
     }
   },
   "success": true
 }
 ```
 
-If you want to delete the tag completely including **all its assignments** then you can use the following API method \[LINK\].
+The tag itself still exists in the system but it is no longer assigned to the datapoint.
+
+### Deleting Tags
+
+If you want to delete the tag completely including **all its assignments** then you can use the following API method `DELETE /v2/project/{project_id}/tag/{tag_id}`.
 
 {% hint style="warning" %}
-You cannot delete a tag if it is assigned by another source \(e.g. Bacnet\) or has protected assignments.
+You cannot delete a tag if it is assigned by **another source** \(e.g. automatically assigned tags by BACnet\) or has protected assignments.
 {% endhint %}
 
-{% api-method method="delete" host="https://api-dev.aedifion.io" path="/v2/project/{project\_id}/tag/{tag\_id} " %}
-{% api-method-summary %}
-Delete tag
-{% endapi-method-summary %}
+The parameters for the API endpoint are the following:
 
-{% api-method-description %}
-Deletes a tag from the project
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="project\_id" type="integer" required=false %}
-The numeric ID of the project
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="tag\_id" type="integer" required=false %}
-The numeric ID of the tag
-{% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```javascript
-{
-  "operation": "delete",
-  "resource": {
-    "id": 42,
-    "key": "tag key",
-    "value": "tag value"
-  },
-  "success": true
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+| Parameter | Datatype | Type | Required | Description | Example |
+| :--- | :---: | :---: | :---: | :--- | :--- |
+| **project\_id** | integer | path | yes | The numeric id of the project from which to delete a tag. | 1 |
+| **tag\_id** | integer | path | yes | The id of the tag we want to delete. | 42 |
 
 {% tabs %}
 {% tab title="Python" %}
@@ -855,14 +825,31 @@ The numeric ID of the tag
 import requests
 project_id = 1
 tag_id = 42
-r = requests.delete(f"https://api-dev.aedifion.io/v2/project/{project_id}/tag/{tag_id}", 
+r = requests.delete(api_url + f"/v2/project/{project_id}/tag/{tag_id}", 
          auth=("email", "password"))
 print(r.status_code, r.json())
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
+{% tab title="CURL" %}
+1. Open a commandline.
+2. Execute the following command.
 
+   ```bash
+   curl https://api.aedifion.io/v2/project/1/tag/42
+     -X DELETE
+     -u john.doe@aedifion.com:mys3cr3tp4ss0wrd
+     -H "Content-Type: application/json"
+   ```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login.
+3. From the main tags \(Meta, Company, ...\) select the _Project_ tag ,then the `DELETE /v2/project/{project_id}/tag/{tag_id}` endpoint \(red\).
+4. Fill out the the neccessary parameters.
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
 {% endtab %}
 {% endtabs %}
 
@@ -874,9 +861,11 @@ When the operation is successful the deleted tag is returned. **This operation c
   "resource": {
     "id": 42,
     "key": "location",
-    "value": "B113"
+    "value": "Office B113"
   },
   "success": true
 }
 ```
+
+
 
