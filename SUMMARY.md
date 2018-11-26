@@ -10,6 +10,10 @@
 * [Glossary](glossary.md)
 * [Contact](contact.md)
 
+## Features
+
+* [Local weather \(forecast\) data](features/local-weather-forecast-data.md)
+
 ## Tutorials
 
 * [Administration](tutorials/administration.md)
