@@ -17,7 +17,9 @@ If you haven't already, please skim through the definition of [special terminolo
 * A company has arbitrary many _projects_ and each project belongs to exactly one company. Projects can be considered administrative subspaces within a company.
 * _Roles_ define a set of permissions. A special _admin_ role is automatically created by default for each company and each project with all permissions in the respective scope. A role can be assigned to arbitrary many users in the company and a single user can have multiple roles.
 
-### Prerequisites
+### Preliminaries
+
+The examples provided in this article partly build on each other. For the sake of brevity, boiler plate code such as imports or variable definitions is only shown once and left out in subsequent examples.
 
 To execute the examples provided in this tutorial, the following is needed:
 

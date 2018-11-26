@@ -8,7 +8,17 @@ description: Tutorial for creating and managing alerts on time series and meta-d
 
 In this article, you will learn how to set up alarms on time series and meta-data on the aedifion.io platform. Currently, the aedifion.io platform supports two types of alarms: i\) alarms on the observations for a datapoint and ii\) alarms on the throughput \(i.e., received observations per time interval\) of a certain datapoint or whole project \(please refer to our [Glossary](../glossary.md) if the terms datapoint and observation seem strange to you\). You will specify one of each and configure it to send out notifications on alarm events via the Telegram instant messenger or email.
 
-### Types of alarms
+### Preliminaries
+
+The examples provided in this article partly build on each other. For the sake of brevity, boiler plate code such as imports or variable definitions is only shown once and left out in subsequent examples.
+
+To execute the examples provided in this tutorial, the following is needed:
+
+* A valid login \(username and password\) to the aedifion.io platform. If you do not have a login yet, please [contact us](../contact.md) regarding a demo login. The login used in the example will not work!
+* A project with live data ingress.
+* Optionally, a working installation of [Python](https://www.python.org/) or [Curl](https://curl.haxx.se/).
+
+## Types of alarms
 
 The aedifion.io platform supports two versatile types of alarms:
 
@@ -239,17 +249,29 @@ Throughput alarms are defined through the following parameters.
 <table>
   <thead>
     <tr>
-      <th style="text-align:left"><b>name</b>
+      <th style="text-align:left"><b>Paramater</b>
       </th>
-      <th style="text-align:center">string</th>
-      <th style="text-align:center">body (JSON)</th>
-      <th style="text-align:center">yes</th>
-      <th style="text-align:left">The name of the new alarm. The name needs to be unique within the project
-        scope.</th>
-      <th style="text-align:left">CO2_Office-100</th>
+      <th style="text-align:center">Datatype</th>
+      <th style="text-align:center">Type</th>
+      <th style="text-align:center">Required</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Example</th>
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td style="text-align:left"><b>name</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The name of the new alarm. Needs to be unique within the project scope.</td>
+      <td
+      style="text-align:left">CO2_Office-100</td>
+    </tr>
     <tr>
       <td style="text-align:left"><b>alert_<br />type</b>
       </td>

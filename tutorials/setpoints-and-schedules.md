@@ -6,28 +6,26 @@ description: Tutorial on writing setpoints and schedules for active building con
 
 ## Overview
 
-The aedifion Setpoint Writer is a lightweight piece of software capable of running on a small industrial pc that allows writing setpoints \(or whole schedules consisting of many setpoints\) to any writable datapoint on any building automation component in the attached building network. The semantics of writing setpoints and schedules completely abstracts from the underlying building networks and automation protocols and thereby provides a unified, fine-grained control of the building's automation components.
+The aedifion Setpoint Writer is a lightweight piece of software capable of running on the [aedifion.device](../aedifion.device.md). It allows writing setpoints or whole schedules of many setpoints to any writable datapoint on any building automation component in the attached building network. The semantics of writing setpoints and schedules abstracts from the underlying building networks and automation protocols and thereby provides a unified, fine-grained control of the building's automation components.
 
-{% hint style="info" %}
-The code examples in this tutorial are configured to work on the main building of the [E.ON ERC](http://www.eonerc.rwth-aachen.de/cms/E-ON-ERC/Das-Center/~jswg/Kontaktliste/lidx/1/). To try them out yourself adapt them to your building or [request demo access](../contact.md#sales).
-{% endhint %}
+## Setpoints vs. schedules
 
-## Setpoints vs. Schedules
+Before we start writing setpoints and schedules, we need to clearly understand what they are and how they differ.
 
 ### Setpoints
 
-Setpoints are single one-shot best-effort low-overhead irrevocable write operations.
+Setpoints are single one-shot best-effort low-overhead irrevocable write operations. In particular, this implies the following properties of setpoint writing:
 
 * No direct feedback is given about the success or failure of a setpoint write operation.
 * No state is kept for a setpoint write operation.
-* Existing setpoints \(at the same priority\) are overwritten without warning.
+* Existing setpoints \(at the same priority\) are overwritten without any warning.
 * A setpoint never expires and is never reset automatically.
 * Once sent, a setpoint write operation is immediately executed and cannot be cancelled.
 * But: Setpoints are fast and very easy to use.
 
 ### Schedules
 
-Schedules are comprised of multiple subsequent setpoint write operations. They are stateful, acknowledged, robust, and modifiable:
+Schedules are comprised of multiple subsequent setpoint write operations. They are stateful, acknowledged, robust, and modifiable. 
 
 * The state of a schedule and corresponding state transitions are logged and can be queried through the API.
 * The current state of the datapoint that is written to is saved before overwriting it.
@@ -48,147 +46,410 @@ The lifecycle of a schedule is defined by five possible states:
 
 #### **Structure and execution of a schedule**
 
-A schedule $$S$$ is \(almost\) completely defined by a series of single **setpoints** $$s_i$$. A single setpoint within a schedule is defined by
-
-* `id`\[mandatory\]: An integer uniquely identifying this setpoint within the schedule.
-* `start`\[mandatory\]: The date-time when the setpoint should be written \(in RFC3339 format, assumed UTC if not timezone is provided\).
-* `value`\[mandatory\]: The value to write, either a string-encoded float or the special strings 'null' to clear the value or 'reset' to use this schedules's \(automatically\) defined `resetValue` \(see FAQ below\).
-
-A schedule is thus defined by
+A schedule $$S$$ is defined as a series of setpoints, ****i.e.,
 
 $$
-S = (s_1, ..., s_n) = ((i_1, t_1, v_1), ..., (i_n, t_n, v_n))
+S = (s_1, ..., s_n) = ((id_1, t_1, v_1), ..., (id_n, t_n, v_n))
 $$
 
-Setpoints are executed strictly in order of time. If two setpoints have the same start time, their ordering in $$S$$ determines which is executed first.
+where  $$s_1, ..., s_n$$are setpoints and each single setpoint $$s_i$$ within is defined by a unique id $$id_i$$, a start time $$t_i$$ and its value $$v_i$$.
 
-With $$t_1 \leq ... \leq t_n$$ wlog., a schedule thus executes as follows:
+Setpoints are executed strictly in order of time. If two setpoints have the same start time, their ordering in $$S$$ determines which is executed first. With $$t_1 \leq ... \leq t_n$$ wlog., a schedule thus executes as follows:
 
 * The schedule starts with execution of $$s_1$$ at time $$t_1$$ where $$v_1$$ is written.
 * Setpoint $$s_i$$ is written at time $$t_i$$ and overwrites the previous value __$$v_{i-1}$$with $$v_i$$.
   * If $$s_i$$ lies in the past, i.e., $$S$$ is created after $$t_i$$, $$s_i$$ is written immediately.
 * The schedule ends with execution of $$s_n$$ \(we refer to this as the _stop event_\) at time $$t_n$$ where $$v_n$$ is written.
 
-{% hint style="info" %}
-To reset the system in its state before the schedule, the user should usually set $$v_n =$$ 'reset'.
-{% endhint %}
-
 ### Usage scenarios
 
-Due to the different properties of setpoints and schedules, the user should carefully choose which one to use in his/her scenario.
+Due to the different properties of setpoints and schedules, the user should carefully choose which one to use in his/her scenario. For example:
 
-For example:
-
-* Use setpoints to switch on and off components like a human would on a real switch, but use schedules to switch on and off components on predefined points in time like a timer switch would do.
-* Use setpoints to make permanent changes, but use schedules to make temporary changes as schedules will leave the building automation system in the same state it was in before running the schedule.
+* Use setpoints to switch on and off components like a human would on a real switch, but use schedules to switch on and off components on predefined points in time like a timer would do.
+* Use setpoints to make permanent changes, but use schedules to make temporary changes as schedules leave the system in the same state as before running the schedule.
 
 ## API Tutorial
 
-Setpoints and schedules are written through the [aedifion HTTP API](../developers/api-documentation.md).
+Setpoints and schedules are written and managed through the [HTTP API](../developers/api-documentation.md). In this section, we go through the steps of unlocking setpoints and schedules for an existing project, configuring selected datapoints for writing, and, finally, writing sample setpoints and schedules.
 
 ### Preliminaries
 
-#### Configuring a project for writing
+The examples provided in this section partly build on each other. For the sake of brevity, boiler plate code such as imports or variable definitions is only shown once and left out in subsequent examples.
 
-...
+To execute the examples provided in this tutorial, the following is needed:
 
-#### Configuring a datapoint for writing
+* A valid login \(username and password\) to the aedifion.io platform. If you do not have a login yet, please [contact us](../contact.md) regarding a demo login. The login used in the example will not work!
+* A project with writable datapoints.
+* Optionally, a working installation of [Python](https://www.python.org/) or [Curl](https://curl.haxx.se/).
 
-...
+### Enabling write access
 
-### Setpoints API
+Setpoints and schedules write directly to building automation components and may thus \(deliberately\) complement, interfere with, or completely override existing control and automation. This is a critical operation and thus disabled per default on all projects. Further, there is a series of safeguards in place that limit and protect access to this feature. We go through these safeguards one by one in the following.
 
-Setpoints are written through the following API endpoint:
+#### 1. Activating setpoint and schedules on the project
 
-```text
-POST https://api-dev.aedifion.io/v2/datapoint/setpoint
+The setpoints and schedules feature is per default completely locked for all projects. Trying to post a setpoint or schedule results - even with the right roles and permissions \(next step\) - in the following error:
+
+```javascript
+{
+  "success": false,
+  "error": "Project 1 not found or setpoint writing not enabled for project.",
+  "operation": "post"
+}
 ```
 
-The caller must provide:
+In order to activate setpoints and schedules for your project, please [contact us](../contact.md) personally. We will need to know:
 
-* `dataPointID` \[mandatory\]: the alphanumeric identifier of the data point that should be written to
-* `project_id` \[mandatory\]: the numeric identifier of the project to which the data point specified by `dataPointID` belongs
-* `value` \[mandatory\]: a string containing an integer or float value that should be written to the data point or the special string `null` to clear the value
-* `priority` \[optional, default=13\]: the priority at which to write for building networks such as BACnet that support priorities
+* The project \(id\) for which you wish to activate writing.
+* Whether you wish to enable setpoints or schedules or both.
+* The maximum priority that is allowed for writing setpoints and schedules, e.g., for protocols such as BACnet which support different priorities. Writing at higher priorities will not be possible.
+
+#### 2. Configuring roles and permissions
+
+Writing requires _write permissions_ on datapoints. If you do not have sufficient access, you will receive an error message similar to this one:
+
+```javascript
+{
+  "success": false,
+  "error": "Unauthorized access to endpoint: 39 - POST /v2/datapoint/setpoint"
+}
+```
+
+Per default, the automatically created _admin_ role of a project has full read/write access on all datapoints. It is, however, strongly advised to set up roles with more restricted write access, e.g., limited to only the necessary datapoints, and not freely assign the _admin_ role to all users just for the sake of simplicity. Please refer to our [administration tutorial](administration.md) on how to set up roles and permissions for projects and datapoints exactly as you need them.
+
+#### 3. Configuring datapoints for writing
+
+In addition to the general feature lock \(step 1\) and the role-based access control \(step 2\), a third safeguard is in place: lower and upper bounds for writing defined individually for each datapoint. Trying to write to a datapoint that has no bounds configured results in this error:
+
+```javascript
+{
+  "success": false,
+  "error": "Datapoint 'bacnet100-4120-Real-room-temperature-setpoint-RTs_real' has no bounds for setpoint writing. Cowardly refusing setpoint schedule - please contact support@aedifion.com",
+  "operation": "create"
+}
+```
+
+Writing bounds can be configured through the `PUT /v2/datapoint` endpoint which requires the following parameters:
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left"><b>Paramater</b>
+      </th>
+      <th style="text-align:center">Datatype</th>
+      <th style="text-align:center">Type</th>
+      <th style="text-align:center">Required</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>project_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">query</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The numeric id of the project.</td>
+      <td style="text-align:left">1</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>dataPointID</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">query</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The alphanumeric id of the datapoint for which to configure writing bounds.</td>
+      <td
+      style="text-align:left">bacnet100-4120-Real-room-temperature-setpoint-RTs_real</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p><b>setpoint_</b>
+        </p>
+        <p><b>min_value</b>
+        </p>
+      </td>
+      <td style="text-align:center">float</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">Lower bound for writing to this datapoint.</td>
+      <td style="text-align:left">15</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>setpoint_<br />max_value</b>
+      </td>
+      <td style="text-align:center">float</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">Upper bound for writing to this datapoint.</td>
+      <td style="text-align:left">25</td>
+    </tr>
+  </tbody>
+</table>Here is an example of configuring writing bounds for a room temperature setpoint. A range of 15° to 25° Celsius seems reasonable:
 
 {% tabs %}
 {% tab title="Python" %}
 ```python
 import requests
-r = post("https://api.aedifion.io/v2/datapoint/setpoint", 
-         auth=("email", "password"),
-         params={'dataPointID':'bacnet512-4120L022VEGSHSB_Anlage-L22', 'project_id':4, 'priority':13, 'value':'null'})
-print(r.status_code, r.json())         
+api_url = "https://api.aedifion.io"
+john = ("john.doe@aedifion.com", "mys3cr3tp4ssw0rd")
+project_id = 1
+dataPointID = "bacnet100-4120-Real-room-temperature-setpoint-RTs_real"
+datapoint_update = {
+    "setpoint_min_value":15,
+    "setpoint_max_avlue":25
+}
+r = requests.put(api_url + "/v2/datapoint",
+    params = {"project_id": project_id, "dataPointID": dataPointID}
 ```
 {% endtab %}
 
 {% tab title="Curl" %}
 ```bash
-curl -X POST -u email:password 'https://api-dev.aedifion.io/v2/datapoint/setpoint?dataPointID=bacnet512-4120L022VEGSHSB_Anlage-L22&project_id=4&value=null&priority=13'
+curl https://api3.aedifion.io/v2/datapoint?project_id=1&dataPointID=bacnet100-4120-Real-room-temperature-setpoint-RTs_real
+   -X PUT 
+   -u john.doe@aedifion.com:mys3cr3tp4ssw0rd 
+   -H 'Content-Type: application/json' 
+   -d '{
+         "setpoint_max_value": 25, 
+         "setpoint_min_value": 15
+       }'
 ```
-{% endtab %}
-
-{% tab title="Matlab" %}
-Coming soon.
 {% endtab %}
 {% endtabs %}
 
-A successful setpoint write operation \(from point of view of the API\) will return HTTP 200 and a JSON containing the details of the setpoint, e.g.,
+The answer confirms that our request was successful.
+
+```javascript
+  "success": 
+  "operation": "update",
+  "resource": {
+    "dataPointID": "bacnet100-4120-Real-room-temperature-setpoint-RTs_real",
+    "hash_id": "7fSjkcIH",
+    "id": 533,
+    "project_id": 1,
+    "setpoint_max_value": 25,
+    "setpoint_min_value": 15
+  }
+}
+```
+
+Within the configured bounds, writing is now possible while writing any attempt to write outside these bounds results in an error:
 
 ```javascript
 {
+  "success": false,
+  "error": "Setpoints for datapoint 'bacnet100-4120-Real-room-temperature-setpoint-RTs_real' are restricted to [15.0,25.0]. Cowardly refusing schedule due to value 30.",
+  "operation": "create"
+}
+```
+
+### Setpoints API
+
+Setpoints are written through the `POST /v2/datapoint/setpoint` endpoint. The caller must provide the following parameters:
+
+| **Paramater** | Datatype | Type | Required | Description | Example |
+| :--- | :---: | :---: | :---: | :--- | :--- |
+| **project\_id** | integer | query | yes | The numeric id of the project. | 1 |
+| **dataPointID** | string | query | yes | The alphanumeric id of the datapoint that should be written to.  | bacnet100-4120-Real-room-temperature-setpoint-RTs\_real |
+| **value** | string | query | yes | A string containing an integer or float value that should be written to the data point or the special string `null` to clear the value. | 16.7 |
+| **priority** | integer | query | no | The priority at which to write the setpoint \(default = 13\). | 15 |
+
+Having [enabled write access](setpoints-and-schedules.md#enabling-write-access), we can now write a setpoint. Please carefully choose a datapoint when executing these examples as you are operating on a real building.
+
+{% tabs %}
+{% tab title="Python" %}
+```python
+import requests
+api_url = "https://api.aedifion.io"
+john = ("john.doe@aedifion.com", "mys3cr3tp4ssw0rd")
+project_id = 1
+dataPointID = "bacnet100-4120-Real-room-temperature-setpoint-RTs_real"
+r = post(api_url + "/v2/datapoint/setpoint", 
+         auth=john
+         params={'project_id':1, 'dataPointID':dataPointID, 'value':16.7, 'priority':15})
+print(r.text)
+```
+{% endtab %}
+
+{% tab title="Curl" %}
+```bash
+curl https://api-dev.aedifion.io/v2/datapoint/setpoint?dataPointID=bacnet100-4120-Real-room-temperature-setpoint-RTs_real&project_id=1&value=16.7&priority=13
+    -X POST 
+    -u john.doe@aedifion.com
+```
+{% endtab %}
+{% endtabs %}
+
+A successful setpoint write operation \(from point of view of the API\) returns HTTP 200 \(OK\) and a JSON containing the details of the setpoint:
+
+```javascript
+{
+  "success":true,
   "operation":"create",
-  "resource":{
-               "action":"writeSingle",
-               "dataPointID":"bacnet512-4120L022VEGSHSB_Anlage-L22",
-               "priority":14,
-               "value":"null"
-             },
-  "success":true
+  "resource": {
+    "action": "writeSingle",
+    "dataPointID": "bacnet100-4120-Real-room-temperature-setpoint-RTs_real",
+    "priority": 15,
+    "value": 16.7
+  }
 }
 ```
 
 {% hint style="warning" %}
-**Interpreting the response:** For bare setpoint write operations, a _successful response_ only means that the API accepted the request, i.e., the setpoint writer is correctly configured and the user is authorized for writing to the building. There may still happen errors on the side of the setpoint writer that are not reported back to the API. If a real acknowledgement is required, the user should use schedules instead.
+**Interpreting the response:** For bare setpoint write operations, a _successful response_ \(HTTP 200\) only means that the API accepted the request, i.e., the setpoint writer is correctly configured and the user is authorized for writing to the building. There may still happen errors on the side of the setpoint writer that are not reported back to the API. If a real acknowledgement is required, the user should use schedules instead.
 {% endhint %}
+
+We have now set the desired temperature of to 16.7 °C and the HVAC system will probably start working hard to follow your control input. Spin up any existing building management system of your choice and check the effect of your actions.
+
+The written setpoint will remain active until it is cleared or overwritten. Since 16.7 °C is pretty cold for an office, we will soon wish to reset this ourselves and let the existing building automation system regain control. To this end, we need to write `'null'` to the previously written datapoint and priority.
+
+{% tabs %}
+{% tab title="Python" %}
+```python
+r = post(api_url + "/v2/datapoint/setpoint", 
+         auth=john,
+         params={'project_id':1, 'dataPointID':dataPointID, 'value':'null', 'priority':15})
+print(r.text)
+```
+{% endtab %}
+{% endtabs %}
 
 ### Schedules API
 
-#### **Creating, modifying, querying and deleting schedules**
-
-Schedules are created, modified, queried, and deleted through the following API endpoints
-
-```text
-POST   https://api-dev.aedifion.io/v2/datapoint/schedule
-PUT    https://api-dev.aedifion.io/v2/datapoint/schedule/{reference}
-GET    https://api-dev.aedifion.io/v2/datapoint/schedule/{reference}
-DELETE https://api-dev.aedifion.io/v2/datapoint/schedule/{reference}
-```
+Schedules are the generalization of setpoints. They allow you to specify multiple setpoints that are written at predefined points in times. And, schedules will automatically clean-up after themselves, i.e., reset the written datapoint to the same state it was in before the schedule, if you let them.
 
 #### **Creating schedules**
 
-**Request:** Schedules are created through
+A new schedule is created through the `POST /v2/datapoint/schedule` endpoint. The caller must identify the datapoint in the query and provide the details of the schedule as a JSON object in the body of the request:
 
-```text
-POST https://api-dev.aedifion.io/v2/datapoint/schedule
-```
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left"><b>Paramater</b>
+      </th>
+      <th style="text-align:center">Datatype</th>
+      <th style="text-align:center">Type</th>
+      <th style="text-align:center">Required</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>project_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">query</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The numeric id of the project.</td>
+      <td style="text-align:left">1</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>dataPointID</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">query</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The alphanumeric id of the datapoint on which to create the schedule.</td>
+      <td
+      style="text-align:left">bacnet100-4120-Real-room-temperature-setpoint-RTs_real</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>name</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">A human readable name for this schedule.</td>
+      <td style="text-align:left">Weekend_override</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>resetValue</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">The value to write when the schedule finishes or fails. Uses existing
+        value before schedule, if not provided.</td>
+      <td style="text-align:left">null</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>priority</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">The priority at which to write to the datapoint (default = 13).</td>
+      <td
+      style="text-align:left">15</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>repeat</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">Repeat interval of this schedule. One of 'hourly', 'daily', 'weekly',
+        'monthly', or 'yearly'. <b>Coming soon.</b>
+      </td>
+      <td style="text-align:left">'weekly'</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>heartbeat</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">Duration in seconds after which the schedule deletes itself if no heartbeat
+        is received.</td>
+      <td style="text-align:left">3600</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>setpoints</b>
+      </td>
+      <td style="text-align:center">list of dict</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">A list of setpoints. Each setpoint is defined by a unique <code>id</code>,
+        a <code>start</code> time, and a <code>value</code>.</td>
+      <td style="text-align:left">[{'id':1, 'start':'2018-11-09T18:00:00Z, 'value':18.5}, {'id':1, 'start':'2018-11-12T7:00:00Z,
+        'value':21.0}
+        <br />]</td>
+    </tr>
+  </tbody>
+</table>The different options for defining a schedule deserve some more explanation. The example schedule in the above table realizes a very simple weekend override for the office temperature in winter. In detail, it would do the following:
 
-The caller can/must provide:
-
-* `dataPointID` \[mandatory\]: the alphanumeric identifier of the data point that should be written to through the schedule
-* `project_id` \[mandatory\]: the numeric identifier of the project to which the data point specified by `dataPointID` belongs
-* `schedule` \[mandatory\]: The details of the schedule, as follows.
-  * `name` \[optional\]: A human readable name for this schedule.
-  * `resetValue` \[optional\]: The value to write when the schedule finishes or fails.
-
-    If `None` the `resetValue` will be automatically inferred from the current state of the data point.
-
-  * `priority` \[optional\]: The priority at which to write setpoints contained in the schedule.
-
-    A default value can be configured per building and per datapoint.
-
-  * `heartbeat` \[optional, default=None\]: A duration in seconds after which the schedule deletes itself if no heartbeat from the API is received.
-  * `setpoints` \[mandatory\]: A list of setpoints that define this schedule.
+* Operate on datapoint `bacnet100-4120-Real-room-temperature-setpoint-RTs_real` of project `1`at priority `15`.
+* Start on 9.11.2018 18:00h \(a Friday afternoon\) by setting the desired room temperature to `18.5` °C \(to save energy when no one is in on the weekend\).
+* Continue on 12.11.2018 7:00h \(a Monday morning\) by setting the desired room temperature to `21.0` °C \(to provide thermal comfort during work hours\).
+* Repeat this simple schedule `weekly`.
+* If no heartbeat is received for `3600` seconds \(one hour\), stop the schedule and reset the desired temperature to `null` thereby letting the existing automation regain control.
 
 **Answer:** On success, the API call returns the created schedule. Each schedule is assigned a random **reference** that is used to query, modify, and delete the created schedule.
 
