@@ -1,18 +1,13 @@
 # Table of contents
 
 * [Welcome](README.md)
-* [What is aedifion.io](what-is-aedifion.io.md)
-* [Getting started](getting-started.md)
-* [aedifion.device](aedifion.device.md)
-* [Frontend](frontend.md)
-* [APIs](apis.md)
-* [Integrations](integrations.md)
+* [aedifion.io](what-is-aedifion.io/README.md)
+  * [Gateway](what-is-aedifion.io/aedifion.device.md)
+  * [Frontend](what-is-aedifion.io/frontend.md)
+  * [APIs](what-is-aedifion.io/apis.md)
+  * [Integrations](what-is-aedifion.io/integrations.md)
 * [Glossary](glossary.md)
 * [Contact](contact.md)
-
-## Features
-
-* [Local weather \(forecast\) data](features/local-weather-forecast-data.md)
 
 ## Tutorials
 

@@ -2,7 +2,7 @@
 description: This section describes the working principle of the aedifion.device.
 ---
 
-# aedifion.device
+# Gateway
 
 ## Functional overview
 

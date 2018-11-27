@@ -1,2 +1,0 @@
-# Local weather \(forecast\) data
-

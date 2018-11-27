@@ -6,7 +6,7 @@ description: Tutorial on writing setpoints and schedules for active building con
 
 ## Overview
 
-The aedifion Setpoint Writer is a lightweight piece of software capable of running on the [aedifion.device](../aedifion.device.md). It allows writing setpoints or whole schedules of many setpoints to any writable datapoint on any building automation component in the attached building network. The semantics of writing setpoints and schedules abstracts from the underlying building networks and automation protocols and thereby provides a unified, fine-grained control of the building's automation components.
+The aedifion Setpoint Writer is a lightweight piece of software capable of running on the [aedifion.device](../what-is-aedifion.io/aedifion.device.md). It allows writing setpoints or whole schedules of many setpoints to any writable datapoint on any building automation component in the attached building network. The semantics of writing setpoints and schedules abstracts from the underlying building networks and automation protocols and thereby provides a unified, fine-grained control of the building's automation components.
 
 ## Setpoints vs. schedules
 
