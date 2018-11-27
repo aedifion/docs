@@ -6,7 +6,7 @@ description: Tutorial on writing setpoints and schedules for active building con
 
 ## Overview
 
-The aedifion Setpoint Writer is a lightweight piece of software capable of running on the [aedifion.device](../what-is-aedifion.io/aedifion.device.md). It allows writing setpoints or whole schedules of many setpoints to any writable datapoint on any building automation component in the attached building network. The semantics of writing setpoints and schedules abstracts from the underlying building networks and automation protocols and thereby provides a unified, fine-grained control of the building's automation components.
+The aedifion Setpoint Writer is a lightweight piece of software capable of running on the [aedifion.device](../aedifion.io/gateway.md). It allows writing setpoints or whole schedules of many setpoints to any writable datapoint on any building automation component in the attached building network. The semantics of writing setpoints and schedules abstracts from the underlying building networks and automation protocols and thereby provides a unified, fine-grained control of the building's automation components.
 
 ## Setpoints vs. schedules
 
@@ -251,7 +251,7 @@ Within the configured bounds, writing is now possible while writing any attempt 
 }
 ```
 
-### Setpoints API
+### Writing single setpoints
 
 Setpoints are written through the `POST /v2/datapoint/setpoint` endpoint. The caller must provide the following parameters:
 
@@ -322,11 +322,9 @@ print(r.text)
 {% endtab %}
 {% endtabs %}
 
-### Schedules API
+### Creating schedules
 
 Schedules are the generalization of setpoints. They allow you to specify multiple setpoints that are written at predefined points in times. And, schedules will automatically clean-up after themselves, i.e., reset the written datapoint to the same state it was in before the schedule, if you let them.
-
-#### **Creating schedules**
 
 A new schedule is created through the `POST /v2/datapoint/schedule` endpoint. The caller must identify the datapoint in the query and provide the details of the schedule as a JSON object in the body of the request:
 
@@ -410,7 +408,7 @@ A new schedule is created through the `POST /v2/datapoint/schedule` endpoint. Th
       </td>
       <td style="text-align:center">no</td>
       <td style="text-align:left">Repeat interval of this schedule. One of 'hourly', 'daily', 'weekly',
-        'monthly', or 'yearly'. <b>Coming soon.</b>
+        'monthly', or 'yearly'. <em><b>Coming soon.</b></em>
       </td>
       <td style="text-align:left">'weekly'</td>
     </tr>
@@ -425,7 +423,7 @@ A new schedule is created through the `POST /v2/datapoint/schedule` endpoint. Th
       <td style="text-align:center">no</td>
       <td style="text-align:left">Duration in seconds after which the schedule deletes itself if no heartbeat
         is received.</td>
-      <td style="text-align:left">3600</td>
+      <td style="text-align:left">60</td>
     </tr>
     <tr>
       <td style="text-align:left"><b>setpoints</b>
@@ -438,9 +436,8 @@ A new schedule is created through the `POST /v2/datapoint/schedule` endpoint. Th
       <td style="text-align:center">yes</td>
       <td style="text-align:left">A list of setpoints. Each setpoint is defined by a unique <code>id</code>,
         a <code>start</code> time, and a <code>value</code>.</td>
-      <td style="text-align:left">[{'id':1, 'start':'2018-11-09T18:00:00Z, 'value':18.5}, {'id':1, 'start':'2018-11-12T7:00:00Z,
-        'value':21.0}
-        <br />]</td>
+      <td style="text-align:left">[{'id':0, 'start':'2018-11-09T18:00:00Z', 'value':18.5}, {'id':1, 'start':'2018-11-12T7:00:00Z',
+        'value':21.0}]</td>
     </tr>
   </tbody>
 </table>The different options for defining a schedule deserve some more explanation. The example schedule in the above table realizes a very simple weekend override for the office temperature in winter. In detail, it would do the following:
@@ -449,92 +446,265 @@ A new schedule is created through the `POST /v2/datapoint/schedule` endpoint. Th
 * Start on 9.11.2018 18:00h \(a Friday afternoon\) by setting the desired room temperature to `18.5` °C \(to save energy when no one is in on the weekend\).
 * Continue on 12.11.2018 7:00h \(a Monday morning\) by setting the desired room temperature to `21.0` °C \(to provide thermal comfort during work hours\).
 * Repeat this simple schedule `weekly`.
-* If no heartbeat is received for `3600` seconds \(one hour\), stop the schedule and reset the desired temperature to `null` thereby letting the existing automation regain control.
+* If no heartbeat is received for `60` seconds, stop the schedule and reset the desired temperature to `null` thereby letting the existing automation regain control.
 
-**Answer:** On success, the API call returns the created schedule. Each schedule is assigned a random **reference** that is used to query, modify, and delete the created schedule.
+Let's post the request and inspect the answer. Note that we'll leave out the _repeat_ feature because it is  not supported, yet and also leave out an explicit _resetValue_ so that it is determined automatically.
 
 {% tabs %}
 {% tab title="Python" %}
 ```python
 import requests
-
-# configuration
 api_url = "https://api.aedifion.io"
-auth = ("user", "password") # fill in email and password
-dataPointID = ... # fill in data point identifier
-project_id = ... # fill in project id
-schedule = { ...} # fill in schedule
-
+john = ("john.doe@aedifion.com", "mys3cre3tp4ssw0rd")
+project_id = 1
+dataPointID = "bacnet100-4120-Real-room-temperature-setpoint-RTs_real"
+schedule = {
+    "name": "Weekend_override",
+    "priority": 15,
+    "heartbeat": 60,
+    "setpoints": [
+        {'id':0, 'start':'2018-11-09T18:00:00Z', 'value':'18.5'}, 
+        {'id':1, 'start':'2018-11-12T07:00:00Z', 'value':'21.0'}   
+    ]
+}
 r = requests.post(url + "/v2/datapoint/schedule",
          params={'dataPointID':dataPointID, 'project_id':project_id},
-         json=schedule,
-         auth=auth)
-print(r.status_code, r.json()
+         auth=john,
+         json=schedule)
+print(r.text)
 ```
 {% endtab %}
 
 {% tab title="Curl" %}
-
+Coming soon 🐒
 {% endtab %}
 
-{% tab title="Matlab" %}
-
+{% tab title="Swagger UI" %}
+Coming soon 🐒
 {% endtab %}
 {% endtabs %}
 
-#### **Updating schedules**
+When this request is posted to the API, the API will check \(among permissions\) the syntactic correctness of the request and that no other schedule is active on the same datapoint and priority. If the request is accepted by the API, it is sent to the Setpoint Writer that runs on the aedifion.device in the building network. It is important to note that the API returns immediately after sending the schedule to the Setpoint Writer, i.e., without waiting for a confirmation from the Setpoint Writer. Instead, the Setpoint Writer will asynchronously update the schedule's status on the API at a later point. Creation of schedules is asynchronous because it requires one round of communication with the setpoint writer that may be subject to delay and intermittent connectivity that would heavily slow down or even break synchronous operation.
 
-**Request:** Schedules are updated through
+The reply from the API is similar to the following:
 
-```text
-PUT https://api-dev.aedifion.io/v2/datapoint/setpoint
+```javascript
+{
+  "success": true,
+  "operation": "create",
+  "resource": {
+    "reference": "18f86b8a-1669-49da-adc3-e171c8e4e229",
+    "name": "Weekend_override",
+    "status": "initialized",    
+    "datapoint_id": 127,
+    "priority": 15,
+    "heartbeat": 60,
+    "log": "[{\"msg\": \"Schedule created by user.\", \"status\": \"initialized\", \"time\": \"2018-11-08T13:37:40.819719Z\"}]",
+    "setpoints": [
+      {
+        "id": 0,
+        "start": "2018-11-09T18:00:00Z",
+        "value": "null"
+      },
+      {
+        "id": 1,
+        "start": "2018-11-12T07:00:00Z",
+        "value": "null"
+      }
+    ]
+  }
+}
 ```
 
-The caller can/must provide:
+The answer confirms that the schedule has been created and provides further details that deserve a detailed explanation.
 
-* `reference` \[mandatory\]: The reference of the schedule assigned during creation.
-* `schedule` \[mandatory\]: The details of the updated schedule as follows.
-  * `name` \[optional\]: The new human readable name for this schedule.
-  * `resetValue` \[optional, default=None\]: The new reset value of this schedule.
+* The _status_ of the schedule is in state `initialized` meaning that the schedule has been accepted by the API and sent to the setpoint writer in the building network \(c.f. [Overview](setpoints-and-schedules.md#overview)\). The setpoint writer may still reject the schedule, e.g., if the requested datapoint is non-writable.
+* The answer contains a _reference_ to this schedule that can be used with the `GET /v2/datapoint/schedule/{reference}` endpoint to retrieve information about the state of the schedule at a later time. This is necessary since schedules operate on the setpoint writer in the building asynchronously from the aedifion.io platform and API \(c.f. [Overview](setpoints-and-schedules.md#overview)\).
+* The answer further contains a JSON-formatted _log_ which is filled by the API and Setpoint Writer with any notable events concerning this schedule. The log is a list of events where each event notes at least the _status_ of the schedule, a human readable message _msg_, and the _time_ of the event.
 
-    **Note: changing the reset value has only effect on setpoints that are added or modified afterward, but not on the existing and already scheduled setpoints.**
+### **Querying schedules**
 
-  * `heartbeat` \[optional, default=None\]: The new heartbeat duration in seconds, takes effect immediately.
-  * `repeat` \[optional, default=None\]: The new repeat interval, one of 'hourly', 'daily', 'weekly', 'monthly', 'yearly', the schedule is repeated in these intervals.
+When a setpoint is created or executed, the Setpoint Writer updates the schedule's status on the API on each major event, e.g., on activation, on writing a setpoint from the schedule, and any kind of error. It is the user's responsibility to check the status of his/her schedule continuously. To this end, the `GET /v2/datapoint/schedule/{reference}` can be used to which the caller must only provide a single argument:
 
-    **This feature is currently not supported, yet.**
+| **Paramater** | Datatype | Type | Required | Description | Example |
+| :--- | :---: | :---: | :---: | :--- | :--- |
+| **reference** | string | path | yes | The alphanumeric id of the schedule returned on creation. | 18f86b8a-1669-49da-adc3-e171c8e4e229 |
 
-  * `setpoints_add` \[optional\]: A list of _new_ setpoints to add to the schedule.
+In the following, we get the schedule but print only its log for the sake of clarity.
 
-    If a new setpoint has the same `id` as an existing setpoint, the update is rejected.
+{% tabs %}
+{% tab title="Python" %}
+```python
+import json
+def printLog(schedule):
+    log = json.loads(schedule['log'])
+    print("Log:")
+    for event in log:
+        print(" -> {event['time']} - {event['status']:11s} {event['msg']}")
+reference = '18f86b8a-1669-49da-adc3-e171c8e4e229'
+r = requests.get(url + f"/v2/datapoint/schedule/{reference}", auth=john)
+schedule = r.json()
+printLog(schedule)
+```
+{% endtab %}
 
-  * `setpoints_modify` \[optional\]: A list of _existing_ setpoints to modify identified by their `id`.
+{% tab title="Curl" %}
+```bash
+curl https://api.aedifion.io/v2/datapoint/schedule/18f86b8a-1669-49da-adc3-e171c8e4e229
+    -u john.doe@aedifion.com    
+```
+{% endtab %}
+{% endtabs %}
 
-    If a setpoint from this list does not exist, the update is rejected.
+```text
+Log:
+ -> 2018-11-27T13:37:40.819719Z - initialized Schedule created by user.
+ -> 2018-11-27T13:37:41.448276Z - active      Schedule successfully activated on remote logger.
+```
 
-  * `setpoints_delete` \[optional\]: A list of _existing_ setpoints to delete identified by their `id`.
+Note how a second item has been appended to the log, i.e., the confirmation from the Setpoint Writer that the schedule has been accepted and activated. If we wait for a minute, we will see two more events being appended to the log:
 
-    If a setpoint from this list does not exist, the update is rejected.
+```text
+Log:
+ -> 2018-11-27T13:37:40.819719Z - initialized Schedule created by user.
+ -> 2018-11-27T13:37:41.448276Z - active     Schedule successfully activated on remote logger.
+ -> 2018-11-27T13:38:41.588739Z - active     Successfully wrote setpoint (id=reset, value=null, priority = 15).
+ -> 2018-11-27T13:38:41.809271Z - failed     Deletion of schedule on missing heartbeat (2 setpoints deleted before execution).
+```
 
-**Answer:** On success, the API returns the updated schedule in the `resource` field of the answer.
+What happened? We set the _heartbeat_ for this schedule to 60 seconds but didn't send any heartbeats. Exactly 60 seconds after activating this schedule, the Setpoint Writer thus cancelled this schedule by 
 
-{% hint style="warning" %}
-**Adding, modifying, deleting setpoints in the past:** Updating a running schedule, it is not allowed to add, modify, or delete setpoints that lie in the past in order to prevent inconsistent states. To account for potential communication delays between the API and the setpoint writer, an additional security margin of 60 seconds into the future is enforced. In other words, all setpoints that are added, modified, or deleted within an update, must have a start time that is at least 60 seconds into the future.
-{% endhint %}
+* writing the reset value \(`null` in our case\) which needs to be done since we could have written setpoints before, then
+* cancelling all remaining scheduled setpoints, and, finally,
+* notifying the API about the failure of this schedule.
 
-{% hint style="info" %}
-**Order of updates:** Updates of setpoints are processed in the following order:
+This schedule has now reached [End-of-Life](setpoints-and-schedules.md#states-and-transitions): We could query it again and again but nothing would change anymore and attempt to update or delete this schedule will be rejected.
 
-1. New setpoints are added from `setpoints_add`.
-2. Setpoints in `setpoints_modify` are modif**i**ed accordingly.
-3. Setpoints in `setpoints_delete` are removed.
+### **Updating and modifying schedules**
 
-This order of applying updates means that one could add a new setpoint, modify it, and delete it _within in the same update operation_ \(although this evidently does not make much sense\).
-{% endhint %}
+Since our first test schedule timed-out, let's create a second with a much higher heartbeat of 600 seconds on which we can calmly try our updates. Please note down the returned reference, e.g., in this example:`390ca8e9-f699-49a4-921f-2746a7eecc5d` Go on and `GET` the schedule to make sure that it has actually been accepted and now is `active`. 
 
-{% hint style="warning" %}
-**Deleting stop events:** When the stop event $$s_n$$ is deleted, the latest \(time-wise\) remaining setpoint $$s_i$$ becomes the new stop event, including its original value $$v_i$$. When a setpoint $$s_m$$ with $$t_m \gt t_n$$ is added, $$s_m$$ becomes the new stop event, including its original value $$v_m$$. The bottom line is that the user must take care while adding, modifying, and deleting setpoints from a schedule that the last \(time-wise\) setpoint "correctly" resets the system. In the 99%, this will mean defining _'reset'_ as the value of the time-wise last setpoint _after_ addition, modification, and deletion of setpoints.
-{% endhint %}
+All schedules that are not in state `failed` or `terminated` \(such as our second test schedule\) can be updated and modified through the `PUT /v2/datapoint/schedule/{reference}` endpoint with the following parameters:
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left"><b>Paramater</b>
+      </th>
+      <th style="text-align:center">Datatype</th>
+      <th style="text-align:center">Type</th>
+      <th style="text-align:center">Required</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>reference</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">path</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The alphanumeric id of the schedule to modify.</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>name</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">The new name for the schedule.</td>
+      <td style="text-align:left">Weekend_override</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>resetValue</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">The new reset value of this schedule.</td>
+      <td style="text-align:left">20</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>heartbeat</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">Duration in seconds after which the schedule deletes itself if no heartbeat
+        is received.</td>
+      <td style="text-align:left">60</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p><b>setpoints_</b>
+        </p>
+        <p><b>add</b>
+        </p>
+      </td>
+      <td style="text-align:center">list of dict</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">A list of <em>new</em> setpoints to add to the schedule. If a new setpoint
+        has the same <code>id</code> as an existing setpoint, the update is rejected.</td>
+      <td
+      style="text-align:left">[{'id':2, 'start':'2018-11-12T9:00:00Z', 'value':20.0}]</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p><b>setpoints_</b>
+        </p>
+        <p><b>modify</b>
+        </p>
+      </td>
+      <td style="text-align:center">list of dict</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">A list of <em>existing</em> setpoints to modify identified by their <code>id</code>.
+        If a setpoint from this list does not exist, the update is rejected.</td>
+      <td
+      style="text-align:left">[{'id':0, 'start':'2018-11-09T19:00:00Z', 'value':17}, {'id':1, 'start':'2018-11-12T8:00:00Z',
+        'value':22}]</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p><b>setpoints_</b>
+        </p>
+        <p><b>delete</b>
+        </p>
+      </td>
+      <td style="text-align:center">list of dict</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">
+        <p>A list of <em>existing</em> setpoints to delete identified by their <code>id</code>.</p>
+        <p>If a setpoint from this list does not exist, the update is rejected.</p>
+      </td>
+      <td style="text-align:left">[{'id':2, 'start':'2018-11-12T9:00:00Z', 'value':20}]</td>
+    </tr>
+  </tbody>
+</table>Let's post this update 
+
+TODO
 
 {% tabs %}
 {% tab title="Python" %}
@@ -554,64 +724,31 @@ print(r.status_code, r.json())
 {% endtab %}
 
 {% tab title="Curl" %}
-Coming soon.
+Coming soon 🐒
 {% endtab %}
 
-{% tab title="Matlab" %}
-Coming soon.
-{% endtab %}
-{% endtabs %}
-
-#### **Querying schedules**
-
-**Request:** The current state and details of a schedules are retrieved through
-
-```text
-GET https://api-dev.aedifion.io/v2/datapoint/schedule/{reference}
-```
-
-The caller can/must provide:
-
-* `reference` \[mandatory\]: The reference of the schedule assigned during creation.
-
-**Answer:** On success, the API will return the JSON encoded schedule.
-
-{% tabs %}
-{% tab title="Python" %}
-```python
-import requests
-
-# configuration
-... # see above
-reference = ... # from create or update
-
-r = requests.get(url + "/v2/datapoint/schedule/{}".format(ref))
-print(r.status_code, r.json())
-```
-{% endtab %}
-
-{% tab title="Curl" %}
-Coming soon.
-{% endtab %}
-
-{% tab title="Matlab" %}
-Coming soon.
+{% tab title="Swagger UI" %}
+Coming soon 🐒
 {% endtab %}
 {% endtabs %}
 
-**Deleting schedules**
+{% hint style="info" %}
+**Order of updates:** Updates of setpoints are processed in the following order:
 
-**Request:** A schedule is stopped and deleted through
+1. New setpoints are added from `setpoints_add`.
+2. Setpoints in `setpoints_modify` are modif**i**ed accordingly.
+3. Setpoints in `setpoints_delete` are removed.
 
-```text
-DELETE https://api-dev.aedifion.io/v2/datapoint/schedule/{reference}
-```
+This order of applying updates means that one could add a new setpoint, modify it, and delete it _within in the same update operation_ \(although this evidently does not make much sense\).
+{% endhint %}
 
-The caller can/must provide:
+### **Deleting schedules**
 
-* `reference` \[mandatory\]: The reference of the schedule assigned during creation.
+Any schedule that is not `terminated` or `failed` can be stopped through the `DELETE /v2/datapoint/schedule/{reference}` endpoint which takes a single argument:
 
-**Answer:** On success, the API will return the deleted schedule in the _'resource'_ field of the answer. After deletion, the schedule is either in state `finished` or `terminated` and can still be queried through the `GET /v2/datapoint/schedule/{reference}` endpoint, but cannot be modified or executed anymore.
+| **Paramater** | Datatype | Type | Required | Description | Example |
+| :--- | :---: | :---: | :---: | :--- | :--- |
+| **reference** | string | path | yes | The alphanumeric id of the schedule returned on creation. | 390ca8e9-f699-49a4-921f-2746a7eecc5d |
 
 {% tabs %}
 {% tab title="Python" %}
@@ -636,7 +773,53 @@ print(r.status_code, r.json())
 {% endtab %}
 {% endtabs %}
 
-## Planned features and extensions
+On success, the API will return the deleted schedule in the _'resource'_ field of the answer. After deletion, the schedule is either in state `finished` or `terminated` and can still be queried through the `GET /v2/datapoint/schedule/{reference}` endpoint, but cannot be modified or executed anymore.
+
+```javascript
+{
+  "operation": "delete",
+  "resource": {
+    "datapoint_id": 127,
+    "heartbeat": 3600,
+    "log": "[{\"msg\": \"Schedule created by user.\", \"status\": \"initialized\", \"time\": \"2018-11-27T15:10:44.662878Z\"}, {\"msg\": \"Schedule successfully activated on remote logger.\", \"status\": \"active\", \"time\": \"2018-11-27T15:10:45.315786Z\"}, {\"msg\": \"User triggered DELETE /v2/datapoint/schedule/{{reference}}\", \"status\": \"stopping\", \"time\": \"2018-11-27T15:55:38.145546Z\"}]",
+    "name": "Weekend_override",
+    "priority": 15,
+    "reference": "390ca8e9-f699-49a4-921f-2746a7eecc5d",
+    "setpoints": [
+      {
+        "id": 0,
+        "start": "2019-11-09T18:00:00Z",
+        "value": "null"
+      },
+      {
+        "id": 1,
+        "start": "2019-11-12T07:00:00Z",
+        "value": "null"
+      }
+    ],
+    "status": "stopping"
+  },
+  "success": true
+}
+```
+
+Note that the status of the schedule is now reported as `stopping`. The reason is that, similar as during [creation of a schedule](setpoints-and-schedules.md#creating-schedules), the API will forward the delete request to the Setpoint Writer then return immediately. Just as everything about schedules, deletion is asynchronous and the caller should thus `GET` the schedule a short time after issuing the delete in order to verify that everything worked out as expected.
+
+## Limitations and caveats
+
+#### **Adding, modifying, deleting setpoints in the past**
+
+Updating a running schedule, it is not allowed to add, modify, or delete setpoints that lie in the past in order to prevent inconsistent states. To account for potential communication delays between the API and the setpoint writer, an additional security margin of 60 seconds into the future is enforced. In other words, all setpoints that are added, modified, or deleted within an update, must have a start time that is at least 60 seconds into the future.
+
+#### Deleting stop events
+
+The time-wise last setpoint in a schedule is referred to as stop event. The value that it writes is left in the system. In the 99% of cases, this means that defining `'reset'` as the value of the time-wise last setpoint is the right choice as this will write the value that was written for this datapoint and priority before the schedule went active.
+
+However, when the stop event $$s_n$$is deleted, the latest \(time-wise\) remaining setpoint $$s_i$$automatically becomes the new stop event, including its original value $$v_i$$. Similarly, when a setpoint $$s_m$$ with $$t_m \gt t_n$$ is added $$s_m$$ automatically becomes the new stop event, including its original value $$v_m$$. If $$v_i$$\(or $$v_m$$\) are something other than `'reset'` the system might be unintentionally left in a different state after the schedule than expected by the user.
+
+The bottom line is that the user must take care while adding, modifying, and deleting setpoints from a schedule that the last \(time-wise\) setpoint writes a value that "correctly" resets the system. Again, usually `'reset'` will be the right choice of value for the stop event.
+
+## Planned features
 
 The following features will be released soon.
 

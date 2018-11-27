@@ -1,11 +1,11 @@
 # Table of contents
 
 * [Welcome](README.md)
-* [aedifion.io](what-is-aedifion.io/README.md)
-  * [Gateway](what-is-aedifion.io/aedifion.device.md)
-  * [Frontend](what-is-aedifion.io/frontend.md)
-  * [APIs](what-is-aedifion.io/apis.md)
-  * [Integrations](what-is-aedifion.io/integrations.md)
+* [aedifion.io](aedifion.io/README.md)
+  * [Gateway](aedifion.io/gateway.md)
+  * [Frontend](aedifion.io/frontend.md)
+  * [APIs](aedifion.io/apis.md)
+  * [Integrations](aedifion.io/integrations.md)
 * [Glossary](glossary.md)
 * [Contact](contact.md)
 
