@@ -6,6 +6,11 @@ description: >-
 
 # aedifion.io
 
+## Stoffsammlung
+
+* 30.000 ft overview of aedifion.io 
+* Normen \(6061 AMEV, ISO 50001, ...\)
+
 aedifion.**io** enables building and district-wide as well as plant-specific acquisition of operational data, data transfer and storage as well as location-, device- and platform-independent data retrieval. Furthermore, aedifion.**io** offers data management functions and various visualization options. aedifion.io offers access control and fine-grained user, role and rights management in accordance with recent IT security standards. This comprises a web server certification, a complete TLS encryption of the data transfer as well as a user authentication mechanism. 
 
 ![Schematic of aedifion.io](../.gitbook/assets/assets_-lq4g3srfvmmrkjgfsb4_-lq9aaslss2a_uh-u89s_-lq9afwn5j8cd88bi1gi_bildschirmfoto-2018-10-31-um-1.png)

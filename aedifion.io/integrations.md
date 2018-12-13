@@ -18,6 +18,14 @@ Under construction
 
 ## Alexa
 
+## Cloud services
+
+### Cumulocity
+
+### AWS
+
+...
+
 ## Weather data
 
 This chapter explains the free of charge integration of weather \(prediction\) data for a specific project.

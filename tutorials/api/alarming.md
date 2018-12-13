@@ -6,7 +6,7 @@ description: Tutorial for creating and managing alerts on time series and meta-d
 
 ## Overview
 
-In this article, you will learn how to set up alarms on time series and meta-data on the aedifion.io platform. Currently, the aedifion.io platform supports two types of alarms: i\) alarms on the observations for a datapoint and ii\) alarms on the throughput \(i.e., received observations per time interval\) of a certain datapoint or whole project \(please refer to our [Glossary](../glossary.md) if the terms datapoint and observation seem strange to you\). You will specify one of each and configure it to send out notifications on alarm events via the Telegram instant messenger or email.
+In this article, you will learn how to set up alarms on time series and meta-data on the aedifion.io platform. Currently, the aedifion.io platform supports two types of alarms: i\) alarms on the observations for a datapoint and ii\) alarms on the throughput \(i.e., received observations per time interval\) of a certain datapoint or whole project \(please refer to our [Glossary](../../glossary.md) if the terms datapoint and observation seem strange to you\). You will specify one of each and configure it to send out notifications on alarm events via the Telegram instant messenger or email.
 
 ### Preliminaries
 
@@ -14,7 +14,7 @@ The examples provided in this article partly build on each other. For the sake o
 
 To execute the examples provided in this tutorial, the following is needed:
 
-* A valid login \(username and password\) to the aedifion.io platform. If you do not have a login yet, please [contact us](../contact.md) regarding a demo login. The login used in the example will not work!
+* A valid login \(username and password\) to the aedifion.io platform. If you do not have a login yet, please [contact us](../../contact.md) regarding a demo login. The login used in the example will not work!
 * A project with live data ingress.
 * Optionally, a working installation of [Python](https://www.python.org/) or [Curl](https://curl.haxx.se/).
 
@@ -25,7 +25,7 @@ The aedifion.io platform supports two versatile types of alarms:
 * _Threshold alarms_ are defined on single datapoints and trigger an alarm whenever the measured values for that datapoint exceed \(or fall below\) a certain threshold. A typical use case for threshold alarms is notifying about unwanted system conditions such as high CO2 concentration in offices.
 * _Throughput alarms_ are defined on single datapoints or whole projects and trigger an alarm whenever the measured throughput for that datapoint or project falls below a certain threshold. Thresholds can be set at three different levels to indicate the severity of missing throughput. Typical use cases for throughput alarms is fault detection by monitoring of the operational health of the building automation systems, e.g., alerting about the unscheduled shut-down of a critical component or notifying when a sensor is dead.
 
-Further types of alarms will be added in future. If you have a special request, please [contact us](../contact.md).
+Further types of alarms will be added in future. If you have a special request, please [contact us](../../contact.md).
 
 ## Adding alarms
 
@@ -499,18 +499,18 @@ The response confirms that the alarm has been updated as requested:
 
 You will soon see the alerts from @aedifion\_bot dropping in to your Telegram chat \(or to your mail account\).
 
-![Telegram alerts on CO2 concentration in action](../.gitbook/assets/alerts_w_chat.png)
+![Telegram alerts on CO2 concentration in action](../../.gitbook/assets/alerts_w_chat.png)
 
 We can also modify the throughput alarm with ridiculously high thresholds on throughput to provoke an alarm, e.g., `"threshold_crit": 20000`.`"threshold_warn": 50000` and `"threshold_info": 100000`.
 
-![Telegram alert on project throughput in action](../.gitbook/assets/alert_throughput.png)
+![Telegram alert on project throughput in action](../../.gitbook/assets/alert_throughput.png)
 
 ## Plotting alarms in Telegram
 
 When we receive an alarm, e.g., on Telegram, we want to get a quick idea of what triggered the alarm. The first thing is then to actually look at the time series. Conveniently, we can do this through @aedifion\_bot right there in Telegram where the alerts are received. 
 
 {% hint style="warning" %}
-Due to data privacy protection, the plotting feature must first be activated for your Telegram chat. Please [contact the technical support](../contact.md) in this matter.  If it is not yet activated you will receive an error message accordingly. 
+Due to data privacy protection, the plotting feature must first be activated for your Telegram chat. Please [contact the technical support](../../contact.md) in this matter.  If it is not yet activated you will receive an error message accordingly. 
 {% endhint %}
 
 ### Plotting a threshold alarm
@@ -519,17 +519,17 @@ Follow the next four steps to plot the time series of a datapoint on which a thr
 
 1. Right-click on one of the alarms and hit _Reply_
 
-![](../.gitbook/assets/alert_plot_01.png)
+![](../../.gitbook/assets/alert_plot_01.png)
 
 2. Reply to the selected alert with the message "/plot" \(messages starting with a slash `/` are interpreted as commands to the bot by the Telegram Bot API.\).
 
 3. Select how much history you need.
 
-![](../.gitbook/assets/alert_plot_03.png)
+![](../../.gitbook/assets/alert_plot_03.png)
 
   4. Wait for the plot to be generated and inspect it.
 
-![](../.gitbook/assets/alert_plot_04.png)
+![](../../.gitbook/assets/alert_plot_04.png)
 
 In this example, we can observe that CO2 level started to rise rapidly with the beginning of the workday. This is quite normal and nothing to worry about.
 
@@ -537,11 +537,11 @@ In this example, we can observe that CO2 level started to rise rapidly with the 
 
 You can also plot throughput in exactly the same manner as [plotting threshold alarms](alarming.md#plotting-a-threshold-alarm) - you only need to reply "/plot" to a throughput alarm notification sent by the bot.
 
-![](../.gitbook/assets/alert_reply_throughput.png)
+![](../../.gitbook/assets/alert_reply_throughput.png)
 
 As before, select the amount of history you need and wait for the plot be received.
 
-![](../.gitbook/assets/alert_plot_throughput.png)
+![](../../.gitbook/assets/alert_plot_throughput.png)
 
 ## Pausing alarms
 

@@ -2,20 +2,25 @@
 
 * [Welcome](README.md)
 * [aedifion.io](aedifion.io/README.md)
+  * [Features](aedifion.io/features.md)
   * [Gateway](aedifion.io/gateway.md)
-  * [Frontend](aedifion.io/frontend.md)
   * [APIs](aedifion.io/apis.md)
+  * [Frontend](aedifion.io/frontend.md)
+  * [Data](aedifion.io/data.md)
   * [Integrations](aedifion.io/integrations.md)
 * [Glossary](glossary.md)
 * [Contact](contact.md)
 
 ## Tutorials
 
-* [Administration](tutorials/administration.md)
-* [Alarming](tutorials/alarming.md)
-* [Setpoints and schedules](tutorials/setpoints-and-schedules.md)
-* [Tagging](tutorials/tagging.md)
-* [Data import](tutorials/data-import.md)
+* [Frontend](tutorials/frontend.md)
+* [API](tutorials/api/README.md)
+  * [Administration](tutorials/api/administration.md)
+  * [Data import and export](tutorials/api/data-import.md)
+  * [Favorites, tagging, renaming](tutorials/api/tagging.md)
+  * [Alarming](tutorials/api/alarming.md)
+  * [Analytics](tutorials/api/analytics.md)
+  * [Controls](tutorials/api/setpoints-and-schedules.md)
 
 ## Developers
 
@@ -24,8 +29,5 @@
   * [Examples](developers/websocket-api/examples.md)
 * [MQTT API](developers/mqtt-api/README.md)
   * [Examples](developers/mqtt-api/examples.md)
-
-## System Integrators
-
-* [IT Admins](system-integrators/it-admins.md)
+* [IT Admins](developers/it-admins.md)
 

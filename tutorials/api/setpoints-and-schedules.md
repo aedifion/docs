@@ -2,11 +2,11 @@
 description: Tutorial on writing setpoints and schedules for active building control.
 ---
 
-# Setpoints and schedules
+# Controls
 
 ## Overview
 
-The aedifion Setpoint Writer is a lightweight piece of software capable of running on the [aedifion.device](../aedifion.io/gateway.md). It allows writing setpoints or whole schedules of many setpoints to any writable datapoint on any building automation component in the attached building network. The semantics of writing setpoints and schedules abstracts from the underlying building networks and automation protocols and thereby provides a unified, fine-grained control of the building's automation components.
+The aedifion Setpoint Writer is a lightweight piece of software capable of running on the [aedifion.device](../../aedifion.io/gateway.md). It allows writing setpoints or whole schedules of many setpoints to any writable datapoint on any building automation component in the attached building network. The semantics of writing setpoints and schedules abstracts from the underlying building networks and automation protocols and thereby provides a unified, fine-grained control of the building's automation components.
 
 ## Setpoints vs. schedules
 
@@ -70,7 +70,7 @@ Due to the different properties of setpoints and schedules, the user should care
 
 ## API Tutorial
 
-Setpoints and schedules are written and managed through the [HTTP API](../developers/api-documentation.md). In this section, we go through the steps of unlocking setpoints and schedules for an existing project, configuring selected datapoints for writing, and, finally, writing sample setpoints and schedules.
+Setpoints and schedules are written and managed through the [HTTP API](../../developers/api-documentation.md). In this section, we go through the steps of unlocking setpoints and schedules for an existing project, configuring selected datapoints for writing, and, finally, writing sample setpoints and schedules.
 
 ### Preliminaries
 
@@ -78,7 +78,7 @@ The examples provided in this section partly build on each other. For the sake o
 
 To execute the examples provided in this tutorial, the following is needed:
 
-* A valid login \(username and password\) to the aedifion.io platform. If you do not have a login yet, please [contact us](../contact.md) regarding a demo login. The login used in the example will not work!
+* A valid login \(username and password\) to the aedifion.io platform. If you do not have a login yet, please [contact us](../../contact.md) regarding a demo login. The login used in the example will not work!
 * A project with writable datapoints.
 * Optionally, a working installation of [Python](https://www.python.org/) or [Curl](https://curl.haxx.se/).
 
@@ -98,7 +98,7 @@ The setpoints and schedules feature is per default completely locked for all pro
 }
 ```
 
-In order to activate setpoints and schedules for your project, please [contact us](../contact.md) personally. We will need to know:
+In order to activate setpoints and schedules for your project, please [contact us](../../contact.md) personally. We will need to know:
 
 * The project \(id\) for which you wish to activate writing.
 * Whether you wish to enable setpoints or schedules or both.
@@ -826,7 +826,7 @@ The following features will be released soon.
 * _Acknowledged setpoints:_ Introduction of a Boolean parameter `acknowledged` that triggers an asynchronous acknowledgement from the setpoint writer towards the API which can later be queried by the user through an additional API endpoint `GET /v2/datapoint/setpoint/{reference}`
 * Pausing and un-pausing a running schedule through additional endpoint `PUT /v2/datapoint/schedule/{reference}/toggle`
 
-Missing a feature? [Request it!](../contact.md#support)
+Missing a feature? [Request it!](../../contact.md#support)
 
 ## FAQ
 

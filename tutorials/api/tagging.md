@@ -4,7 +4,7 @@ description: >-
   annotations to datapoints.
 ---
 
-# Tagging
+# Favorites, tagging, renaming
 
 ## Overview
 
@@ -20,7 +20,7 @@ The examples provided in this article partly build on each other. For the sake o
 
 To execute the examples provided in this tutorial, the following is needed:
 
-* A valid login \(username and password\) to the aedifion.io platform. If you do not have a login yet, please [contact us](../contact.md) regarding a demo login. The login used in the example will not work!
+* A valid login \(username and password\) to the aedifion.io platform. If you do not have a login yet, please [contact us](../../contact.md) regarding a demo login. The login used in the example will not work!
 * A project with datapoints.
 * Optionally, a working installation of [Python](https://www.python.org/) or [Curl](https://curl.haxx.se/).
 
@@ -93,7 +93,7 @@ The following example excerpt shows a tag assigned to a datapoint by aedifion's 
 
 ## API Examples
 
-In this section, we provide concrete examples on how to use the aedifion [HTTP API](../developers/api-documentation.md) to create, inspect, modify and delete tags and tag assignments to datapoints. We explain all the necessary methods by the example of tagging all the datapoints within your office.
+In this section, we provide concrete examples on how to use the aedifion [HTTP API](../../developers/api-documentation.md) to create, inspect, modify and delete tags and tag assignments to datapoints. We explain all the necessary methods by the example of tagging all the datapoints within your office.
 
 ### Adding tags
 
