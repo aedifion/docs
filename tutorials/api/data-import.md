@@ -251,7 +251,7 @@ The endpoint `GET /v2/datapoint/timeseries` allows querying the data of single [
 | **max** | int | query | no | Maximum number of observations to return. This option is ignored when both _start_ and _end_ are provided. Setting `max = 0` returns all __available data points. | 0 |
 | **samplerate** | string | query | no | The returned observations are sampled down to the specified interval. Allowed intervals are integers combined with durations, like seconds \(s\), minutes \(m\), hours \(h\), and days \(d\), e.g. `10s`or `2m`. |  |
 
-Before we use that endpoint to shoot a couple of example queries for the data, let's insert some more useful data.
+Before we use that endpoint to shoot a couple of example queries for the data, let's insert some more useful data via the [CSV upload described above](data-import.md#csv-upload).
 
 {% file src="../../.gitbook/assets/sun\_degrees\_over\_horizon.csv" caption="Sun\'s position over the horizon" %}
 
@@ -261,18 +261,103 @@ This dataset describes the degree of the sun over the horizon by calendar days. 
 
 #### Querying by time window
 
-Let's assume we only want to know the data for one year, e.g., 2018.
+Let's assume we only want to know the data for one year, e.g., 2018. We can query for this time window by setting the _start_ and _end_ parameters accordingly.
 
 {% tabs %}
-{% tab title="Python" %}
-
-{% endtab %}
-
 {% tab title="Curl" %}
 ```bash
-curl 'http://localhost:5001/v2/datapoint/timeseries?project_id=1&dataPointID=SunDegreeOverHorizon&start=2018-01-01&end=2018-12-31'
+curl 'https://api.aedifion.io/v2/datapoint/timeseries?project_id=1&dataPointID=SunDegreeOverHorizon&start=2018-01-01&end=2018-12-31'
+    -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
+```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login.
+3. From the main tags \(Meta, Company, ...\) select the _Project_ tag ,then the `POST /v2/project/{project_id}/importTimeseries` endpoint \(green\).
+4. Choose `on_error = abort` and select a `test_upload_file.csv` from disk.
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
+{% endtab %}
+{% endtabs %}
+
+The JSON-formatted response contains all observations that could be retrieved for this time period in the _data_ field sorted in ascending order by time. The field _dataPointID_ contains the identifier of the queried datapoint and the field _tags_ lists potential tags on this datapoint.
+
+```javascript
+{
+    "data": [
+        {"time":"2018-01-01T00:00:00Z","value":15.298911202642628},
+        {"time":"2018-01-02T00:00:00Z","value":15.366655118104344},
+        ...
+        {"time":"2018-06-20T00:00:00Z","value":60.99433444799632},
+        {"time":"2018-06-21T00:00:00Z","value":60.99973544587385},
+        {"time":"2018-06-22T00:00:00Z","value":60.99817321953259},
+        ...
+        {"time":"2018-12-30T00:00:00Z","value":15.433282646399174},
+        {"time":"2018-12-31T00:00:00Z","value":15.514008919830662}
+    ],
+    "dataPointID":"SunDegreeOverHorizon",
+    "tags":[]
+}
+```
+
+#### Querying with downsampling 
+
+The above response returns 365 datapoints in roughly 21 KB of data. Now suppose we do not need such high fidelity data but are content with weekly data and would prefer a faster download. We just add `samplerate=7d` to the above query.
+
+{% tabs %}
+{% tab title="Curl" %}
+```bash
+curl 'https://api.aedifion.io/v2/datapoint/timeseries?project_id=1&dataPointID=SunDegreeOverHorizon&start=2018-01-01&end=2018-12-31&samplerate=1w'
     -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
 ```
 {% endtab %}
 {% endtabs %}
+
+The response now only contains 52 datapoints in 3 KB. Instead of the actual values, we now get the mean over the sample period while the timestamp denotes the _left_ boundary of the sample period, e.g., the mean over the sun's position in degrees over the horizon in the period `2017-12-28` to `2018-01-04` is `15.368...`
+
+```javascript
+{
+    "data": [
+        {"mean":15.36893921764112,"time":"2017-12-28T00:00:00Z"},
+        {"mean":15.821112043330746,"time":"2018-01-04T00:00:00Z"},
+        {"mean":16.71902616129376,"time":"2018-01-11T00:00:00Z"},
+        ...
+        {"mean":15.041726940133113,"time":"2018-12-13T00:00:00Z"},
+        {"mean":15.074493316285318,"time":"2018-12-20T00:00:00Z"},
+        {"mean":15.366242583489504,"time":"2018-12-27T00:00:00Z"}
+    ],
+    "dataPointID": "SunDegreeOverHorizon",
+    "tags": []
+}
+```
+
+#### Querying with limit
+
+Finally, suppose we are only interested in the two days before and after midsummer, i.e., 2018-06-21. We can set `start=2018-06-19` and limit the query to five datapoints by setting `max=5`. Don't forget to remove the `end` parameter otherwise `max` is ignored.
+
+{% tabs %}
+{% tab title="Curl" %}
+```bash
+curl 'https://api.aedifion.io/v2/datapoint/timeseries?project_id=1&dataPointID=SunDegreeOverHorizon&start=2018-06-19&max=5'
+    -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
+```
+{% endtab %}
+{% endtabs %}
+
+```javascript
+{
+    "data": [
+        {"time":"2018-06-19T00:00:00Z","value":60.981971861064864},
+        {"time":"2018-06-20T00:00:00Z","value":60.99433444799632},
+        {"time":"2018-06-21T00:00:00Z","value":60.99973544587385},
+        {"time":"2018-06-22T00:00:00Z","value":60.99817321953259},
+        {"time":"2018-06-23T00:00:00Z","value":60.98964824194026}
+    ],
+    "dataPointID": "SunDegreeOverHorizon",
+    "tags": []
+}
+```
+
+Indeed, midsummer is the brightest day in the year where the sun reaches a maximum of nearly 71° above the horizon.
 
