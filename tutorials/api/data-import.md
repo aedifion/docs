@@ -22,12 +22,12 @@ To execute the examples provided in this tutorial, the following is needed:
 
 There are two ways of ingesting data into the aedifion.io platform:
 
-* via CSV upload as treated in the [following section](data-import.md#csv-upload)
+* via [CSV upload](data-import.md#csv-upload)
 * via MQTT as treated in the [MQTT Tutorial](../mqtt.md) section
 
 ### CSV Upload
 
-The `POST /v2/project/{project_id}/importTimeseries` endpoint allows uploading timeseries data in  CSV format. It accepts the following parameters:
+The `POST /v2/project/{project_id}/importTimeseries` endpoint allows uploading timeseries data in  [CSV format](https://en.wikipedia.org/wiki/Comma-separated_values). It accepts the following parameters:
 
 <table>
   <thead>
@@ -88,23 +88,37 @@ The `POST /v2/project/{project_id}/importTimeseries` endpoint allows uploading t
 </table>{% hint style="info" %}
 **CSV Format**
 
-The preferred format for the uploaded data is
+The preferred CSV format for the uploaded data uses `,` as delimiter and `"` as quote character and has exactly the following three columns:
+
+1. The datapoint identifier
+2. The measurement value
+3. The RFC3339-format timestamp of the measurement
+
+E.g.,
 
 ```text
-<DataPointID_1>,<value_1>,<datetime_1>
-<DataPointID_2>,<value_2>,<datetime_2>
+SimpleDPName,100,2018-12-18 8:00:00
+"DP with spaces",102.2,2018-12-18 9:00:00
+"DP with 'single' quotes, ""double"" qutoes, and delimiter",30,2018-12-18
 ...
-<DataPointID_n>,<value_n>,<datetime_n>
 ```
-
-where `<datetime>` is in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt)-format and `<value>` is parsable as a float.
 
 Different CSV dialects \(column delimiters, quote chars, ...\) as well as datetime formats may be used. Differing formats are detected and processed automatically.
 {% endhint %}
 
 #### Example of correct file upload
 
-As a first example, let's upload a correct file. We choose to abort on error, so that either the file is uploaded as a whole or nothing is uploaded at all.
+As a first example, let's upload a correct file. We choose to abort on error, so that either the file is uploaded as a whole or nothing is uploaded at all. We're using the following test file which demonstrates different correct formats for datapoint identifiers and timestamps:
+
+```text
+"DP with blanks and delimiter ,",10,2018-12-17
+DP with forward / slashes // in it,11.1,2018-12-17 1:00:00.000
+"DP with single 'qutoes', double ""qutoes"", and the delimiter ','",12.3,2018-12-17T3:00:00+01
+Emojimania 😄😁😅😂😌😍,100,2018-12-17 4:00:00+01:00
+SimpleASCIIDatapoint,-1,2018-12-17 04:00:00Z
+```
+
+This test file is posted to the API endpoint together with the desired query parameters.
 
 {% tabs %}
 {% tab title="Python" %}
@@ -124,7 +138,7 @@ print(r.status_code, r.text)
 
 {% tab title="Curl" %}
 ```bash
-curl https://api.aedifion.io/v2/project/100/importTimeseries?format=csv&on_error=abort
+curl https://api.aedifion.io/v2/project/1/importTimeseries?format=csv&on_error=abort
     -X POST 
     -u john.doe@aedifion.com:mys3cr3tp4assw0rd
     --header 'Content-Type: multipart/form-data' 
@@ -149,12 +163,26 @@ The JSON-formatted response confirms how many lines were parsed and uploaded suc
     "success":true,
     "operation": "create",
     "resource": {
-        "total_lines_success": 12,
+        "total_lines_success": 5,
         "total_lines_error": 0,
         "errors":[],        
         "project_id": 1
     }
 }
+```
+
+Go on and query the project's datapoints through `GET /v2/project/{project_id}` and verify that the uploaded datapoints are all there.
+
+```javascript
+[
+  ...,
+  "DP with blanks and delimiter ,",
+  "DP with forward / slashes // in it",
+  "DP with single 'qutoes', double \"qutoes\", and the delimiter ','",
+  "Emojimania 😄😁😅😂😌😍",
+  "SimpleASCIIDatapoint",
+  ...
+]
 ```
 
 #### Example of incorrect file upload
@@ -205,5 +233,46 @@ The response tells us that only one line was imported successfully \(the _Correc
 
 ## Exporting data
 
-### JSON Export
+There are two ways of retrieving data from the aedifion.io platform:
+
+* via JSON export
+* via MQTT as treated in the [MQTT Tutorial](../mqtt.md) section
+
+### JSON export
+
+The endpoint `GET /v2/datapoint/timeseries` allows querying the data of single [datapoints](../../glossary.md#datapoint) by start and end while optionally using down-sampling or limiting the number of returned [observations](../../glossary.md#observation).
+
+| Parameter | Datatype | Type | Required | Description | Example |
+| :--- | :---: | :---: | :---: | :--- | :--- |
+| **project\_id** | int | query | yes | The numeric id of the project from which to query a datapoint. | 1 |
+| **dataPointID** | string | query | yes | The alphanumeric identifier of the datapoint to query. | bacnet100-4120-CO2 |
+| **start** | datetime | query | no | Return only observations _after_ this time. If _start_ is provided without _end_, the first _max_ elements after _start_ are returned. | 2018-12-18 00:00:00 |
+| **end** | datetime | query | no | Return only observations _before_ this time. If _end_ is provided without _start_, the last _max_ elements before _end_ are returned. | 2018-12-18 23:59:00 |
+| **max** | int | query | no | Maximum number of observations to return. This option is ignored when both _start_ and _end_ are provided. Setting `max = 0` returns all __available data points. | 0 |
+| **samplerate** | string | query | no | The returned observations are sampled down to the specified interval. Allowed intervals are integers combined with durations, like seconds \(s\), minutes \(m\), hours \(h\), and days \(d\), e.g. `10s`or `2m`. |  |
+
+Before we use that endpoint to shoot a couple of example queries for the data, let's insert some more useful data.
+
+{% file src="../../.gitbook/assets/sun\_degrees\_over\_horizon.csv" caption="Sun\'s position over the horizon" %}
+
+This dataset describes the degree of the sun over the horizon by calendar days. With day 0 equal to new year's, the data looks like this:
+
+![](../../.gitbook/assets/sun-degrees.png)
+
+#### Querying by time window
+
+Let's assume we only want to know the data for one year, e.g., 2018.
+
+{% tabs %}
+{% tab title="Python" %}
+
+{% endtab %}
+
+{% tab title="Curl" %}
+```bash
+curl 'http://localhost:5001/v2/datapoint/timeseries?project_id=1&dataPointID=SunDegreeOverHorizon&start=2018-01-01&end=2018-12-31'
+    -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
+```
+{% endtab %}
+{% endtabs %}
 
