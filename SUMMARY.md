@@ -14,13 +14,14 @@
 ## Tutorials
 
 * [Frontend](tutorials/frontend.md)
-* [API](tutorials/api/README.md)
+* [HTTP API](tutorials/api/README.md)
   * [Administration](tutorials/api/administration.md)
   * [Data import and export](tutorials/api/data-import.md)
   * [Favorites, tagging, renaming](tutorials/api/tagging.md)
   * [Alarming](tutorials/api/alarming.md)
   * [Analytics](tutorials/api/analytics.md)
   * [Controls](tutorials/api/setpoints-and-schedules.md)
+* [MQTT](tutorials/mqtt.md)
 
 ## Developers
 
