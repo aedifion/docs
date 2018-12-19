@@ -22,6 +22,8 @@
   * [Analytics](tutorials/api/analytics.md)
   * [Controls](tutorials/api/setpoints-and-schedules.md)
 * [MQTT](tutorials/mqtt.md)
+* [Integrations](tutorials/integrations/README.md)
+  * [Excel plugin](tutorials/integrations/excel-plugin.md)
 
 ## Developers
 
