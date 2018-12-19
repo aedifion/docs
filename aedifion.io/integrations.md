@@ -36,7 +36,7 @@ Together with [SCASA](http://scasa.eu), aedifion offers high resolution 3D Visua
 
 We have built skills for Amazon's Alexa to integrate with the [HTTP API](../tutorials/api/) of the aedifion.io platform allowing you to query and control your surroundings using natural language. E.g., you may turn down the heating in your office with a simple dialogue.
 
-**Watch our demo video or** [**request a personal demo**](../contact.md)**.**
+**Watch** [**our demo video**](https://www.linkedin.com/feed/update/urn:li:activity:6424532222916726784/) **or** [**request a personal demo**](../contact.md)**.**
 
 ![](../.gitbook/assets/alexa.png)
 
