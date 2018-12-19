@@ -1,18 +1,16 @@
 ---
 description: >-
-  This article deals with creation, modification, assignment and deletion of
-  annotations to datapoints.
+  This article deals with managing favorites, renamings, and tags for
+  datapoints.
 ---
 
 # Favorites, tagging, renaming
 
 ## Overview
 
-This article deals with creating annotations to datapoints \(tags\). We will cover creating tags, assigning them to datapoints, modifying tags and their association with a datapoint, and finally removing associations with a datapoint or removing tags completely. We will cover all relevant API endpoints by the example of annotating datapoints with the office location.
+This article deals with creating favorites, renamings, and tags on datapoints as well as modifying and removing them. We start by adding, querying, and removing favorite datapoints. We then cover the concept of datapointkeys, showing how datapoints can be assigned alternate names \(renamings\). Finally, we cover creating tags, assigning them to datapoints, modifying them and their association with a datapoint, and finally removing associations with a datapoint or removing tags completely.
 
-Tags are a way to annotate your datapoints. Aedifion's tags are labels consisting of a key-value pair. For example, if you have a set of datapoints located inside your office, you can tag them with the key-value pair `('location', 'Office A113')`. Subsequently, the tagged datapoints can be easily accessed by the API. Tags are strictly project-scoped, i.e, they are shared within a project and can be assigned to multiple datapoints of that project but are never shared across different projects.
-
-Aedifion also provides automatically created tags, e.g., datapoint properties read from BACnet or machine learning results.
+We provide concrete examples on how to use the aedifion [HTTP API](../../developers/api-documentation.md) to create, inspect, modify and delete favorites, renamings, tags and tag assignments to datapoints.
 
 ### Preliminaries
 
@@ -24,7 +22,280 @@ To execute the examples provided in this tutorial, the following is needed:
 * A project with datapoints.
 * Optionally, a working installation of [Python](https://www.python.org/) or [Curl](https://curl.haxx.se/).
 
-## Types of tags
+## Favorites
+
+Favorites are a way of flagging datapoints that you frequently view. They are, e.g., used in the [frontend](../../aedifion.io/frontend.md) to sort the datapoint selector list where they are marked by a star ⭐️. Favorites are scoped to the user, i.e., each user can have different favorites and is not able to see other users' favorites.
+
+### Adding a favorite
+
+You flag a datapoint as a favorite using the `POST /v2/datapoint/favorite` endpoint which takes the following parameters:
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Parameter</th>
+      <th style="text-align:center">Datatype</th>
+      <th style="text-align:center">Type</th>
+      <th style="text-align:center">Required</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>project_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">query</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The numeric id of the project to which the datapoint belongs.</td>
+      <td
+      style="text-align:left">1</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>dataPointID</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">query</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The alphanumeric identifier of the datapoint to flag as favorite.</td>
+      <td
+      style="text-align:left">
+        <p>datapoint_</p>
+        <p>within_</p>
+        <p>your_office</p>
+        </td>
+    </tr>
+  </tbody>
+</table>Note that all parameters are _query parameters_, i.e., they're added in [url-encoded form](https://de.wikipedia.org/wiki/URL-Encoding) to the query part of the requested URL \(the part following the domain and path separated by a question mark\).
+
+{% tabs %}
+{% tab title="Python" %}
+```python
+import requests
+api_url = "https://api.aedifion.io"
+john = ("john.doe@aedifion.com", "mys3cr3tp4ss0wrd")
+query_params = {'project_id': 1, 'dataPointID': 'datapoint_within_your_office'}
+r = requests.post(f"{api_url}/v2/datapoint/favorite", 
+                  auth=john,
+                  params=query_params)
+print(r.status_code, r.json())
+```
+{% endtab %}
+
+{% tab title="Curl" %}
+```bash
+curl 'https://api.aedifion.io/v2/datapoint/favorite?project_id=1&dataPointID=datapoint_within_your_office'
+    -X POST
+    -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
+```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login \(if you haven't already\).
+3. From the main tags \(Meta, Company, ...\) select the _Datapoint_ tag ,then the `POST /v2/datapoint/favorite` endpoint \(green\).
+4. Provide both the _project\_id_ and _dataPointID_ to identify the datapoint that you want to flag as a favorite.
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
+{% endtab %}
+{% endtabs %}
+
+Posting a favorite creates a relation between you \(your user account\) and a datapoint. On success, this relation \(user, datapoint\) is returned in the _resource_ field of the answer.
+
+```javascript
+{
+  "operation": "create",
+  "resource": {
+    "datapoint": {
+      "dataPointID": "datapoint_within_your_office",
+      "hash_id": "Jw0EdgdG",
+      "id": 121,
+      "project_id": 1
+    },
+    "user": {
+      "company_id": 1,
+      "email": "john.doe@aedifion.com",
+      "firstName": "John",
+      "id": 1,
+      "lastName": "Doe"
+    }
+  },
+  "success": true
+}
+```
+
+Let's shoot a few more requests and flag the following as favorites, too:
+
+* CO2\_within\_my\_office
+* TEMP\_within\_my\_office
+
+You can only flag datapoints as favorites that exist in your project. If you pass a non-existing dataPointID, you will get the following error:
+
+```javascript
+{
+    "error":"Datapoint does not exist in project: 'does_not_exist'",
+    "operation":"create",
+    "success":false
+}
+```
+
+### Querying favorites
+
+What use are favorites when you cannot quickly access them? That's what the GET /v2/project/{project\_id}/datapoints/favorites endpoint is there for. It takes the _project\_id_ as single parameter and returns all of the logged-in user's favorites.
+
+| Parameter | Datatype | Type | Required | Description | Example |
+| :--- | :---: | :---: | :---: | :--- | :--- |
+| **project\_id** | integer | query | yes | The numeric id of the project from which to retrieve favorites. | 1 |
+
+{% tabs %}
+{% tab title="Python" %}
+```python
+r = requests.get(f"{api_url}/v2/project/{project_id}/datapoints/favorite", 
+                 auth=john)
+print(r.status_code, r.json())
+```
+{% endtab %}
+
+{% tab title="Curl" %}
+```bash
+curl 'https://api3.aedifion.io/v2/project/1/datapoints/favorites'
+    -X GET
+    -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
+```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login \(if you haven't already\).
+3. From the main tags \(Meta, Company, ...\) select the _Project_ tag ,then the `GET /v2/project/{project_id}/datapoints/favorites` endpoint \(blue\).
+4. Provide the _project\_id_ of the project for which you want to retrieve favorites.
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
+{% endtab %}
+{% endtabs %}
+
+The response is a list of all your favorite datapoints in the specified project.
+
+```javascript
+[
+  ...,
+  "CO2_within_my_office",
+  "datapoint_within_your_office",
+  "TEMP_within_my_office",
+  ...
+]
+```
+
+### Deleting a favorite
+
+Maybe that _datapoint\_within\_your\_office_ is not that important, after all. Removing it from the list of your favorites is a simple matter of calling `DELETE /v2/datapoint/favorite` with the usual parameters:
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Parameter</th>
+      <th style="text-align:center">Datatype</th>
+      <th style="text-align:center">Type</th>
+      <th style="text-align:center">Required</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>project_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">query</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The numeric id of the project to which the datapoint belongs.</td>
+      <td
+      style="text-align:left">1</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>dataPointID</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">query</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The alphanumeric identifier of the datapoint to remove as favorite.</td>
+      <td
+      style="text-align:left">
+        <p>datapoint_</p>
+        <p>within_</p>
+        <p>your_office</p>
+        </td>
+    </tr>
+  </tbody>
+</table>{% tabs %}
+{% tab title="Python" %}
+```python
+r = requests.delete(f"{api_url}/v2/project/{project_id}/datapoints/favorite", 
+                  auth=john)
+print(r.status_code, r.json())
+```
+{% endtab %}
+
+{% tab title="Curl" %}
+```bash
+curl 'https://api.aedifion.io/v2/datapoint/favorite?project_id=1&dataPointID=datapoint_within_your_office'
+    -X POST
+    -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
+```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login \(if you haven't already\).
+3. From the main tags \(Meta, Company, ...\) select the _Datapoint_ tag ,then the `DELETE /v2/datapoint/favorite` endpoint \(red\).
+4. Provide both the _project\_id_ and _dataPointID_ to identify the datapoint that you want to remove from your favorites.
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
+{% endtab %}
+{% endtabs %}
+
+The answer confirms the deletion of the favorite and returns the deleted \(user, datapoint\) relation similar to the creation of a favorite.
+
+```javascript
+{
+  "operation": "delete",
+  "resource": {
+    "datapoint": {
+      "dataPointID": "datapoint_within_your_office",
+      "hash_id": "Jw0EdgdG",
+      "id": 121,
+      "project_id": 1
+    },
+    "user": {
+      "company_id": 1,
+      "email": "john.doe@aedifion.com",
+      "firstName": "John",
+      "id": 1,
+      "lastName": "Doe"
+    }
+  },
+  "success": true
+}
+```
+
+{% hint style="info" %}
+Creating and deleting favorites is _idempotent_, i.e., calling `POST /v2/datapoint/favorite` multiple times has the same effect as calling it once \(same for `DELETE`\)
+{% endhint %}
+
+## Renaming
+
+
+
+## Tags
+
+Tags are a way to annotate your datapoints. Aedifion's tags are labels consisting of a key-value pair. For example, if you have a set of datapoints located inside your office, you can tag them with the key-value pair `('location', 'Office A113')`. Subsequently, the tagged datapoints can be easily accessed by the API. Tags are strictly project-scoped, i.e, they are shared within a project and can be assigned to multiple datapoints of that project but are never shared across different projects.
+
+Aedifion also provides automatically created tags, e.g., datapoint properties read from BACnet or machine learning results.
+
+We will cover all relevant API endpoints by the example of annotating datapoints with the office location.
+
+### Types of tags
 
 Tags are inherently only a key-value pair with an additional unique numeric id for easy access.  The following tag represents a location information.
 
@@ -90,10 +361,6 @@ The following example excerpt shows a tag assigned to a datapoint by aedifion's 
 ```
 {% endtab %}
 {% endtabs %}
-
-## API Examples
-
-In this section, we provide concrete examples on how to use the aedifion [HTTP API](../../developers/api-documentation.md) to create, inspect, modify and delete tags and tag assignments to datapoints. We explain all the necessary methods by the example of tagging all the datapoints within your office.
 
 ### Adding tags
 
