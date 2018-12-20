@@ -8,7 +8,7 @@ description: >-
 
 ## Overview
 
-This article deals with creating favorites, renamings, and tags on datapoints as well as modifying and removing them. We start by adding, querying, and removing favorite datapoints. We then cover the concept of datapointkeys, showing how datapoints can be assigned alternate names \(renamings\). Finally, we cover creating tags, assigning them to datapoints, modifying them and their association with a datapoint, and finally removing associations with a datapoint or removing tags completely.
+This article deals with creating [favorites](tagging.md#favorites), [renamings](tagging.md#renamings), and [tags](tagging.md#tags) on datapoints as well as modifying and removing them. We start by adding, querying, and removing favorite datapoints. We then cover the concept of datapointkeys, showing how datapoints can be assigned alternate names \(renamings\). Finally, we cover creating tags, assigning them to datapoints, modifying them and their association with a datapoint, and finally removing associations with a datapoint or removing tags completely.
 
 We provide concrete examples on how to use the aedifion [HTTP API](../../developers/api-documentation.md) to create, inspect, modify and delete favorites, renamings, tags and tag assignments to datapoints.
 
@@ -127,8 +127,8 @@ Posting a favorite creates a relation between you \(your user account\) and a da
 
 Let's shoot a few more requests and flag the following as favorites, too:
 
-* CO2\_within\_my\_office
-* TEMP\_within\_my\_office
+* CO2\_within\_your\_office
+* TEMP\_within\_your\_office
 
 You can only flag datapoints as favorites that exist in your project. If you pass a non-existing dataPointID, you will get the following error:
 
@@ -180,9 +180,9 @@ The response is a list of all your favorite datapoints in the specified project.
 ```javascript
 [
   ...,
-  "CO2_within_my_office",
+  "CO2_within_your_office",
   "datapoint_within_your_office",
-  "TEMP_within_my_office",
+  "TEMP_within_your_office",
   ...
 ]
 ```
@@ -283,9 +283,492 @@ The answer confirms the deletion of the favorite and returns the deleted \(user,
 Creating and deleting favorites is _idempotent_, i.e., calling `POST /v2/datapoint/favorite` multiple times has the same effect as calling it once \(same for `DELETE`\)
 {% endhint %}
 
-## Renaming
+## Renamings
 
+A datapoint identifier \(dataPointID\) is obtained directly and automatically from the component from which the datapoint is read, e.g., from a BACnet device. Thus, the dataPointIDs that are displayed as a datapoint's default name are not necessarily nice to read or even correct. 
 
+Renamings provide a way to assign a different name \(or even multiple different names\) to a datapoint. A renaming always belongs to a datapointkey which bundles related renamings of multiple datapoints. This allows, e.g., to add a translation of datapoint names into different languages \(the datapointkey would be the language\) or to add standardized datapoint names \(the datapointkey would be the name of the standard such as [BUDO](https://github.com/RWTH-EBC/BUDO/)\).
+
+In the following, we demonstrate the renaming flow by the example of translating some datapoints' names to german. 
+
+### Adding datapointkeys
+
+Before we can rename any datapoints, we need to create a datapointkey that bundles the datapoint renamings. A new datapointkey is created through `POST /v2/project/{project_id}/datapointkey`.
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Parameter</th>
+      <th style="text-align:center">Datatype</th>
+      <th style="text-align:center">Type</th>
+      <th style="text-align:center">Required</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>project_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">path</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The numeric id of the project for which to add a datapointkey</td>
+      <td
+      style="text-align:left">1</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>name</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The name of the new datapointkey (must be unique within the project).</td>
+      <td
+      style="text-align:left">german</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>description</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">A short textual description for the datapointkey that helps understanding
+        what this datapointkey is about.</td>
+      <td style="text-align:left">Translation into german language.</td>
+    </tr>
+  </tbody>
+</table>To create the new datapointkey, we pass the _project\_id_ in the path of the request and the details of the new datapointkey in the request's body encoded as a [JSON object](https://www.json.org/).
+
+{% tabs %}
+{% tab title="Python" %}
+```python
+new_key = {"name": "german",
+           "description": "Translation into german language."}
+r = requests.post(f"{api_url}/v2/project/{project_id}/datapointkey", 
+                  auth=john,
+                  json=new_key)
+print(r.status_code, r.json())
+```
+{% endtab %}
+
+{% tab title="Curl" %}
+Coming soon 🐒
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login.
+3. From the main tags \(Meta, Company, ...\) select the _Project_ tag ,then the `POST /v2/project/{project_id}/datapointkey` endpoint \(green\).
+4. Copy-paste then edit the example value and provide the _project\_id._
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
+{% endtab %}
+{% endtabs %}
+
+The response confirms the creation of the new datapointkey. Note down the _id_ as we will need it later.
+
+```javascript
+{
+  "operation": "create",
+  "resource": {
+    "decription": "Translation into german language.",
+    "id": 19,
+    "name": "german",
+    "project_id": 1
+  },
+  "success": true
+}
+```
+
+Now that we have created a new datapointkey, we can go ahead and rename datapoints w.r.t. this datapointkey.
+
+### Adding renamings
+
+A renaming of a datapoint is added through the `POST /v2/datapoint/renaming` endpoint which requires the following parameters:
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Parameter</th>
+      <th style="text-align:center">Datatype</th>
+      <th style="text-align:center">Type</th>
+      <th style="text-align:center">Required</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>project_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The numeric id of the project for which to rename datapoint.</td>
+      <td style="text-align:left">1</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>dataPointID</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The alphanumeric identifier of the datapoint to rename.</td>
+      <td style="text-align:left">datapoint_
+        <br />within_
+        <br />your_office</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>datapointkey_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The numeric id of the datapointkey which to associate the renaming to.</td>
+      <td
+      style="text-align:left">19</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>renaming</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The new name for the datapoint w.r.t. the chosen datapointkey.</td>
+      <td
+      style="text-align:left">datenpunkt_in
+        <br />_deinem_büro</td>
+    </tr>
+  </tbody>
+</table>{% tabs %}
+{% tab title="Python" %}
+```python
+renaming = {"project_id": 1,
+            "dataPointID": "datapoint_within_your_office",
+            "datapointkey_id": 19,
+            "renaming": "datenpunkt_in_deinem_büro"}
+r = requests.post(f"{api_url}/v2/datapoint/renaming", 
+                  auth=john,
+                  json=renaming)
+print(r.status_code, r.json())
+```
+{% endtab %}
+{% endtabs %}
+
+On success, the response confirms the creation of the renaming.
+
+```javascript
+{
+  "operation": "create",
+  "resource": {
+    "datapointkey_id": 19,
+    "id": 16,
+    "renaming": "datenpunkt_in_deinem_büro"
+  },
+  "success": true
+}
+```
+
+If the datapoint already has a renaming w.r.t. this datapointkey an error is returned:
+
+```javascript
+{
+  "error": "Renaming 16 already renames datapoint 121 for datapointkey 19.",
+  "operation": "create",
+  "success": false
+}
+```
+
+In the latter case, modifying the existing renaming may be necessary.
+
+### Modifying renamings
+
+An existing renaming can be changed using the `PUT /v2/datapoint/renaming/{renaming_id}` endpoint.
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Parameter</th>
+      <th style="text-align:center">Datatype</th>
+      <th style="text-align:center">Type</th>
+      <th style="text-align:center">Required</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>renaming_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">path</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The numeric id of the renaming to modify.</td>
+      <td style="text-align:left">16</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>renaming</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The new renaming.</td>
+      <td style="text-align:left">Datenpunkt in deinem Büro</td>
+    </tr>
+  </tbody>
+</table>We provide the _renaming\_id_ in the path and the updated name in the request's body.
+
+{% tabs %}
+{% tab title="Python" %}
+```python
+update = {"renaming": "Datenpunkt in deinem Büro"}
+r = requests.put(f"{api_url}/v2/datapoint/renaming/16", 
+                 auth=john,
+                 json=update)
+print(r.status_code, r.json())
+```
+{% endtab %}
+{% endtabs %}
+
+On success, the answer returns the new renaming.
+
+```javascript
+{
+  "operation": "update",
+  "resource": {
+    "datapointkey_id": 19,
+    "id": 16,
+    "renaming": "Datenpunkt in deinem Büro"
+  },
+  "success": true
+}
+```
+
+Go ahead and also rename _CO2\_in\_your\_office_ to _CO2 in deinem Büro._
+
+### Querying datapointkeys and renamings
+
+Calling `GET /v2/project/{project_id}` provides a list of all datapointkeys in the given project.
+
+{% tabs %}
+{% tab title="Python" %}
+```python
+r = requests.get(f"{api_url}/v2/project/{project_id}", 
+                  auth=john)
+print(r.status_code, r.json())
+```
+{% endtab %}
+
+{% tab title="Curl" %}
+```bash
+curl 'https://api.aedifion.io/v2/project/1/datapointkeys'
+    -X GET
+    -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
+```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login.
+3. From the main tags \(Meta, Company, ...\) select the _Project_ tag ,then the `GET /v2/project/{project_id}/datapointkeys` endpoint \(blue\).
+4. Provide the _project\_id._
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
+{% endtab %}
+{% endtabs %}
+
+Verify that your newly created datapointkey is among this list.
+
+```javascript
+[
+  ...,
+  {
+    "decription": "Translation into german language.",
+    "id": 19,
+    "name": "german",
+    "project_id": 4
+  },
+  ...
+]
+```
+
+Calling `GET /v2/project/{project_id}/renamings` with `datapointkey_id=19` as a query parameter then returns all available german translations, i.e., renamings under datapointkey 19.
+
+{% tabs %}
+{% tab title="Python" %}
+```python
+r = requests.get(f"{api_url}/v2/project/{project_id}/renamings", 
+                  auth=john,
+                  params={'datapointkey_id':19})
+print(r.status_code, r.json())
+```
+{% endtab %}
+
+{% tab title="Curl" %}
+```bash
+curl 'https://api.aedifion.io/v2/project/1/datapointkeys?datapointkey_id=19'
+    -X GET
+    -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
+```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login.
+3. From the main tags \(Meta, Company, ...\) select the _Project_ tag ,then the `GET /v2/project/{project_id}/renamings` endpoint \(blue\).
+4. Provide the _project\_id_ and _datapointkey\_id._
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
+{% endtab %}
+{% endtabs %}
+
+Verify that the created german translations of the _datapoint\_within\_your\_office_ and _CO2\_in\_your\_office_ datapoints are within the returned list.
+
+```javascript
+[
+  ...,
+  {
+    "dataPointID": "datapoint_within_your_office",
+    "renamings": [
+      {
+        "datapointkey_id": 19,
+        "id": 16,
+        "renaming": "Datenpunkt in deinem Büro"
+      }
+    ]
+  },
+  {
+    "dataPointID": "CO2_within_your_office",
+    "renamings": [
+      {
+        "datapointkey_id": 19,
+        "id": 17,
+        "renaming": "CO2 in deinem Büro"
+      }
+    ]
+  },  
+  ...
+]
+```
+
+### Deleting renamings
+
+Calling `DELETE /v2/datapoint/renaming/{renaming_id}` deletes a renaming. The call only requires the id of the renaming to delete.
+
+{% tabs %}
+{% tab title="Python" %}
+```python
+r = requests.delete(f"{api_url}/v2/datapoint/renaming/16", 
+                  auth=john)
+print(r.status_code, r.json())
+```
+{% endtab %}
+
+{% tab title="Curl" %}
+```bash
+curl 'https://api.aedifion.io/v2/datapoint/renaming/16'
+    -X DELETE
+    -u john.doe@aedifion.com:mys3cre3tp4ssw0rd
+```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login.
+3. From the main tags \(Meta, Company, ...\) select the _Datapoint_ tag ,then the `DELETE /v2/datapoint/renaming/{renaming_id}` endpoint \(red\).
+4. Provide the _renaming\_id._
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
+{% endtab %}
+{% endtabs %}
+
+The response returns the deleted renaming:
+
+```javascript
+{
+  "operation": "delete",
+  "resource": {
+    "datapointkey_id": 19,
+    "id": 16,
+    "renaming": "Datenpunkt in deinem Büro"
+  },
+  "success": true
+}
+```
+
+Removing renamings one-by-one is tedious. If all renamings for a given datapointkey should be deleted, you can simply delete the datapointkey which will automatically delete all associated renamings with it.
+
+### Deleting datapointkeys
+
+Calling `DELETE /v2/project/{project_id}/datapointkey/{datapointkey_id}` deletes a datapointkey together with all associated renamings.
+
+{% tabs %}
+{% tab title="Python" %}
+```python
+r = requests.delete(f"{api_url}/v2/project/1/datapointkey/19", 
+                  auth=john)
+print(r.status_code, r.json())
+```
+{% endtab %}
+
+{% tab title="Curl" %}
+```bash
+curl 'https://api.aedifion.io/v2/project/1/datapointkey/19'
+    -X DELETE
+    -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
+```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login.
+3. From the main tags \(Meta, Company, ...\) select the _Project_ tag ,then the `DELETE /v2/project/{project_id}/datapointkey/{datapointkey_id}` endpoint \(red\).
+4. Provide the _project\_id_ and _renaming\_id._
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
+{% endtab %}
+{% endtabs %}
+
+The response returns the deleted datapointkey:
+
+```javascript
+{
+  "operation": "delete",
+  "resource": {
+    "decription": "Translation into german language.",
+    "id": 19,
+    "name": "german",
+    "project_id": 1
+  },
+  "success": true
+}
+```
+
+{% hint style="danger" %}
+Deleting a datapoinkey also irreversibly deletes all associated renamings.
+{% endhint %}
 
 ## Tags
 

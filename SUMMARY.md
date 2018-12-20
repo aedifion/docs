@@ -21,7 +21,8 @@
   * [Alarming](tutorials/api/alarming.md)
   * [Analytics](tutorials/api/analytics.md)
   * [Controls](tutorials/api/setpoints-and-schedules.md)
-* [MQTT](tutorials/mqtt.md)
+* [MQTT](tutorials/mqtt/README.md)
+  * [Websockets](tutorials/mqtt/websockets.md)
 * [Integrations](tutorials/integrations/README.md)
   * [Excel plugin](tutorials/integrations/excel-plugin.md)
 
