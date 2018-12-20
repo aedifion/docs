@@ -1,6 +1,12 @@
+---
+description: Tutorials for connecting to aedifion.io's MQTT broker via websockets.
+---
+
 # Websockets
 
 ## Overview
+
+In this article, we provide hands-on tutorials for connecting to the MQTT broker of the aedifion.io platform via websockets. This allows, e.g., streaming live-data into websites, plots, and other applications. We show how to build a [small demo website](websockets.md#demo-website) using JavaScript that displays live data received from the MQTT broker.
 
 ### Preliminaries
 
@@ -14,6 +20,8 @@ To execute the examples provided in this tutorial, the following is needed:
 ## Demo Website
 
 In this section, step by step we build a demo website that runs an MQTT subscriber which receives new messages via websockets in real-time and displays these to the user.
+
+The [complete source code](https://github.com/aedifion/mqtt-ws-demo) of this demo is available at Github.
 
 ### Frontend
 
@@ -218,7 +226,5 @@ Configure the MQTT broker, provide valid credentials, and choose a topic. Then h
 
 ![](../../.gitbook/assets/websockets_02.png)
 
-### Source Code
 
-The complete source code of this demo is available at.
 
