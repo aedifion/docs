@@ -6,42 +6,66 @@ description: Tutorial on writing setpoints and schedules for active building con
 
 ## Overview
 
-The aedifion Setpoint Writer is a lightweight piece of software capable of running on the [aedifion.device](../../aedifion.io/gateway.md). It allows writing setpoints or whole schedules of many setpoints to any writable datapoint on any building automation component in the attached building network. The semantics of writing setpoints and schedules abstracts from the underlying building networks and automation protocols and thereby provides a unified, fine-grained control of the building's automation components.
+The [aedifion.device](../../aedifion.io/gateway.md) allows writing setpoints or whole schedules of many setpoints to any writable datapoint on any building automation component in the attached building network. The semantics of writing setpoints and schedules abstracts from the underlying building networks and automation protocols and thereby provides a unified, fine-grained control of the building's automation components. In this article, we cover basic concepts and examples of writing setpoints and schedules for active building control.
+
+### Preliminaries
+
+The examples provided in this section partly build on each other. For the sake of brevity, boiler plate code such as imports or variable definitions is only shown once and left out in subsequent examples.
+
+To execute the examples provided in this tutorial, the following is needed:
+
+* A valid login \(username and password\) to the aedifion.io platform. If you do not have a login yet, please [contact us](../../contact.md) regarding a demo login. The login used in the example will not work!
+* A project with writable datapoints.
+* Optionally, a working installation of [Python](https://www.python.org/) or [Curl](https://curl.haxx.se/).
 
 ## Setpoints vs. schedules
 
-Before we start writing setpoints and schedules, we need to clearly understand what they are and how they differ.
+Before writing actual setpoints and schedules, we should clearly understand what they are and how they differ in their functionality.
 
 ### Setpoints
 
-Setpoints are single one-shot best-effort low-overhead irrevocable write operations. In particular, this implies the following properties of setpoint writing:
+Setpoints can be acknowledged or not. In the former case, a reference is returned which can be used to query information about the state of the setpoint write operation. In the latter case, no direct feedback is given about the success or failure of a setpoint write operation and no state is kept for the setpoint write operation.
 
-* No direct feedback is given about the success or failure of a setpoint write operation.
-* No state is kept for a setpoint write operation.
-* Existing setpoints \(at the same priority\) are overwritten without any warning.
-* A setpoint never expires and is never reset automatically.
-* Once sent, a setpoint write operation is immediately executed and cannot be cancelled.
-* But: Setpoints are fast and very easy to use.
+Once a setpoint is created by the user, the setpoint write operation is immediately started and cannot be delayed, modified, or cancelled afterwards.
+
+Existing setpoints \(at the same priority\) are overwritten without any warning by a new setpoint. However, if the setpoint write operation is acknowledged, the overwritten value will be returned as part of that operation's state.
+
+If an error occurs on any stage for any reason, the whole setpoint write operation fails. No recovery action is taken, i.e., it is left to the user to ensure that the system is in the desired state.
+
+Once a setpoint is successfully written, it remains active until it is overwritten by a another setpoint. In other words, a written setpoint never expires on its own and is never reset automatically.
+
+In summary, setpoints are single one-shot best-effort low-overhead irrevocable write operations. They are fast and easy to use.
 
 ### Schedules
 
-Schedules are comprised of multiple subsequent setpoint write operations. They are stateful, acknowledged, robust, and modifiable. 
+Schedules are comprised of multiple timed setpoint write operations.
 
-* The state of a schedule and corresponding state transitions are logged and can be queried through the API.
-* The current state of the datapoint that is written to is saved before overwriting it.
-* Schedules can cancel themselves if a periodic heartbeat is not received.
-* Setpoints can be added to a schedule; the existing setpoints can be modified and deleted. All while the schedule is running.
-* Schedules can be cancelled before and during execution.
-* But: Schedules are more complex to use than bare setpoint write operations.
+Schedules can have arbitrary length in terms of time and number of setpoints. They can range from a short daily control routines to complex, periodically updated optimization plans that consist of hundreds to thousands of setpoints.
 
-#### **States and transitions**
+Schedules are replicated from the API to the aedifion.device. Thus, they run even if the connection to the Internet, in particular to the API, is lost. Since they are persisted locally, they even survive a crash or reset of the aedifion.device, e.g., due to a power cut, and just resume where they left of afterwards.
+
+Before a schedule becomes active on the aedifion.device, the current state of the datapoint that is written to by the schedule is saved before overwriting it, so that the schedule can fall back to this state in case of error.
+
+When active, a schedule's state and each of its state transitions are logged to the API and can be queried through the API using the schedule's unique reference.
+
+Most parts of a schedule are modifiable. In particular, setpoints can be added to a schedule and existing setpoints can be modified and deleted - even while the schedule is already running. 
+
+Schedules have different failure mechanisms built-in and utmost care is taken to never leave the system in an undesired and/or inconsistent state. First, schedules have a configurable or automatically determined reset value that is written if an unrecoverable error occurs. Second, schedules can reset themselves if a periodic heartbeat from the API is missed, e.g., when Internet connectivity is down for too long on long running schedules that require periodic updates. 
+
+Schedules can be cancelled after they have been initialized, before and during execution.
+
+In summary, schedules are stateful, acknowledged, robust, and modifiable. They are more complex than bare setpoint write operations but also more robust.
+
+In the following, we define schedules in more detail. You may skip these and go on directly to the [usage scenarios](setpoints-and-schedules.md#usage-scenarios) of setpoints and schedules. 
+
+#### **States and transitions of schedules**
 
 The lifecycle of a schedule is defined by five possible states:
 
 1. A new schedules is always created in state `initialized`.
 2. When the schedule is syntactically correct and the specified project and data points exists the schedule will transition into state `active` after a few seconds.
 3. When a \(critical\) error occurs at any time, the schedule transitions into state `failed` where it has reached end-of-life \(EoL\).
-4. When a user cancels a schedule, it first transitions into `stopping` where it awaits acknowledgement from the setpoint writer side and cannot be modified anymore.
+4. When a user cancels a schedule, it first transitions into `stopping` where it awaits acknowledgement from the aedifion.device and cannot be modified anymore.
 5. When the schedule has been completely executed or successfully stopped by the user, it transitions into `terminated` where it has reached EoL.
 
 #### **Structure and execution of a schedule**
@@ -63,7 +87,9 @@ Setpoints are executed strictly in order of time. If two setpoints have the same
 
 ### Usage scenarios
 
-Due to the different properties of setpoints and schedules, the user should carefully choose which one to use in his/her scenario. For example:
+Due to the different properties of setpoints and schedules, the user should carefully choose which one to use in his/her scenario. 
+
+For example:
 
 * Use setpoints to switch on and off components like a human would on a real switch, but use schedules to switch on and off components on predefined points in time like a timer would do.
 * Use setpoints to make permanent changes, but use schedules to make temporary changes as schedules leave the system in the same state as before running the schedule.
@@ -72,23 +98,13 @@ Due to the different properties of setpoints and schedules, the user should care
 
 Setpoints and schedules are written and managed through the [HTTP API](../../developers/api-documentation.md). In this section, we go through the steps of unlocking setpoints and schedules for an existing project, configuring selected datapoints for writing, and, finally, writing sample setpoints and schedules.
 
-### Preliminaries
-
-The examples provided in this section partly build on each other. For the sake of brevity, boiler plate code such as imports or variable definitions is only shown once and left out in subsequent examples.
-
-To execute the examples provided in this tutorial, the following is needed:
-
-* A valid login \(username and password\) to the aedifion.io platform. If you do not have a login yet, please [contact us](../../contact.md) regarding a demo login. The login used in the example will not work!
-* A project with writable datapoints.
-* Optionally, a working installation of [Python](https://www.python.org/) or [Curl](https://curl.haxx.se/).
-
 ### Enabling write access
 
 Setpoints and schedules write directly to building automation components and may thus \(deliberately\) complement, interfere with, or completely override existing control and automation. This is a critical operation and thus disabled per default on all projects. Further, there is a series of safeguards in place that limit and protect access to this feature. We go through these safeguards one by one in the following.
 
 #### 1. Activating setpoint and schedules on the project
 
-The setpoints and schedules feature is per default completely locked for all projects. Trying to post a setpoint or schedule results - even with the right roles and permissions \(next step\) - in the following error:
+The setpoints and schedules feature is per default completely locked for all projects. Trying to post a setpoint or schedule results - even with the right roles and permissions \(next step\) - in an error:
 
 ```javascript
 {
@@ -98,11 +114,11 @@ The setpoints and schedules feature is per default completely locked for all pro
 }
 ```
 
-In order to activate setpoints and schedules for your project, please [contact us](../../contact.md) personally. We will need to know:
+In order to activate setpoints and schedules for your project, please [contact us](../../contact.md) personally. We will need to know
 
-* The project \(id\) for which you wish to activate writing.
-* Whether you wish to enable setpoints or schedules or both.
-* The maximum priority that is allowed for writing setpoints and schedules, e.g., for protocols such as BACnet which support different priorities. Writing at higher priorities will not be possible.
+* the project \(id\) for which you wish to activate writing.
+* whether you wish to enable setpoints or schedules or both.
+* the maximum priority that is allowed for writing setpoints and schedules, e.g., for protocols such as BACnet which support different priorities. Writing at higher priorities will not be possible.
 
 #### 2. Configuring roles and permissions
 
@@ -119,7 +135,7 @@ Per default, the automatically created _admin_ role of a project has full read/w
 
 #### 3. Configuring datapoints for writing
 
-In addition to the general feature lock \(step 1\) and the role-based access control \(step 2\), a third safeguard is in place: lower and upper bounds for writing defined individually for each datapoint. Trying to write to a datapoint that has no bounds configured results in this error:
+In addition to the general feature lock \(step 1\) and the role-based access control \(step 2\), a third safeguard is in place: lower and upper bounds for writing that are defined individually for each datapoint. Trying to write to a datapoint that has no bounds configured results in this error:
 
 ```javascript
 {
@@ -192,7 +208,7 @@ Writing bounds can be configured through the `PUT /v2/datapoint` endpoint which 
       <td style="text-align:left">25</td>
     </tr>
   </tbody>
-</table>Here is an example of configuring writing bounds for a room temperature setpoint. A range of 15° to 25° Celsius seems reasonable:
+</table>Here is an example of configuring writing bounds for a room temperature setpoint. A range of 15° to 25° Celsius seems reasonable in this example:
 
 {% tabs %}
 {% tab title="Python" %}
@@ -261,6 +277,7 @@ Setpoints are written through the `POST /v2/datapoint/setpoint` endpoint. The ca
 | **dataPointID** | string | query | yes | The alphanumeric id of the datapoint that should be written to.  | bacnet100-4120-Real-room-temperature-setpoint-RTs\_real |
 | **value** | string | query | yes | A string containing an integer or float value that should be written to the data point or the special string `null` to clear the value. | 16.7 |
 | **priority** | integer | query | no | The priority at which to write the setpoint \(default = 13\). | 15 |
+| **acked** | boolean | query | no | Whether this setpoint operation is acknowledged or not | False |
 
 Having [enabled write access](setpoints-and-schedules.md#enabling-write-access), we can now write a setpoint. Please carefully choose a datapoint when executing these examples as you are operating on a real building.
 
@@ -295,7 +312,7 @@ A successful setpoint write operation \(from point of view of the API\) returns 
   "success":true,
   "operation":"create",
   "resource": {
-    "action": "writeSingle",
+    "acked": false,
     "dataPointID": "bacnet100-4120-Real-room-temperature-setpoint-RTs_real",
     "priority": 15,
     "value": 16.7
@@ -304,23 +321,64 @@ A successful setpoint write operation \(from point of view of the API\) returns 
 ```
 
 {% hint style="warning" %}
-**Interpreting the response:** For bare setpoint write operations, a _successful response_ \(HTTP 200\) only means that the API accepted the request, i.e., the setpoint writer is correctly configured and the user is authorized for writing to the building. There may still happen errors on the side of the setpoint writer that are not reported back to the API. If a real acknowledgement is required, the user should use schedules instead.
+**Interpreting the response:** For unacknowledged setpoint write operations, a _successful response_ \(HTTP 200\) only means that the API accepted the request, i.e., the aedifion.device is correctly configured and the user is authorized for writing to the building. There may still happen errors on the side of the aedifion.device that are not reported back to the API. If a real acknowledgement is required, the user should set `acked = True` or use schedules instead.
 {% endhint %}
 
 We have now set the desired temperature of to 16.7 °C and the HVAC system will probably start working hard to follow your control input. Spin up any existing building management system of your choice and check the effect of your actions.
 
-The written setpoint will remain active until it is cleared or overwritten. Since 16.7 °C is pretty cold for an office, we will soon wish to reset this ourselves and let the existing building automation system regain control. To this end, we need to write `'null'` to the previously written datapoint and priority.
+The written setpoint will remain active until it is cleared or overwritten. Since 16.7 °C is pretty cold for an office, we will soon wish to reset this ourselves and let the existing building automation system regain control. To this end, we need to write `'null'` to the previously written datapoint and priority. Let's do an acknowledge write this time.
 
 {% tabs %}
 {% tab title="Python" %}
 ```python
 r = post(api_url + "/v2/datapoint/setpoint", 
          auth=john,
-         params={'project_id':1, 'dataPointID':dataPointID, 'value':'null', 'priority':15})
+         params={'project_id':1, 
+                 'dataPointID':dataPointID, 
+                 'value':'null', 
+                 'priority':15,
+                 'acked':True})
 print(r.text)
 ```
 {% endtab %}
 {% endtabs %}
+
+Note that the response now contains a reference for this setpoint write operation.
+
+```javascript
+{
+  "success": true
+  "operation": "create",
+  "resource": {
+    "acked": true,
+    "dataPointID": "bacnet100-4120-Real-room-temperature-setpoint-RTs_real",
+    "priority": 15,
+    "reference": "0cce300f-6b9e-447d-ae29-0e7125e2fa36",
+    "value": "null"
+  }
+}
+```
+
+The reference can be used to look up the state of the setpoint write operation using the `GET /v2/datapoint/setpoint/{reference}` endpoint. Querying the previous reference returns the following answer \(the log is returned as a JSON-formatted string that we reformatted to a list here for better readability\):
+
+```javascript
+{
+  "dataPointID": "bacnet100-4120-Real-room-temperature-setpoint-RTs_real",
+  "log": [
+    {"msg": "Setpoint initialized on API.", "status": "initialized", "time": "2018-12-28T13:10:33.760509Z"}, 
+    {"msg": "Setpoint request sent to edge device.", "status": "requested", "time": "2018-12-28T13:10:33.774182Z"}, 
+    {"msg": "Successfully wrote value 'null' at priority 15 to object instance 3004665 of type 'analogOutput'", "status": "written", "time": "2018-12-28T13:10:34.146189Z"}
+  ],
+  "old_value": "16.7",
+  "priority": 15,
+  "project_id": 1,
+  "reference": "0cce300f-6b9e-447d-ae29-0e7125e2fa36",
+  "status": "written",
+  "value": "null"
+}
+```
+
+The field `old_value` contains the overwritten value, i.e., 16.7° Celsius as was written in the previous unacknowledged setpoint write operation above. The `status` of the operation is now `written` which means that it was successful and the setpoint is in effect.
 
 ### Creating schedules
 
@@ -436,8 +494,8 @@ A new schedule is created through the `POST /v2/datapoint/schedule` endpoint. Th
       <td style="text-align:center">yes</td>
       <td style="text-align:left">A list of setpoints. Each setpoint is defined by a unique <code>id</code>,
         a <code>start</code> time, and a <code>value</code>.</td>
-      <td style="text-align:left">[{'id':0, 'start':'2018-11-09T18:00:00Z', 'value':18.5}, {'id':1, 'start':'2018-11-12T7:00:00Z',
-        'value':21.0}]</td>
+      <td style="text-align:left">[{'id':0, 'start':'2018-11-09T18:00:00Z', 'value':'18.5'}, {'id':1, 'start':'2018-11-12T7:00:00Z',
+        'value':'21.0'}]</td>
     </tr>
   </tbody>
 </table>The different options for defining a schedule deserve some more explanation. The example schedule in the above table realizes a very simple weekend override for the office temperature in winter. In detail, it would do the following:
@@ -484,7 +542,7 @@ Coming soon 🐒
 {% endtab %}
 {% endtabs %}
 
-When this request is posted to the API, the API will check \(among permissions\) the syntactic correctness of the request and that no other schedule is active on the same datapoint and priority. If the request is accepted by the API, it is sent to the Setpoint Writer that runs on the aedifion.device in the building network. It is important to note that the API returns immediately after sending the schedule to the Setpoint Writer, i.e., without waiting for a confirmation from the Setpoint Writer. Instead, the Setpoint Writer will asynchronously update the schedule's status on the API at a later point. Creation of schedules is asynchronous because it requires one round of communication with the setpoint writer that may be subject to delay and intermittent connectivity that would heavily slow down or even break synchronous operation.
+When this request is posted to the API, the API will check \(among permissions\) the syntactic correctness of the request and that no other schedule is active on the same datapoint and priority. If the request is accepted by the API, it is sent to the aedifion.device in the building network. It is important to note that the API returns immediately after sending the schedule to the aedifion.device, i.e., without waiting for a confirmation from the remote device. Instead, the aedifion.device will asynchronously update the schedule's status on the API at a later point. Creation of schedules is asynchronous because it requires one round of communication with the aedifion.device that may be subject to delay and intermittent connectivity that would heavily slow down or even break synchronous operation.
 
 The reply from the API is similar to the following:
 
@@ -504,12 +562,12 @@ The reply from the API is similar to the following:
       {
         "id": 0,
         "start": "2018-11-09T18:00:00Z",
-        "value": "null"
+        "value": "18.5"
       },
       {
         "id": 1,
         "start": "2018-11-12T07:00:00Z",
-        "value": "null"
+        "value": "21"
       }
     ]
   }
@@ -518,13 +576,13 @@ The reply from the API is similar to the following:
 
 The answer confirms that the schedule has been created and provides further details that deserve a detailed explanation.
 
-* The _status_ of the schedule is in state `initialized` meaning that the schedule has been accepted by the API and sent to the setpoint writer in the building network \(c.f. [Overview](setpoints-and-schedules.md#overview)\). The setpoint writer may still reject the schedule, e.g., if the requested datapoint is non-writable.
-* The answer contains a _reference_ to this schedule that can be used with the `GET /v2/datapoint/schedule/{reference}` endpoint to retrieve information about the state of the schedule at a later time. This is necessary since schedules operate on the setpoint writer in the building asynchronously from the aedifion.io platform and API \(c.f. [Overview](setpoints-and-schedules.md#overview)\).
-* The answer further contains a JSON-formatted _log_ which is filled by the API and Setpoint Writer with any notable events concerning this schedule. The log is a list of events where each event notes at least the _status_ of the schedule, a human readable message _msg_, and the _time_ of the event.
+* The _status_ of the schedule is in state `initialized` meaning that the schedule has been accepted by the API and sent to the aedifion.device in the building network \(c.f. [Overview](setpoints-and-schedules.md#overview)\). The aedifion.device may still reject the schedule, e.g., if the requested datapoint is non-writable.
+* The answer contains a _reference_ to this schedule that can be used with the `GET /v2/datapoint/schedule/{reference}` endpoint to retrieve information about the state of the schedule at a later time. This is necessary since schedules operate on the aedifion.device in the building asynchronously from the aedifion.io platform and API \(c.f. [Overview](setpoints-and-schedules.md#overview)\).
+* The answer further contains a JSON-formatted _log_ which is filled by the API and aedifion.device with any notable events concerning this schedule. The log is a list of events where each event notes at least the _status_ of the schedule, a human readable message _msg_, and the _time_ of the event.
 
 ### **Querying schedules**
 
-When a setpoint is created or executed, the Setpoint Writer updates the schedule's status on the API on each major event, e.g., on activation, on writing a setpoint from the schedule, and any kind of error. It is the user's responsibility to check the status of his/her schedule continuously. To this end, the `GET /v2/datapoint/schedule/{reference}` can be used to which the caller must only provide a single argument:
+When a setpoint is created or executed, the aedifion.device updates the schedule's status on the API on each major event, e.g., on activation, on writing a setpoint from the schedule, and any kind of error. It is the user's responsibility to check the status of his/her schedule continuously. To this end, the `GET /v2/datapoint/schedule/{reference}` can be used to which the caller must only provide a single argument:
 
 | **Paramater** | Datatype | Type | Required | Description | Example |
 | :--- | :---: | :---: | :---: | :--- | :--- |
@@ -562,7 +620,7 @@ Log:
  -> 2018-11-27T13:37:41.448276Z - active      Schedule successfully activated on remote logger.
 ```
 
-Note how a second item has been appended to the log, i.e., the confirmation from the Setpoint Writer that the schedule has been accepted and activated. If we wait for a minute, we will see two more events being appended to the log:
+Note how a second item has been appended to the log, i.e., the confirmation from the aedifion.device that the schedule has been accepted and activated. If we wait for a minute, we will see two more events being appended to the log:
 
 ```text
 Log:
@@ -572,7 +630,7 @@ Log:
  -> 2018-11-27T13:38:41.809271Z - failed     Deletion of schedule on missing heartbeat (2 setpoints deleted before execution).
 ```
 
-What happened? We set the _heartbeat_ for this schedule to 60 seconds but didn't send any heartbeats. Exactly 60 seconds after activating this schedule, the Setpoint Writer thus cancelled this schedule by 
+What happened? We set the _heartbeat_ for this schedule to 60 seconds but didn't send any heartbeats. Exactly 60 seconds after activating this schedule, the aedifion.device thus cancelled this schedule by 
 
 * writing the reset value \(`null` in our case\) which needs to be done since we could have written setpoints before, then
 * cancelling all remaining scheduled setpoints, and, finally,
@@ -582,7 +640,7 @@ This schedule has now reached [End-of-Life](setpoints-and-schedules.md#states-an
 
 ### **Updating and modifying schedules**
 
-Since our first test schedule timed-out, let's create a second with a much higher heartbeat of 600 seconds on which we can calmly try our updates. Please note down the returned reference, e.g., in this example:`390ca8e9-f699-49a4-921f-2746a7eecc5d` Go on and `GET` the schedule to make sure that it has actually been accepted and now is `active`. 
+Since our first test schedule timed-out, let's create a second with a much higher heartbeat of 600 seconds on which we can calmly try our updates. Please note down the returned reference, e.g., in this example: `18f86b8a-1669-49da-adc3-e171c8e4e229`. Go on and `GET` the schedule to make sure that it has actually been accepted and now is `active`. 
 
 All schedules that are not in state `failed` or `terminated` \(such as our second test schedule\) can be updated and modified through the `PUT /v2/datapoint/schedule/{reference}` endpoint with the following parameters:
 
@@ -606,7 +664,7 @@ All schedules that are not in state `failed` or `terminated` \(such as our secon
       <td style="text-align:center">path</td>
       <td style="text-align:center">yes</td>
       <td style="text-align:left">The alphanumeric id of the schedule to modify.</td>
-      <td style="text-align:left"></td>
+      <td style="text-align:left">18f86b8a-1669-49da-adc3-e171c8e4e229</td>
     </tr>
     <tr>
       <td style="text-align:left"><b>name</b>
@@ -618,7 +676,8 @@ All schedules that are not in state `failed` or `terminated` \(such as our secon
       </td>
       <td style="text-align:center">no</td>
       <td style="text-align:left">The new name for the schedule.</td>
-      <td style="text-align:left">Weekend_override</td>
+      <td style="text-align:left">Modified_
+        <br />Weekend_override</td>
     </tr>
     <tr>
       <td style="text-align:left"><b>resetValue</b>
@@ -630,7 +689,7 @@ All schedules that are not in state `failed` or `terminated` \(such as our secon
       </td>
       <td style="text-align:center">no</td>
       <td style="text-align:left">The new reset value of this schedule.</td>
-      <td style="text-align:left">20</td>
+      <td style="text-align:left">21</td>
     </tr>
     <tr>
       <td style="text-align:left"><b>heartbeat</b>
@@ -643,7 +702,7 @@ All schedules that are not in state `failed` or `terminated` \(such as our secon
       <td style="text-align:center">no</td>
       <td style="text-align:left">Duration in seconds after which the schedule deletes itself if no heartbeat
         is received.</td>
-      <td style="text-align:left">60</td>
+      <td style="text-align:left">120</td>
     </tr>
     <tr>
       <td style="text-align:left">
@@ -661,7 +720,7 @@ All schedules that are not in state `failed` or `terminated` \(such as our secon
       <td style="text-align:left">A list of <em>new</em> setpoints to add to the schedule. If a new setpoint
         has the same <code>id</code> as an existing setpoint, the update is rejected.</td>
       <td
-      style="text-align:left">[{'id':2, 'start':'2018-11-12T9:00:00Z', 'value':20.0}]</td>
+      style="text-align:left">[{'id':2, 'start':'2018-11-12T09:00:00Z', 'value':'20'}]</td>
     </tr>
     <tr>
       <td style="text-align:left">
@@ -679,8 +738,8 @@ All schedules that are not in state `failed` or `terminated` \(such as our secon
       <td style="text-align:left">A list of <em>existing</em> setpoints to modify identified by their <code>id</code>.
         If a setpoint from this list does not exist, the update is rejected.</td>
       <td
-      style="text-align:left">[{'id':0, 'start':'2018-11-09T19:00:00Z', 'value':17}, {'id':1, 'start':'2018-11-12T8:00:00Z',
-        'value':22}]</td>
+      style="text-align:left">[{'id':0, 'start':'2018-11-09T19:00:00Z', 'value':'17'}, {'id':1, 'start':'2018-11-12T8:00:00Z',
+        'value':'22'}]</td>
     </tr>
     <tr>
       <td style="text-align:left">
@@ -699,22 +758,32 @@ All schedules that are not in state `failed` or `terminated` \(such as our secon
         <p>A list of <em>existing</em> setpoints to delete identified by their <code>id</code>.</p>
         <p>If a setpoint from this list does not exist, the update is rejected.</p>
       </td>
-      <td style="text-align:left">[{'id':2, 'start':'2018-11-12T9:00:00Z', 'value':20}]</td>
+      <td style="text-align:left">[{'id':2, 'start':'2018-11-12T09:00:00Z', 'value':'20'}]</td>
     </tr>
   </tbody>
-</table>Let's post this update 
-
-TODO
+</table>Let's post this update which changes the schedule's name, its reset value and heartbeat, adds one setpoint, modifies two setpoints, and deletes the newly added setpoint. 
 
 {% tabs %}
 {% tab title="Python" %}
 ```python
 import requests
 
-# configuration
-... # see above
-reference = ... # from create
-update_schedule = {...} # fill in update
+reference = '18f86b8a-1669-49da-adc3-e171c8e4e229' # from create
+update_schedule = {
+    'name': 'Modified_Weekend_override',
+    'resetValue': '21',
+    'heartbeat': 120,
+    'setpoints_add': [
+        {'id':2, 'start':'2018-11-12T09:00:00Z', 'value':'20'}
+    ],
+    'setpoints_modify': [
+        {'id':0, 'start':'2018-11-09T19:00:00Z', 'value':'17'}, 
+        {'id':1, 'start':'2018-11-12T08:00:00Z', 'value':'22'}]
+    ],
+    'setpoints_delete': [
+        {'id':2, 'start':'2018-11-12T09:00:00Z', 'value':'20'}
+    ]
+}
 
 r = requests.put(url + "/v2/datapoint/schedule/{}".format(reference),
          json=update_schedule,
@@ -748,17 +817,12 @@ Any schedule that is not `terminated` or `failed` can be stopped through the `DE
 
 | **Paramater** | Datatype | Type | Required | Description | Example |
 | :--- | :---: | :---: | :---: | :--- | :--- |
-| **reference** | string | path | yes | The alphanumeric id of the schedule returned on creation. | 390ca8e9-f699-49a4-921f-2746a7eecc5d |
+| **reference** | string | path | yes | The alphanumeric id of the schedule returned on creation. | 18f86b8a-1669-49da-adc3-e171c8e4e229 |
 
 {% tabs %}
 {% tab title="Python" %}
 ```python
-import requests
-
-# configuration
-... # see above
-reference = ... # from create or update
-
+reference = '18f86b8a-1669-49da-adc3-e171c8e4e229'
 r = requests.delete(url + "/v2/datapoint/schedule/{}".format(ref))
 print(r.status_code, r.json())
 ```
@@ -773,7 +837,7 @@ print(r.status_code, r.json())
 {% endtab %}
 {% endtabs %}
 
-On success, the API will return the deleted schedule in the _'resource'_ field of the answer. After deletion, the schedule is either in state `finished` or `terminated` and can still be queried through the `GET /v2/datapoint/schedule/{reference}` endpoint, but cannot be modified or executed anymore.
+On success, the API will return the deleted schedule in the _resource_ field of the answer. After deletion, the schedule is either in state `finished` or `terminated` and can still be queried through the `GET /v2/datapoint/schedule/{reference}` endpoint, but cannot be modified or executed anymore.
 
 ```javascript
 {
@@ -782,19 +846,19 @@ On success, the API will return the deleted schedule in the _'resource'_ field o
     "datapoint_id": 127,
     "heartbeat": 3600,
     "log": "[{\"msg\": \"Schedule created by user.\", \"status\": \"initialized\", \"time\": \"2018-11-27T15:10:44.662878Z\"}, {\"msg\": \"Schedule successfully activated on remote logger.\", \"status\": \"active\", \"time\": \"2018-11-27T15:10:45.315786Z\"}, {\"msg\": \"User triggered DELETE /v2/datapoint/schedule/{{reference}}\", \"status\": \"stopping\", \"time\": \"2018-11-27T15:55:38.145546Z\"}]",
-    "name": "Weekend_override",
+    "name": "Modified_Weekend_override",
     "priority": 15,
-    "reference": "390ca8e9-f699-49a4-921f-2746a7eecc5d",
+    "reference": "18f86b8a-1669-49da-adc3-e171c8e4e229",
     "setpoints": [
       {
         "id": 0,
-        "start": "2019-11-09T18:00:00Z",
-        "value": "null"
+        "start": "2018-11-09T19:00:00Z",
+        "value": "17"
       },
       {
         "id": 1,
-        "start": "2019-11-12T07:00:00Z",
-        "value": "null"
+        "start": "2018-11-12T08:00:00Z",
+        "value": "22"
       }
     ],
     "status": "stopping"
@@ -803,38 +867,38 @@ On success, the API will return the deleted schedule in the _'resource'_ field o
 }
 ```
 
-Note that the status of the schedule is now reported as `stopping`. The reason is that, similar as during [creation of a schedule](setpoints-and-schedules.md#creating-schedules), the API will forward the delete request to the Setpoint Writer then return immediately. Just as everything about schedules, deletion is asynchronous and the caller should thus `GET` the schedule a short time after issuing the delete in order to verify that everything worked out as expected.
+Note that the status of the schedule is now reported as `stopping`. The reason is that, similar as during [creation of a schedule](setpoints-and-schedules.md#creating-schedules), the API will forward the delete request to the aedifion.device then return immediately. Just as everything about schedules, deletion is asynchronous and the caller should thus `GET` the schedule a short time after issuing the delete in order to verify that everything worked out as expected.
 
 ## Limitations and caveats
 
 #### **Adding, modifying, deleting setpoints in the past**
 
-Updating a running schedule, it is not allowed to add, modify, or delete setpoints that lie in the past in order to prevent inconsistent states. To account for potential communication delays between the API and the setpoint writer, an additional security margin of 60 seconds into the future is enforced. In other words, all setpoints that are added, modified, or deleted within an update, must have a start time that is at least 60 seconds into the future.
+Updating a running schedule, it is not allowed to add, modify, or delete setpoints that lie in the past in order to prevent inconsistent states. To account for potential communication delays between the API and the aedifion.device, an additional security margin of 60 seconds into the future is enforced. In other words, all setpoints that are added, modified, or deleted within an update, must have a start time that is at least 60 seconds into the future.
 
 #### Deleting stop events
 
-The time-wise last setpoint in a schedule is referred to as stop event. The value that it writes is left in the system. In the 99% of cases, this means that defining `'reset'` as the value of the time-wise last setpoint is the right choice as this will write the value that was written for this datapoint and priority before the schedule went active.
+The time-wise last setpoint in a schedule is referred to as stop event. The value that it writes is left in the system. In the 99% of cases, this means that defining `reset` as the value of the time-wise last setpoint is the right choice as this will write the value that was written for this datapoint and priority before the schedule went active.
 
-However, when the stop event $$s_n$$is deleted, the latest \(time-wise\) remaining setpoint $$s_i$$automatically becomes the new stop event, including its original value $$v_i$$. Similarly, when a setpoint $$s_m$$ with $$t_m \gt t_n$$ is added $$s_m$$ automatically becomes the new stop event, including its original value $$v_m$$. If $$v_i$$\(or $$v_m$$\) are something other than `'reset'` the system might be unintentionally left in a different state after the schedule than expected by the user.
+However, when the stop event $$s_n$$is deleted, the latest \(time-wise\) remaining setpoint $$s_i$$automatically becomes the new stop event, including its original value $$v_i$$. Similarly, when a setpoint $$s_m$$ with $$t_m \gt t_n$$ is added $$s_m$$ automatically becomes the new stop event, including its original value $$v_m$$. If $$v_i$$\(or $$v_m$$\) are something other than `reset` the system might be unintentionally left in a different state after the schedule than expected by the user.
 
-The bottom line is that the user must take care while adding, modifying, and deleting setpoints from a schedule that the last \(time-wise\) setpoint writes a value that "correctly" resets the system. Again, usually `'reset'` will be the right choice of value for the stop event.
+The bottom line is that the user must take care while adding, modifying, and deleting setpoints from a schedule that the last \(time-wise\) setpoint writes a value that "correctly" resets the system. Again, usually `reset` will be the right choice of value for the stop event.
 
 ## Planned features
 
 The following features will be released soon.
 
-* _Acknowledged setpoints:_ Introduction of a Boolean parameter `acknowledged` that triggers an asynchronous acknowledgement from the setpoint writer towards the API which can later be queried by the user through an additional API endpoint `GET /v2/datapoint/setpoint/{reference}`
 * Pausing and un-pausing a running schedule through additional endpoint `PUT /v2/datapoint/schedule/{reference}/toggle`
+* ASAP execution of setpoints in fresh schedules.
 
 Missing a feature? [Request it!](../../contact.md#support)
 
 ## FAQ
 
-**What happens if the setpoint writer looses internet connection?**  
-Since all current schedules are replicated on the setpoint writer, all schedules continue running without any interruption. However, the setpoint writer can no longer receive heartbeats from the API. Thus, all schedules with a heartbeat will eventually time-out and then be safely reset.
+**What happens if the aedifion.device looses internet connection?**  
+Since all current schedules are replicated on the aedifion.device, all schedules continue running without any interruption. However, the aedifion.device can no longer receive heartbeats from the API. Thus, all schedules with a heartbeat will eventually time-out and then be safely reset.
 
-**What happens when the setpoint writer crashes?**  
-All schedules \(and their state\) are persisted in a local database on the HD of the setpoint writer. The setpoint writer is set to automatically reboot when it crashes and will reload and reactivate all running schedules \(as long as the HD is intact\). This process takes no more than one minute. As everything, crash events and subsequent reloads are logged to the API.
+**What happens when the aedifion.device crashes?**  
+All schedules \(and their state\) are persisted in a local database on the HD of the aedifion.device. The aedifion.device is set to automatically reboot when it crashes and will reload and reactivate all running schedules \(as long as the HD is intact\). This process takes no more than one minute. As everything, crash events and subsequent reloads are logged to the API.
 
 **Why can't I add, modify, or delete setpoints of a running schedules that lie in the past?**  
 The short answer: We do our very best, but what's past is past and nobody can change it.
