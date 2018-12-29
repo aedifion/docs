@@ -1,15 +1,13 @@
 ---
 description: >-
   aedifion.io is an IoT platform tailored for energy systems, energy-related
-  plants, buildings, districts and cities.
+  plants, buildings, districts and cities. It offers technical monitoring, Data
+  management, Data analytics, as
 ---
 
 # aedifion.io
 
-## Stoffsammlung
-
-* 30.000 ft overview of aedifion.io 
-* Normen \(6061 AMEV, ISO 50001, ...\)
+## Introduction
 
 aedifion.**io** enables building and district-wide as well as plant-specific acquisition of operational data, data transfer and storage as well as location-, device- and platform-independent data retrieval. Furthermore, aedifion.**io** offers data management functions and various visualization options. aedifion.io offers access control and fine-grained user, role and rights management in accordance with recent IT security standards. This comprises a web server certification, a complete TLS encryption of the data transfer as well as a user authentication mechanism. 
 
