@@ -8,6 +8,7 @@
   * [Frontend](aedifion.io/frontend.md)
   * [Data](aedifion.io/data.md)
   * [Integrations](aedifion.io/integrations.md)
+  * [ICT security](aedifion.io/ict-security.md)
 * [Glossary](glossary.md)
 * [Contact](contact.md)
 
