@@ -25,7 +25,7 @@ aedifion.io provides different data visualization dashboards which can be indivi
 
 It generates notifications and alarms based on concepts, such as e.g. "threshold" and "throughput", whith various channels, such as E-Mail, Telegram, Slack, or even MQTT.
 
-As aedifion.io originates from research, it has profound data structuring concepts to cope for meta data management, multiple datapointkeys, and semantic modelling of energy system structures. 
+As aedifion.io originates from research, it has profound data structuring concepts to cope for meta data management, multiple [datapointkeys](https://docs.aedifion.io/docs/glossary#datapointkey), and semantic modelling of energy system structures. 
 
 aedifion.io enables remote control for each connected system. Control algorithms can also be integrated into the aedifion.io cloud platform or into its edge devices with customized APIs. 
 

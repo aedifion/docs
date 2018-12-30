@@ -6,7 +6,7 @@ description: This page introduces important key features of aedifion.io
 
 ## Advanced data ingress
 
-aedifion.io offers plant-, building- and district-wide data acquisition compatible to many bus communication standards. Moreover, it integrates all IP-available data sources, replicates local data bases and connects to existing data servers. In addition, users or devices can stream their data directly into aedifion.io.
+aedifion.io offers plant-, building- and district-wide data acquisition compatible to many bus communication standards, partially with auto discovery of [datapoints ](https://docs.aedifion.io/docs/glossary#datapoint)and [devices](https://docs.aedifion.io/docs/glossary#device). Moreover, it integrates all IP-available data sources, replicates local data bases and connects to existing data servers. In addition, users or devices can stream their data directly into aedifion.io.
 
 | Type | Example |
 | :--- | :--- |
@@ -23,9 +23,9 @@ We aspire to integrate &lt;&lt;everything that is IP-based available&gt;&gt;.
 aedifion.io works fully plug-and-play for BACnet system. All it needs is a gateway that operating personnell can easily connect to local networks. Once plugged in, the gateway connects automatically to our servers and we start data integrations.
 {% endhint %}
 
-## Meta data aquisition
+## Metadata acquisition
 
-BACnet, SQL, OPC, Modbus...
+For each integrated [datapoint ](https://docs.aedifion.io/docs/glossary#datapoint)and for each integrated[ device](https://docs.aedifion.io/docs/glossary#device), aedifion.io is able to acquire comprehensive metadata which originates either from standards like BACnet, from Modbus plat descriptions, from local databases or data servers as OPC. This metadata is automatically processed into aedifion.io's data structuring.  Metadata is added to each datapoint via [tags](https://docs.aedifion.io/docs/glossary#tag). Integrated devices are semantically modelled as [components](https://docs.aedifion.io/docs/glossary#component).  
 
 ## Data storage
 
