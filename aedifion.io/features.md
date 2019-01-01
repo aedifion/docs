@@ -40,7 +40,7 @@ Don't you worry! The sample rate can be flexible adjusted during data provision.
 
 ## Data provision
 
-aedifion.io offers various ways of data provisition.
+aedifion.io offers various ways of data provision.
 
 ### Via API
 
@@ -80,19 +80,48 @@ aedifion offers training and engineering for Grafana to build your desired dashb
 
 ## Data processing
 
-aedifion.io directly offers data processing such as resampling via api. Furthermore, two kinds of processes, i.e. stream and batch processes•can be set up. Use cases as nominal-actual-comparisons as required in the German VDI 6041 "Technical Monitoring" or standard calculation methods, as well as statistic algorithms are covered by stream processes. Batch processes cover more complex calculations. They account for use cases according to ISO 50 001 "Energy Management".
+aedifion.io directly offers data processing such as resampling via api. Furthermore, two kinds of processes, i.e. stream and batch processes can be set up. Stream provesses cover Use cases as nominal-actual-comparisons as required in the German VDI 6041 "Technical Monitoring" or standard calculation methods, as well as statistic algorithms are covered by stream processes. Batch processes cover more complex calculations. They account for use cases according to ISO 50 001 "Energy Management".
+
+{% hint style="success" %}
+aedifion.io handles calculations as required by the German VDI 6041 "Technical Monitoring" or ISO 50 001 "Energy Management" with stream and batch processing, respectively.
+{% endhint %}
 
 ### Stream processing
 
-Stream-Prozesse, bspw.:•Berechnung Leistungszahl•Berechnung Wärmestrom•Überprüfung von Betriebsregeln•
+A stream process runs a calculation of a free-to-choose mathematical relationship on each new event/observation of a referred datapoint. Stream processes relate to one or more datapoints.
+
+{% hint style="info" %}
+Examples for stream process: 
+
+* Heat flow calculation: 
+  * $$\dot{Q} = \dot{m} c_p (\vartheta_{out} - \vartheta_{in})$$
+* Coefficient of performance: 
+  * $$\eta = \frac{\dot{Q{th}}}{P_{el}}$$ 
+* System sanity/operation checks 
+  * $$\mathrm{actual value} == \mathrm{expected value}$$ 
+{% endhint %}
+
+A stream process can be linked to a virtual datapoint or used as an input for alarms and notifications.
 
 ### Batch processing
 
-Batch-Prozesse, bspw.:•Berechnung Arbeitszahl•Energetische Berechnungen über längere Zeiträume
+A batch process is not operated continuously - like stream processes - but on a certain trigger. I.e. a pre-set time or up on request. This process runs complex calculation using historical data.
+
+{% hint style="info" %}
+Examples for batch processes: 
+
+* Energy Efficiency Ratio \(heat pump\)
+* Energy reporting over long periods 
+* Control loop analysis
+{% endhint %}
 
 ### Virtual data points
 
-Virtuelle Datenpunkte•Zurückspielen von Berechnungen
+A virtual datapoint is a datapoint not gathered from a local plant but resulting of a mathematical calculation. Despite, it appears exactly like a physical datapoint in aedifion.io's time series database. In aedifion.io, a virtual datapoint typically originates from a stream process. Of course, all alarming and notification paradigms can be used with physical as well as virtual datapoints.
+
+{% hint style="success" %}
+Set up flexible alarms on complex relationships using stream processes and virtual datapoints!
+{% endhint %}
 
 ## Data management & structuring
 
