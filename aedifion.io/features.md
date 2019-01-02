@@ -125,17 +125,23 @@ Set up flexible alarms on complex relationships using stream processes and virtu
 
 ## Data management & structuring
 
-Since managing large amounts of datapoints from one 
+Since managing large amounts of datapoints occurs to be a complex task, aedifion.io comprises different methods to manage and structure data. These methods account for the application of various metadata schemes and datapoint designation schemes, such as e.g. [Brick](https://brickschema.org/) or [BUDO](https://github.com/RWTH-EBC/BUDO). 
 
 ### Favorites 
 
-
+Frequently inspected or most important datapoints can be set as a favorite. Within the frontend, users can use favorite datapoints as a filter and thus access them faster. 
 
 ### Tagging
 
+A tag is a key-value-pair of metadata attached to a time series with its source indicated and its creation date. All available metadata of a datapoint is stored this way. A source of a tag can be e.g. Cnet, User, Artificial Intelligence, Local Database, etc. The tagging can be used to build up structures as required in [Brick](https://brickschema.org/) or [BUDO](https://github.com/RWTH-EBC/BUDO). 
 
+{% hint style="info" %}
+All gathered metadata during metadata acquisition is stored as tags.
+{% endhint %}
 
 ### Renaming
+
+The datapoint name  [BUDO](https://github.com/RWTH-EBC/BUDO). 
 
 •Konzept der „Tags“•Tag ist ein Tupel:  
  {Key, Value, Source, Timestamp…}•Beispiele•{Messgröße, Vorlauftemperatur, AI, 2019-11-22}•{Einheit, ° C, BACnet, 2019-11-21}••Konzept ermöglicht Datenfeldbezeichung nach gängigen Standards \(VDI 3815, BUDO, ISE-Schlüssel, Bricks-Schema…\)
