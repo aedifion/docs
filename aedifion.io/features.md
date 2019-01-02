@@ -125,6 +125,18 @@ Set up flexible alarms on complex relationships using stream processes and virtu
 
 ## Data management & structuring
 
+Since managing large amounts of datapoints from one 
+
+### Favorites 
+
+
+
+### Tagging
+
+
+
+### Renaming
+
 •Konzept der „Tags“•Tag ist ein Tupel:  
  {Key, Value, Source, Timestamp…}•Beispiele•{Messgröße, Vorlauftemperatur, AI, 2019-11-22}•{Einheit, ° C, BACnet, 2019-11-21}••Konzept ermöglicht Datenfeldbezeichung nach gängigen Standards \(VDI 3815, BUDO, ISE-Schlüssel, Bricks-Schema…\)
 
