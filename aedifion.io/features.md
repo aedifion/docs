@@ -141,34 +141,49 @@ All gathered metadata during metadata acquisition is stored as tags.
 
 ### Renaming
 
-The datapoint name  [BUDO](https://github.com/RWTH-EBC/BUDO). 
+Aedifion.io supports multiple datapointnames in order to match the needs of different datapoint naming schemes, logical uniqueness, and fulfilling users’ preferences. E.g. a datapoint in aedifion.io can have a unique name originating from its source or field device as identifier, a name according to a scheme, e.g. [BUDO](https://github.com/RWTH-EBC/BUDO), and a name given by the inspecting user at the same time.
 
-•Konzept der „Tags“•Tag ist ein Tupel:  
- {Key, Value, Source, Timestamp…}•Beispiele•{Messgröße, Vorlauftemperatur, AI, 2019-11-22}•{Einheit, ° C, BACnet, 2019-11-21}••Konzept ermöglicht Datenfeldbezeichung nach gängigen Standards \(VDI 3815, BUDO, ISE-Schlüssel, Bricks-Schema…\)
+## Project management
 
-Renaming
+​Aedifion.io allows for multi plant management. It generates an overarching instance, a so-called company, for each costumer. Multiple projects can exist within each company. Admins manage rights with the so-called rule-based access control.
 
-## Project management - rule based access control
+### Rule-based access control
 
-•Rollenkonzept•Definition von Rollen•Zuordnen von Rechten für Datenpunkte und Funktionen•Lesen•Schreiben•Nutzen•Zuordnen von Rollen zu Nutzern
+Aedifion.io offers a fine-grained rule-base rights management. An admin can generate roles that grant access to backend functionality, e.g. adding tags to datapoints, or roles that enable to read or write certain datapoints – or not to. He can allocate roles to users individually, whereby a user can have multiple roles. With this role-based access control customers can configure aedifion.io to meet all their data privacy requirements and those of the [EU GDPR](https://gdpr.eu/).
 
 ## Alarming and notifications
 
-•Standardisierte Alarm-Konzepte per API verfügbar•Throughput•Threshold•Siehe [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/)••Maßgeschneiderte Alarme:•Stream-Prozesse•Virtuelle Datenpunkte•Nutzung Alarm-Konzepte••Viele Ausgabekanäle unterstützt
+Users of aedifion.io can use various alarming schemes to deploy them on datapoints or virtual datapoints. E.g. threshold-alarms and throughput alarms can be set up. In addition, users can chose between various alarming channels, such as e.g. via Email or via chatbots in e.g. Telegram. Even Amazon's Alexa is possible up on request. This accounts for flexible, user-centric and innovative alarming functionalities.
 
 ## Integrations
 
-sum up all integrations done so far. \(Alexa, Microsoft Exchange, Excel tool features\)
+Aedifion.io integrates various external applications and platforms. It uses Telegram to communicate alarms an integration. It can receive Amazon's Alexa's commands and communicate them to field devices. In turn, Alexa uses aedifion.io to return user's current thermal comfort and indoor air quality. Users of aedifion.io use MS Excel, Mathwork's Matlab and Simulink as well as many other work benches as tools for further data analytics and even plant controls. Companies can use their single-sign on system for log in to aedifion.io. E.g. for a supervisory heating and cooling control or performance analytics of meeting rooms, aedifion.io uses Microsofts Exchange resource data. 
+
+In addition, aedifion.io has pre-configured interfaces to state-of-the-art IoT-platforms, such as e.g. offered by Cumulocitiy, to seamlessly integrate its services.
 
 ### Weather and weather forecast data
 
-sum it up here.
+Further, aedifion integrates local weather data and forecast data for each project, depending on its GPS coordinates.
 
 ## Controls
 
-kurze beschreibung von Controls
+Aedifion.io provides basic control functions whenever a datapoint is generally controllable in the field. This covers simple set point writing as well as manipulating local control loops or even overruling local system output. Further, aedifion.io has a decent scheduling functionality in order to robustly execute control sequences. This enables for a simple way of deploying cloud-based controls and new ways of system interaction, such as Alexa or chatbots. In extreme cases, local controls hardware remains just as a in-out-device, whereas logics are operated in the cloud.
+
+{% hint style="danger" %}
+Safety of cloud-based controls is important. Aedifion.io offers various, locally executed, fail-safe operations triggered by certain events, such as a connection loss.​
+{% endhint %}
 
 ### Controls runtime environment
+
+In the first step, a user's control algorithm operates within the user's local setup or cloud environment. To increase scalability and robustness, aedifion.io offers the opportunity to operate control algorithms within its control runtime environment. Users can provide their algorithms and API requirements. Control algorithms are then deployed within aedifion.io and APIs are individually engineered.
+
+### Cloud, edge and air-gapped
+
+Control algorithms can be operated at different ways. A cloud-operated algorithm uses the internet to communicate its control decisions or manipulated variables. An edge-operated algorithm is executed on the aedifion.io gateway, the so-called edge-device, locally within the customers control system. The edge-operated algorithms use the internet and the cloud-platform to receive commands and parameters. To the user, it offers the same API-functionality as the cloud-operated on. An air-gapped deployment is a more classical set up, quite like a local programmable logic controller, but with a more advanced control runtime, offering the possibility to execute more complex controls, including optimizations and simulations.
+
+{% hint style="success" %}
+With aedifion.io, cloud, edge and air-gapped deployments are possible. We thrive to solve control challenges.
+{% endhint %}
 
 ## Comprehensive APIs
 
