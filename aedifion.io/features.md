@@ -6,7 +6,7 @@ description: This page introduces important key features of aedifion.io
 
 ## Advanced data ingress
 
-aedifion.io offers plant-, building- and district-wide data acquisition compatible to many bus communication standards, partially with auto discovery of [datapoints ](https://docs.aedifion.io/docs/glossary#datapoint)and [devices](https://docs.aedifion.io/docs/glossary#device). Moreover, it integrates all IP-available data sources, replicates local data bases and connects to existing data servers. In addition, users or devices can stream their data directly into aedifion.io. Of course, historic data can be uploaded via a CSV API.
+Aedifion.io offers plant-, building- and district-wide data acquisition compatible to many bus communication standards, partially with auto discovery of [datapoints ](https://docs.aedifion.io/docs/glossary#datapoint)and [devices](https://docs.aedifion.io/docs/glossary#device). Moreover, it integrates all IP-available data sources, replicates local data bases and connects to existing data servers. In addition, users or devices can stream their data directly into aedifion.io. Of course, historic data can be uploaded via a CSV API.
 
 | Type | Example |
 | :--- | :--- |
@@ -30,7 +30,7 @@ For each integrated [datapoint ](https://docs.aedifion.io/docs/glossary#datapoin
 
 ## Data storage and resolution
 
-aedifion.io uses databases specialized on [time series](https://docs.aedifion.io/docs/glossary#time-series) as well as additional databases for other data. The time series database uses Change-of-Value \(CoV\) as basic concept for data storage. Preconfigured threshold is 0.
+Aedifion.io uses databases specialized on [time series](https://docs.aedifion.io/docs/glossary#time-series) as well as additional databases for other data. The time series database uses Change-of-Value \(CoV\) as basic concept for data storage. Preconfigured threshold is 0.
 
 Integrated [devices](https://docs.aedifion.io/docs/glossary#device) define the lowest sample rates of data acquisition and, thus, the data resolution. Typically, aedifion.io reaches 5 seconds for BACnet devices. With recent BACnet devices this can decrease to below 1 second. The same accounts for Modbus devices.
 
@@ -58,7 +58,7 @@ Websocktes offer the direct retrieval of live data.
 
 A web-based graphical users interface is available under www.aedifion.io. it offers datapoint search, \(multi-\)line plotting, carpet/heatmap plotting, plot and CSV exporting, saving plot views for fast access, high level data management, such as adding favorits, renaming datapoints, and using variable datapointkeys. 
 
-aedifion will release a version 1.0 in 2019 with better user experience and more functionality.
+Aedifion will release a version 1.0 in 2019 with better user experience and more functionality.
 
 ### Excel plugin
 
@@ -80,7 +80,7 @@ aedifion offers training and engineering for Grafana to build your desired dashb
 
 ## Data processing
 
-aedifion.io directly offers data processing such as resampling via api. Furthermore, two kinds of processes, i.e. stream and batch processes can be set up. Stream provesses cover Use cases as nominal-actual-comparisons as required in the German VDI 6041 "Technical Monitoring" or standard calculation methods, as well as statistic algorithms are covered by stream processes. Batch processes cover more complex calculations. They account for use cases according to ISO 50 001 "Energy Management".
+Aedifion.io directly offers data processing such as resampling via api. Furthermore, two kinds of processes, i.e. stream and batch processes can be set up. Stream provesses cover Use cases as nominal-actual-comparisons as required in the German VDI 6041 "Technical Monitoring" or standard calculation methods, as well as statistic algorithms are covered by stream processes. Batch processes cover more complex calculations. They account for use cases according to ISO 50 001 "Energy Management".
 
 {% hint style="success" %}
 aedifion.io handles calculations as required by the German VDI 6041 "Technical Monitoring" or ISO 50 001 "Energy Management" with stream and batch processing, respectively.
