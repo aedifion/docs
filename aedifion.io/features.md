@@ -163,7 +163,7 @@ In addition, aedifion.io has pre-configured interfaces to state-of-the-art IoT-p
 
 ### Weather and weather forecast data
 
-Further, aedifion integrates local weather data and forecast data for each project, depending on its GPS coordinates.
+Further, aedifion.io integrates local weather data and forecast data for each project, depending on its GPS coordinates.
 
 ## Controls
 
@@ -177,7 +177,7 @@ Safety of cloud-based controls is important. Aedifion.io offers various, locally
 
 In the first step, a user's control algorithm operates within the user's local setup or cloud environment. To increase scalability and robustness, aedifion.io offers the opportunity to operate control algorithms within its control runtime environment. Users can provide their algorithms and API requirements. Control algorithms are then deployed within aedifion.io and APIs are individually engineered.
 
-### Cloud, edge and air-gapped
+### Cloud, edge, and air-gapped
 
 Control algorithms can be operated at different ways. A cloud-operated algorithm uses the internet to communicate its control decisions or manipulated variables. An edge-operated algorithm is executed on the aedifion.io gateway, the so-called edge-device, locally within the customers control system. The edge-operated algorithms use the internet and the cloud-platform to receive commands and parameters. To the user, it offers the same API-functionality as the cloud-operated on. An air-gapped deployment is a more classical set up, quite like a local programmable logic controller, but with a more advanced control runtime, offering the possibility to execute more complex controls, including optimizations and simulations.
 
@@ -195,15 +195,19 @@ aedifion offers customized backend features for special purposes of users. Such 
 
 ## Authentification mechanisms
 
-summarize the possibilities.
+Aedifion.io supports various authentication, e.g. OpenID, GoolgeAuth, as well as various API authorization standards, e.g. oAuth, xAuth, XACML, up on request. Aedifion customizes aedifion.io for companies using a single sign-on system in order to get a seamless user experience.
 
 ## Data privacy
 
-show the possibilities.
+With its rule-based access control, admins can adjust access rights per user to meet all data privacy requirements of their organization. In general, aedifion.io meets all EU GDPR requirements with its legal framework.
+
+## Legal framework
+
+Aedifion.io's legal framework consists of a licence agreement \(Nutzungsvertrag\) between the customer and aedifion with attachments. I.e. the aedifion Terms and Conditions \(AGBs\), a contract for the commissiond data processing \(Auftragsdatenverarbeitung, ADV\), and technical and organizational measures for data security \(technisch-organisatorische Maßnahmen, TOMs\).​
 
 ## Availability and quality assurance
 
-•Kontinuierliche Überwachung des Systemstatus•Messpunkte entlang der gesamten Pipeline•Kombiniert mit ingenieurswissenschaftlichem Know-How••Redundanz & Backups•Komplett gespiegelte Pipeline und Backend•Zusätzliche nächtliche Full-Backups••Alarming•Überwachung der kompletten Pipeline•Intern, per Instant Messenger
+Aedifion continuously supervises aedifion.io's system status using measurements points along its whole pipeline. The alarming on measurement points is combined with engineering domain knowledge. A computer emergency and response team is available 24/7 to guarantee for highest system availabilities. The aedifion.io system is mirrored, thus, there are two deployments working in parallel. Moreover, daily backups guarantee for highest data protection in case of unforeseen events.
 
 
 
