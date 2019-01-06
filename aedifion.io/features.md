@@ -199,7 +199,7 @@ Aedifion.io supports various authentication, e.g. OpenID, GoolgeAuth, as well as
 
 ## Data privacy
 
-With its rule-based access control, admins can adjust access rights per user to meet all data privacy requirements of their organization. In general, aedifion.io meets all EU GDPR requirements with its legal framework.
+With its [rule-based access control](https://docs.aedifion.io/docs/aedifion.io/features#rule-based-access-control), admins can adjust access rights per user to meet all data privacy requirements of their organization. In general, aedifion.io meets all EU GDPR requirements with its legal framework.
 
 ## Legal framework
 
