@@ -4,23 +4,61 @@ description: Official documentation portal of aedifion.
 
 # Welcome
 
-## Contents
+Welcome to the official documentation portal of the aedifion GmbH. This site offers technical documentation for all of aedifion's products in the form of functional overviews, detailed technical specifications, as well as hands-on programming tutorials.
 
-### Overview and functional description of aedifion.io
+## Table of contents
 
-This documentation offers an high-level as well as a detailed overview of the basic concepts of the IoT plattform aedifion.io which has a special focus on advanced operation of energy-related plants, buildings, and districts. 
+### [Welcome](./)
 
-#### Glossary
+This is this page.
 
-A glossary provides definitions of the relevant vocabulary in order to streamline communication. This is meant as a single-source-of-truth of wording.
+### [aedifion.io](aedifion.io/)
 
-### Tutorials
+This page and its subpages offers an high-level overview of the basic concepts of the aedifion.io IoT platform which has a special focus on advanced operation of energy-related plants, buildings, and districts. 
 
-In-depth tutorials guide through important features and explain possibilities how to use the platform and its basic concepts. We offer decent tutorials on aedifion's beta frontend, stepwise tutorials towards the interaction with the HTTP APIs and the MQTT API, as well as a tutorial on the aedifion Excel integration. 
+### [Glossary](glossary.md)
 
-### Developers
+The glossary provides definitions of the relevant vocabulary in order to streamline communication. This is meant as a single-source-of-truth for special wording used in this documentation and all of aedifion's products.
 
-The developers section provides resources towards integrating aedifion.io functionalities in your own application, such as the generation of clients in different programming languages. 
+### [Contact](contact.md)
+
+There are different ways to get in contact with us. Please don't hesitate. 
+
+### [Guides and tutorials](https://docs.aedifion.io/docs/tutorials)
+
+This group of pages contains guides and tutorials for the aedifion.io platform. Guides explain basic concepts of the aedifion.io platform and provide ideas on how to use, extend, and integrate it while tutorials dive into the actual programming and provide concrete hands-on examples.
+
+#### [Frontend](tutorials/frontend.md)
+
+Walkthroughs and tutorials regarding our web frontend that explain basic features such as favorites, datapointkeys, plots and multi-plots, personalized views etc.
+
+#### [HTTP API](tutorials/api/)
+
+Extensive collection of tutorials for the restful HTTP API of the aedifion.io platform covering topics ranging from administration of user, projects, permissions, data and metadata to the setup of alarms, analytics, and automated controls. 
+
+#### [MQTT](tutorials/mqtt/)
+
+Tutorials and developer resources for the MQTT streaming API of the aedifion.io platform.
+
+#### [Integrations](tutorials/integrations/)
+
+Tutorials and walkthroughs for different \(third-party\) integrations.
+
+### [Developers](https://docs.aedifion.io/docs/developers)
+
+This group of pages provides resources for developers that want to integrate their application with the aedifion.io platform.
+
+#### [HTTP API](developers/api-documentation.md)
+
+Detailed technical specifications of our restful HTTP API in Open API 2.0 format as well as guides on how to generate API clients in different programming languages from that specification.
+
+#### [MQTT API](developers/mqtt-api/)
+
+Detailed technical specifications of our MQTT streaming API and related developer resources.
+
+#### [IT Admins](developers/it-admins.md)
+
+Collection of information about aedifion.io specifically relevant for IT admins that set up the aedifion.io edge device in their local \(building\) network.
 
 ## Target audience
 
@@ -28,23 +66,11 @@ This documentation focuses on users of aedifion.io and informs about the basic c
 
 ## **Further source of information**
 
-Our main website offers various contents. Check it out - [www.aedifion.com](www.aedifion.com)
+Our [main website](https://www.aedifion.com/) is the best way to get to know our company and products. 
 
-Find our Github open source resources [here](https://github.com/aedifion).
+Follow us on [Linkedin](https://www.linkedin.com/company/aedifion/), [Twitter](https://twitter.com/aedifion), [Facebook](https://www.facebook.com/aedifion/), and [Medium](https://medium.com/@aedifion) to keep up with the most recent news.
 
-Besides the API documentation here, we offer a Swagger API [documentation](https://api.aedifion.io/ui/).
+Explore our open-source projects [on Github](https://github.com/aedifion), e.g., our Excel plugin.
 
-We publish recent news on our social media channels, such as [Linkedin](https://www.linkedin.com/company/aedifion/), [Twitter](https://twitter.com/aedifion), and [Facebook](https://www.facebook.com/aedifion/).
 
-We are about to start our blog on [Medium](https://medium.com/@aedifion).
-
-## Research and business development 
-
-aedifion's founders have a strong background in research. We are keen to share each and every publication with the public. Comprehensive overviews on the founder's publication offers ReasearchGate, where you can find [Johannes'](https://www.researchgate.net/profile/Johannes_Fuetterer) and [Henrik's](https://www.researchgate.net/profile/Jan_Ziegeldorf) profiles, as well as Henrik's [website](https://www.henrikziegeldorf.de/).
-
-aedifion is always keen to participate in research projects. We are a fully eligible partner in H2020, Eurostars and German federal funding, e.g. by the BMWi. 
-
-Furthermore, we are dedicated to enhance your business with e.g. tailor-made API designs and backend functionalities. We also tailor our business processes to provide aedifion.io's functionalities to your business and applications.
-
-In any case, do not hesitate to contact us. Let's discuss the future of building operation.
 

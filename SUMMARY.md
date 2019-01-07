@@ -12,7 +12,7 @@
 * [Glossary](glossary.md)
 * [Contact](contact.md)
 
-## Tutorials
+## Guides and tutorials
 
 * [Frontend](tutorials/frontend.md)
 * [HTTP API](tutorials/api/README.md)
