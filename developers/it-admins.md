@@ -14,9 +14,9 @@ For any support or if you have any concerns about the security of your networks,
 
 ## Required shipping information
 
-Besides the post address and name of the contact person we send the aedifion edge device to, we require information about the settings of the network\(s\) the device will be connected to. Please work your way through the flow chart below and send us the gathered information.
+Besides the post address and name of the contact person we send the aedifion edge device to, we require information about the settings of the network\(s\) the device will be connected to. Please work your way through the flow chart below and send us the gathered information.  
 
-![Derive required information](../.gitbook/assets/grafik.png)
+![Derive required network information](../.gitbook/assets/grafik.png)
 
 {% hint style="info" %}
 **Example:**
@@ -66,11 +66,11 @@ At this point, we simply summarize the firewall settings required to use the aed
 
 We use different industrial PCs for the aedifion edge device to meet the requirements of your project. Every package of an aedifion edge device shipped comes with an idividual installation manual. Have a look at the picture below to get an idea how we lable ethernet ports:
 
-![](../.gitbook/assets/grafik%20%285%29.png)
+![](../.gitbook/assets/grafik%20%286%29.png)
 
 To install your aedifion edge device please execute the installation in the order of the flow chart:
 
-![Installation workflow](../.gitbook/assets/grafik%20%283%29.png)
+![Installation workflow](../.gitbook/assets/grafik%20%284%29.png)
 
 {% hint style="info" %}
 **Trouble shooting:** 
