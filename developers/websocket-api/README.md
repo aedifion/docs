@@ -1,6 +1,0 @@
-# Websocket API
-
-## Overview
-
-
-

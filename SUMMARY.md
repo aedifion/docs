@@ -22,7 +22,7 @@
   * [Alarming](tutorials/api/alarming.md)
   * [Analytics](tutorials/api/analytics.md)
   * [Controls](tutorials/api/setpoints-and-schedules.md)
-* [MQTT](tutorials/mqtt/README.md)
+* [MQTT API](tutorials/mqtt/README.md)
   * [Websockets](tutorials/mqtt/websockets.md)
 * [Integrations](tutorials/integrations/README.md)
   * [Excel plugin](tutorials/integrations/excel-plugin.md)
@@ -30,9 +30,6 @@
 ## Developers
 
 * [HTTP API](developers/api-documentation.md)
-* [Websocket API](developers/websocket-api/README.md)
-  * [Examples](developers/websocket-api/examples.md)
-* [MQTT API](developers/mqtt-api/README.md)
-  * [Examples](developers/mqtt-api/examples.md)
+* [MQTT API](developers/mqtt-api.md)
 * [IT Admins](developers/it-admins.md)
 

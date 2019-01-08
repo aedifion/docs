@@ -52,7 +52,7 @@ This group of pages provides resources for developers that want to integrate the
 
 Detailed technical specifications of our restful HTTP API in Open API 2.0 format as well as guides on how to generate API clients in different programming languages from that specification.
 
-#### [MQTT API](developers/mqtt-api/)
+#### [MQTT API](developers/mqtt-api.md)
 
 Detailed technical specifications of our MQTT streaming API and related developer resources.
 

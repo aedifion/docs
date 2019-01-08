@@ -4,6 +4,10 @@ description: Terminology used throughout this documentation sorted alphabeticall
 
 # Glossary
 
+### Automation network
+
+The automation network locally connects different [devices](glossary.md#device) within a [building](glossary.md#building) or [plant](glossary.md#plant). In most cases, the automation network is a dedicated physical wired network such as an Ethernet but can also be wireless or virtual. 
+
 ### Building
 
 A physical building, i.e., an office, a factory, a hotel, and so forth. This term is often used synonymously with [project](glossary.md#project) despite being a special case of a project. 
@@ -12,13 +16,13 @@ A physical building, i.e., an office, a factory, a hotel, and so forth. This ter
 
 The top-most entity on the aedifion.io platform mapping to a real-world or virtual company. Companies represent strictly separated administration realms on the aedifion.io platform: All resources such as [users](glossary.md#user), [projects](glossary.md#project), [datapoints](glossary.md#datapoint), and so forth belong to exactly one company and are never shared between two companies.
 
-### **Datapoint**
-
-A sensor, actor, or other physical or virtual data source. A datapoint belongs to exactly one [component](glossary.md#component) and one [project](glossary.md#project). It emits [observations](glossary.md#datapoint) that form the [time series](glossary.md#time-series) of this datapoint.
-
 ### Component
 
 A physical or logical building automation device. A component is associated to exactly one [project](glossary.md#project) and may have arbitrary many [datapoints](glossary.md#datapoint).
+
+### **Datapoint**
+
+A sensor, actor, or other physical or virtual data source. A datapoint belongs to exactly one [component](glossary.md#component) and one [project](glossary.md#project). It emits [observations](glossary.md#datapoint) that form the [time series](glossary.md#time-series) of this datapoint.
 
 ### Datapointkey
 

@@ -8,9 +8,9 @@ description: >-
 
 ## Excel
 
-Our [Excel Plugin](https://github.com/aedifion/aedifion-excel-plugin) allows importing data from the aedifion.io platform using its [HTTP API](../developers/api-documentation.md) directly into any Excel sheet where it can be plotted and processed further. The plugin is currently available only for Windows and can be installed without admin rights. 
+With aedifion's open source [Excel Plugin](https://github.com/aedifion/aedifion-excel-plugin), you can import data from aedifion.io using its [HTTP API](../developers/api-documentation.md) directly into your Excel sheet. You can query data from multiple datapoints over multiple projects and synchronize asynchronous CoV-based observations with adjustable sample rates and different interpolation methods, such as zero-order-hold \(step interpolation\). The retrieved data can be visualized in different types of automatically generated plots. The plugin is currently available only for Windows and can be installed without admin rights.
 
-**Go to our** [**Excel Plugin Tutorial**](../tutorials/integrations/excel-plugin.md) **and try it out.** 
+**Go to our** [**Excel plugin tutorial**](../tutorials/integrations/excel-plugin.md) **and try it out.** 
 
 ![Importing multiple timeseries from the aedifion.io HTTP API directly into an Excel sheet.](../.gitbook/assets/excel_01.png)
 
@@ -26,7 +26,7 @@ Our Telegram Chatbot receives [real-time alerts](../tutorials/api/alarming.md) f
 
 ## 3D Visualization
 
-Together with [SCASA](http://scasa.eu), aedifion offers high resolution 3D Visualizations with millimeter accuracy of your offices, installation rooms, or factory floor. aedifion augments 3D Visualizations with [live data](../developers/mqtt-api/) from the aedifion.io platform and even integrates [controls](../tutorials/api/setpoints-and-schedules.md). With this product, you can take virtual tours of your local site, e.g., to monitor and control components or determine a component's build to order a replacement -- with a browser from anywhere just as like being on site.
+Together with [SCASA](http://scasa.eu), aedifion offers high resolution 3D Visualizations with millimeter accuracy of your offices, installation rooms, or factory floor. aedifion augments 3D Visualizations with [live data](../developers/mqtt-api.md) from the aedifion.io platform and even integrates [controls](../tutorials/api/setpoints-and-schedules.md). With this product, you can take virtual tours of your local site, e.g., to monitor and control components or determine a component's build to order a replacement -- with a browser from anywhere just as like being on site.
 
 **Go to** [**our 3D Visualization demo**](http://prototype.scasa.eu/Viewer/?id=EON1) **and virtually explore the** [**EON ERC's**](http://www.eonerc.rwth-aachen.de/go/id/dmud/?lidx=1) **installations room.**
 
@@ -39,6 +39,12 @@ We have built skills for Amazon's Alexa to integrate with the [HTTP API](../tuto
 **Watch** [**our demo video**](https://www.linkedin.com/feed/update/urn:li:activity:6424532222916726784/) **or** [**request a personal demo**](../contact.md)**.**
 
 ![](../.gitbook/assets/alexa.png)
+
+## Grafana
+
+On demand, aedifion provides a separate instance of the [Grafana](%20https://grafana.com/) visualization environment for each [project](../glossary.md#project). Grafana allows you to easily build your own dashboards on your project's data dragging-and-dropping from a wide range of plots, charts, and widgets.
+
+![Example of a custom Grafana dashboard for monitoring occupancy and comfort in a meeting room.](../.gitbook/assets/grafana_example_rwth_2.png)
 
 ## Cloud services
 

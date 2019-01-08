@@ -4,108 +4,94 @@ description: This page introduces important key features of aedifion.io
 
 # Features
 
-## Advanced data ingress
+## Overview
 
-Aedifion.io offers plant-, building- and district-wide data acquisition compatible to many bus communication standards, partially with auto discovery of [datapoints ](https://docs.aedifion.io/docs/glossary#datapoint)and [devices](https://docs.aedifion.io/docs/glossary#device). Moreover, it integrates all IP-available data sources, replicates local data bases and connects to existing data servers. In addition, users or devices can stream their data directly into aedifion.io. Of course, historic data can be uploaded via a CSV API.
+This page offers a brief and high-level description of all important features of the aedifion.io platform roughly sorted by the different steps of a typical data processing pipeline: We start with with the different ways of ingressing data, continue with the functional aspects of the storage, processing, and management of data, then move on to the egress of data as well as the generation of higher level insights from the data and, finally, conclude with non-functional features such as security, privacy, and the legal framework.
 
-| Type | Example |
+## Data ingress
+
+aedifion.io offers plant-, building-, and even district-wide data acquisition from diverse data sources. The platform speaks most industry bus communication standards and can automatically ingest data from your plant, building, or district using auto-discovery of all available [datapoints ](https://docs.aedifion.io/docs/glossary#datapoint)and [devices](https://docs.aedifion.io/docs/glossary#device) for easy set-up. Furthermore, the platform integrates various other IP-based data sources, e.g., ranging from your existing legacy data bases and servers over your Exchange server to third-party data sources such as weather forecasts. Finally, live data can be streamed directly into aedifion.io via MQTT while historic and batch data can be ingested using file upload in different formats such as CSV.
+
+| Data source | Example |
 | :--- | :--- |
-| Bus communication | BACnet, Modbus, KNX, M-Bus,... |
-| Data servers | OPC DA, OPC UA |
-| Local data bases | MS SQL, mySQL, pgSQL, ... |
-| Rest APIs | MS Exchange, weather data, weather forecasts,... |
-| User | MQTT stream, CSV upload |
-
-{% hint style="info" %}
-We aspire to integrate &lt;&lt;everything that is IP-based available&gt;&gt;.
-{% endhint %}
+| Automation networks | BACnet, Modbus, KNX, M-Bus, LON, OPC UA/DA, ... |
+| Databases | Different flavors of SQL and NoSQL, Influx, OpenTSDB, ... |
+| Third party APIs | MS Exchange, weather data and forecasts, ... |
+| User | MQTT stream, file upload, ... |
 
 {% hint style="success" %}
-aedifion.io works fully plug-and-play for BACnet system. All it needs is a gateway that operating personnell can easily connect to local networks. Once plugged in, the gateway connects automatically to our servers and we start data integrations.
+aedifion.io works fully plug-and-play for BACnet systems. All it needs is the aedifion.io edge device that operating personnel simply connect to the local \(building\) network. Once plugged in, the edge device connects automatically to our servers and we configure, start, and continuously monitor the data ingress.
 {% endhint %}
 
-## Metadata acquisition
+_Learn more? Explore our_ [_data import and export tutorial_](../tutorials/api/data-import.md)_._
 
-For each integrated [datapoint ](https://docs.aedifion.io/docs/glossary#datapoint)and for each integrated[ device](https://docs.aedifion.io/docs/glossary#device), aedifion.io is able to acquire comprehensive metadata which originates either from standards like BACnet, from Modbus plat descriptions, from local databases or data servers as OPC. This metadata is automatically processed into aedifion.io's data structuring.  Metadata is added to each datapoint via [tags](https://docs.aedifion.io/docs/glossary#tag). Integrated devices are semantically modelled as [components](https://docs.aedifion.io/docs/glossary#component).  
+### Metadata
+
+For each integrated [device](https://docs.aedifion.io/docs/glossary#device) and [datapoint](https://docs.aedifion.io/docs/glossary#datapoint), aedifion.io is able to acquire and maintain comprehensive metadata either directly via the [automation network](../glossary.md#automation-network), e.g., reading BACnet properties or Modbus plant descriptions, or from local databases and servers such as OPC. All metadata is automatically structured in aedifion.io's data model and can be used from thereon to search and sort the data as well as to enrich it further using artificial intelligence methods such as clustering and classification.
+
+### Weather and weather forecast data
+
+aedifion.io automatically supplies local weather data and forecast data for each project, depending on its GPS coordinates.
+
+_Learn more? Explore what_ [_weather data_](data.md#weather-data) _is available on aedifion.io._
 
 ## Data storage and resolution
 
-Aedifion.io uses databases specialized on [time series](https://docs.aedifion.io/docs/glossary#time-series) as well as additional databases for other data. The time series database uses Change-of-Value \(CoV\) as basic concept for data storage. Preconfigured threshold is 0.
+For high-volume time series data, aedifion.io uses specialized [time series](https://docs.aedifion.io/docs/glossary#time-series) databases that, among others, allow highly efficient queries and processing over time ranges of that data. To increase processing and storage efficiency, new [observations](../glossary.md#observation) for a datapoint are only stored when there is a \(significant\) change w.r.t. the previously observed/measured values. This is a common practice referred to as Change-of-Value \(CoV\). The preconfigured CoV threshold is 0.
 
-Integrated [devices](https://docs.aedifion.io/docs/glossary#device) define the lowest sample rates of data acquisition and, thus, the data resolution. Typically, aedifion.io reaches 5 seconds for BACnet devices. With recent BACnet devices this can decrease to below 1 second. The same accounts for Modbus devices.
-
-{% hint style="info" %}
-Don't you worry! The sample rate can be flexible adjusted during data provision. Same accounts for the interpolation method.
-{% endhint %}
+Time series data can be stored at a maximum resolution of nanoseconds on aedifion.io. However, when ingesting data from an [automation network](../glossary.md#automation-network), the resolution is usually limited by the maximum sampling frequency that the [devices](https://docs.aedifion.io/docs/glossary#device) on the automation network support. Older BACnet devices, e.g., usually support sampling frequencies up to $$1/5s$$ while modern BACnet devices can often be sampled at $$1/s$$and faster. Sample rates can be flexibly adjusted per [project](../glossary.md#project), [device](../glossary.md#device), and even per [datapoint](../glossary.md#datapoint).
 
 ## Data provision
 
-aedifion.io offers various ways of data provision.
+aedifion.io offers various ways of data provision, i.e., via a web frontend, via rest and streaming APIs, as well as via integrations into third party software.
 
-### Via API
+### Frontend
 
-#### HTTP API
+The aedifion.io web frontend offers, among other features, search of data and metadata, different means of personalization, various flavors of plots, export of data, plots, and reports, management of users, projects, and permissions, and many more. A major revision with better user experience and even more functionality is scheduled for March 2019.
 
-The HTTP [API](https://en.wikipedia.org/wiki/Application_programming_interface) functions cover download of timeseries as well as of meta data. Within the time series download, users can flexibly choose the sample rate, the start and end dates as well as the number of returned observation. 
+_Learn more? Explore the_ [_frontend guide_](../tutorials/frontend.md) _or visit our frontend at_ [_www.aedifion.io_](https://www.aedifion.io)_._
 
-The API can be flexibly integrated into development environments or programming languages. At [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/) users find a web environment for user‐friendly testing and compilation of API interactions. In addition, other retrieval methods can be provided for e.g. MATLAB upon request.
+### HTTP API
 
-#### Websockets
+All functionality of aedifion.io is exposed through the [HTTP API](../developers/api-documentation.md). Thus, it covers all functionality of the frontend and more. The API can be used with various third party tools or called from virtually any modern programming language. At [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/), you can find a web environment for user‐friendly testing and compilation of API interactions. In addition, other retrieval methods can be provided for e.g. MATLAB upon request.
 
-Websocktes offer the direct retrieval of live data.
+_Learn more? Explore our_ [_HTTP API tutorials_](../tutorials/api/) _or try out our API user interface at_ [_https://api.aedifion.io/ui/_](https://api.aedifion.io/ui/)_!_
 
-### Via web application \(beta\)
+### MQTT API
 
-A web-based graphical users interface is available under www.aedifion.io. it offers datapoint search, \(multi-\)line plotting, carpet/heatmap plotting, plot and CSV exporting, saving plot views for fast access, high level data management, such as adding favorits, renaming datapoints, and using variable datapointkeys. 
+The MQTT API offers a publish/subscribe model to stream data into and from the aedifion.io platform. You can subscribe to the data of your whole plant or limit your subscriptions to a few selected datapoints of interest.
 
-Aedifion will release a version 1.0 in 2019 with better user experience and more functionality.
+_Learn more? Try out our_ [_MQTT websockets demo._](../tutorials/mqtt/websockets.md)\_\_
 
-### Excel plugin
+### Third party software
 
-Available open source, the aedifion.io Excel plugin enables to query data from multiple datapoints over multiple projects. Users can directly query raw data or synchronize asynchronous CoV-based observations with adjustable sample rates. Moreover, different interpolation methods, such as zero-order-hold \(step interpolation\) and linear interpolation are offered. In addition, different plots can be auto-generated.
+We are integrating access to data on aedifion.io into a growing amount of third-party software such as Microsoft Excel or Grafana.
 
-![Screenshot of the aedifion.io Excel integration](../.gitbook/assets/excel-tool.JPG)
-
-{% hint style="info" %}
-The aedifion.io Excel plugin is completly open-source, no strings attached. Feel free to use our code as you like and integrate aedifion.io in existing Excel sheets.
-{% endhint %}
-
-### Grafana
-
-For each [project](https://docs.aedifion.io/docs/glossary#project), aedifion.io provides an instance of the open-source visualization environment [Grafana](%20https://grafana.com/) under https://dashboards.aedifion.io/_project\_name_/. User admins can build own dashboards using all functionalities of Grafana. Using this powerful, toolkit meaningful dashboards are easy to develop. 
-
-{% hint style="success" %}
-aedifion offers training and engineering for Grafana to build your desired dashboard.
-{% endhint %}
+_Learn more? Explore the overview of_ [_existing integrations_](integrations.md) _or go through the_ [_relevant tutorials_](../tutorials/integrations/)_._
 
 ## Data processing
 
-Aedifion.io directly offers data processing such as resampling via api. Furthermore, two kinds of processes, i.e. stream and batch processes can be set up. Stream provesses cover Use cases as nominal-actual-comparisons as required in the German VDI 6041 "Technical Monitoring" or standard calculation methods, as well as statistic algorithms are covered by stream processes. Batch processes cover more complex calculations. They account for use cases according to ISO 50 001 "Energy Management".
+A growing range of post-processing methods is continuously being built directly into the aedifion.io platform such as downsampling, interpolation, or different general purpose statistical analyses. Beyond the built-in functionality, you can set up custom stream and batch processes and deploy virtual datapoints that run on your project's data.
 
 {% hint style="success" %}
-aedifion.io handles calculations as required by the German VDI 6041 "Technical Monitoring" or ISO 50 001 "Energy Management" with stream and batch processing, respectively.
+aedifion.io offers data processing in compliance with the German VDI 6041 "Technical Monitoring" and the international ISO x50 001 "Energy Management" standards.
 {% endhint %}
 
 ### Stream processing
 
-A stream process runs a calculation of a free-to-choose mathematical relationship on each new event/observation of a referred datapoint. Stream processes relate to one or more datapoints.
+Stream processes cover use cases such as nominal-actual-comparisons as required in the German VDI 6041 "Technical Monitoring" standard. A stream process runs a calculation of a free-to-choose mathematical relationship on each new event/observation of a referred datapoint. Stream processes relate to one or more datapoints.
 
 {% hint style="info" %}
 Examples for stream process: 
 
-* Heat flow calculation: 
-  * $$\dot{Q} = \dot{m} c_p (\vartheta_{out} - \vartheta_{in})$$
-* Coefficient of performance: 
-  * $$\eta = \frac{\dot{Q{th}}}{P_{el}}$$ 
-* System sanity/operation checks 
-  * $$\mathrm{actual value} == \mathrm{expected value}$$ 
+* Heat flow calculation: $$\dot{Q} = \dot{m} c_p (\vartheta_{out} - \vartheta_{in})$$
+* Coefficient of performance: $$\eta = \frac{\dot{Q{th}}}{P_{el}}$$ 
+* System sanity/operation checks: $$\text{actual value} \approx \text{expected value}$$ 
 {% endhint %}
-
-A stream process can be linked to a virtual datapoint or used as an input for alarms and notifications.
 
 ### Batch processing
 
-A batch process is not operated continuously - like stream processes - but on a certain trigger. I.e. a pre-set time or up on request. This process runs complex calculation using historical data.
+Batch processes cover more complex calculations and account for the more complex use cases of the ISO 50 001 "Energy Management" standard. A batch process is not operated continuously - like stream processes - but on a certain trigger, e.g., a pre-set time or up on your request. This process can run complex calculation using high-volumes of historical data.
 
 {% hint style="info" %}
 Examples for batch processes: 
@@ -117,97 +103,87 @@ Examples for batch processes:
 
 ### Virtual data points
 
-A virtual datapoint is a datapoint not gathered from a local plant but resulting of a mathematical calculation. Despite, it appears exactly like a physical datapoint in aedifion.io's time series database. In aedifion.io, a virtual datapoint typically originates from a stream process. Of course, all alarming and notification paradigms can be used with physical as well as virtual datapoints.
+A virtual datapoint is a datapoint not gathered from a local plant but denotes a predefined stream or batch process that runs on one or multiple datapoints and makes the output continuously available in the form of a new datapoint in aedifion.io's time series database. You can choose from a continuously growing list of virtual datapoints engineered and provided by aedifion and apply them to your project. Of course, all alarming and notification paradigms that run on the original physical datapoints can also be used on such virtual datapoints. This allows you, e.g., to monitor and alert on complex relationships and conditions.
 
-{% hint style="success" %}
-Set up flexible alarms on complex relationships using stream processes and virtual datapoints!
+{% hint style="info" %}
+Examples for virtual datapoints:
+
+* Todo
+* Todo
+* Todo
 {% endhint %}
 
-## Data management & structuring
+## Data management and structuring
 
-Since managing large amounts of datapoints occurs to be a complex task, aedifion.io comprises different methods to manage and structure data. These methods account for the application of various metadata schemes and datapoint designation schemes, such as e.g. [Brick](https://brickschema.org/) or [BUDO](https://github.com/RWTH-EBC/BUDO). 
+Your building or plant can easily comprise thousands of datapoints and managing these can quickly become a complex task. Thus, aedifion.io offers different methods to manage and structure data such as well as to enrich it with meta data.
 
 ### Favorites 
 
-Frequently inspected or most important datapoints can be set as a favorite. Within the frontend, users can use favorite datapoints as a filter and thus access them faster. 
+You can flag any datapoint as a favorite, e.g., to mark frequently inspected or important [datapoints](../glossary.md#datapoint). Using the frontend or API, you can filter the list of datapoints by favorites in order to quickly access them. 
 
-### Tagging
+### Tags
 
-A tag is a key-value-pair of metadata attached to a time series with its source indicated and its creation date. All available metadata of a datapoint is stored this way. A source of a tag can be e.g. Cnet, User, Artificial Intelligence, Local Database, etc. The tagging can be used to build up structures as required in [Brick](https://brickschema.org/) or [BUDO](https://github.com/RWTH-EBC/BUDO). 
+[Tags](../glossary.md#tag) are small pieces of metadata that are attached to [devices](../glossary.md#device) and [datapoints](../glossary.md#datapoint). Tags are automatically added by aedifion from the collected meta data as well as using artificial intelligence methods. Of course, users can freely add their own tags. Tags can then be used to filter devices and datapoints, to match analysis algorithms, or to build up structured naming schemes such as [Brick](https://brickschema.org/) or [BUDO](https://github.com/RWTH-EBC/BUDO).
 
-{% hint style="info" %}
-All gathered metadata during metadata acquisition is stored as tags.
-{% endhint %}
+### Datapointkeys
 
-### Renaming
+A [datapointkey](../glossary.md#datapointkey) is a datapoint naming schemes that groups alternate for all or some datapoints of a building under a common key. Alternate datapointkeys are required, e.g., to address needs of different datapoint naming schemes such as as [Brick](https://brickschema.org/) or [BUDO](https://github.com/RWTH-EBC/BUDO), logical uniqueness, or simply individual user preferences. 
 
-Aedifion.io supports multiple datapointnames in order to match the needs of different datapoint naming schemes, logical uniqueness, and fulfilling users’ preferences. E.g. a datapoint in aedifion.io can have a unique name originating from its source or field device as identifier, a name according to a scheme, e.g. [BUDO](https://github.com/RWTH-EBC/BUDO), and a name given by the inspecting user at the same time.
+_Learn more? Explore our_ [_tutorials on favorites, tagging, and renaming_](../tutorials/api/tagging.md)_._
 
-## Project management
+## Project, user, and permission management
 
-​Aedifion.io allows for multi plant management. It generates an overarching instance, a so-called company, for each costumer. Multiple projects can exist within each company. Admins manage rights with the so-called rule-based access control.
+Each customer on aedifion.io is managed within his/her own realm such that data and meta data of that customer are at all times strictly separated from the resources of other customers. Each customer can have multiple projects on aedifion.io which correspond to administrative sub-realms within that company. Users can be freely added to the company and be flexibly assigned to or removed from the company's projects.
 
-### Rule-based access control
+Access to all resources within a company and its projects is strictly controlled through a role based access control \(RBAC\) mechanism which allows flexible and fine-grained rights management, e.g., you can restrict users' access to specific projects, to a subset of API endpoints, or even to single datapoints or tags. The RBAC system allows you to configure aedifion.io to meet your individual data privacy requirements.
 
-Aedifion.io offers a fine-grained rule-base rights management. An admin can generate roles that grant access to backend functionality, e.g. adding tags to datapoints, or roles that enable to read or write certain datapoints – or not to. He can allocate roles to users individually, whereby a user can have multiple roles. With this role-based access control customers can configure aedifion.io to meet all their data privacy requirements and those of the [EU GDPR](https://gdpr.eu/).
+_Learn more? Explore our_ [_administration tutorial_](../tutorials/api/administration.md)_._
 
 ## Alarming and notifications
 
-Users of aedifion.io can use various alarming schemes to deploy them on datapoints or virtual datapoints. E.g. threshold-alarms and throughput alarms can be set up. In addition, users can chose between various alarming channels, such as e.g. via Email or via chatbots in e.g. Telegram. Even Amazon's Alexa is possible up on request. This accounts for flexible, user-centric and innovative alarming functionalities.
+aedifion.io has various alarming schemes built-in that you can deploy on projects and datapoints. Threshold alarms trigger alerts, e.g., when the CO2 concentration rises too high, while throughput alerts can be used to monitor the health of your sensors. Alerts are delivered through different alarming channels, such as email, instant messengers, or voice output through, e.g., Amazon's Alexa. This accounts for flexible, user-centric and innovative alarming functionalities.
+
+_Learn more? Explore our_ [_alarming tutorial_](../tutorials/api/alarming.md)_._
 
 ## Integrations
 
-Aedifion.io integrates various external applications and platforms. It uses Telegram to communicate alarms an integration. It can receive Amazon's Alexa's commands and communicate them to field devices. In turn, Alexa uses aedifion.io to return user's current thermal comfort and indoor air quality. Users of aedifion.io use MS Excel, Mathwork's Matlab and Simulink as well as many other work benches as tools for further data analytics and even plant controls. Companies can use their single-sign on system for log in to aedifion.io. E.g. for a supervisory heating and cooling control or performance analytics of meeting rooms, aedifion.io uses Microsofts Exchange resource data. 
+We continuously building integrations of aedifion.io with and into various popular third services such as cloud providers, instant messengers, Amazon's Alexa, or 3D visualizations. These integrations augment aedifion's core services and allow you to chain aedifion.io with other services to build whole new creative and innovative service pipelines.
 
-In addition, aedifion.io has pre-configured interfaces to state-of-the-art IoT-platforms, such as e.g. offered by Cumulocitiy, to seamlessly integrate its services.
+_Learn more? Read about the_ [_existing integrations_](integrations.md)_._
 
-### Weather and weather forecast data
+## Analytics
 
-Further, aedifion.io integrates local weather data and forecast data for each project, depending on its GPS coordinates.
+TODO: Erik \(1-2 Absätze Zusammenfassung zu Analytics und weiterführender Querverweis\)
 
 ## Controls
 
-Aedifion.io provides basic control functions whenever a datapoint is generally controllable in the field. This covers simple set point writing as well as manipulating local control loops or even overruling local system output. Further, aedifion.io has a decent scheduling functionality in order to robustly execute control sequences. This enables for a simple way of deploying cloud-based controls and new ways of system interaction, such as Alexa or chatbots. In extreme cases, local controls hardware remains just as a in-out-device, whereas logics are operated in the cloud.
+aedifion.io provides basic control functions whenever a datapoint is generally controllable in the field. This covers simple set point writing as well as manipulating local control loops or even overruling local system output. Further, aedifion.io has a decent scheduling functionality that allows you to robustly execute control sequences on the aedifion edge device and monitor and control the execution from cloud as well as to even chain control to our integrations such as Alexa or chatbots. In extreme cases, local control hardware can be reduced to in-out-devices whereas all logic is operated in the cloud.
 
 {% hint style="danger" %}
-Safety of cloud-based controls is important. Aedifion.io offers various, locally executed, fail-safe operations triggered by certain events, such as a connection loss.​
+Safety of cloud-based controls is critical. aedifion.io offers various, locally executed, safety mechanisms that handle, e.g., connection loss, crashes, and human error.
 {% endhint %}
 
-### Controls runtime environment
+### Deployment scenarios
 
-In the first step, a user's control algorithm operates within the user's local setup or cloud environment. To increase scalability and robustness, aedifion.io offers the opportunity to operate control algorithms within its control runtime environment. Users can provide their algorithms and API requirements. Control algorithms are then deployed within aedifion.io and APIs are individually engineered.
-
-### Cloud, edge, and air-gapped
-
-Control algorithms can be operated at different ways. A cloud-operated algorithm uses the internet to communicate its control decisions or manipulated variables. An edge-operated algorithm is executed on the aedifion.io gateway, the so-called edge-device, locally within the customers control system. The edge-operated algorithms use the internet and the cloud-platform to receive commands and parameters. To the user, it offers the same API-functionality as the cloud-operated on. An air-gapped deployment is a more classical set up, quite like a local programmable logic controller, but with a more advanced control runtime, offering the possibility to execute more complex controls, including optimizations and simulations.
+Control algorithms can be operated in different ways. A cloud-operated algorithm uses the Internet to communicate its control decisions or manipulated variables. Contrary, an edge-operated algorithm is executed locally on the aedifion.io edge device within the customer's control system and only requires Internet connectivity to receive commands and updates. An air-gapped deployment is a more classical set up, quite like a local programmable logic controller, but with a more advanced control runtime, offering the possibility to execute more complex controls, including optimizations and simulations.
 
 {% hint style="success" %}
-With aedifion.io, cloud, edge and air-gapped deployments are possible. We thrive to solve control challenges.
+aedifion.io runs in cloud, edge, and air-gapped deployments.
 {% endhint %}
 
-## Comprehensive APIs
+## Authentication mechanisms
 
-Users can interact with all features via our documentented REST APIs. This makes the platform's functionalities flexibly integrateble in users' own scripts, programms or applications. 
-
-### Customized APIs
-
-aedifion offers customized backend features for special purposes of users. Such backend features come with customized APIs. 
-
-## Authentification mechanisms
-
-Aedifion.io supports various authentication, e.g. OpenID, GoolgeAuth, as well as various API authorization standards, e.g. oAuth, xAuth, XACML, up on request. Aedifion customizes aedifion.io for companies using a single sign-on system in order to get a seamless user experience.
-
-## Data privacy
-
-With its [rule-based access control](https://docs.aedifion.io/docs/aedifion.io/features#rule-based-access-control), admins can adjust access rights per user to meet all data privacy requirements of their organization. In general, aedifion.io meets all EU GDPR requirements with its legal framework.
+aedifion.io supports various \(single-sign on\) authentication methods, e.g., HTTP Basic Auth, OpenID Connect, OAuth 2.0, and SAML 2.0. aedifion.io can connect to existing user directories, e.g., LDAP and Active Directory, and supports different social logins, e.g., Google, Github, Facebook and the likes.
 
 ## Legal framework
 
-Aedifion.io's legal framework consists of a licence agreement \(Nutzungsvertrag\) between the customer and aedifion with attachments. I.e. the aedifion Terms and Conditions \(AGBs\), a contract for the commissiond data processing \(Auftragsdatenverarbeitung, ADV\), and technical and organizational measures for data security \(technisch-organisatorische Maßnahmen, TOMs\).​
+Aedifion.io's legal framework consists of a license agreement \(Nutzungsvertrag\) between the customer and aedifion with attachments. I.e. the aedifion Terms and Conditions \(AGBs\), a contract for the commissioned data processing \(Auftragsdatenverarbeitung, ADV\), and technical and organizational measures for data security \(technisch-organisatorische Maßnahmen, TOMs\).​
 
 ## Availability and quality assurance
 
-Aedifion continuously supervises aedifion.io's system status using measurements points along its whole pipeline. The alarming on measurement points is combined with engineering domain knowledge. A computer emergency and response team is available 24/7 to guarantee for highest system availabilities. The aedifion.io system is mirrored, thus, there are two deployments working in parallel. Moreover, daily backups guarantee for highest data protection in case of unforeseen events.
+aedifion continuously supervises aedifion.io's system health using internal realtime measurements along the whole data pipeline, i.e, from collection of data over its storage and processing all the way to the output of data and generated insights. 
+
+aedifion.io is mirrored across two identical but completely independent deployments that work redundantly in parallel. All time series data is backed up on a weekly basis while backups of all meta data are created each night. Backups are kept for the whole duration of the project.
 
 
 
