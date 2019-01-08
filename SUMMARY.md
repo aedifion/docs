@@ -9,6 +9,8 @@
   * [Data](aedifion.io/data.md)
   * [Integrations](aedifion.io/integrations.md)
   * [ICT security](aedifion.io/ict-security.md)
+* [aedifion.analytics](aedifion.analytics.md)
+* [aedifion.controls](aedifion.controls.md)
 * [Glossary](glossary.md)
 * [Contact](contact.md)
 

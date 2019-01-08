@@ -151,10 +151,6 @@ We continuously building integrations of aedifion.io with and into various popul
 
 _Learn more? Read about the_ [_existing integrations_](integrations.md)_._
 
-## Analytics
-
-TODO: Erik \(1-2 Absätze Zusammenfassung zu Analytics und weiterführender Querverweis\)
-
 ## Controls
 
 aedifion.io provides basic control functions whenever a datapoint is generally controllable in the field. This covers simple set point writing as well as manipulating local control loops or even overruling local system output. Further, aedifion.io has a decent scheduling functionality that allows you to robustly execute control sequences on the aedifion edge device and monitor and control the execution from cloud as well as to even chain control to our integrations such as Alexa or chatbots. In extreme cases, local control hardware can be reduced to in-out-devices whereas all logic is operated in the cloud.

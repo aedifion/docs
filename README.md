@@ -14,7 +14,15 @@ This is this page.
 
 ### [aedifion.io](aedifion.io/)
 
-This page and its subpages offers an high-level overview of the basic concepts of the aedifion.io IoT platform which has a special focus on advanced operation of energy-related plants, buildings, and districts. 
+This page and its subpages offers an high-level overview of the basic concepts of the aedifion.io IoT platform which has a special focus on advanced operation of energy-related plants, buildings, and districts.
+
+### [aedifion.analytics](aedifion.analytics.md)
+
+This page and its subpages offers an high-level overview of the basic technical concepts and features of aedifion.analytics which offers a suite of analysis and optimization algorithms on top of the basic aedifion.io platform. 
+
+### [aedifion.controls](aedifion.controls.md)
+
+This page and its subpages offers an high-level overview of the basic technical concepts and features of the aedifion.controls product which builds on top of aedifion.io and allows to actively control buildings and override local control loops, e.g., acting upon the results of aedifion.analytics. 
 
 ### [Glossary](glossary.md)
 
