@@ -8,15 +8,21 @@ description: >-
 
 ## Overview
 
-The [aedifion edge device](../aedifion.io/gateway.md) is an industrial PC which covers functionality such as being an automation network gateway \(therefore it has two ethernet ports\) and providing computing power for those aedifion services, which are sensitive to internet connection losses. For plug and play installation of the device, we preconfigure its network interfaces before shipping it to you. Therefore please send us the [required shipping information](it-admins.md#required-shipping-information). About firewall security: Only outgoing connections from the device to the aedifion servers are need. Set the firewall settings to these [minimum requirements](it-admins.md#firewall-settings) to enable the aedifion services. The[ installation guide](it-admins.md#installation-guide) gives the necessary information on how to wire the aedifion edge device. Spoilers: First connect the ethernet cables to the right ports, and at last the power plug!
+The [aedifion edge device](../aedifion.io/gateway.md) is an industrial PC which covers functionality such as being an automation network gateway \(therefore it has two ethernet ports\) and providing computing power for those aedifion services, which are sensitive to internet connection losses.
+
+For plug and play installation of the device, we preconfigure its network interfaces before shipping it to you. Therefore please send us the [required shipping information](it-admins.md#required-shipping-information). 
+
+About firewall security: Only outgoing connections from the device to the aedifion servers are need. Set the firewall settings to these [minimum requirements](it-admins.md#firewall-settings) to enable the aedifion services. 
+
+The[ installation guide](it-admins.md#installation-guide) gives the necessary information on how to wire the aedifion edge device. Spoilers: First connect the ethernet cables to the right ports, and at last the power plug!
 
 For any support or if you have any concerns about the security of your networks, please do not hesitate to [contact ](../contact.md#support)us!
 
 ## Required shipping information
 
-Besides the post address and name of the contact person we send the aedifion edge device to, we require information about the settings of the network\(s\) the device will be connected to. Please work your way through the flow chart below and send us the gathered information.  
+Besides the post address and name of the contact person we send the edge device to, we require information about the settings of the network\(s\) the device will be connected to. Please work your way through the flow chart below and send us the gathered information.  
 
-![Derive required network information](../.gitbook/assets/grafik.png)
+![Required network information](../.gitbook/assets/grafik%20%282%29.png)
 
 {% hint style="info" %}
 **Example:**
@@ -66,11 +72,11 @@ At this point, we simply summarize the firewall settings required to use the aed
 
 We use different industrial PCs for the aedifion edge device to meet the requirements of your project. Every package of an aedifion edge device shipped comes with an idividual installation manual. Have a look at the picture below to get an idea how we lable ethernet ports:
 
-![](../.gitbook/assets/grafik%20%286%29.png)
+![](../.gitbook/assets/grafik%20%288%29.png)
 
 To install your aedifion edge device please execute the installation in the order of the flow chart:
 
-![Installation workflow](../.gitbook/assets/grafik%20%284%29.png)
+![Installation workflow](../.gitbook/assets/grafik%20%286%29.png)
 
 {% hint style="info" %}
 **Trouble shooting:** 
