@@ -548,27 +548,31 @@ Deleting a user deletes the user together with _all user-specific meta data_, in
 
 ## Managing permissions
 
-Permissions to access resources on the aedifion.io platform can be controlled in a very fine granular manner using a role-based access control \(RBAC\) system. In this section, we will review the basic concepts behind the permission management then go through the process of defining a new role, modifying its permissions, assigning it to a user, and finally deleting the role.
+Permissions to access resources on the aedifion.io platform can be controlled in a very fine granular manner using a role based access control \(RBAC\) system. In this section, we will review the basic concepts behind this RBAC system then go through the process of defining a new role, modifying its permissions, assigning it to a user, and finally deleting the role.
 
 ### Conceptual overview
 
 We first have to define what we mean by _permission to access a resource:_
 
-* A _resource_ is any kind of collection or individual piece of \(meta-\)data on the aedifion.io platform, e.g., a project, datapointkey, tag, datapoint, time series, setpoint, alert, role, and so forth. 
-* These resources are _accessed_ through different [HTTP API endpoints](../../developers/api-documentation.md). An API endpoint may touch on more than one resource.
-* _Permissions_ grant the right to call an API endpoint on a specific resource, e.g., modify \(the endpoint\) project _A_ \(the resource\). Permissions either have project or company scope. _Company-scoped_ permissions apply to all of that company's resources including all projects while _project-scoped_ permissions are limited to the resources of a single project.
-* An important resource in projects are datapoints as they are usually associated with real time series data, e.g., measured from a real building. Due to their special importance, permissions can be further limited to specific datapoints using TagAuths_. TagAuths_ allow filtering over the names or [tags](tagging.md) of datapoints to limit defined permissions, e.g., to _"all datapoints with unit=CO2"  or "all datapoints of component x"_. Write access to a datapoint, e.g., posting a room temperature setpoint or switching off the heating, is a more critical action than just reading the current or paste state of a datapoint. Thus, TagAuths additionally allow limiting access to read or write \(or both\).
+* A _resource_ is any kind of collection or individual piece of \(meta-\)data on the aedifion.io platform, e.g., a project, a datapointkey, a tag, a datapoint, a time series, a setpoint, an alert, a role, and so forth. 
+* These resources are _accessed_ through different [HTTP API endpoints](../../developers/api-documentation.md). An API endpoint may operate on multiple resources during a single invocation.
+* _Permissions_ grant the right to call an API endpoint on a specific resource, e.g., modify \(the endpoint\) project _A_ \(the resource\). Permissions either have company or project scope. _Company-scoped_ permissions apply to all of that company's resources including all projects and all datapoints in that project while _project-scoped_ permissions are limited to the resources of a single project and its datapoints.
+* An important resource in projects are datapoints as they are usually associated with real time series data, e.g., measured from a real building. Due to their special importance, permissions can be further limited to specific datapoints using TagAuths_. TagAuths_ allow filtering over the names or [tags](tagging.md) of datapoints to limit defined permissions, e.g., to _"all datapoints with unit=CO2"  or "all datapoints of component x"_. Write access to a datapoint, e.g., posting a room temperature setpoint or switching off the heating, is a more critical action than just reading the current or past state of a datapoint. Thus, TagAuths additionally allow limiting access to read or write \(or both\).
 
 Permissions and TagAuths are bundled in _two types of roles_:
 
-* _Company roles_ define resource access within the whole company, i.e., all resource access permissions granted through a company role are company-scoped. E.g., providing permission to endpoint `GET /v2/project/{project_id}` allows retrieving the meta-data of all projects of that company. Hence company roles are low maintenance as they provide broad and automatic access even to new projects that are added to the company's portfolio. Company roles are best used as high-level administrative roles and should thus be assigned sparingly and carefully.
-* _Project roles_ define permissions for single projects, i.e., all permissions granted through a project role are project-scoped. E.g., granting permission to `GET /v2/project/{project_id}` within a project role allows retrieving the meta-data of only the project associated with that role. Project roles are thus the means of choice to grant fine granular access to \(meta-\)data in the majority of use cases. They can be assigned more generously and freely than company roles. It should also be noted that a project role cannot grant permission on company-related resources, i.e., on the API endpoints with _Company_ tag such as `POST /v2/company/user` __or `PUT /v2/company/role/{role_id}`.
+* _Company roles_ define resource access within the whole company, i.e., all resource access permissions through a company role are granted on all of the company's projects and on all datapoints within that project.  E.g., providing permission to endpoint `GET /v2/project/{project_id}` allows retrieving the meta-data of all projects of that company and access to `PUT /v2/datapoint` allows modifying all datapoints in all the company's projects. Hence company roles are low maintenance as they provide broad and automatic access even to new projects and datapoints that are added to the company's portfolio. Company roles are best used as high-level administrative roles and should thus be assigned sparingly and carefully.
+* _Project roles_ define permissions for single projects as they are always associated to a single project, i.e., all permissions granted through a project role are scoped to that project. E.g., granting permission to `GET /v2/project/{project_id}` within a project role on the project _A_ allows retrieving the meta-data of only the project _A_. For all endpoints that operate on datapoints, project roles must define which datapoints are accessible by this role through TagAuths. Project roles are thus the means of choice to grant fine granular access to \(meta-\)data in the majority of use cases. They can be assigned more generously and freely than company roles. It should also be noted that a project role cannot grant permission on company-related resources, i.e., on the API endpoints with _Company_ tag such as `POST /v2/company/user` __or `PUT /v2/company/role/{role_id}`.
 
-Putting it all together, a user's _permission set_ is defined as the union over the permission sets of all his/her project and company roles. A user is then granted access to call a certain API endpoint on a certain set of resources if the corresponding permission is in his/her permission set. 
+{% hint style="info" %}
+We can think of company roles providing a `*` wildcard on the accessed project and datapoint while project roles grant access only on a single project and an explicitly specified selection of datapoints for that project.
+{% endhint %}
 
 {% hint style="info" %}
 Intuitively, we can think of _company roles_ as being one hierarchy above _project roles,_ i.e., a company role can grant all permissions that a project role can grant - and more. In particular, the _permission set_ of a company role that grants access to a set of endpoints and datapoints is always a superset of the permission set of a project role for the same set of endpoints and datapoints.
 {% endhint %}
+
+Putting it all together, a user's _permission set_ is defined as the union over the permission sets of all his/her project and company roles. A user is then granted access to call a certain API endpoint on a certain set of resources if the corresponding permission is in his/her permission set. 
 
 Finally, it is important to note that the permission system is a strict _whitelisting_ approach with the following important properties:
 
@@ -583,8 +587,8 @@ Finally, it is important to note that the permission system is a strict _whiteli
 Imagine the following setup:
 
 * Company _NewCo_ has two company roles:
-  * Role _admin_ with permissions to read and write all resources.
-  * Role _reader_ with permissions to read all resources.
+  * Role _admin_ with permissions to use all endpoints.
+  * Role _reader_ with permissions to endpoints that query \(meta-\)data.
 * _NewCo_  has two projects:
   * Project _Headquarters_ with roles _reader_ and _writer._
   * Project _FactoryFloor_ with roles _reader_ and _writer._
@@ -594,9 +598,9 @@ Imagine the following setup:
 
 Now, what permissions do Alice, Bob, and the guests have?
 
-* Alice has access to all of _NewCo's_ resources and projects __since she is assigned the root _admin_ company role. She does not need any specific project role to edit projects' meta data as her company role extends to all projects.
-* Bob's company role _NewCo/reader_ allows him to read all of _NewCo's_ resources but not to change them \(e.g., granting access only to `GET` methods and not to `POST`, `PUT`, or `DELETE`\). Since Bob is working in the factory, he is also granted permissions to change datapoints from the factory floor, e.g., write a setpoint for the room temperature, through the project role _NewCo/FactoryFloor/writer._
-* Guests only have rights to read resources \(including datapoints\) of the project _Headquarters,_ but cannot access any other project or company resources. 
+* Alice has access to all of _NewCo's_ resources, e.g., all projects and datapoints in these projects, __since she is assigned the root _admin_ company role. She does not need any specific project role to edit an individual project's meta data as her company role extends to all projects \(think: company roles provide wildcard `*` on projects and datapoints\).
+* Bob's company role _NewCo/reader_ allows him only access to endpoints that allow reading project's data and metadata but not to change them \(e.g., granting access only to `GET` methods and not to `POST`, `PUT`, or `DELETE`\). Since Bob is working in the factory, he is also granted permissions to change datapoints from the factory floor, e.g., write a setpoint for the room temperature, through the project role _NewCo/FactoryFloor/writer._ Since this role is project-scope to the _FactoryFloor_ project, it does not allow writing setpoints on project _Headquarters_.
+* Guests only have rights to read resources, e.g., meta-data and datapoints, of the project _Headquarters,_ but cannot access any other project or company resourcesit. 
 {% endhint %}
 
 Now, enough for the boring theory, let's dive into practice.
@@ -662,17 +666,15 @@ User 'John Doe'
    + {'id': 7, 'key': 'name', 'read': True, 'value': 'bacnet512-4120L022VEGSHSB_Anlage-L22', 'write': True}
 - CompanyRoles
  -> reader (Reader company role for aedifion GmbH): 
-  * authorized endpoints: 1, 2, 3, ..., 72, 73, 74
-  * authorized tags:
-   + {'id': 1, 'key': 'name', 'read': True, 'value': '*', 'write': False}  
+  * authorized endpoints: 15, 16, 17, ..., 72, 73, 89
 ```
 
 The output contains the following information:
 
 * User John Doe has one project role, _admin_ on the _MainBuilding_ project. 
-  * The admin project role grants access to endpoints 1, 2, 3, ..., 74. These ids correspond to the output of `GET /v2/meta/endpoints`and determine the endpoints to which I have access - all endpoints, in this case.
+  * The admin project role grants access to endpoints 1, 2, 3, ..., 74. These ids correspond to the output of `GET /v2/meta/endpoints`and determine the endpoints which holders of this role have access to - all endpoints, in this case.
   * The admin project role grants read access to all datapoints \(the tag `'key':'name', value': '*'` filters by name and allows all values\) and write access to five explicitly specified datapoints, e.g., `bacnet512-4120L01_DASBM06_Abluftventilator.`
-* The user has one company role, _reader_, which grants read access to all endpoints.
+* The user has one company role, _reader_, which grants read access to all `GET` endpoints. Thus, the user can invoke all `GET` endpoints on all of the company's projects and datapoints.
 
 ### Adding roles
 
@@ -838,7 +840,7 @@ As usual, the response confirms success and returns the created role.
 
 If we have added many projects, a company-wide maintainer role is probably required that defines access on all projects and automatically extends also to future projects that have not been created, yet. [As explained above](administration.md#conceptual-overview), company roles address this objective.
 
-As en example, we create a _company role_ through the _POST /v2/company/role_ endpoint that allows creation, modification, and deletion of projects. The process is the same as for adding a project role.
+As en example, we create a _company role_ through the _POST /v2/company/role_ endpoint that allows creation, modification, and deletion of projects. The process is the same as for adding a project role. Note that the definition of company roles does not need the `authed_tags` field since company roles automatically extend to all datapoints and cannot be limited to an individual selection \(that's what project roles are there for\).
 
 ```python
 # Define and add the role
@@ -971,7 +973,7 @@ User 'Jane Doe'
 
 ### Modifying roles
 
-Modifying roles is done through the `PUT /v2/project/{project_id}/role/{role_id}` endpoint. The process is the same as [modifying projects](administration.md#modifying-projects) or [users](administration.md#modifying-users). It should however be noted that _authed\_endpoints_ and _authed\_tags_ are completely replaced by the update \(and not appended or preserved otherwise\).
+Modifying roles is done through the `PUT /v2/project/{project_id}/role/{role_id}` endpoint. The process is the same as [modifying projects](administration.md#modifying-projects) or [users](administration.md#modifying-users). It should however be noted that _authed\_endpoints_ and _authed\_tags_ are completely replaced by the update \(and not appended or extended otherwise\).
 
 For the sake of completeness, we continue our example and edit all attributes of the previously created _Maintainer_ role \(editing a company role in an analogous manner\).
 
