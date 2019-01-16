@@ -108,9 +108,9 @@ A virtual datapoint is a datapoint not gathered from a local plant but denotes a
 {% hint style="info" %}
 Examples for virtual datapoints:
 
-* Todo
-* Todo
-* Todo
+* Heat flux determination from temperature and volume flow sensors
+* Compliance with operating rules, e.g. by correlating valve positions
+* Determination of current KPI values like coefficients of performance
 {% endhint %}
 
 ## Data management and structuring
