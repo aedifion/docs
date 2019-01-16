@@ -72,7 +72,7 @@ At this point, we simply summarize the firewall settings required to use the aed
 
 We use different industrial PCs for the aedifion edge device to meet the requirements of your project. Every package of an aedifion edge device shipped comes with an idividual installation manual. Have a look at the picture below to get an idea how we lable ethernet ports:
 
-![](../.gitbook/assets/grafik%20%288%29.png)
+![](../.gitbook/assets/grafik%20%289%29.png)
 
 To install your aedifion edge device please execute the installation in the order of the flow chart:
 
