@@ -66,31 +66,148 @@ The broker accepts connections on two ports: 8884 and 9001. Port 8884 accepts _p
 \[2\] MQTT over websockets: [https://www.hivemq.com/blog/mqtt-essentials-special-mqtt-over-websockets/](https://www.hivemq.com/blog/mqtt-essentials-special-mqtt-over-websockets/)  
 \[3\] MQTT over websockets: [http://www.steves-internet-guide.com/mqtt-websockets/](http://www.steves-internet-guide.com/mqtt-websockets/)
 
-### Client Authentication and Authorization 
+### Authentication
 
-The MQTT broker only accepts connections from _authenticated_ clients and additionally _authorizes_ clients based on the topics that they read from or write to. Authentication and authorization is a separated two-step process.
+The MQTT broker only accepts connections from _authenticated_ clients
 
-#### **Authentication**
+After having established a TLS connection, the MQTT client has to present login credentials \(`username` and `password`\) to the MQTT broker. Client credentials can be obtained with limited and unlimited validity.
 
-After having established a TLS connection, the MQTT client has to present login credentials \(`username` and `password`\) to the MQTT broker. Client credentials can be obtained in two ways:
+{% hint style="warning" %}
+Credentials with unlimited validity are provided only on request by the aedifion staff. Please email us at support@aedifion.io.
+{% endhint %}
 
-* Credentials with unlimited validity are provided only on request by the aedifion staff.
+Credentials with limited validity can be created through the aedifion.io [HTTP API](api-documentation.md) using the `POST /v2/project/{project_id}/mqttuser` endpoint. This endpoint requires the following parameters:
 
-  Please email us at support@aedifion.io.
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left"><b>Paramater</b>
+      </th>
+      <th style="text-align:center">Datatype</th>
+      <th style="text-align:center">Type</th>
+      <th style="text-align:center">Required</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>project_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">path</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The numeric id of the project for which to add a new MQTT user account.</td>
+      <td
+      style="text-align:left">1</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>username</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The username of the new MQTT user. If that username exists, the request
+        is rejected.</td>
+      <td style="text-align:left">my_mqtt_user</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>password</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The password for the new MQTT user.</td>
+      <td style="text-align:left">mys3cr3tp4ssw0rd</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>rights</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">Grant read or write permissions to this account. Note that write permission
+        imply read permissions. Defaults to read.</td>
+      <td style="text-align:left">read</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>validity</b>
+      </td>
+      <td style="text-align:center">int</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">This user account will expire after this many seconds. Maximum validity
+        is 2 hours = 7200 seconds.</td>
+      <td style="text-align:left">3600</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>description</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">Human readable description what this account is about.</td>
+      <td style="text-align:left">A new test account just for reading.</td>
+    </tr>
+  </tbody>
+</table>Explore our [HTTP API tutorials](../tutorials/api/) or the [HTTP API developer articles](api-documentation.md) to learn how to build, authenticate, and post a corresponding HTTP to the `POST /v2/project/{project_id}/mqttuser` endpoint. A successful response looks likes this:
 
-* Temporary credentials with limited validity can be created through the aedifion.io [HTTP API](api-documentation.md) using the `POST /v2/project/{project_id}/mqttuser` endpoint.
+```javascript
+{
+  "operation": "create",
+  "resource": {
+    "description": "A new test account just for reading.",
+    "id": 42,
+    "topics": [
+      {
+        "id": 123,
+        "rights": "read",
+        "topic": "lbg01/mybuilding/#"
+      }
+    ],
+    "username": "my_mqtt_user",
+    "valid_until": "2019-01-18T16:23:01.707344Z"
+  },
+  "success": true
+}
+```
+
+The response is in [JSON](https://www.json.org/) format  which can be easily parsed in any programming language. The _resource_ field contains the details of the newly created user \(not the password, of course, for security reasons\). Note that this request was posted at 16:23h CET and with a requested validity of 1 hour, i.e., exactly 16:23h UTC since CET = UTC + 1.
+
+After the MQTT account expires it will be automatically removed. A new account with the same username can be created afterwards.
+
+### Client Identifiers
+
+Clients are identified by their `client_id`. There can only be one connection per `client_id` and older connections are terminated in favor of newer connections.
 
 On connect, clients also have to provide a `client_id`. A prefix for the `client_id` will be assigned by aedifion and you are free to choose any prefix you like. It is, however, important to note that a new connection with an existing `client_id` will disconnect the older connection on the same `client_id`. While you can just open multiple connections using the same login credentials, you must use a different `client_id` for each parallel connection. It is good practice to append a random integer to your `client_id` as part of your individual postfix.
 
-#### **Authorization**
+### **Authorization**
 
-Once connected and authenticated, the client can publish or subscribe to one or multiple topics - but not without authorization. To subscribe, the client needs _read access_ to that topic. To publish, the client needs _write access_. Note that _write access_ implies _read access_.
+The MQTT broker _authorizes_ clients to subscribe and publish based on _topics._
 
-Authorization is specified through a list of topics \(following exactly MQTT's topic syntax and semantics \[1,2\]\) where for each topic is specified whether the user has read or read/write access. Make sure to familiarize yourself with MQTT's topic structure, especially with topic hierarchy levels and the `#` wildcard \[1,2\].
+Once connected and authenticated, the client can publish or subscribe to one or multiple topics \[1,2\] - but not without authorization. To subscribe, the client needs _read access_ to that topic. To publish, the client needs _write access_. Note that _write access_ implies _read access_.
+
+Authorization is specified through a list of topics \(following exactly MQTT's topic syntax and semantics \[1,2\]\) where for each topic is specified whether the user has read or read/write access. Make sure to familiarize yourself with MQTT's topic structure, especially with hierarchy levels and the `#` wildcard \[1,2\].
 
 ### Topic hierarchy 
 
-All MQTT topics on aedifion.io have a hierarchy that consists of two main parts, i.e., a fixed prefix and a variable postfix.
+All MQTT topics _on aedifion.io_ have a hierarchy that consists of two main parts, i.e., a fixed prefix and a variable postfix.
 
 The prefix has two hierarchies and is assigned by aedifion:
 
