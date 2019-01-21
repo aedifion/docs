@@ -49,7 +49,7 @@ aedifion.io offers various ways of data provision, i.e., via a web frontend, via
 
 The aedifion.io web frontend offers, among other features, search of data and metadata, different means of personalization, various flavors of plots, export of data, plots, and reports, management of users, projects, and permissions, and many more. A major revision with better user experience and even more functionality is scheduled for March 2019.
 
-_Learn more? Explore the_ [_frontend guide_](../tutorials/frontend.md) _or visit our frontend at_ [_www.aedifion.io_](https://www.aedifion.io)_._
+_Learn more? Explore the_ [_frontend guide_]() _or visit our frontend at_ [_www.aedifion.io_](https://www.aedifion.io)_._
 
 ### HTTP API
 

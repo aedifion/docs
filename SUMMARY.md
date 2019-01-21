@@ -16,7 +16,6 @@
 
 ## Guides and tutorials
 
-* [Frontend](tutorials/frontend.md)
 * [HTTP API](tutorials/api/README.md)
   * [Administration](tutorials/api/administration.md)
   * [Data import and export](tutorials/api/data-import.md)

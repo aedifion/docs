@@ -36,7 +36,7 @@ There are different ways to get in contact with us. Please don't hesitate.
 
 This group of pages contains guides and tutorials for the aedifion.io platform. Guides explain basic concepts of the aedifion.io platform and provide ideas on how to use, extend, and integrate it while tutorials dive into the actual programming and provide concrete hands-on examples.
 
-#### [Frontend](tutorials/frontend.md)
+#### [Frontend]()
 
 Walkthroughs and tutorials regarding our web frontend that explain basic features such as favorites, datapointkeys, plots and multi-plots, personalized views etc.
 
