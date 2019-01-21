@@ -25,8 +25,6 @@
   * [Controls](tutorials/api/setpoints-and-schedules.md)
 * [MQTT API](tutorials/mqtt/README.md)
   * [Websockets](tutorials/mqtt/websockets.md)
-* [Integrations](tutorials/integrations/README.md)
-  * [Excel plugin](tutorials/integrations/excel-plugin.md)
 
 ## Developers
 

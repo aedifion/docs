@@ -48,7 +48,7 @@ Extensive collection of tutorials for the restful HTTP API of the aedifion.io pl
 
 Tutorials and developer resources for the MQTT streaming API of the aedifion.io platform.
 
-#### [Integrations](tutorials/integrations/)
+#### [Integrations]()
 
 Tutorials and walkthroughs for different \(third-party\) integrations.
 

@@ -67,7 +67,7 @@ _Learn more? Try out our_ [_MQTT websockets demo._](../tutorials/mqtt/websockets
 
 We are integrating access to data on aedifion.io into a growing amount of third-party software such as Microsoft Excel or Grafana.
 
-_Learn more? Explore the overview of_ [_existing integrations_](integrations.md) _or go through the_ [_relevant tutorials_](../tutorials/integrations/)_._
+_Learn more? Explore the overview of_ [_existing integrations_](integrations.md) _or go through the_ [_relevant tutorials_]()_._
 
 ## Data processing
 

@@ -10,7 +10,7 @@ description: >-
 
 With aedifion's open source [Excel Plugin](https://github.com/aedifion/aedifion-excel-plugin), you can import data from aedifion.io using its [HTTP API](../developers/api-documentation.md) directly into your Excel sheet. You can query data from multiple datapoints over multiple projects and synchronize asynchronous CoV-based observations with adjustable sample rates and different interpolation methods, such as zero-order-hold \(step interpolation\). The retrieved data can be visualized in different types of automatically generated plots. The plugin is currently available only for Windows and can be installed without admin rights.
 
-**Go to our** [**Excel plugin tutorial**](../tutorials/integrations/excel-plugin.md) **and try it out.** 
+**Go to our** [**Excel plugin tutorial**]() **and try it out.** 
 
 ![Importing multiple timeseries from the aedifion.io HTTP API directly into an Excel sheet.](../.gitbook/assets/excel_01.png)
 
