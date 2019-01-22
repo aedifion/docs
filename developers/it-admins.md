@@ -51,7 +51,7 @@ Contact person: Jane Doe
 
 ## Firewall settings
 
-ICT security is very important to us. For detailed information on the precautions we take, please read the corresponding section [ICT securtiy](../aedifion.io/ict-security.md).
+ICT security is very important to us. For detailed information on the precautions we take, please read the corresponding section [ICT securtiy](../aedifion.io/security.md).
 
 At this point, we simply summarize the firewall settings required to use the aedifion Edge device in your networks:
 
