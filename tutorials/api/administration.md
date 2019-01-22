@@ -1089,3 +1089,7 @@ Clearly, this case \(or more elaborate ways of privilege escalation\) must be pr
 
 This way a user can never assign or create roles with more permissions than his/her own.
 
+{% hint style="info" %}
+It is generally encouraged to employ the [_principle of least privilege_](https://en.wikipedia.org/wiki/Principle_of_least_privilege) when defining and assigning roles, i.e., do not grant a user any more privileges than are necessary to perform his/her job function.
+{% endhint %}
+
