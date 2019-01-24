@@ -8,9 +8,9 @@ description: >-
 
 ## Overview
 
-In this tutorial, we cover user and project management as well as the associated role-based access control \(RBAC\) system. You will learn how to add, modify, and delete users and projects as well as how to add new roles, manage permissions of a role, and assign roles to users -- all easily automatable through the [HTTP API](../../developers/api-documentation.md).
+In this tutorial, we cover user and project management as well as the associated role-based access control \(RBAC\) system. You will learn how to add, modify, and delete users and projects as well as how to add new roles to projects, manage permissions of a role, and assign roles to users -- all easily automatable through the [HTTP API](../../developers/api-documentation.md).
 
-If you haven't already, please skim through the definition of [special terminology](../../glossary.md). We recapitulate the most important concepts and their relation with a focus on their administration in the following:
+If you haven't already, please skim through the definition of [special terminology](../../glossary.md). We recapitulate the most important concepts and their relation to each other with a focus on their administration in the following:
 
 * _Companies_ are administration-wise the topmost entity on the aedifion.io platform_._ Companies are created and managed by aedifion. They can neither be created nor modified or deleted by users. Companies are created by aedifion as strictly separated administration domains that never share any resources.
 * A company has arbitrary many _users_ and each user belongs to exactly one company. Users can \(with sufficient permissions\) create and add further users to their company, but can only modify or delete their own account and never that of another user.
@@ -28,7 +28,84 @@ To execute the examples provided in this tutorial, the following is needed:
 
 ## Managing the company
 
-We currently do not save any meta-data about companies except for a name and a short description. These attributes are deliberately read-only and can only be changed by aedifion. Please [contact](../../contact.md) us in such matters.
+We currently do not save any meta-data about companies except for a name and a short description. These attributes are deliberately read-only and can only be changed by aedifion. Please [contact](../../contact.md) us in such matters. 
+
+In this section we get the available meta-data of your company including its numerical identifier, which is needed for the following tutorials.
+
+### Get company
+
+You get the available information on your company through the `GET /v2/user` API endpoint. Your authentication credentials are the only inputs required for this endpoint.
+
+{% tabs %}
+{% tab title="Python" %}
+1. Open an interactive python shell.
+2. Paste the following code line by line.
+
+```python
+import requests
+auth = ("john.doe@newco.com", "s3cr3tp4ssw0rd")
+r = requests.get("https://api.aedifion.io/v2/user", 
+	              auth=auth)
+```
+
+3. Inspect the response code and body.
+
+```python
+print(r.status_code)  # prints the HTTP status code
+print(r.text)         # prints the raw answer
+print(r.json())       # parses the answer into a JSON
+```
+{% endtab %}
+
+{% tab title="Curl" %}
+1. Open a commandline.
+2. Execute the following command.
+
+```bash
+curl https://api.aedifion.io/v2/user
+  -X GET
+  -u john.doe@newco.com:s3cr3tp4ssw0rd
+  -H "Content-Type: application/json" 
+```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login.
+3. From the main tags \(Meta, Company, ...\) select the _User_ tag ,then the `GET /v2/user` endpoint \(blue\).
+4. Click "_Try it out!_".
+5. Inspect the response body and code.
+{% endtab %}
+{% endtabs %}
+
+The return is a JSON-parsable object like this:
+
+```javascript
+{
+  "company": {
+    "description": "Demo company for the aedifion tutorial.",
+    "id": 1,
+    "name": "newCo"
+  },
+  "companyroles": [],
+  "plotviews": [
+    {
+      "id": 29,
+      "name": "",
+      "plotViewJson": "{}"
+      ]
+      The 
+```
+
+The meta-data of your company are listed in the `"company"` field. The most important parameter for the following tutorial is the numerical identifier of your company:
+
+```javascript
+"company": {
+    "id": 1
+    }
+```
+
+The identifier is used as an input parameter for many endpoints, so we advise you to memorize it. We refer to this identifier as `"company_id"`.
 
 ## Managing projects
 
@@ -40,6 +117,7 @@ Projects are created through the `POST /v2/project` API endpoint. You need to su
 
 | Parameter | Datatype | Type | Required | Description | Example |
 | :--- | :---: | :---: | :---: | :--- | :--- |
+| **company\_id** | integer | body \(JSON\) | yes | The numeric id of the company the  new project is added to. | 1 |
 | **name** | string | body \(JSON\) | yes | The name of the project. | simu\_01 |
 | **description** | string | body \(JSON\) | no | An optional free text description of this project, e.g., something to help others understand what this project is about. | My first simulation project. |
 
@@ -47,6 +125,7 @@ This information must be encoded as a [valid JSON](https://jsonlint.com/):
 
 ```javascript
 {
+	"company_id":1,
 	"name": "simu_01",
 	"description": "My first simulation project."
 }
@@ -63,6 +142,7 @@ You can write this JSON by hand, use an [editor](https://jsoneditoronline.org/),
 import requests
 auth = ("john.doe@newco.com", "s3cr3tp4ssw0rd")
 new_project =  {
+	"company_id":1,
 	"name": "simu_01",
 	"description": "My first simulation project."
 }
@@ -81,11 +161,11 @@ print(r.json())       # parses the answer into a JSON
 
 {% tab title="Curl" %}
 1. Copy-paste the JSON into a file, e.g., named _new\_project.json._
-2. Open a commandline.
+2. Open a commandline in the same path.
 3. Execute the following command.
 
 ```bash
-curl http://localhost:5001/v2/project
+curl https://api.aedifion.io/v2/project
   -X POST
   -u john.doe@newco.com:s3cr3tp4ssw0rd
   -d @new_project.json 
@@ -107,25 +187,25 @@ The answer is a JSON-parsable object containing similar to the following:
 
 ```javascript
 {
-    'success': True,
-    'operation': 'create', 
-    'resource': {
-        'project': {
-            'company_id': 1, 
-            'description': 'My first simulation project.', 
-            'id': 20, 
-            'name': 'simu_02'
+    "success": True,
+    "operation": "create", 
+    "resource": {
+        "project": {
+            "company_id": 1, 
+            "description": "My first simulation project.", 
+            "id": 20, 
+            "name": "simu_01"
         }, 
-        'role': {
-            'id': 35,
-            'name': 'admin',
-            'project_id': 20, 
-            'description': 'Admin role for project simu_02',                                              
-            'authed_endpoints': [
+        "role": {
+            "id": 35,
+            "name": "admin",
+            "project_id": 20, 
+            "description": "Admin role for project simu_01",                                              
+            "authed_endpoints": [
                 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74
             ], 
-            'authed_tags': [
-                {'id': 1, 'key': 'name', 'read': True, 'value': '*', 'write': True}
+            "authed_tags": [
+                {"id": 1, "key": "name", "read": True, "value": "*", "write": True}
             ]  
         }
     }
@@ -134,13 +214,13 @@ The answer is a JSON-parsable object containing similar to the following:
 
 Let's inspect the answer piece-by-piece.
 
-* `'success': True` is the confirmation that the request was successful.
-* `'operation': 'create'` tells us that a new resource was created.
+* `"success": True` is the confirmation that the request was successful.
+* `"operation": "create"` tells us that a new resource was created.
 * The `resource` field contains two further objects, i.e., the resources that were created
-  * The first resource, `'project':{...}` , is the project that we set out to create. Note how the new project has been assigned a unique id \(20\) in addition to the information that we provided in the `POST` request.
-  * The second resource, `'role:{...}'`, has been created automatically. It is the default _admin_ role for that project and has been automatically assigned to you, i.e., the user that who the project. Do not worry about the other details of the newly created role. We will cover them later in the section on [managing permissions](administration.md#managing-permissions).
+  * The first resource, `"project":{...}` , is the project that we set out to create. Note how the new project has been assigned a unique id \(20\) in addition to the information that we provided in the `POST` request.
+  * The second resource, `"role":{...}`, has been created automatically. It is the default _admin_ role for that project and has been automatically assigned to you, i.e., the user who initiated the project. Do not worry about the other details of the newly created role. We will cover them later in the section on [managing permissions](administration.md#managing-permissions).
 
-Log in to the [frontend](https://www.aedifion.io) or call the `GET /v2/user/projects` endpoint to see the newly created simulation project listed in your projects. 
+Log in to the [frontend](https://www.aedifion.io) or call the `GET /v2/user/projects` endpoint to see the newly created project listed in your projects. 
 
 {% hint style="warning" %}
 The created project will not have any datapoints. It is a mere placeholder so far. Either the project must be configured to receive data from a logger \(by the aedifion staff\) or data must be [imported by hand](data-import.md).
@@ -223,15 +303,28 @@ r = requests.put("https://api.aedifion.io/v2/project/20",
 
 {% tab title="Curl" %}
 ```bash
-curl https://api.aedifion.io/v2/project/19
+curl https://api.aedifion.io/v2/project/20
   -X PUT 
   -H 'Content-Type: application/json'
   -u john.doe@newco.com:s3cr3tp4ssw0rd
   -d '{
-    "description": "another description",
-    "name": "SIMU04"
+    "description": "My second simulation project.",
+    "name": "SIMU02"
    }' 
 ```
+
+{% hint style="warning" %}
+**Curl on windows cmd:**
+
+The windows cmd handles single and double quotes differently from other systems. Therefor single quotes need to be exchanged against double quotes and double quotes need to be escaped via backslash, e.g.:
+
+```bash
+-d "{
+    \"description\": \"My second simulation project.\",
+    \"name\": \"SIMU02\"
+   }"
+```
+{% endhint %}
 {% endtab %}
 
 {% tab title="Swagger UI" %}
@@ -255,7 +348,7 @@ The answer comes in JSON-format and confirms our changes.
     "id": 20,
     "company_id": 1,
     "name": "SIMU02",
-    "description": "another description",    
+    "description": "My second simulation project."    
   }
 }
 ```
@@ -275,12 +368,8 @@ Calling this endpoint is even more simple than before.
 ```python
 import requests
 auth = ("john.doe@newco.com", "s3cr3tp4ssw0rd")
-update =  {
-	"name": "SIMU02",
-	"description": "My second simulation project."
-}
-r = requests.put("https://api.aedifion.io/v2/project/20", 
-				 auth=auth, json=update)
+r = requests.delete("https://api.aedifion.io/v2/project/20", 
+				 auth=auth)
 ```
 {% endtab %}
 
@@ -295,11 +384,10 @@ curl https://api.aedifion.io/v2/project/20
 {% tab title="Swagger UI" %}
 1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
 2. Click _Authorize_ on the upper right and provide your login.
-3. From the main tags \(Meta, Company, ...\) select the _Project_ tag ,then the `DELETE /v2/project/{project_id}` endpoint \(red\).
+3. From the main tags \(Meta, Company, ...\) select the _Project_ tag, then the `DELETE /v2/project/{project_id}` endpoint \(red\).
 4. Enter the numeric id of the previously created project.
-5. Copy-paste the above JSON into the value of the _project_ parameter.
-6. Click "_Try it out!_".
-7. Inspect the response body and code.
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
 {% endtab %}
 {% endtabs %}
 
