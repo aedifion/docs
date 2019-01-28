@@ -8,7 +8,7 @@ description: >-
 
 ## Overview
 
-This article deals with creating [favorites](tagging.md#favorites), [renamings](tagging.md#renamings), and [tags](tagging.md#tags) on datapoints as well as modifying and removing them. We start by adding, querying, and removing favorite datapoints. We then cover the concept of datapointkeys, showing how datapoints can be assigned alternate names \(renamings\). Finally, we cover creating tags, assigning them to datapoints, modifying them and their association with a datapoint, and finally removing associations with a datapoint or removing tags completely.
+This article deals with creating [favorites](tagging.md#favorites), [renamings](tagging.md#renamings), and [tags](tagging.md#tags) on datapoints as well as modifying and removing them. We start by adding, querying, and removing favorite datapoints. We then cover the concept of datapointkeys, and show how datapoints can be assigned alternate names \(renamings\). Finally, we cover creating tags, assigning them to datapoints, modifying them and their association with a datapoint, and ultimately removing associations with a datapoint or removing tags completely.
 
 We provide concrete examples on how to use the aedifion [HTTP API](../../developers/api-documentation.md) to create, inspect, modify and delete favorites, renamings, tags and tag assignments to datapoints.
 
@@ -30,71 +30,51 @@ Favorites are a way of flagging datapoints that you frequently view. They are, e
 
 You flag a datapoint as a favorite using the `POST /v2/datapoint/favorite` endpoint which takes the following parameters:
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Parameter</th>
-      <th style="text-align:center">Datatype</th>
-      <th style="text-align:center">Type</th>
-      <th style="text-align:center">Required</th>
-      <th style="text-align:left">Description</th>
-      <th style="text-align:left">Example</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left"><b>project_id</b>
-      </td>
-      <td style="text-align:center">integer</td>
-      <td style="text-align:center">query</td>
-      <td style="text-align:center">yes</td>
-      <td style="text-align:left">The numeric id of the project to which the datapoint belongs.</td>
-      <td
-      style="text-align:left">1</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><b>dataPointID</b>
-      </td>
-      <td style="text-align:center">string</td>
-      <td style="text-align:center">query</td>
-      <td style="text-align:center">yes</td>
-      <td style="text-align:left">The alphanumeric identifier of the datapoint to flag as favorite.</td>
-      <td
-      style="text-align:left">
-        <p>datapoint_</p>
-        <p>within_</p>
-        <p>your_office</p>
-        </td>
-    </tr>
-  </tbody>
-</table>Note that all parameters are _query parameters_, i.e., they're added in [url-encoded form](https://de.wikipedia.org/wiki/URL-Encoding) to the query part of the requested URL \(the part following the domain and path separated by a question mark\).
+| Parameter | Datatype | Type | Required | Description | Example |
+| :--- | :---: | :---: | :---: | :--- | :--- |
+| **project\_id** | integer | query | yes | The numeric id of the project to which the datapoint belongs. | 1 |
+| **dataPointID** | string | query | yes | The alphanumeric identifier of the datapoint to flag as favorite. | bacnet100-4120-CO2 |
+
+Note that all parameters are _query parameters_, i.e., they're added in [url-encoded form](https://de.wikipedia.org/wiki/URL-Encoding) to the query part of the requested URL \(the part following the domain and path separated by a question mark\). If you are not aware of the project\_id you are authenticated for, check out the [Viewing company details tutorial](administration.md#viewing-company-details).
 
 {% tabs %}
 {% tab title="Python" %}
 ```python
 import requests
 api_url = "https://api.aedifion.io"
-john = ("john.doe@aedifion.com", "mys3cr3tp4ss0wrd")
-query_params = {'project_id': 1, 'dataPointID': 'datapoint_within_your_office'}
+auth = ("john.doe@aedifion.com", "mys3cr3tp4ss0wrd")
+project_id = 1
+
+query_params = {'project_id': project_id, 'dataPointID': 'bacnet100-4120-CO2'}
 r = requests.post(f"{api_url}/v2/datapoint/favorite", 
-                  auth=john,
+                  auth=auth,
                   params=query_params)
 print(r.status_code, r.json())
 ```
+
+{% hint style="info" %}
+Please note the configuration, how HTTP requests are built and authenticated, and how different parts of the response are printed and parsed since, for the sake of brevity, we will not repeat this configuration and code in the following examples.
+{% endhint %}
 {% endtab %}
 
 {% tab title="Curl" %}
 ```bash
-curl 'https://api.aedifion.io/v2/datapoint/favorite?project_id=1&dataPointID=datapoint_within_your_office'
+curl 'https://api.aedifion.io/v2/datapoint/favorite?project_id=1&dataPointID=bacnet100-4120-CO2'
     -X POST
     -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
 ```
+
+{% hint style="warning" %}
+**Curl on windows cmd:**
+
+The windows cmd handles quotes and special characters differently from other systems! Use double quotes instead of single quotes to delimit a parameter.
+{% endhint %}
 {% endtab %}
 
 {% tab title="Swagger UI" %}
 1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
 2. Click _Authorize_ on the upper right and provide your login \(if you haven't already\).
-3. From the main tags \(Meta, Company, ...\) select the _Datapoint_ tag ,then the `POST /v2/datapoint/favorite` endpoint \(green\).
+3. From the main tags \(Meta, Company, ...\) select the _Datapoint_ tag, then the `POST /v2/datapoint/favorite` endpoint \(green\).
 4. Provide both the _project\_id_ and _dataPointID_ to identify the datapoint that you want to flag as a favorite.
 5. Click "_Try it out!_".
 6. Inspect the response body and code.
@@ -108,7 +88,7 @@ Posting a favorite creates a relation between you \(your user account\) and a da
   "operation": "create",
   "resource": {
     "datapoint": {
-      "dataPointID": "datapoint_within_your_office",
+      "dataPointID": "bacnet100-4120-CO2",
       "hash_id": "Jw0EdgdG",
       "id": 121,
       "project_id": 1
@@ -151,15 +131,15 @@ What use are favorites when you cannot quickly access them? That's what the GET 
 {% tabs %}
 {% tab title="Python" %}
 ```python
-r = requests.get(f"{api_url}/v2/project/{project_id}/datapoints/favorite", 
-                 auth=john)
+r = requests.get(f"{api_url}/v2/project/{project_id}/datapoints/favorites", 
+                 auth=auth)
 print(r.status_code, r.json())
 ```
 {% endtab %}
 
 {% tab title="Curl" %}
 ```bash
-curl 'https://api3.aedifion.io/v2/project/1/datapoints/favorites'
+curl 'https://api.aedifion.io/v2/project/1/datapoints/favorites'
     -X GET
     -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
 ```
@@ -168,7 +148,7 @@ curl 'https://api3.aedifion.io/v2/project/1/datapoints/favorites'
 {% tab title="Swagger UI" %}
 1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
 2. Click _Authorize_ on the upper right and provide your login \(if you haven't already\).
-3. From the main tags \(Meta, Company, ...\) select the _Project_ tag ,then the `GET /v2/project/{project_id}/datapoints/favorites` endpoint \(blue\).
+3. From the main tags \(Meta, Company, ...\) select the _Project_ tag, then the `GET /v2/project/{project_id}/datapoints/favorites` endpoint \(blue\).
 4. Provide the _project\_id_ of the project for which you want to retrieve favorites.
 5. Click "_Try it out!_".
 6. Inspect the response body and code.
@@ -180,6 +160,7 @@ The response is a list of all your favorite datapoints in the specified project.
 ```javascript
 [
   ...,
+  "bacnet100-4120-CO2",
   "CO2_within_your_office",
   "datapoint_within_your_office",
   "TEMP_within_your_office",
@@ -231,8 +212,9 @@ Maybe that _datapoint\_within\_your\_office_ is not that important, after all. R
 </table>{% tabs %}
 {% tab title="Python" %}
 ```python
-r = requests.delete(f"{api_url}/v2/project/{project_id}/datapoints/favorite", 
-                  auth=john)
+query_params = {'project_id': project_id, 'dataPointID': 'datapoint_within_your_office'}
+r = requests.delete(f"{api_url}/v2/datapoint/favorite", 
+                  auth=auth,params=query_params)
 print(r.status_code, r.json())
 ```
 {% endtab %}
@@ -248,7 +230,7 @@ curl 'https://api.aedifion.io/v2/datapoint/favorite?project_id=1&dataPointID=dat
 {% tab title="Swagger UI" %}
 1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
 2. Click _Authorize_ on the upper right and provide your login \(if you haven't already\).
-3. From the main tags \(Meta, Company, ...\) select the _Datapoint_ tag ,then the `DELETE /v2/datapoint/favorite` endpoint \(red\).
+3. From the main tags \(Meta, Company, ...\) select the _Datapoint_ tag, then the `DELETE /v2/datapoint/favorite` endpoint \(red\).
 4. Provide both the _project\_id_ and _dataPointID_ to identify the datapoint that you want to remove from your favorites.
 5. Click "_Try it out!_".
 6. Inspect the response body and code.
@@ -280,7 +262,7 @@ The answer confirms the deletion of the favorite and returns the deleted \(user,
 ```
 
 {% hint style="info" %}
-Creating and deleting favorites is _idempotent_, i.e., calling `POST /v2/datapoint/favorite` multiple times has the same effect as calling it once \(same for `DELETE`\)
+Creating and deleting favorites is _idempotent_, i.e., calling `POST /v2/datapoint/favorite` multiple times has the same effect as calling it once \(same for `DELETE`\).
 {% endhint %}
 
 ## Renamings
@@ -352,20 +334,29 @@ Before we can rename any datapoints, we need to create a datapointkey that bundl
 new_key = {"name": "german",
            "description": "Translation into german language."}
 r = requests.post(f"{api_url}/v2/project/{project_id}/datapointkey", 
-                  auth=john,
+                  auth=auth,
                   json=new_key)
 print(r.status_code, r.json())
 ```
 {% endtab %}
 
 {% tab title="Curl" %}
-Coming soon 🐒
+```bash
+curl https://api.aedifion.io/v2/project/1/datapointkey
+  -X POST
+  -H 'Content-Type: application/json'
+  -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
+  -d '{
+    "description": "Translation into german language.",
+    "name": "german"
+   }'
+```
 {% endtab %}
 
 {% tab title="Swagger UI" %}
 1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
 2. Click _Authorize_ on the upper right and provide your login.
-3. From the main tags \(Meta, Company, ...\) select the _Project_ tag ,then the `POST /v2/project/{project_id}/datapointkey` endpoint \(green\).
+3. From the main tags \(Meta, Company, ...\) select the _Project_ tag, then the `POST /v2/project/{project_id}/datapointkey` endpoint \(green\).
 4. Copy-paste then edit the example value and provide the _project\_id._
 5. Click "_Try it out!_".
 6. Inspect the response body and code.
@@ -462,12 +453,13 @@ A renaming of a datapoint is added through the `POST /v2/datapoint/renaming` end
 </table>{% tabs %}
 {% tab title="Python" %}
 ```python
-renaming = {"project_id": 1,
-            "dataPointID": "datapoint_within_your_office",
-            "datapointkey_id": 19,
+query_params = {"project_id": project_id,
+            "dataPointID": "datapoint_within_your_office"}
+renaming = {"datapointkey_id": 19,
             "renaming": "datenpunkt_in_deinem_büro"}
 r = requests.post(f"{api_url}/v2/datapoint/renaming", 
-                  auth=john,
+                  auth=auth,
+                  params=query_params,
                   json=renaming)
 print(r.status_code, r.json())
 ```
@@ -544,8 +536,9 @@ An existing renaming can be changed using the `PUT /v2/datapoint/renaming/{renam
 {% tab title="Python" %}
 ```python
 update = {"renaming": "Datenpunkt in deinem Büro"}
-r = requests.put(f"{api_url}/v2/datapoint/renaming/16", 
-                 auth=john,
+renaming_id = 16
+r = requests.put(f"{api_url}/v2/datapoint/renaming/{renaming_id}", 
+                 auth=auth,
                  json=update)
 print(r.status_code, r.json())
 ```
