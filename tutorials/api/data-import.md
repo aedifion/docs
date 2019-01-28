@@ -130,8 +130,9 @@ project_id = 1
 query = {'format':'csv', 'on_error':'abort'}
 filename = 'test_upload.csv'
 r = post(f"{api_url}/v2/project/{project_id}/importTimeseries",
-         auth=john,
-         files={'import_file':open(fielname, 'rb')})
+         auth=auth,
+         params=query,
+         files={'import_file':open(filename, 'rb')})
 print(r.status_code, r.text)
 ```
 {% endtab %}
@@ -143,6 +144,20 @@ curl https://api.aedifion.io/v2/project/1/importTimeseries?format=csv&on_error=a
     -u john.doe@aedifion.com:mys3cr3tp4assw0rd
     --header 'Content-Type: multipart/form-data' 
     -F 'import_file=@test_upload_file.csv'   
+```
+
+{% hint style="warning" %}
+**Curl on windows cmd:**
+
+The windows cmd handles quotes and special characters differently from other systems! This curl request on windows is, e.g.:
+{% endhint %}
+
+```bash
+curl "https://api.aedifion.io/v2/project/1/importTimeseries?format=csv&on_error=abort"
+    -X POST
+    -u john.doe@aedifion.com:mys3cr3tp4assw0rd
+    --header "Content-Type: multipart/form-data"
+    -F "import_file=@test_upload_file.csv"
 ```
 {% endtab %}
 
@@ -202,7 +217,7 @@ Using `on_error = abort`, the API will abort on the first encountered error, dis
 
 ```javascript
 {
-    "error": "Error in line 2: Datapoint identifiers must not contain backslashes.",
+    "error": "Error in line 2: Datapoint identifier contains backslash: 'Datapoint with backslash \\ in it'",
     "operation": "create",
     "success": false
 }
@@ -240,7 +255,7 @@ There are two ways of retrieving data from the aedifion.io platform:
 
 ### JSON export
 
-The endpoint `GET /v2/datapoint/timeseries` allows querying the data of single [datapoints](../../glossary.md#datapoint) by start and end while optionally using down-sampling or limiting the number of returned [observations](../../glossary.md#observation).
+The endpoint `GET /v2/datapoint/timeseries` allows querying the data of single [datapoints](../../glossary.md#datapoint) by start and end while optionally using down-sampling or limiting the number of returned [observations](../../glossary.md#observation). Down-sampling is performed by a zero order hold interpolation of the stored observations \(CoV based storage\).
 
 | Parameter | Datatype | Type | Required | Description | Example |
 | :--- | :---: | :---: | :---: | :--- | :--- |
@@ -249,7 +264,7 @@ The endpoint `GET /v2/datapoint/timeseries` allows querying the data of single [
 | **start** | datetime | query | no | Return only observations _after_ this time. If _start_ is provided without _end_, the first _max_ elements after _start_ are returned. | 2018-12-18 00:00:00 |
 | **end** | datetime | query | no | Return only observations _before_ this time. If _end_ is provided without _start_, the last _max_ elements before _end_ are returned. | 2018-12-18 23:59:00 |
 | **max** | int | query | no | Maximum number of observations to return. This option is ignored when both _start_ and _end_ are provided. Setting `max = 0` returns all __available data points. | 0 |
-| **samplerate** | string | query | no | The returned observations are sampled down to the specified interval. Allowed intervals are integers combined with durations, like seconds \(s\), minutes \(m\), hours \(h\), and days \(d\), e.g. `10s`or `2m`. |  |
+| **samplerate** | string | query | no | The returned observations are sampled down to the specified interval. Allowed intervals are integers combined with durations, like seconds \(s\), minutes \(m\), hours \(h\), and days \(d\), e.g. `10s`or `2m`. | 1h |
 
 Before we use that endpoint to shoot a couple of example queries for the data, let's insert some more useful data via the [CSV upload described above](data-import.md#csv-upload).
 
@@ -264,6 +279,19 @@ This dataset describes the degree of the sun over the horizon by calendar days. 
 Let's assume we only want to know the data for one year, e.g., 2018. We can query for this time window by setting the _start_ and _end_ parameters accordingly.
 
 {% tabs %}
+{% tab title="Python" %}
+```python
+from requests import get
+
+api_url = "https://api.aedifion.io"
+auth = ("john.doe@aedifion.com", "mys3cr3tp4ssw0rd")
+
+query = {"project_id":1,"dataPointID":"SunDegreeOverHorizon","start":"2018-01-01","end":"2018-12-31"}
+r = get("{}/v2/datapoint/timeseries".format(api_url),auth=auth,params=query)
+print(r.status_code, r.text)
+```
+{% endtab %}
+
 {% tab title="Curl" %}
 ```bash
 curl 'https://api.aedifion.io/v2/datapoint/timeseries?project_id=1&dataPointID=SunDegreeOverHorizon&start=2018-01-01&end=2018-12-31'
@@ -274,10 +302,25 @@ curl 'https://api.aedifion.io/v2/datapoint/timeseries?project_id=1&dataPointID=S
 {% tab title="Swagger UI" %}
 1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
 2. Click _Authorize_ on the upper right and provide your login.
-3. From the main tags \(Meta, Company, ...\) select the _Project_ tag ,then the `POST /v2/project/{project_id}/importTimeseries` endpoint \(green\).
-4. Choose `on_error = abort` and select a `test_upload_file.csv` from disk.
+3. From the main tags \(Meta, Company, ...\) select the _Datapoint_ tag, then the `GET /v2/datapoint/timeseries` endpoint \(blue\).
+4. Enter _start_ \(2018-01-01\) and _end_ \(2018-12-31\) parameter.
 5. Click "_Try it out!_".
 6. Inspect the response body and code.
+{% endtab %}
+
+{% tab title="MATLAB" %}
+```cpp
+api_url = 'https://api.aedifion.io';
+auth = weboptions('Username','john.doe@aedifion.com','Password','mys3cr3tp4ssw0rd');
+
+project_id = 1;
+Start = ['start=','2018-01-01'];
+End = ['end=','2018-12-31'];
+dataPointID = ['dataPointID=','SunDegreeOverHorizon'];
+
+timeseries = webread([api_url,'/v2/datapoint/timeseries','?project_id=',num2str(project_id),'&',dataPointID,'&',Start,'&',End],auth);
+struct2cell(timeseries.data)
+```
 {% endtab %}
 {% endtabs %}
 
@@ -308,7 +351,7 @@ The above response returns 365 datapoints in roughly 21 KB of data. Now suppose 
 {% tabs %}
 {% tab title="Curl" %}
 ```bash
-curl 'https://api.aedifion.io/v2/datapoint/timeseries?project_id=1&dataPointID=SunDegreeOverHorizon&start=2018-01-01&end=2018-12-31&samplerate=1w'
+curl 'https://api.aedifion.io/v2/datapoint/timeseries?project_id=1&dataPointID=SunDegreeOverHorizon&start=2018-01-01&end=2018-12-31&samplerate=7d'
     -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
 ```
 {% endtab %}
