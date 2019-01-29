@@ -6,6 +6,8 @@ description: >-
 
 # Favorites, tagging, renaming
 
+## 
+
 ## Overview
 
 This article deals with creating [favorites](tagging.md#favorites), [renamings](tagging.md#renamings), and [tags](tagging.md#tags) on datapoints as well as modifying and removing them. We start by adding, querying, and removing favorite datapoints. We then cover the concept of datapointkeys, and show how datapoints can be assigned alternate names \(renamings\). Finally, we cover creating tags, assigning them to datapoints, modifying them and their association with a datapoint, and ultimately removing associations with a datapoint or removing tags completely.
@@ -400,10 +402,7 @@ A renaming of a datapoint is added through the `POST /v2/datapoint/renaming` end
       <td style="text-align:left"><b>project_id</b>
       </td>
       <td style="text-align:center">integer</td>
-      <td style="text-align:center">
-        <p>body</p>
-        <p>(JSON)</p>
-      </td>
+      <td style="text-align:center">query</td>
       <td style="text-align:center">yes</td>
       <td style="text-align:left">The numeric id of the project for which to rename datapoint.</td>
       <td style="text-align:left">1</td>
@@ -412,10 +411,7 @@ A renaming of a datapoint is added through the `POST /v2/datapoint/renaming` end
       <td style="text-align:left"><b>dataPointID</b>
       </td>
       <td style="text-align:center">string</td>
-      <td style="text-align:center">
-        <p>body</p>
-        <p>(JSON)</p>
-      </td>
+      <td style="text-align:center">query</td>
       <td style="text-align:center">yes</td>
       <td style="text-align:left">The alphanumeric identifier of the datapoint to rename.</td>
       <td style="text-align:left">datapoint_
@@ -463,6 +459,28 @@ r = requests.post(f"{api_url}/v2/datapoint/renaming",
                   json=renaming)
 print(r.status_code, r.json())
 ```
+{% endtab %}
+
+{% tab title="Curl" %}
+```bash
+curl 'https://api.aedifion.io/v2/datapoint/renaming?project_id=1&dataPointID=datapoint_within_your_office'
+  -X POST
+  -H 'Content-Type: application/json'
+  -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
+  -d '{
+    "datapointkey_id": 19,
+    "renaming": "datenpunkt_in_deinem_büro"
+    }'
+```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login.
+3. From the main tags \(Meta, Company, ...\) select the _Datapoint_ tag, then the `POST /v2/datapoint/renaming` endpoint \(green\).
+4. Copy-paste then edit the example value and provide the _project\_id_ and the _dataPointID._
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
 {% endtab %}
 {% endtabs %}
 
@@ -543,6 +561,25 @@ r = requests.put(f"{api_url}/v2/datapoint/renaming/{renaming_id}",
 print(r.status_code, r.json())
 ```
 {% endtab %}
+
+{% tab title="Curl" %}
+```bash
+curl https://api.aedifion.io/datapoint/renaming/16
+   -X PUT
+   -H 'Content-Type: application/json'
+   -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
+   -d '{"renaming":"Datenpunkt in deinem Büro"}'
+```
+{% endtab %}
+
+{% tab title="Swagger UI" %}
+1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
+2. Click _Authorize_ on the upper right and provide your login.
+3. From the main tags \(Meta, Company, ...\) select the _Datapoint_ tag, then the `PUT /v2/datapoint/renaming/{renaming_id}` endpoint \(orange\).
+4. Copy-paste then edit the example value and provide the _renaming\_id._
+5. Click "_Try it out!_".
+6. Inspect the response body and code.
+{% endtab %}
 {% endtabs %}
 
 On success, the answer returns the new renaming.
@@ -563,13 +600,13 @@ Go ahead and also rename _CO2\_in\_your\_office_ to _CO2 in deinem Büro._
 
 ### Querying datapointkeys and renamings
 
-Calling `GET /v2/project/{project_id}` provides a list of all datapointkeys in the given project.
+Calling `GET /v2/project/{project_id}/datapointkeys` provides a list of all datapointkeys in the given project.
 
 {% tabs %}
 {% tab title="Python" %}
 ```python
-r = requests.get(f"{api_url}/v2/project/{project_id}", 
-                  auth=john)
+r = requests.get(f"{api_url}/v2/project/{project_id}/datapointkeys", 
+                  auth=auth)
 print(r.status_code, r.json())
 ```
 {% endtab %}
@@ -607,13 +644,13 @@ Verify that your newly created datapointkey is among this list.
 ]
 ```
 
-Calling `GET /v2/project/{project_id}/renamings` with `datapointkey_id=19` as a query parameter then returns all available german translations, i.e., renamings under datapointkey 19.
+Calling `GET /v2/project/{project_id}/datapoints/renamings` with `datapointkey_id=19` as a query parameter then returns all available german translations, i.e., renamings under datapointkey 19.
 
 {% tabs %}
 {% tab title="Python" %}
 ```python
-r = requests.get(f"{api_url}/v2/project/{project_id}/renamings", 
-                  auth=john,
+r = requests.get(f"{api_url}/v2/project/{project_id}/datapoints/renamings", 
+                  auth=auth,
                   params={'datapointkey_id':19})
 print(r.status_code, r.json())
 ```
@@ -621,7 +658,7 @@ print(r.status_code, r.json())
 
 {% tab title="Curl" %}
 ```bash
-curl 'https://api.aedifion.io/v2/project/1/datapointkeys?datapointkey_id=19'
+curl 'https://api.aedifion.io/v2/project/1/datapoints/renamings?datapointkey_id=19'
     -X GET
     -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
 ```
@@ -630,7 +667,7 @@ curl 'https://api.aedifion.io/v2/project/1/datapointkeys?datapointkey_id=19'
 {% tab title="Swagger UI" %}
 1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
 2. Click _Authorize_ on the upper right and provide your login.
-3. From the main tags \(Meta, Company, ...\) select the _Project_ tag ,then the `GET /v2/project/{project_id}/renamings` endpoint \(blue\).
+3. From the main tags \(Meta, Company, ...\) select the _Project_ tag ,then the `GET /v2/project/{project_id}/datapoints/renamings` endpoint \(blue\).
 4. Provide the _project\_id_ and _datapointkey\_id._
 5. Click "_Try it out!_".
 6. Inspect the response body and code.
