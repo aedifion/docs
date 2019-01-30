@@ -711,7 +711,7 @@ Calling `DELETE /v2/datapoint/renaming/{renaming_id}` deletes a renaming. The ca
 {% tab title="Python" %}
 ```python
 r = requests.delete(f"{api_url}/v2/datapoint/renaming/16", 
-                  auth=john)
+                  auth=auth)
 print(r.status_code, r.json())
 ```
 {% endtab %}
@@ -727,7 +727,7 @@ curl 'https://api.aedifion.io/v2/datapoint/renaming/16'
 {% tab title="Swagger UI" %}
 1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
 2. Click _Authorize_ on the upper right and provide your login.
-3. From the main tags \(Meta, Company, ...\) select the _Datapoint_ tag ,then the `DELETE /v2/datapoint/renaming/{renaming_id}` endpoint \(red\).
+3. From the main tags \(Meta, Company, ...\) select the _Datapoint_ tag, then the `DELETE /v2/datapoint/renaming/{renaming_id}` endpoint \(red\).
 4. Provide the _renaming\_id._
 5. Click "_Try it out!_".
 6. Inspect the response body and code.
@@ -758,7 +758,7 @@ Calling `DELETE /v2/project/{project_id}/datapointkey/{datapointkey_id}` deletes
 {% tab title="Python" %}
 ```python
 r = requests.delete(f"{api_url}/v2/project/1/datapointkey/19", 
-                  auth=john)
+                  auth=auth)
 print(r.status_code, r.json())
 ```
 {% endtab %}
@@ -774,8 +774,8 @@ curl 'https://api.aedifion.io/v2/project/1/datapointkey/19'
 {% tab title="Swagger UI" %}
 1. Point your browser to [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/).
 2. Click _Authorize_ on the upper right and provide your login.
-3. From the main tags \(Meta, Company, ...\) select the _Project_ tag ,then the `DELETE /v2/project/{project_id}/datapointkey/{datapointkey_id}` endpoint \(red\).
-4. Provide the _project\_id_ and _renaming\_id._
+3. From the main tags \(Meta, Company, ...\) select the _Project_ tag, then the `DELETE /v2/project/{project_id}/datapointkey/{datapointkey_id}` endpoint \(red\).
+4. Provide the _project\_id_ and _datapointkey\_id._
 5. Click "_Try it out!_".
 6. Inspect the response body and code.
 {% endtab %}
@@ -802,9 +802,9 @@ Deleting a datapoinkey also irreversibly deletes all associated renamings.
 
 ## Tags
 
-Tags are a way to annotate your datapoints. Aedifion's tags are labels consisting of a key-value pair. For example, if you have a set of datapoints located inside your office, you can tag them with the key-value pair `('location', 'Office A113')`. Subsequently, the tagged datapoints can be easily accessed by the API. Tags are strictly project-scoped, i.e, they are shared within a project and can be assigned to multiple datapoints of that project but are never shared across different projects.
+Tags are a way to annotate your datapoints. aedifion's tags are labels consisting of a key-value pair. For example, if you have a set of datapoints located inside your office, you can tag them with the key-value pair `('location', 'Office A113')`. Subsequently, the tagged datapoints can be easily accessed by the API. Tags are strictly project-scoped, i.e, they are shared within a project and can be assigned to multiple datapoints of that project but are never shared across different projects.
 
-Aedifion also provides automatically created tags, e.g., datapoint properties read from BACnet or machine learning results.
+aedifion also provides automatically created tags, e.g., datapoint properties read from BACnet or machine learning results.
 
 We will cover all relevant API endpoints by the example of annotating datapoints with the office location.
 
