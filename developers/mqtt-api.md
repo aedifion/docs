@@ -30,22 +30,34 @@ Part of the aedifion.io platform is a MQTT broker which serves as the single log
 
 ### MQTT Broker 
 
-The aedifion.io MQTT broker is reachable at mqtt2.aedifion.io. The broker only accepts TLS 1.2 encrypted connections, i.e., all plain TCP connections are rejected. The brokers certificate can be viewed, e.g., by connecting to [https://mqtt2.aedifion.io](https://mqtt2.aedifion.io) from any browser.
+aedifion currently maintains three MQTT brokers:
 
-![Server MQTT certificate of MQTT broker.](../.gitbook/assets/mqtt_certificate.png)
+* Production
+  * Stable broker that receives updates and new features only after an intensive testing phase in our development environment.
+  * Host: mqtt2.aedifion.io
+  * Ports: 
+    * 8884 - MQTT over TLS 1.2 \(use in standalone clients\)
+    * 9001 - MQTT over websockets over TLS 1.2 \(use from within browsers\)
+* Development
+  * Semi-stable __broker that receives updates and new features after a short internal testing phase.
+  * Host: mqtt-dev.aedifion.io
+  * Ports: 
+    * 8884 - MQTT over TLS 1.2 \(use in standalone clients\)
+    * 9001 - MQTT over websockets over TLS 1.2 \(use from within browsers\)
 
-Your operating system \(OS\) will accept this certificate if the DST Root CA X3 certificate is installed as a trusted root certification authority \(CA\) in your OS \[1\]. Don't worry, this is probably the case and you don't have to do anything. You can test if the certificate is accepted by navigating to [https://mqtt2.aedifion.io](https://mqtt2.aedifion.io) - if your browser doesn't issue a warning, you're fine.
+Both brokers only accepts TLS 1.2 encrypted connections, i.e., all plain TCP connections are rejected. The brokers certificate can be viewed, e.g., by connecting to [https://mqtt2.aedifion.io](https://mqtt2.aedifion.io) or [https://mqtt-dev.aedifion.io](https://mqtt-dev.aedifion.io) from any browser.
 
-The broker accepts connections on two ports: 8884 and 9001. Port 8884 accepts _plain_ MQTT, i.e., connections that transport MQTT directly via TLS. This is the standard case and, if in doubt, this port is the right choice. Port 9001 accepts websockets connections, i.e., connections that transport the MQTT protocol within the websockets protocol which in turn is transported via TLS. MQTT via websockets is the right choice when you want to send/receive MQTT data directly from a web browser \[2,3\].
+![Server MQTT certificate of the production MQTT broker.](../.gitbook/assets/mqtt_certificate.png)
+
+Your operating system \(OS\) will accept this certificate if the DST Root CA X3 certificate is installed as a trusted root certification authority \(CA\) in your OS \[1\]. Don't worry, this is probably the case and you don't have to do anything. You can test if the certificate is accepted by navigating to [https://mqtt2.aedifion.io](https://mqtt2.aedifion.io) or [https://mqtt-dev.aedifion.io](https://mqtt-dev.aedifion.io) - if your browser doesn't issue a warning, you're fine.
+
+Both brokers accept connections on two ports: 8884 and 9001. Port 8884 accepts _plain_ MQTT, i.e., connections that transport MQTT directly via TLS. This is the standard case and, if in doubt, this port is the right choice. Port 9001 accepts websockets connections, i.e., connections that transport the MQTT protocol within the websockets protocol which in turn is transported via TLS. MQTT via websockets is the right choice when you want to send/receive MQTT data directly from a web browser \[2,3\].
 
 **Summary:**
 
-* Url: **mqtt2.aedifion.io**
-* Ports:
-  * **8884** - MQTT over TLS 1.2 \(use in standalone clients\)
-  * **9001** - MQTT over websockets over TLS 1.2 \(use in browsers\)
+* Two MQTT brokers available: production and development
 * Test the connection:
-  * Point a browser to [https://mqtt2.aedifion.io](https://mqtt2.aedifion.io)
+  * Point a browser to [https://mqtt2.aedifion.io](https://mqtt2.aedifion.io) or [https://mqtt-dev.aedifion.io](https://mqtt-dev.aedifion.io)
 
     No warnings should occur.
 
@@ -59,16 +71,14 @@ The broker accepts connections on two ports: 8884 and 9001. Port 8884 accepts _p
 
     * There will be warning `verify error:num=20:unable to get local issuer certificate` at the top which can be fixed by providing option `-CAfile` or `-CApath` and pointing to the right locations depending on your OS, e.g., `-CAfile /etc/ssl/cert.pem` on Mac OS.
 
-
-
 **Sources and further resources:**  
-\[1\] Let's enrypt's chain of trust: [https://letsencrypt.org/certificates/](https://letsencrypt.org/certificates/)  
+\[1\] Let's encrypt's chain of trust: [https://letsencrypt.org/certificates/](https://letsencrypt.org/certificates/)  
 \[2\] MQTT over websockets: [https://www.hivemq.com/blog/mqtt-essentials-special-mqtt-over-websockets/](https://www.hivemq.com/blog/mqtt-essentials-special-mqtt-over-websockets/)  
 \[3\] MQTT over websockets: [http://www.steves-internet-guide.com/mqtt-websockets/](http://www.steves-internet-guide.com/mqtt-websockets/)
 
 ### Authentication
 
-The MQTT broker only accepts connections from _authenticated_ clients
+The MQTT brokers only accepts connections from _authenticated_ clients.
 
 After having established a TLS connection, the MQTT client has to present login credentials \(`username` and `password`\) to the MQTT broker. Client credentials can be obtained with limited and unlimited validity.
 
@@ -165,7 +175,7 @@ Credentials with limited validity can be created through the aedifion.io [HTTP A
       <td style="text-align:left">A new test account just for reading.</td>
     </tr>
   </tbody>
-</table>Explore our [HTTP API tutorials](../tutorials/api/) or the [HTTP API developer articles](api-documentation.md) to learn how to build, authenticate, and post a corresponding HTTP to the `POST /v2/project/{project_id}/mqttuser` endpoint. A successful response looks likes this:
+</table>Explore our [HTTP API tutorials](../tutorials/api/) or the [HTTP API developer articles](api-documentation.md) to learn how to build, authenticate, and post a corresponding HTTP request to the `POST /v2/project/{project_id}/mqttuser` endpoint. A successful response looks likes this:
 
 ```javascript
 {
@@ -189,7 +199,104 @@ Credentials with limited validity can be created through the aedifion.io [HTTP A
 
 The response is in [JSON](https://www.json.org/) format  which can be easily parsed in any programming language. The _resource_ field contains the details of the newly created user \(not the password, of course, for security reasons\). Note that this request was posted at 16:23h CET and with a requested validity of 1 hour, i.e., exactly 16:23h UTC since CET = UTC + 1.
 
-After the MQTT account expires it will be automatically removed. A new account with the same username can be created afterwards.
+After the MQTT account expires it will be automatically removed. You can either create a new account with the same username afterwards or renew the existing account before it expires using the `PUT /v2/project/{project_id}/mqttuser/{mqttuser_id}` endpoint. This endpoint generally allows you to modify the MQTT user account. It accepts the following parameters:
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left"><b>Paramater</b>
+      </th>
+      <th style="text-align:center">Datatype</th>
+      <th style="text-align:center">Type</th>
+      <th style="text-align:center">Required</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>project_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">path</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The numeric id of the project for which to edit an MQTT user account.</td>
+      <td
+      style="text-align:left">1</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>mqttuser_id</b>
+      </td>
+      <td style="text-align:center">integer</td>
+      <td style="text-align:center">path</td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The id of the existing MQTT user account to apply changes to.</td>
+      <td
+      style="text-align:left">42</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>password</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">yes</td>
+      <td style="text-align:left">The changed password for the given MQTT user account.</td>
+      <td style="text-align:left">ch4ng3dp4ssw0rd</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>validity</b>
+      </td>
+      <td style="text-align:center">int</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">The expiry of the given MQTT user account will be extended by this many
+        seconds into the future from the time of the update. Maximum validity is
+        2 hours = 7200 seconds.</td>
+      <td style="text-align:left">7200</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>description</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">The changed human readable description what this account is about.</td>
+      <td
+      style="text-align:left">A new test account just for reading with a new password.</td>
+    </tr>
+  </tbody>
+</table>A successful response looks like this:
+
+```javascript
+{
+  "operation": "",
+  "resource": {
+    "description": "A new test account just for reading with a new password.",
+    "id": 42,
+    "topics": [
+      {
+        "id": 123,
+        "rights": "read",
+        "topic": "lbg01/mybuilding/#"
+      }
+    ],
+    "username": "my_mqtt_user",
+    "valid_until": "2019-01-18T17:28:39.392003Z"
+  },
+  "success": true
+}
+```
+
+As you can see, the expiry date of the MQTT user account was extended by 7200 seconds = 2 hours from the time of the update \(in this example, the update was sent roughly five minutes after the initial creation of the account\).
 
 ### Client Identifiers
 

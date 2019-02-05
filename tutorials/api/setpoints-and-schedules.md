@@ -277,9 +277,10 @@ Setpoints are written through the `POST /v2/datapoint/setpoint` endpoint. The ca
 | **dataPointID** | string | query | yes | The alphanumeric id of the datapoint that should be written to.  | bacnet100-4120-Real-room-temperature-setpoint-RTs\_real |
 | **value** | string | query | yes | A string containing an integer or float value that should be written to the data point or the special string `null` to clear the value. | 16.7 |
 | **priority** | integer | query | no | The priority at which to write the setpoint \(default = 13\). | 15 |
-| **acked** | boolean | query | no | Whether this setpoint operation is acknowledged or not | False |
+| **acked** | boolean | query | no | Whether this setpoint operation is acknowledged or not. | False |
+| **dryrun** | boolean | query | no | Whether this is a dry run that only tests but does not actually write the setpoint. | False |
 
-Having [enabled write access](setpoints-and-schedules.md#enabling-write-access), we can now write a setpoint. Please carefully choose a datapoint when executing these examples as you are operating on a real building.
+Having [enabled write access](setpoints-and-schedules.md#enabling-write-access), we can now write a setpoint. Please carefully choose a datapoint when executing these examples as you are operating on a real building. 
 
 {% tabs %}
 {% tab title="Python" %}
@@ -314,6 +315,7 @@ A successful setpoint write operation \(from point of view of the API\) returns 
   "resource": {
     "acked": false,
     "dataPointID": "bacnet100-4120-Real-room-temperature-setpoint-RTs_real",
+    "dryrun": false,    
     "priority": 15,
     "value": 16.7
   }
@@ -326,18 +328,19 @@ A successful setpoint write operation \(from point of view of the API\) returns 
 
 We have now set the desired temperature of to 16.7 °C and the HVAC system will probably start working hard to follow your control input. Spin up any existing building management system of your choice and check the effect of your actions.
 
-The written setpoint will remain active until it is cleared or overwritten. Since 16.7 °C is pretty cold for an office, we will soon wish to reset this ourselves and let the existing building automation system regain control. To this end, we need to write `'null'` to the previously written datapoint and priority. Let's do an acknowledge write this time.
+The written setpoint will remain active until it is cleared or overwritten. Since 16.7 °C is pretty cold for an office, we will soon wish to reset this ourselves and let the existing building automation system regain control. To this end, we need to write `'null'` to the previously written datapoint and priority. Let's do an acknowledged write this time. And, let's be more careful and do a `dryrun` first.
 
 {% tabs %}
 {% tab title="Python" %}
 ```python
 r = post(api_url + "/v2/datapoint/setpoint", 
          auth=john,
-         params={'project_id':1, 
-                 'dataPointID':dataPointID, 
-                 'value':'null', 
-                 'priority':15,
-                 'acked':True})
+         params={'project_id': 1, 
+                 'dataPointID': dataPointID, 
+                 'value': 'null', 
+                 'priority': 15,
+                 'acked': True,
+                 'dryrun': True})
 print(r.text)
 ```
 {% endtab %}
@@ -352,22 +355,40 @@ Note that the response now contains a reference for this setpoint write operatio
   "resource": {
     "acked": true,
     "dataPointID": "bacnet100-4120-Real-room-temperature-setpoint-RTs_real",
+    "dryrun": true,
     "priority": 15,
+    "project_id": 1,
     "reference": "0cce300f-6b9e-447d-ae29-0e7125e2fa36",
     "value": "null"
   }
 }
 ```
 
-The reference can be used to look up the state of the setpoint write operation using the `GET /v2/datapoint/setpoint/{reference}` endpoint. Querying the previous reference returns the following answer \(the log is returned as a JSON-formatted string that we reformatted to a list here for better readability\):
+Note that the response contains a reference. This reference can be used to look up the state of the setpoint write operation using the `GET /v2/datapoint/setpoint/{reference}` endpoint. Querying the previous reference returns the following answer \(the log is returned as a JSON-formatted string that we reformatted to a list here for better readability\):
 
 ```javascript
 {
   "dataPointID": "bacnet100-4120-Real-room-temperature-setpoint-RTs_real",
   "log": [
-    {"msg": "Setpoint initialized on API.", "status": "initialized", "time": "2018-12-28T13:10:33.760509Z"}, 
-    {"msg": "Setpoint request sent to edge device.", "status": "requested", "time": "2018-12-28T13:10:33.774182Z"}, 
-    {"msg": "Successfully wrote value 'null' at priority 15 to object instance 3004665 of type 'analogOutput'", "status": "written", "time": "2018-12-28T13:10:34.146189Z"}
+    {
+      "msg": "Setpoint initialized on API.", 
+      "status": "initialized", 
+      "acked": true, 
+      "dryrun": true, 
+      "time": "2018-12-28T13:10:33.760509Z"
+    }, 
+    {
+      "msg": "Setpoint request sent to edge device.", 
+      "status": "requested", 
+      "time": "2018-12-28T13:10:33.774182Z"
+    }, 
+    {
+      "msg": "[DRYRUN] Successfully wrote value 'null' at priority 15 to object instance 3004665 of type 'analogOutput'", 
+      "priorityArray": "[16, 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', '16.7', '22.5']",
+      "status": "written",
+      "overwritten_value": "16.7",
+      "time": "2018-12-28T13:10:34.146189Z"
+    }
   ],
   "old_value": "16.7",
   "priority": 15,
@@ -378,7 +399,13 @@ The reference can be used to look up the state of the setpoint write operation u
 }
 ```
 
-The field `old_value` contains the overwritten value, i.e., 16.7° Celsius as was written in the previous unacknowledged setpoint write operation above. The `status` of the operation is now `written` which means that it was successful and the setpoint is in effect.
+The `status` of the operation is now `written` which means that it was successful and the setpoint is in effect \(if this wasn't a dry run\). The field `old_value` contains the value that would be overwritten by this setpoint if this wasn't a dry run, i.e., 16.7° Celsius as was written in the previous unacknowledged setpoint write operation above. Note that additionally the complete priority array \(for BACnet datapoints\) as it was _before_ this setpoint write operation is returned in the last log message. This lets you determine the last state of the datapoint before your setpoint. In this example, the setpoint at priority 16 will take over and our office would be heated to a comfy 22.5 °C. However, since this was a dry run, the setpoint at priority 15 \(16.7 °C\) remains active.
+
+{% hint style="warning" %}
+Please carefully choose which setpoints to write as when you are operating on a real building. To avoid overwriting existing setpoints, use the `dryrun` feature to determine the current state of the targeted datapoint before writing anything to it.
+{% endhint %}
+
+Having inspected the state of the datapoint and decided that we really want to reset it, we now switch the `dryrun` flag to `False` and repeat the above operation. The answer will look almost completely the same as above except that the logs will not indicate a dry run anymore.
 
 ### Creating schedules
 
