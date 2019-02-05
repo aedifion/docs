@@ -25,10 +25,10 @@
   * [Controls](tutorials/api/setpoints-and-schedules.md)
 * [MQTT API](tutorials/mqtt/README.md)
   * [Websockets](tutorials/mqtt/websockets.md)
+* [IT admins](tutorials/it-admins.md)
 
 ## Developers
 
 * [HTTP API](developers/api-documentation.md)
 * [MQTT API](developers/mqtt-api.md)
-* [IT Admins](developers/it-admins.md)
 

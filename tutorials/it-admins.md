@@ -4,7 +4,7 @@ description: >-
   edge device and how to install it on site.
 ---
 
-# IT Admins
+# IT admins
 
 ## Overview
 

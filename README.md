@@ -64,7 +64,7 @@ Detailed technical specifications of our restful HTTP API in Open API 2.0 format
 
 Detailed technical specifications of our MQTT streaming API and related developer resources.
 
-#### [IT Admins](developers/it-admins.md)
+#### [IT Admins](tutorials/it-admins.md)
 
 Collection of information about aedifion.io specifically relevant for IT admins that set up the aedifion.io edge device in their local \(building\) network.
 
