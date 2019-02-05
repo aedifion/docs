@@ -10,78 +10,75 @@ description: >-
 
 The [aedifion edge device](../aedifion.io/gateway.md) is an industrial PC which covers functionality such as being an automation network gateway \(therefore it has two ethernet ports\) and providing computing power for those aedifion services, which are sensitive to internet connection losses.
 
-For plug and play installation of the device, we preconfigure its network interfaces before shipping it to you. Therefore please send us the [required shipping information](it-admins.md#required-shipping-information). 
+For plug and play installation of the device, aedifion preconfigures its network interfaces before shipping it to you. Therefore please provide the [required shipping information](it-admins.md#required-shipping-information). 
 
-About firewall security: Only outgoing connections from the device to the aedifion servers are need. Set the firewall settings to these [minimum requirements](it-admins.md#firewall-settings) to enable the aedifion services. 
+About firewall security: Only outgoing connections from the device to the aedifion servers are needed. Set the firewall settings to these [minimum requirements](it-admins.md#firewall-settings) to enable the aedifion services. 
 
-The[ installation guide](it-admins.md#installation-guide) gives the necessary information on how to wire the aedifion edge device. Spoilers: First connect the ethernet cables to the right ports, and at last the power plug!
+The[ installation guide](it-admins.md#installation-guide) provides the necessary information on how to wire the aedifion edge device. Basically, first connect the ethernet cables to the right ports, then plug in power.
 
-For any support or if you have any concerns about the security of your networks, please do not hesitate to [contact ](../contact.md#support)us!
+For any support, please do not hesitate to [contact us](../contact.md)!
 
 ## Required shipping information
 
-Besides the post address and name of the contact person we send the edge device to, we require information about the settings of the network\(s\) the device will be connected to. Please work your way through the flow chart below and send us the gathered information.  
+Please provide the name of a contact person and a post address that aedifion can ship the edge device to. 
 
-![Required network information](../.gitbook/assets/grafik%20%282%29.png)
+To preconfigure the edge device, please provide information about the settings of the network\(s\) the device will be connected to. The following flow chart helps you determine that information.
+
+![Flow chart to determine required network information](../.gitbook/assets/grafik%20%282%29.png)
 
 {% hint style="info" %}
-**Example:**
+**Example**
 
 Imagine the following setup:
 
-* The aedifion headquarter ordered an aedifion edge device.
-* The automation network in the headquater is separated from any other network with internet access.
-* _Network1_ has internet access and a DHCP server running.
-* The _automation network_ has no DHCP server running.
+* NewCo's headquarters ordered an aedifion edge device.
+* The automation network in the headquarters is separated from all other networks, especially those with internet access.
+* There is a local network, _LocalNet,_ that has internet access and a DHCP server.
+* The automation network, _AutoNet,_ has no DHCP server running.
 
-Now, which information do we need to preconfigure the aedifion edge device?
+The following information is needed to preconfigure the aedifion edge device:
 
-* The _automation network_ does not have internet access. The aedifion edge device will be used as a gateway between the _automation network_ and _Network1_.
-* Static IP settings for the _automation network_:
-  * Static IP the aedifion edge device will be using: 192.168.100.100
+* The automation network does not have internet access and the aedifion edge device will be used as a gateway between the _AutoNet_ and _LocalNet_.
+* _AutoNet_ does not have DHCP and the settings for a static IP for the edge device are:
+  * IP: 192.168.100.100
   * Netmask: 255.255.255.0
   * Gateway: 192.168.100.1
-* In order to provide internet access the aedifion edge device will be connected to _Network1,_ which has a DHCP server.
-* Ship the device to:
-
-aedifion GmbH; Kupferstr. 14; 52070 Aachen; Germany
-
-Contact person: Jane Doe
+* _LocalNet_ runs a DHCP and the aedifion edge device should obtain its IP address and further settings automatically.
 {% endhint %}
 
 ## Firewall settings
 
-ICT security is very important to us. For detailed information on the precautions we take, please read the corresponding section [ICT securtiy](../aedifion.io/security.md).
+The following firewall settings are required to use the aedifion edge device.
 
-At this point, we simply summarize the firewall settings required to use the aedifion Edge device in your networks:
+**Minimum firewall requirements**
+
+* Outgoing connections on the following ports need to be allowed:
+  * Port 443 \(HTTPS\)
+  * Port 22 \(SSH\)
+  * Port 8884 \(MQTT over TLS\)
+  * Port 123 \(NTP to Ubuntu standard timeservers - not necessary if NTP servers are locally available\)
+* Outgoing connections can be limited to our server IPs.
 
 {% hint style="info" %}
-**Minimum firewall requirements:**
-
-* Only outgoing connections! At no time we need access to your network from the outside!
-* Outgoing connections on the following ports \(can be limited to our server IPs\):
-  * :443 \(HTTPS\)
-  * :22 \(SSH\)
-  * :8884 \(MQTTS\)
-  * :123 \(NTP to Ubuntu standard timeservers - not neccessary, in case of a NTP in your network\)
+Operating the edge device only requires outgoing connections! It does not run any kind of service that exposes your network to the Internet. Thus, any incoming connection requests can be blocked by your firewall.
 {% endhint %}
 
-[Contact us](../contact.md#support) in case of firewall complience issues.
+[Contact us](../contact.md#support) in case of firewall compliance issues.
 
 ## Installation guide
 
-We use different industrial PCs for the aedifion edge device to meet the requirements of your project. Every package of an aedifion edge device shipped comes with an idividual installation manual. Have a look at the picture below to get an idea how we lable ethernet ports:
+Depending on the requirements of your project, aedifion ships different industrial PCs as hardware for the aedifion edge device. Every package of an aedifion edge device comes with an individual installation manual. The picture below shows how we label ethernet ports:
 
 ![](../.gitbook/assets/grafik%20%289%29.png)
 
-To install your aedifion edge device please execute the installation in the order of the flow chart:
+To install your aedifion edge device, please execute the installation in the order of the flow chart:
 
 ![Installation workflow](../.gitbook/assets/grafik%20%286%29.png)
 
 {% hint style="info" %}
-**Trouble shooting:** 
+**Trouble shooting**
 
-Restarting the aedifion edge device solved 99 % of the issues which occured during installation in the past.
+Restarting the aedifion edge device solved 99 % of the issues which occurred during installation in the past.
 {% endhint %}
 
 
