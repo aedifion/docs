@@ -21,6 +21,43 @@ We currently run two APIs:
   * Specification: [https://api-dev.aedifion.io/swagger.json](https://api-dev.aedifion.io/swagger.json)
   * Interactive documentation and user interface: [https://api-dev.aedifion.io/ui/](https://api-dev.aedifion.io/ui/)
 
+## Design principles
+
+The aedifion.io HTTP API is designed according to the following principles.
+
+### JSON encoding
+
+All our HTTP API endpoints use the [JSON](https://www.json.org/) format to encode content of request and response bodies. JSON is a de-facto standard on the web and can be written and parsed in virtually any programming language as well as with a wide range of text and code editors.
+
+### HTTP methods
+
+We make consistent use of HTTP methods:
+
+* `GET` methods are used exclusively to query existing resources and will never trigger any modification of resources. On success, they directly return the queried resource.
+* `POST` methods are used exclusively to create new resources that previously did no exist, such as new users, projects, or tags. They return a _Success_ object containing the created resource or an _Error_ object with a message that indicates why creating the resource failed.
+* `PUT` methods are used exclusively to modify existing resources and thus always require the `id` of the resource to modify. They return a _Success_ object containing the modified resource or an _Error_ object with a message that indicates why modifying the reference resource failed.
+* `DELETE` methods are used exclusively to delete existing resources and thus always require the `id` of the resource to delete. They return a _Success_ object containing the modified resource or an _Error_ object with a message that indicates why modifying the reference resource failed.
+
+### HTTP status codes
+
+The appropriate [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) is used where possible, e.g.,
+
+* 200 for successful retrieval, modification, and deletion of resources
+* 201 for successful creation of resources
+* 400 for bad requests that the user can correct
+* 401 for access to non-existant or unauthorized resources
+* 403 for valid and authorized requests that are forbidden due to other reasons
+* 404 for access to non-existant resources where this does not leak information
+* 5xx for internal server errors that are not due to and/or fixable by the user
+
+### **Meaningful error messages**
+
+Upon error, an appropriate error message is returned that indicates what went wrong. The error message will be as informative as possible to help you fix the erroneous API call, but will deliberately spare out some details in order to protect privacy. E.g., error messages are formulates such that an unauthorized caller cannot distinguish a non-existant project from one that he/she does not have access to.
+
+### Transactional changes
+
+Any API call that touches resources through creation, modification, or deletion, will either succeed as a whole or fail without any modification done. If there occur any errors during a creation, modification, or deletion of an existing resource, all changes made up to that point are rolled back. Viewing an API call as an atomic transaction, the transaction is either made or not.
+
 ## Accessing the HTTP API
 
 The API is accessed using HTTP which is one of the most widespread Internet standards today. Thus, you can use a wide range of tools and or programming languages to access it. The best choice depends on your use case and experience.
