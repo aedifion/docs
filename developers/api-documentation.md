@@ -27,16 +27,16 @@ The aedifion.io HTTP API is designed according to the following principles.
 
 ### JSON encoding
 
-All our HTTP API endpoints use the [JSON](https://www.json.org/) format to encode content of request and response bodies. JSON is a de-facto standard on the web and can be written and parsed in virtually any programming language as well as with a wide range of text and code editors.
+All our HTTP API endpoints use the [JSON](https://www.json.org/) format to encode content of request and response bodies. The JSON standard is widely used on the web and can be written and parsed in virtually any programming language as well as with a wide range of text and code editors.
 
 ### HTTP methods
 
 We make consistent use of HTTP methods:
 
-* `GET` methods are used exclusively to query existing resources and will never trigger any modification of resources. On success, they directly return the queried resource.
+* `GET` methods are used exclusively to query existing resources and will never trigger any modification of resources. In many cases, you can query single resources by providing a unique identifier or a list of resources of the same type. On success, they directly return the queried resource\(s\).
 * `POST` methods are used exclusively to create new resources that previously did no exist, such as new users, projects, or tags. They return a _Success_ object containing the created resource or an _Error_ object with a message that indicates why creating the resource failed.
-* `PUT` methods are used exclusively to modify existing resources and thus always require the `id` of the resource to modify. They return a _Success_ object containing the modified resource or an _Error_ object with a message that indicates why modifying the reference resource failed.
-* `DELETE` methods are used exclusively to delete existing resources and thus always require the `id` of the resource to delete. They return a _Success_ object containing the modified resource or an _Error_ object with a message that indicates why modifying the reference resource failed.
+* `PUT` methods are used exclusively to modify existing resources and thus always require a unique identifier of the resource to modify. They return a _Success_ object containing the modified resource or an _Error_ object with a message that indicates why modifying the reference resource failed.
+* `DELETE` methods are used exclusively to delete existing resources and thus always require a unique identifier of the resource to delete. They return a _Success_ object containing the modified resource or an _Error_ object with a message that indicates why modifying the reference resource failed.
 
 ### HTTP status codes
 
@@ -52,7 +52,7 @@ The appropriate [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_st
 
 ### **Meaningful error messages**
 
-Upon error, an appropriate error message is returned that indicates what went wrong. The error message will be as informative as possible to help you fix the erroneous API call, but will deliberately spare out some details in order to protect privacy. E.g., error messages are formulates such that an unauthorized caller cannot distinguish a non-existant project from one that he/she does not have access to.
+Upon error, an appropriate error message is returned that indicates what went wrong. The error message will be as informative as possible to help you fix the erroneous API call, but will deliberately spare out some details in order to protect privacy. E.g., error messages are formulated such that an unauthorized caller cannot distinguish a non-existant project from one that he/she does not have access to.
 
 ### Transactional changes
 
@@ -62,7 +62,7 @@ Any API call that touches resources through creation, modification, or deletion,
 
 The API is accessed using HTTP which is one of the most widespread Internet standards today. Thus, you can use a wide range of tools and or programming languages to access it. The best choice depends on your use case and experience.
 
-* [Command line tools](api-documentation.md#command-line-tools) are probably the quickest way to issue simple HTTP requests. Adequate tools are already built in all unix-like systems and may be downloaded for Windows. Of course, these tools do not know anything about the form of request parameters and responses so you will have to do all parsing yourself which quickly becomes unhandy for more complex requests.
+* [Command line tools](api-documentation.md#command-line-tools) are probably the quickest way to issue simple HTTP requests. Adequate tools are already built in all Unix-like systems and may be downloaded for Windows. Of course, these tools do not know anything about the form of request parameters and responses so you will have to do all parsing yourself which quickly becomes unhandy for more complex requests.
 * [HTTP libraries](api-documentation.md#http-libraries) are available for all established programming languages. At different levels of abstraction, they let you build, send, and receive HTTP requests and responses yourself. If you want fine-grained control about what is happening or would like to integrate aedifion.io's HTTP API into your own code, HTTP libraries are the best choice.
 * [Graphical REST clients](api-documentation.md#graphical-rest-clients) are GUIs for HTTP that let you conveniently build, view, send, and parse HTTP requests and responses. If you just want to explore and try out the APIs, this is the best way. 
 * [API clients](api-documentation.md#auto-generated-api-clients) can be automatically generated from our API specification for 40+ different programming languages, e.g., Python, Rust, C++, Go, Javascript, and many more. These API clients are, basically, high-level wrappers around standard HTTP libraries and relieve you of much of the boiler plate code for building requests, handling errors, and parsing responses.
@@ -78,7 +78,7 @@ Request:
 ```bash
 curl https://api.aedifion.io/v2/user 
     -X GET
-    -u john.doe@aedifion.com:mys3cr3tp4ss0rd
+    -u john.doe@aedifion.com:mys3cr3tp4ssw0rd
 ```
 
 The `-X GET` option is optional as GET requests are the standard. You will need it, however, for issuing `POST`, `PUT`, and `DELETE` requests.
@@ -91,7 +91,7 @@ Request:
 wget http://api.aedifion.io/v2/user
     -O- 
     --http-user=john.doe@aedifion.com 
-    --http-password=mys3cr3tp4ss0wrd 
+    --http-password=mys3cr3tp4ssw0rd 
 ```
 
 The `-O-` option tells wget to print to stdout instead of saving the response in a file.
@@ -121,19 +121,19 @@ Coming soon 🐒
 
 ### Graphical REST clients
 
-#### Postman
-
-1. Download the Postman app from [https://www.getpostman.com/downloads/](https://www.getpostman.com/downloads/)
-2. Start the app. You may skip the login.
-3. Build your own story book of HTTP requests
-   * Hint: Add a new environment in which you configure the variables `email` and `password` that safely store your credentials. This allows you to save your requests in collections and share these with others without leaking your credentials.
-
 #### Swagger UI
 
 The Swagger User Interface \(UI\) is a Javascript page that is auto-generated from our API specifications and allows you to interactively explore our APIs from within your browser without any additional software. We host it for the two APIs at the following locations:
 
 * Stable API: [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/)
 * Development API: [https://api-dev.aedifion.io/ui/](https://api-dev.aedifion.io/ui/)
+
+#### Postman
+
+1. Download the Postman app from [https://www.getpostman.com/downloads/](https://www.getpostman.com/downloads/)
+2. Start the app. You may skip the login.
+3. Build your own story book of HTTP requests
+   * Hint: Add a new environment in which you configure the variables `email` and `password` that safely store your credentials. This allows you to save your requests in collections and share these with others without leaking your credentials.
 
 ### Auto-generated API clients
 
