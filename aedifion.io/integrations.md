@@ -26,11 +26,11 @@ Our Telegram Chatbot receives [real-time alerts](../tutorials/api/alarming.md) f
 
 ## 3D Visualization
 
-Together with [SCASA](http://scasa.eu), aedifion offers high resolution 3D Visualizations with millimeter accuracy of your offices, installation rooms, or factory floor. aedifion augments 3D Visualizations with [live data](../developers/mqtt-api.md) from the aedifion.io platform and even integrates [controls](../tutorials/api/setpoints-and-schedules.md). With this product, you can take virtual tours of your local site, e.g., to monitor and control components or determine a component's build to order a replacement -- with a browser from anywhere just as like being on site.
+Together with [SCASA](http://scasa.eu), aedifion offers high resolution 3D Visualizations with centimeter accuracy of your offices, installation rooms, or factory floor. aedifion augments 3D Visualizations with [live data](../developers/mqtt-api.md) from the aedifion.io platform and even integrates [controls](../tutorials/api/setpoints-and-schedules.md). With this product, you can take virtual tours of your local site, e.g., to monitor and control components or determine a component's build to order a replacement -- with a browser from anywhere just as like being on site. By searching a device with tag search you literally fly to the selected device. 
 
-**Go to** [**our 3D Visualization demo**](http://prototype.scasa.eu/Viewer/?id=EON1) **and virtually explore the** [**EON ERC's**](http://www.eonerc.rwth-aachen.de/go/id/dmud/?lidx=1) **installations room.**
+**Check out this video of the** [**3D Visualization**](https://www.youtube.com/watch?v=knJPzOOzjfg) **or** [**request a personal demo**](../contact.md)**.**
 
-![Taking a virtual tour through the ERC&apos;s installations room.](../.gitbook/assets/3d_demo_01.png)
+![Taking a virtual tour through the ERC&apos;s installations room.](../.gitbook/assets/bildschirmfoto-2019-02-08-um-14.57.43.png)
 
 ## Alexa
 
