@@ -130,7 +130,7 @@ units             | 'percent'
 
 ### AI-generated meta data
 
-**TODO MICHAEL**
+Aedifion uses state-of-the-art machine learning and AI techniques to augment the already provided data. From the already given time series and metadata it predicts additional sets of tags \(e.g. the type of the data point\). The AI system is expanded upon perpetually to further improve the quality of the tag annotations.
 
 ## Third party data
 
