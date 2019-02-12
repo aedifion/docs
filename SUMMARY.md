@@ -32,3 +32,9 @@
 * [HTTP API](developers/api-documentation.md)
 * [MQTT API](developers/mqtt-api.md)
 
+## Engineers
+
+* [Specifications](engineers/specifications/README.md)
+  * [Artificial Intelligence](engineers/specifications/artificial-intelligence.md)
+  * [Weather Data](engineers/specifications/weather-data.md)
+
