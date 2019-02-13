@@ -32,25 +32,25 @@ The glossary provides definitions of the relevant vocabulary in order to streaml
 
 There are different ways to get in contact with us. Please don't hesitate. 
 
+
+
 ### [Guides and tutorials](https://docs.aedifion.io/docs/tutorials)
 
 This group of pages contains guides and tutorials for the aedifion.io platform. Guides explain basic concepts of the aedifion.io platform and provide ideas on how to use, extend, and integrate it while tutorials dive into the actual programming and provide concrete hands-on examples.
-
-#### [Frontend]()
-
-Walkthroughs and tutorials regarding our web frontend that explain basic features such as favorites, datapointkeys, plots and multi-plots, personalized views etc.
 
 #### [HTTP API](tutorials/api/)
 
 Extensive collection of tutorials for the restful HTTP API of the aedifion.io platform covering topics ranging from administration of user, projects, permissions, data and metadata to the setup of alarms, analytics, and automated controls. 
 
-#### [MQTT](tutorials/mqtt/)
+#### [MQTT API](tutorials/mqtt/)
 
 Tutorials and developer resources for the MQTT streaming API of the aedifion.io platform.
 
-#### [Integrations]()
+#### [IT Admins](tutorials/it-admins.md)
 
-Tutorials and walkthroughs for different \(third-party\) integrations.
+Collection of information about aedifion.io specifically relevant for IT admins that set up the aedifion.io edge device in their local \(building\) network.
+
+
 
 ### [Developers](https://docs.aedifion.io/docs/developers)
 
@@ -64,9 +64,15 @@ Detailed technical specifications of our restful HTTP API in Open API 2.0 format
 
 Detailed technical specifications of our MQTT streaming API and related developer resources.
 
-#### [IT Admins](tutorials/it-admins.md)
+#### 
 
-Collection of information about aedifion.io specifically relevant for IT admins that set up the aedifion.io edge device in their local \(building\) network.
+### [Engineers](https://docs.aedifion.io/docs/engineers/)
+
+This group of pages provides resources for engineers that use aedifion.io. 
+
+#### [Specifications](engineers/specifications/)
+
+Detailed technical specifications for our platform's features.
 
 ## Target audience
 
@@ -76,7 +82,7 @@ This documentation focuses on users of aedifion.io and informs about the basic c
 
 Our [main website](https://www.aedifion.com/) is the best way to get to know our company and products. 
 
-Follow us on [Linkedin](https://www.linkedin.com/company/aedifion/), [Twitter](https://twitter.com/aedifion), [Facebook](https://www.facebook.com/aedifion/), and [Medium](https://medium.com/@aedifion) to keep up with the most recent news.
+Follow us on [LinkedIn](https://www.linkedin.com/company/aedifion/), [Twitter](https://twitter.com/aedifion), [Facebook](https://www.facebook.com/aedifion/), and [Medium](https://medium.com/@aedifion) to keep up with the most recent news.
 
 Explore our open-source projects [on Github](https://github.com/aedifion), e.g., our Excel plugin.
 

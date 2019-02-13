@@ -147,7 +147,7 @@ _Learn more? Explore our_ [_alarming tutorial_](../tutorials/api/alarming.md)_._
 
 ## Integrations
 
-We continuously building integrations of aedifion.io with and into various popular third services such as cloud providers, instant messengers, Amazon's Alexa, or 3D visualizations. These integrations augment aedifion's core services and allow you to chain aedifion.io with other services to build whole new creative and innovative service pipelines.
+We continuously build integrations of aedifion.io with and into various popular third services such as cloud providers, instant messengers, Amazon's Alexa, or 3D visualizations. These integrations augment aedifion's core services and allow you to chain aedifion.io with other services to build whole new creative and innovative service pipelines.
 
 _Learn more? Read about the_ [_existing integrations_](integrations.md)_._
 
