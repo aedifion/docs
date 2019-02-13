@@ -7,19 +7,15 @@ description: >-
 
 # aedifion.io
 
-## Introduction
+## Introduction to aedifion.io
+
+## Technical overview
 
 aedifion.io offers plant-, building- and district-wide [data acquisition](https://docs.aedifion.io/docs/aedifion.io/features#advanced-data-ingress) based on IP technology.
-
-{% hint style="success" %}
-aedifion.io works fully plug-and-play for BACnet system. All it needs is a gateway that operating personnell can easily connect to local networks. 
-{% endhint %}
 
 Once acquired, it stores data in time series databases guaranteeing for highest performance within data retrieval and processing. 
 
 It offers computational power to process data and has a flexible data provision concept. Comprehensive APIs make it easy to integrate many different applications, such as e.g. MS Excel, Matlab, Amazon's Alexa, or your favourite data processing tool or programming language. It offers the possibility to integrate many different thrid party data sources, such as e.g. weather forecasts, MS Exchange. 
-
-![Functional illustration of aedifion.io](../.gitbook/assets/bild1.png)
 
 aedifion.io provides different data visualization dashboards which can be individually customized. 
 
@@ -34,4 +30,14 @@ aedifion.io enables remote control for each connected system. Control algorithms
 Its desin fulfills highest ICT security standards and data privacy requirements according to the EU General Data Protection Regulation \(GDPR\). In order to gerneratre trust regarding privacy, aedifion provides a complete legal framework with aedifion.io.
 
 www.aedifion.com provides detailled use cases of aedifion.io.
+
+## aedifion.io in detail
+
+
+
+## Further products
+
+## 
+
+
 
