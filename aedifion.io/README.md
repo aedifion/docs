@@ -37,6 +37,12 @@ www.aedifion.com provides detailled use cases of aedifion.io.
 
 ## Further products
 
+[aedifion.analytics](../aedifion.analytics.md) features deep analytics for technical equipment within your plant. It focuses on the calculation of key performance indicators for components within local plants and the derivation of recommendations for action. See [aedifion.analytics](../aedifion.analytics.md) for detailed information.
+
+[aedifion.controls](../aedifion.controls.md) provides a framework of basic control functionalities that are a prerequisite for modern controls as well as predefined control algorithms, such as optimizer for air handling unit operations or MS Exchange augmented room controls. See [aedifion.controls](../aedifion.controls.md) for detailed information
+
+aedifion.custom adepts .io, .analytics, and .controls to your needs with e.g. picked modules and functionalities as well as tailored APIs. [Contact us](../contact.md) to discuss your requirements.
+
 ## 
 
 

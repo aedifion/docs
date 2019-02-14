@@ -6,7 +6,7 @@ description: Overview of data available on aedifion.io
 
 ## Overview
 
-The aedifion.io platform is all about collecting, storing, processing, and visualizing _data_ with the goal to optimize the operation of buildings, plants, or even whole districts w.r.t. their primary energy consumption.    To this end, aedifion continuously collects fine-grained time series and meta data directly from the building automation technology in the targeted plants, buildings, and districts. This primary, _native_ dataset is complemented by further useful data from third party sources such as weather predictions or room occupancy. 
+The aedifion.io platform is all about collecting, storing, processing, and visualizing _data_ with the goal to optimize the operation of buildings, plants, or even whole districts w.r.t. their primary energy consumption.  To this end, aedifion continuously collects fine-grained time series and meta data directly from the building automation technology in the targeted plants, buildings, and districts. This primary, _native_ dataset is complemented by further useful data from third party sources such as weather predictions or room occupancy. 
 
 In this article, we first lay out the [data model](data.md#data-model) of the aedifion.io platform, then provide an overview of the [native](data.md#native-data) and [third party data](data.md#third-party-data) it provides.
 
