@@ -46,7 +46,7 @@ Extensive collection of tutorials for the restful HTTP API of the aedifion.io pl
 
 Tutorials and developer resources for the MQTT streaming API of the aedifion.io platform.
 
-#### [IT Admins](system-integrators-and-it-admins/it-admins/)
+#### [IT Admins](system-integrators-and-it-admins/it-admins.md)
 
 Collection of information about aedifion.io specifically relevant for IT admins that set up the aedifion.io edge device in their local \(building\) network.
 

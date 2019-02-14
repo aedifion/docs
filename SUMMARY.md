@@ -34,13 +34,10 @@
 ## Engineers
 
 * [Specifications](engineers/specifications/README.md)
-  * [Artificial Intelligence](engineers/specifications/artificial-intelligence.md)
-  * [Weather Data](engineers/specifications/weather-data.md)
+  * [Artificial intelligence](engineers/specifications/artificial-intelligence.md)
+  * [Weather data](engineers/specifications/weather-data.md)
 
 ## System integrators and IT admins
 
-* [aedifion edge device](system-integrators-and-it-admins/it-admins/README.md)
-  * [Preconfigurations](system-integrators-and-it-admins/it-admins/untitled.md)
-  * [Firewall settings](system-integrators-and-it-admins/it-admins/firewall-settings.md)
-  * [Installation guide](system-integrators-and-it-admins/it-admins/installation-guide.md)
+* [Edge device](system-integrators-and-it-admins/it-admins.md)
 

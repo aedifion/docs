@@ -2,7 +2,7 @@
 description: 'In this section, we explain the basic concept of weather data integration.'
 ---
 
-# Weather Data
+# Weather data
 
 #### Meteorological conditions
 
