@@ -24,7 +24,7 @@ Our Telegram Chatbot receives [real-time alerts](../tutorials/api/alarming.md) f
 
 ![Plotting a threshold alarm on CO2 concentration within a Telegram chat.](../.gitbook/assets/alert_plot_04.png)
 
-## 3D Visualization
+## 3D HMI
 
 Together with [SCASA](http://scasa.eu), aedifion offers high resolution 3D Visualizations with centimeter accuracy of your offices, installation rooms, or factory floor. aedifion augments 3D Visualizations with [live data](../developers/mqtt-api.md) from the aedifion.io platform and even integrates [controls](../tutorials/api/setpoints-and-schedules.md). With this product, you can take virtual tours of your local site, e.g., to monitor and control components or determine a component's build to order a replacement -- with a browser from anywhere just as like being on site. By searching a device with tag search you literally fly to the selected device. 
 
@@ -48,7 +48,7 @@ On demand, aedifion provides a separate instance of the [Grafana](%20https://gra
 
 ## Cloud services
 
-The aedifion.io platforms integrates with multiple cloud services for data ingress and egress. You can, e.g., ingest data from devices connected to Cumulocity, run analytics on it on the aedifion.io platform, and export data and results to your AWS S3 Bucket.
+The aedifion.io platforms integrates with multiple cloud services for data ingress and egress. You can, e.g., ingest data from devices connected to [Cumulocity](http://www.cumulocity.com), run analytics on it on the aedifion.io platform, and export data and results to your AWS S3 Bucket.
 
 ## Third party data
 
@@ -59,6 +59,10 @@ We integrate different free third-party data sources with the aedifon.io platfor
 We integrate localized weather data from the [DarkSky weather service](https://darksky.net).  Weather data is accessible and visualizable on the platform like any other datapoint on the platform. It includes measured data as well as predictions with different horizons of several meteorological conditions such as temperature or dew point.
 
 **Explore** [**what the weather**](https://darksky.net/forecast/50.789,6.051/us12/en) **is like at the aedifion offices.**
+
+### **Microsoft Exchange**
+
+aedifion.io is able to connect to customers Microsoft Exchange servers. A typical use case is to take information on resources to find better control decisions, e.g. such as bookings of seminar rooms to control their HVAC systems.
 
 
 
