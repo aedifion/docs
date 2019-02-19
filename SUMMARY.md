@@ -11,6 +11,7 @@
   * [Security](aedifion.io/security.md)
 * [aedifion.analytics](aedifion.analytics.md)
 * [aedifion.controls](aedifion.controls.md)
+* [aedifion.custom](aedifion.custom.md)
 * [Glossary](glossary.md)
 * [Contact](contact.md)
 
