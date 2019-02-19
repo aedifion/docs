@@ -1,8 +1,52 @@
 ---
-description: Description of the actual usable control features. More to come.
+description: >-
+  aedifion.controls offers basic control functionalities and control algorithms.
+  We introduce both in this chapter.
 ---
 
 # aedifion.controls
+
+## Introduction
+
+aedifion.controls enables remote and cloud control. Moreover, aedifion tailors edge control solutions if required. See the schematic below for a basic differentiation of these control concepts.
+
+![Differentiation of control concepts](.gitbook/assets/aedifion.controls.png)
+
+### Remote control
+
+Using the remote control functionalities, you can directly operate local plants via the aedifion.io platform, e.g. by self-hosted control algorithms, by control applications or even manually via API.
+
+### Cloud control
+
+aedifion.controls features various control algorithms that we operate within the aedifion.io platform. See section[ control algorithms](aedifion.controls.md#control-algorithms) for an introduction of available control algorithms.
+
+As custom service, aedifion deploys and hosts your proprietary control algorithms as cloud control algorithm. Please do not hesitate to contact us to discuss your needs. 
+
+### Edge control
+
+In edge control, control algorithms run directly on the aedifion edge device. This accounts for low communication latency. At the same time, it lowers the risks of down times due to communication issues between the edge device and the cloud. 
+
+## Control functionalities
+
+high level summary of [controls](tutorials/api/setpoints-and-schedules.md)
+
+setpoints
+
+schedules
+
+managing write access
+
+querying, updating, deleting...
+
+## Control algorithms
+
+just 30,000 ft introduction here. Structure e.g.:
+
+* what
+* how
+* in order to
+
+Detailed description [here](engineers/specifications/controls.md).
 
 ### MaxPhi
 

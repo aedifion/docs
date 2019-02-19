@@ -36,6 +36,8 @@
 * [Specifications](engineers/specifications/README.md)
   * [Artificial intelligence](engineers/specifications/artificial-intelligence.md)
   * [Weather data](engineers/specifications/weather-data.md)
+  * [Analytics](engineers/specifications/analytics.md)
+  * [Controls](engineers/specifications/controls.md)
 
 ## System integrators and IT admins
 
