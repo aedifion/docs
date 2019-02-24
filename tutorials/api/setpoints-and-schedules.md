@@ -220,10 +220,9 @@ project_id = 1
 dataPointID = "bacnet100-4120-Real-room-temperature-setpoint-RTs_real"
 datapoint_update = {
     "setpoint_min_value":15,
-    "setpoint_max_avlue":25
+    "setpoint_max_value":25
 }
-r = requests.put(api_url + "/v2/datapoint",
-    params = {"project_id": project_id, "dataPointID": dataPointID}
+r = requests.put(api_url + "/v2/datapoint", json = datapoint_update, auth=john, params = {"project_id": project_id, "dataPointID": dataPointID})
 ```
 {% endtab %}
 
@@ -290,7 +289,7 @@ api_url = "https://api.aedifion.io"
 john = ("john.doe@aedifion.com", "mys3cr3tp4ssw0rd")
 project_id = 1
 dataPointID = "bacnet100-4120-Real-room-temperature-setpoint-RTs_real"
-r = post(api_url + "/v2/datapoint/setpoint", 
+r = requests.post(api_url + "/v2/datapoint/setpoint", 
          auth=john
          params={'project_id':1, 'dataPointID':dataPointID, 'value':16.7, 'priority':15})
 print(r.text)
