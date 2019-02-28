@@ -10,6 +10,8 @@ description: >-
 
 aedifion.controls enables remote and cloud control. Moreover, aedifion tailors edge control solutions if required. See the schematic below for a basic differentiation of these control concepts.
 
+
+
 ![Differentiation of control concepts](.gitbook/assets/aedifion.controls.png)
 
 ### Remote control
@@ -20,7 +22,7 @@ Using the remote control functionalities, you can directly operate local plants 
 
 aedifion.controls features various control algorithms that we operate within the aedifion.io platform. See section[ control algorithms](aedifion.controls.md#control-algorithms) for an introduction of available control algorithms.
 
-As custom service, aedifion deploys and hosts your proprietary control algorithms as cloud control algorithm. Please do not hesitate to contact us to discuss your needs. 
+As custom service, aedifion deploys and hosts your proprietary control algorithms as cloud control algorithm. It is now possible to easily manage your estate and buildings in order realize an overall demand side management. Please do not hesitate to [contact us](contact.md) to discuss your needs. 
 
 ### Edge control
 
@@ -46,7 +48,8 @@ just 30,000 ft introduction here. Structure e.g.:
 * how
 * in order to
 
-Detailed description [here](engineers/specifications/controls.md).
+This section gives an overview of the current available control algorithms.   
+Find the detailed description [here](engineers/specifications/controls.md).
 
 ### MaxPhi
 
@@ -54,7 +57,9 @@ This function optimizes the energy-efficiency and therefore the cost-efficiency 
 
 Standard AHU are controlled by a constant pressure- or volumeflow setpoint. Depending on this given plant sate the subsequent VAV-Boxes for e.g. room-automation reduce this volumeflow to the respective room dependent setpoint. Because the systems pressure- or volumeflow setpoint is selected for a full-load operation mode, in a partial-load operation mode, where the VAV-Boxes are partially closed, the AHU is not working efficiently. 
 
-Here comes this higher-level control algorithm to place. The inputs are the continuously retrieved feedback signals of the VAV-Boxes in percent. With the maxima of those feedbacks, the setpoints of the extract \(ETA\) and supply \(SUP\) air ventilators are being calculated.
+Here comes this higher-level control algorithm to place. The inputs are the continuously retrieved feedback signals of the VAV-Boxes in percent, for both the supply air \(SUP\) system and the extract air \(ETA\) system. With the maxima of those feedbacks, the setpoints of the SUP and ETA air ventilators are being calculated.
+
+The same algorithms is working for hydraulic systems as well, if you think about Underfloor-Heating Systems with a central circulating pump.
 
 ### Basic heat curve optimization
 
@@ -72,7 +77,5 @@ With this algorithm you meet energy efficiency circumstances, because the meetin
 
 ### Free night cooling
 
-In state of the art Air Handling Units controlled by Building Automation Systems, air cooling is happening only on demand. Overnight Cooling of the buildings mass in prediction of a relatively higher ambient temperature over day saves energy costs in terms of using the 'free' cool air and saving cooling power later on. Because of high recovering rates of standard heat recovering units the cool room temperature inside can be used to take the heat ingress out of the outdoor air which is needed in terms of air quality control.
-
-If you have ideas for other control features or want to discuss your usecase, feel free to [contact us](contact.md).
+In state of the art Air Handling Units \(AHU\) controlled by Building Automation Systems, air cooling is happening only on demand. Overnight Cooling of the buildings mass in prediction of a relatively higher ambient temperature over day saves energy costs in terms of using the 'free' cool air and saving cooling power later on. Because of high recovering rates of standard heat recovering units the cool room temperature inside can be used to take the heat ingress out of the outdoor air \(ODA\) which is needed in terms of air quality control.
 
