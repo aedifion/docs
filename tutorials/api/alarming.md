@@ -66,8 +66,9 @@ Threshold alarms are defined through the following parameters.
         <p>(JSON)</p>
       </td>
       <td style="text-align:center">yes</td>
-      <td style="text-align:left">The type of the alarm, either 'threshold' or 'throughput'.</td>
-      <td style="text-align:left">threshold</td>
+      <td style="text-align:left">The type of the alarm, either &apos;threshold&apos; or &apos;throughput&apos;.</td>
+      <td
+      style="text-align:left">threshold</td>
     </tr>
     <tr>
       <td style="text-align:left"><b>telegram_<br />chatid</b>
@@ -156,8 +157,8 @@ Threshold alarms are defined through the following parameters.
         <p>(JSON)</p>
       </td>
       <td style="text-align:center">no</td>
-      <td style="text-align:left">The order of the thresholds. 'asc' as described, or 'desc' to reverse
-        the order, basically flipping all comparisons.</td>
+      <td style="text-align:left">The order of the thresholds. &apos;asc&apos; as described, or &apos;desc&apos;
+        to reverse the order, basically flipping all comparisons.</td>
       <td style="text-align:left">asc</td>
     </tr>
     <tr>
@@ -281,8 +282,9 @@ Throughput alarms are defined through the following parameters.
         <p>(JSON)</p>
       </td>
       <td style="text-align:center">yes</td>
-      <td style="text-align:left">The type of the alarm, either 'threshold' or 'throughput'.</td>
-      <td style="text-align:left">threshold</td>
+      <td style="text-align:left">The type of the alarm, either &apos;threshold&apos; or &apos;throughput&apos;.</td>
+      <td
+      style="text-align:left">threshold</td>
     </tr>
     <tr>
       <td style="text-align:left"><b>telegram_<br />chatid</b>

@@ -480,7 +480,7 @@ New users are created through the `POST /v2/user` API endpoint. As usual, you ne
         <p>(JSON)</p>
       </td>
       <td style="text-align:center">yes</td>
-      <td style="text-align:left">The new users's initial password.</td>
+      <td style="text-align:left">The new users&apos;s initial password.</td>
       <td style="text-align:left">ch4ng3m3s00n</td>
     </tr>
   </tbody>
@@ -901,7 +901,8 @@ In many use cases, we would, however, like to restrict access to our new _TestPr
       <td style="text-align:left">The list of tags that this role grants permissions for. A tag has a <em>key</em> (string)
         and <em>value</em> (string) as well as <em>read</em> (boolean) and <em>write</em> (boolean)
         flags.</td>
-      <td style="text-align:left">[{"key":"name", "value": "*", "read": true, "write": false}]</td>
+      <td style="text-align:left">[{&quot;key&quot;:&quot;name&quot;, &quot;value&quot;: &quot;*&quot;,
+        &quot;read&quot;: true, &quot;write&quot;: false}]</td>
     </tr>
   </tbody>
 </table>We do not care about _authed\_tags_ at this point since the specified endpoints do not touch datapoint resources. The request is then built as follows:

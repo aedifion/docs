@@ -443,7 +443,7 @@ A renaming of a datapoint is added through the `POST /v2/datapoint/renaming` end
       <td style="text-align:left">The new name for the datapoint w.r.t. the chosen datapointkey.</td>
       <td
       style="text-align:left">datenpunkt_in
-        <br />_deinem_büro</td>
+        <br />_deinem_b&#xFC;ro</td>
     </tr>
   </tbody>
 </table>{% tabs %}
@@ -545,7 +545,7 @@ An existing renaming can be changed using the `PUT /v2/datapoint/renaming/{renam
       </td>
       <td style="text-align:center">yes</td>
       <td style="text-align:left">The new renaming.</td>
-      <td style="text-align:left">Datenpunkt in deinem Büro</td>
+      <td style="text-align:left">Datenpunkt in deinem B&#xFC;ro</td>
     </tr>
   </tbody>
 </table>We provide the _renaming\_id_ in the path and the updated name in the request's body.
@@ -1323,10 +1323,10 @@ You can also modify the tag assignment to a datapoint \(here: confirm or reject 
       <td style="text-align:center">string</td>
       <td style="text-align:center">body (JSON)</td>
       <td style="text-align:center">yes</td>
-      <td style="text-align:left">The confirmed status of the assignment. Either "true" (correct assignment),
-        "false" (incorrect assignment) or "unconfirmed" (unknown assignment).</td>
-      <td
-      style="text-align:left">"true"</td>
+      <td style="text-align:left">The confirmed status of the assignment. Either &quot;true&quot; (correct
+        assignment), &quot;false&quot; (incorrect assignment) or &quot;unconfirmed&quot;
+        (unknown assignment).</td>
+      <td style="text-align:left">&quot;true&quot;</td>
     </tr>
   </tbody>
 </table>With this method we can now confirm our created tag as an example.

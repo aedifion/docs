@@ -491,10 +491,10 @@ A new schedule is created through the `POST /v2/datapoint/schedule` endpoint. Th
         <p>(JSON)</p>
       </td>
       <td style="text-align:center">no</td>
-      <td style="text-align:left">Repeat interval of this schedule. One of 'hourly', 'daily', 'weekly',
-        'monthly', or 'yearly'. <em><b>Coming soon.</b></em>
+      <td style="text-align:left">Repeat interval of this schedule. One of &apos;hourly&apos;, &apos;daily&apos;,
+        &apos;weekly&apos;, &apos;monthly&apos;, or &apos;yearly&apos;. <em><b>Coming soon.</b></em>
       </td>
-      <td style="text-align:left">'weekly'</td>
+      <td style="text-align:left">&apos;weekly&apos;</td>
     </tr>
     <tr>
       <td style="text-align:left"><b>heartbeat</b>
@@ -520,8 +520,9 @@ A new schedule is created through the `POST /v2/datapoint/schedule` endpoint. Th
       <td style="text-align:center">yes</td>
       <td style="text-align:left">A list of setpoints. Each setpoint is defined by a unique <code>id</code>,
         a <code>start</code> time, and a <code>value</code>.</td>
-      <td style="text-align:left">[{'id':0, 'start':'2018-11-09T18:00:00Z', 'value':'18.5'}, {'id':1, 'start':'2018-11-12T7:00:00Z',
-        'value':'21.0'}]</td>
+      <td style="text-align:left">[{&apos;id&apos;:0, &apos;start&apos;:&apos;2018-11-09T18:00:00Z&apos;,
+        &apos;value&apos;:&apos;18.5&apos;}, {&apos;id&apos;:1, &apos;start&apos;:&apos;2018-11-12T7:00:00Z&apos;,
+        &apos;value&apos;:&apos;21.0&apos;}]</td>
     </tr>
   </tbody>
 </table>The different options for defining a schedule deserve some more explanation. The example schedule in the above table realizes a very simple weekend override for the office temperature in winter. In detail, it would do the following:
@@ -746,7 +747,8 @@ All schedules that are not in state `failed` or `terminated` \(such as our secon
       <td style="text-align:left">A list of <em>new</em> setpoints to add to the schedule. If a new setpoint
         has the same <code>id</code> as an existing setpoint, the update is rejected.</td>
       <td
-      style="text-align:left">[{'id':2, 'start':'2018-11-12T09:00:00Z', 'value':'20'}]</td>
+      style="text-align:left">[{&apos;id&apos;:2, &apos;start&apos;:&apos;2018-11-12T09:00:00Z&apos;,
+        &apos;value&apos;:&apos;20&apos;}]</td>
     </tr>
     <tr>
       <td style="text-align:left">
@@ -764,8 +766,9 @@ All schedules that are not in state `failed` or `terminated` \(such as our secon
       <td style="text-align:left">A list of <em>existing</em> setpoints to modify identified by their <code>id</code>.
         If a setpoint from this list does not exist, the update is rejected.</td>
       <td
-      style="text-align:left">[{'id':0, 'start':'2018-11-09T19:00:00Z', 'value':'17'}, {'id':1, 'start':'2018-11-12T8:00:00Z',
-        'value':'22'}]</td>
+      style="text-align:left">[{&apos;id&apos;:0, &apos;start&apos;:&apos;2018-11-09T19:00:00Z&apos;,
+        &apos;value&apos;:&apos;17&apos;}, {&apos;id&apos;:1, &apos;start&apos;:&apos;2018-11-12T8:00:00Z&apos;,
+        &apos;value&apos;:&apos;22&apos;}]</td>
     </tr>
     <tr>
       <td style="text-align:left">
@@ -784,7 +787,8 @@ All schedules that are not in state `failed` or `terminated` \(such as our secon
         <p>A list of <em>existing</em> setpoints to delete identified by their <code>id</code>.</p>
         <p>If a setpoint from this list does not exist, the update is rejected.</p>
       </td>
-      <td style="text-align:left">[{'id':2, 'start':'2018-11-12T09:00:00Z', 'value':'20'}]</td>
+      <td style="text-align:left">[{&apos;id&apos;:2, &apos;start&apos;:&apos;2018-11-12T09:00:00Z&apos;,
+        &apos;value&apos;:&apos;20&apos;}]</td>
     </tr>
   </tbody>
 </table>Let's post this update which changes the schedule's name, its reset value and heartbeat, adds one setpoint, modifies two setpoints, and deletes the newly added setpoint. 

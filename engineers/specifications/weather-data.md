@@ -11,7 +11,7 @@ This list provides the meteorological conditions which can be integrated by defa
 <table>
   <thead>
     <tr>
-      <th style="text-align:left">​Meteorological condition</th>
+      <th style="text-align:left">&#x200B;Meteorological condition</th>
       <th style="text-align:left">Name</th>
       <th style="text-align:left">
         <p>Unit /</p>
@@ -22,9 +22,9 @@ This list provides the meteorological conditions which can be integrated by defa
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left">Apperent ("feels like") temperature</td>
+      <td style="text-align:left">Apperent (&quot;feels like&quot;) temperature</td>
       <td style="text-align:left">apparentTemperature</td>
-      <td style="text-align:left">°C</td>
+      <td style="text-align:left">&#xB0;C</td>
       <td style="text-align:left">Human felt temperature, determined by air temperature, wind speed, and
         humidity.</td>
     </tr>
@@ -37,7 +37,7 @@ This list provides the meteorological conditions which can be integrated by defa
     <tr>
       <td style="text-align:left">Dew point</td>
       <td style="text-align:left">dewpoint</td>
-      <td style="text-align:left">°C</td>
+      <td style="text-align:left">&#xB0;C</td>
       <td style="text-align:left">Ambient steam saturation temperature.</td>
     </tr>
     <tr>
@@ -74,7 +74,7 @@ This list provides the meteorological conditions which can be integrated by defa
     <tr>
       <td style="text-align:left">Temperature</td>
       <td style="text-align:left">temperature</td>
-      <td style="text-align:left">°C</td>
+      <td style="text-align:left">&#xB0;C</td>
       <td style="text-align:left">Ambient air temperature.</td>
     </tr>
     <tr>
@@ -92,8 +92,8 @@ This list provides the meteorological conditions which can be integrated by defa
     <tr>
       <td style="text-align:left">Wind direction</td>
       <td style="text-align:left">windBearing</td>
-      <td style="text-align:left">° [0,360]</td>
-      <td style="text-align:left">Direction <b>from</b> which the wind is coming. 0° at true north, clockwise.
+      <td style="text-align:left">&#xB0; [0,360]</td>
+      <td style="text-align:left">Direction <b>from</b> which the wind is coming. 0&#xB0; at true north, clockwise.
         Not defined for wind speed = 0.</td>
     </tr>
     <tr>
