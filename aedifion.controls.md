@@ -12,7 +12,7 @@ aedifion.controls enables remote and cloud control. Moreover, aedifion tailors e
 
 
 
-![Differentiation of control concepts](.gitbook/assets/aedifion.controls.png)
+![Differentiation of control concepts](.gitbook/assets/bildschirmfoto-2019-02-28-um-12.46.03.png)
 
 ### Remote control
 
