@@ -27,8 +27,9 @@
     * [Analytics](developers/api-documentation/guides-and-tutorials/analytics.md)
     * [Controls](developers/api-documentation/guides-and-tutorials/setpoints-and-schedules.md)
 * [MQTT API](developers/mqtt-api/README.md)
-  * [Specification](developers/mqtt-api/specification.md)
+  * [Specifications](developers/mqtt-api/specification.md)
   * [Guides and tutorials](developers/mqtt-api/guides-and-tutorials/README.md)
+    * [Publishers](developers/mqtt-api/guides-and-tutorials/publishers.md)
     * [Websockets](developers/mqtt-api/guides-and-tutorials/websockets.md)
 
 ## Engineers

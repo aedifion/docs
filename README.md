@@ -32,47 +32,29 @@ The glossary provides definitions of the relevant vocabulary in order to streaml
 
 There are different ways to get in contact with us. Please don't hesitate. 
 
+### Developers
 
-
-### [Guides and tutorials](https://docs.aedifion.io/docs/tutorials)
-
-This group of pages contains guides and tutorials for the aedifion.io platform. Guides explain basic concepts of the aedifion.io platform and provide ideas on how to use, extend, and integrate it while tutorials dive into the actual programming and provide concrete hands-on examples.
-
-#### [HTTP API]()
-
-Extensive collection of tutorials for the restful HTTP API of the aedifion.io platform covering topics ranging from administration of user, projects, permissions, data and metadata to the setup of alarms, analytics, and automated controls. 
-
-#### [MQTT API]()
-
-Tutorials and developer resources for the MQTT streaming API of the aedifion.io platform.
-
-#### [IT Admins](system-integrators-and-it-admins/it-admins.md)
-
-Collection of information about aedifion.io specifically relevant for IT admins that set up the aedifion.io edge device in their local \(building\) network.
-
-
-
-### [Developers](https://docs.aedifion.io/docs/developers)
-
-This group of pages provides resources for developers that want to integrate their application with the aedifion.io platform.
+This group of pages provides specifications, guides, and tutorials for developers that want to integrate their application with the aedifion.io platform.Specifications provide raw but precise technical documentation. Guides explain basic concepts of the aedifion.io platform and provide ideas on how to use, extend, and integrate it. Tutorials dive into the actual programming and provide concrete hands-on examples.
 
 #### [HTTP API](developers/api-documentation/)
 
-Detailed technical specifications of our restful HTTP API in Open API 2.0 format as well as guides on how to generate API clients in different programming languages from that specification.
+Detailed technical specifications of our restful HTTP API in Open API 2.0 format as well as guides on how to generate API clients in different programming languages from that specification complemented by an extensive collection of tutorials for the restful HTTP API of the aedifion.io platform covering topics ranging from administration of user, projects, permissions, data and metadata to the setup of alarms, analytics, and automated controls. 
 
 #### [MQTT API](developers/mqtt-api/)
 
-Detailed technical specifications of our MQTT streaming API and related developer resources.
+Detailed technical specifications of our MQTT streaming API and related developer resources complemented by guides and tutorials.
 
-#### 
-
-### [Engineers](https://docs.aedifion.io/docs/engineers/)
+### Engineers
 
 This group of pages provides resources for engineers that use aedifion.io. 
 
 #### [Specifications](engineers/specifications/)
 
 Detailed technical specifications for our platform's features.
+
+### System integrators and IT admins
+
+Collection of information about aedifion.io specifically relevant for IT admins that set up the aedifion.io edge device in their local \(building\) network.
 
 ## Target audience
 

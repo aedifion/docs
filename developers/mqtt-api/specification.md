@@ -2,7 +2,7 @@
 description: Specifications of the aedifion.io MQTT API
 ---
 
-# Specification
+# Specifications
 
 ## Overview
 

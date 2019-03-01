@@ -1,5 +1,5 @@
 ---
-description: Tutorials for connecting to aedifion.io's MQTT broker via websockets.
+description: Tutorial for connecting to aedifion.io's MQTT broker via websockets.
 ---
 
 # Websockets
