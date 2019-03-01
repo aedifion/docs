@@ -6,20 +6,7 @@ description: Reference for the aedifion HTTP API.
 
 ## Overview
 
-The aedifion.io HTTP API is completely specified in [OpenAPI Specification Version 2 format](https://swagger.io/docs/specification/2-0/what-is-swagger/) from which we generate an interactive API documentation that allows you to explore and try out our APIs.
-
-We currently run two APIs:
-
-* Production API
-  * Stable API that receives updates and new features only after an intensive testing phase in our development environment.
-  * Base URL: [https://api.aedifion.io](https://api.aedifion.io)
-  * Specification: [https://api.aedifion.io/swagger.json](https://api.aedifion.io/swagger.json)
-  * Interactive documentation and user interface: [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/)
-* Development API
-  * Semi-stable __API that receives updates and new features after a short internal testing phase.
-  * Base URL: [https://api-dev.aedifion.io](https://api-dev.aedifion.io)
-  * Specification: [https://api-dev.aedifion.io/swagger.json](https://api-dev.aedifion.io/swagger.json)
-  * Interactive documentation and user interface: [https://api-dev.aedifion.io/ui/](https://api-dev.aedifion.io/ui/)
+The HTTP API allows accessing all services of the aedifion.io platform through a carefully [designed](./#design-principles) RESTful interface. It can be [accessed](./#accessing-the-http-api) using a wide range of programming languages, libraries, tools and clients.
 
 ## Design principles
 
@@ -62,10 +49,10 @@ Any API call that touches resources through creation, modification, or deletion,
 
 The API is accessed using HTTP which is one of the most widespread Internet standards today. Thus, you can use a wide range of tools and or programming languages to access it. The best choice depends on your use case and experience.
 
-* [Command line tools](api-documentation.md#command-line-tools) are probably the quickest way to issue simple HTTP requests. Adequate tools are already built in all Unix-like systems and may be downloaded for Windows. Of course, these tools do not know anything about the form of request parameters and responses so you will have to do all parsing yourself which quickly becomes unhandy for more complex requests.
-* [HTTP libraries](api-documentation.md#http-libraries) are available for all established programming languages. At different levels of abstraction, they let you build, send, and receive HTTP requests and responses yourself. If you want fine-grained control about what is happening or would like to integrate aedifion.io's HTTP API into your own code, HTTP libraries are the best choice.
-* [Graphical REST clients](api-documentation.md#graphical-rest-clients) are GUIs for HTTP that let you conveniently build, view, send, and parse HTTP requests and responses. If you just want to explore and try out the APIs, this is the best way. 
-* [API clients](api-documentation.md#auto-generated-api-clients) can be automatically generated from our API specification for 40+ different programming languages, e.g., Python, Rust, C++, Go, Javascript, and many more. These API clients are, basically, high-level wrappers around standard HTTP libraries and relieve you of much of the boiler plate code for building requests, handling errors, and parsing responses.
+* [Command line tools](./#command-line-tools) are probably the quickest way to issue simple HTTP requests. Adequate tools are already built in all Unix-like systems and may be downloaded for Windows. Of course, these tools do not know anything about the form of request parameters and responses so you will have to do all parsing yourself which quickly becomes unhandy for more complex requests.
+* [HTTP libraries](./#http-libraries) are available for all established programming languages. At different levels of abstraction, they let you build, send, and receive HTTP requests and responses yourself. If you want fine-grained control about what is happening or would like to integrate aedifion.io's HTTP API into your own code, HTTP libraries are the best choice.
+* [Graphical REST clients](./#graphical-rest-clients) are GUIs for HTTP that let you conveniently build, view, send, and parse HTTP requests and responses. If you just want to explore and try out the APIs, this is the best way. 
+* [API clients](./#auto-generated-api-clients) can be automatically generated from our API specification for 40+ different programming languages, e.g., Python, Rust, C++, Go, Javascript, and many more. These API clients are, basically, high-level wrappers around standard HTTP libraries and relieve you of much of the boiler plate code for building requests, handling errors, and parsing responses.
 
 ### Command line tools
 
@@ -191,7 +178,7 @@ The process for generating API clients in other languages is similar. But make s
 
 ## Further resources
 
-* Explore our [HTTP API](../tutorials/api/) tutorials that show you how to, e.g., manage user, projects, and permission, or setup alarms, using the HTTP API.
+* Explore our [tutorials](guides-and-tutorials/) that show you how to, e.g., manage user, projects, and permission, or setup alarms, using the HTTP API.
 
 
 

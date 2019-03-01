@@ -14,7 +14,7 @@ The examples provided in this article partly build on each other. For the sake o
 
 To execute the examples provided in this tutorial, the following is needed:
 
-* Valid MQTT subscriber credentials \(username and password\) to the aedifion.io MQTT broker. If you do not have a login yet, please [contact us](../../contact.md) regarding a demo login. The login used in the example will not work!
+* Valid MQTT subscriber credentials \(username and password\) to the aedifion.io MQTT broker. If you do not have a login yet, please [contact us](../../../contact.md) regarding a demo login. The login used in the example will not work!
 * A project with live data ingress.
 
 ## Demo Website
@@ -116,7 +116,7 @@ We will later show how to parse and highlight specific parts of the message. For
 
 The final masterpiece looks similar to this.
 
-![](../../.gitbook/assets/websockets_01.png)
+![](../../../.gitbook/assets/websockets_01.png)
 
 ### Implementation
 
@@ -224,7 +224,7 @@ function clearList() {
 
 Configure the MQTT broker, provide valid credentials, and choose a topic. Then hit _Start_. You will soon see messages dropping in.
 
-![](../../.gitbook/assets/websockets_02.png)
+![](../../../.gitbook/assets/websockets_02.png)
 
 
 

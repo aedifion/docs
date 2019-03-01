@@ -8,7 +8,7 @@ description: >-
 
 ## Excel
 
-With aedifion's open source [Excel Plugin](https://github.com/aedifion/aedifion-excel-plugin), you can import data from aedifion.io using its [HTTP API](../developers/api-documentation.md) directly into your Excel sheet. You can query data from multiple datapoints over multiple projects and synchronize asynchronous CoV-based observations with adjustable sample rates and different interpolation methods, such as zero-order-hold \(step interpolation\). The retrieved data can be visualized in different types of automatically generated plots. The plugin is currently available only for Windows and can be installed without admin rights.
+With aedifion's open source [Excel Plugin](https://github.com/aedifion/aedifion-excel-plugin), you can import data from aedifion.io using its [HTTP API](../developers/api-documentation/) directly into your Excel sheet. You can query data from multiple datapoints over multiple projects and synchronize asynchronous CoV-based observations with adjustable sample rates and different interpolation methods, such as zero-order-hold \(step interpolation\). The retrieved data can be visualized in different types of automatically generated plots. The plugin is currently available only for Windows and can be installed without admin rights.
 
 **Go to our** [**Excel plugin tutorial**]() **and try it out.** 
 
@@ -16,9 +16,9 @@ With aedifion's open source [Excel Plugin](https://github.com/aedifion/aedifion-
 
 ## Chatbots
 
-Our Telegram Chatbot receives [real-time alerts](../tutorials/api/alarming.md) from the aedifion.io platform and sends them to private or group chats. Typical use cases are notifying about unwanted or even dangerous system conditions or detecting unscheduled shut-downs and outages. To facilitate a quick assessment and response to potential emergency conditions, the chatbot offers further interactive features that, e.g., allow quickly plotting critical datapoints and querying basic statistics directly from within the chat. Integration with other messengers such as Slack, or Teams is available on request.
+Our Telegram Chatbot receives [real-time alerts](../developers/api-documentation/guides-and-tutorials/alarming.md) from the aedifion.io platform and sends them to private or group chats. Typical use cases are notifying about unwanted or even dangerous system conditions or detecting unscheduled shut-downs and outages. To facilitate a quick assessment and response to potential emergency conditions, the chatbot offers further interactive features that, e.g., allow quickly plotting critical datapoints and querying basic statistics directly from within the chat. Integration with other messengers such as Slack, or Teams is available on request.
 
-**Start a conversation with** [**@aedifion\_bot**](https://telegram.me/aedifion_bot) **or go to our** [**tutorial on real-time alarms**](../tutorials/api/alarming.md) **to explore its features.**    
+**Start a conversation with** [**@aedifion\_bot**](https://telegram.me/aedifion_bot) **or go to our** [**tutorial on real-time alarms**](../developers/api-documentation/guides-and-tutorials/alarming.md) **to explore its features.**    
 
 ![](../.gitbook/assets/alert_plot_03.png)
 
@@ -26,7 +26,7 @@ Our Telegram Chatbot receives [real-time alerts](../tutorials/api/alarming.md) f
 
 ## 3D HMI
 
-Together with [SCASA](http://scasa.eu), aedifion offers high resolution 3D Visualizations with centimeter accuracy of your offices, installation rooms, or factory floor. aedifion augments 3D Visualizations with [live data](../developers/mqtt-api.md) from the aedifion.io platform and even integrates [controls](../tutorials/api/setpoints-and-schedules.md). With this product, you can take virtual tours of your local site, e.g., to monitor and control components or determine a component's build to order a replacement -- with a browser from anywhere just as like being on site. By searching a device with tag search you literally fly to the selected device. 
+Together with [SCASA](http://scasa.eu), aedifion offers high resolution 3D Visualizations with centimeter accuracy of your offices, installation rooms, or factory floor. aedifion augments 3D Visualizations with [live data](../developers/mqtt-api/) from the aedifion.io platform and even integrates [controls](../developers/api-documentation/guides-and-tutorials/setpoints-and-schedules.md). With this product, you can take virtual tours of your local site, e.g., to monitor and control components or determine a component's build to order a replacement -- with a browser from anywhere just as like being on site. By searching a device with tag search you literally fly to the selected device. 
 
 **Check out this video of the** [**3D Visualization**](https://www.youtube.com/watch?v=knJPzOOzjfg) **or** [**request a personal demo**](../contact.md)**.**
 
@@ -34,7 +34,7 @@ Together with [SCASA](http://scasa.eu), aedifion offers high resolution 3D Visua
 
 ## Alexa
 
-We have built skills for Amazon's Alexa to integrate with the [HTTP API](../tutorials/api/) of the aedifion.io platform allowing you to query and control your surroundings using natural language. E.g., you may turn down the heating in your office with a simple dialogue.
+We have built skills for Amazon's Alexa to integrate with the [HTTP API]() of the aedifion.io platform allowing you to query and control your surroundings using natural language. E.g., you may turn down the heating in your office with a simple dialogue.
 
 **Watch** [**our demo video**](https://www.linkedin.com/feed/update/urn:li:activity:6424532222916726784/) **or** [**request a personal demo**](../contact.md)**.**
 

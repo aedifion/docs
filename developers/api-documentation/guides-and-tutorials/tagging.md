@@ -12,7 +12,7 @@ description: >-
 
 This article deals with creating [favorites](tagging.md#favorites), [renamings](tagging.md#renamings), and [tags](tagging.md#tags) on datapoints as well as modifying and removing them. We start by adding, querying, and removing favorite datapoints. We then cover the concept of datapointkeys, and show how datapoints can be assigned alternate names \(renamings\). Finally, we cover creating tags, assigning them to datapoints, modifying them and their association with a datapoint, and ultimately removing associations with a datapoint or removing tags completely.
 
-We provide concrete examples on how to use the aedifion [HTTP API](../../developers/api-documentation.md) to create, inspect, modify and delete favorites, renamings, tags and tag assignments to datapoints.
+We provide concrete examples on how to use the aedifion [HTTP API](../) to create, inspect, modify and delete favorites, renamings, tags and tag assignments to datapoints.
 
 ### Preliminaries
 
@@ -20,13 +20,13 @@ The examples provided in this article partly build on each other. For the sake o
 
 To execute the examples provided in this tutorial, the following is needed:
 
-* A valid login \(username and password\) to the aedifion.io platform. If you do not have a login yet, please [contact us](../../contact.md) regarding a demo login. The login used in the example will not work!
+* A valid login \(username and password\) to the aedifion.io platform. If you do not have a login yet, please [contact us](../../../contact.md) regarding a demo login. The login used in the example will not work!
 * A project with datapoints.
 * Optionally, a working installation of [Python](https://www.python.org/) or [Curl](https://curl.haxx.se/).
 
 ## Favorites
 
-Favorites are a way of flagging datapoints that you frequently view. They are, e.g., used in the [frontend](../../aedifion.io/frontend.md) to sort the datapoint selector list where they are marked by a star ⭐️. Favorites are scoped to the user, i.e., each user can have different favorites and is not able to see other users' favorites.
+Favorites are a way of flagging datapoints that you frequently view. They are, e.g., used in the [frontend](../../../aedifion.io/frontend.md) to sort the datapoint selector list where they are marked by a star ⭐️. Favorites are scoped to the user, i.e., each user can have different favorites and is not able to see other users' favorites.
 
 ### Adding a favorite
 

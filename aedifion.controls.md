@@ -30,7 +30,7 @@ In edge control, control algorithms run directly on the aedifion edge device. Th
 
 ## Control functionalities
 
-high level summary of [controls](tutorials/api/setpoints-and-schedules.md)
+high level summary of [controls](developers/api-documentation/guides-and-tutorials/setpoints-and-schedules.md)
 
 setpoints
 

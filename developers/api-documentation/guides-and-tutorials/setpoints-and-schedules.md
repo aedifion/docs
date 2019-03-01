@@ -6,7 +6,7 @@ description: Tutorial on writing setpoints and schedules for active building con
 
 ## Overview
 
-The [aedifion.device](../../aedifion.io/gateway.md) allows writing setpoints or whole schedules of many setpoints to any writable datapoint on any building automation component in the attached building network. The semantics of writing setpoints and schedules abstracts from the underlying building networks and automation protocols and thereby provides a unified, fine-grained control of the building's automation components. In this article, we cover basic concepts and examples of writing setpoints and schedules for active building control.
+The [aedifion.device](../../../aedifion.io/gateway.md) allows writing setpoints or whole schedules of many setpoints to any writable datapoint on any building automation component in the attached building network. The semantics of writing setpoints and schedules abstracts from the underlying building networks and automation protocols and thereby provides a unified, fine-grained control of the building's automation components. In this article, we cover basic concepts and examples of writing setpoints and schedules for active building control.
 
 ### Preliminaries
 
@@ -14,7 +14,7 @@ The examples provided in this section partly build on each other. For the sake o
 
 To execute the examples provided in this tutorial, the following is needed:
 
-* A valid login \(username and password\) to the aedifion.io platform. If you do not have a login yet, please [contact us](../../contact.md) regarding a demo login. The login used in the example will not work!
+* A valid login \(username and password\) to the aedifion.io platform. If you do not have a login yet, please [contact us](../../../contact.md) regarding a demo login. The login used in the example will not work!
 * A project with writable datapoints.
 * Optionally, a working installation of [Python](https://www.python.org/) or [Curl](https://curl.haxx.se/).
 
@@ -96,7 +96,7 @@ For example:
 
 ## API Tutorial
 
-Setpoints and schedules are written and managed through the [HTTP API](../../developers/api-documentation.md). In this section, we go through the steps of unlocking setpoints and schedules for an existing project, configuring selected datapoints for writing, and, finally, writing sample setpoints and schedules.
+Setpoints and schedules are written and managed through the [HTTP API](../). In this section, we go through the steps of unlocking setpoints and schedules for an existing project, configuring selected datapoints for writing, and, finally, writing sample setpoints and schedules.
 
 ### Enabling write access
 
@@ -114,7 +114,7 @@ The setpoints and schedules feature is per default completely locked for all pro
 }
 ```
 
-In order to activate setpoints and schedules for your project, please [contact us](../../contact.md) personally. We will need to know
+In order to activate setpoints and schedules for your project, please [contact us](../../../contact.md) personally. We will need to know
 
 * the project \(id\) for which you wish to activate writing.
 * whether you wish to enable setpoints or schedules or both.
@@ -920,7 +920,7 @@ The following features will be released soon.
 * Pausing and un-pausing a running schedule through additional endpoint `PUT /v2/datapoint/schedule/{reference}/toggle`
 * ASAP execution of setpoints in fresh schedules.
 
-Missing a feature? [Request it!](../../contact.md#support)
+Missing a feature? [Request it!](../../../contact.md#support)
 
 ## FAQ
 

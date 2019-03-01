@@ -38,11 +38,11 @@ There are different ways to get in contact with us. Please don't hesitate.
 
 This group of pages contains guides and tutorials for the aedifion.io platform. Guides explain basic concepts of the aedifion.io platform and provide ideas on how to use, extend, and integrate it while tutorials dive into the actual programming and provide concrete hands-on examples.
 
-#### [HTTP API](tutorials/api/)
+#### [HTTP API]()
 
 Extensive collection of tutorials for the restful HTTP API of the aedifion.io platform covering topics ranging from administration of user, projects, permissions, data and metadata to the setup of alarms, analytics, and automated controls. 
 
-#### [MQTT API](tutorials/mqtt/)
+#### [MQTT API]()
 
 Tutorials and developer resources for the MQTT streaming API of the aedifion.io platform.
 
@@ -56,11 +56,11 @@ Collection of information about aedifion.io specifically relevant for IT admins 
 
 This group of pages provides resources for developers that want to integrate their application with the aedifion.io platform.
 
-#### [HTTP API](developers/api-documentation.md)
+#### [HTTP API](developers/api-documentation/)
 
 Detailed technical specifications of our restful HTTP API in Open API 2.0 format as well as guides on how to generate API clients in different programming languages from that specification.
 
-#### [MQTT API](developers/mqtt-api.md)
+#### [MQTT API](developers/mqtt-api/)
 
 Detailed technical specifications of our MQTT streaming API and related developer resources.
 

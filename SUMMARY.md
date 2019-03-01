@@ -15,22 +15,21 @@
 * [Glossary](glossary.md)
 * [Contact](contact.md)
 
-## Guides and tutorials
-
-* [HTTP API](tutorials/api/README.md)
-  * [Administration](tutorials/api/administration.md)
-  * [Data import and export](tutorials/api/data-import.md)
-  * [Favorites, tagging, renaming](tutorials/api/tagging.md)
-  * [Alarming](tutorials/api/alarming.md)
-  * [Analytics](tutorials/api/analytics.md)
-  * [Controls](tutorials/api/setpoints-and-schedules.md)
-* [MQTT API](tutorials/mqtt/README.md)
-  * [Websockets](tutorials/mqtt/websockets.md)
-
 ## Developers
 
-* [HTTP API](developers/api-documentation.md)
-* [MQTT API](developers/mqtt-api.md)
+* [HTTP API](developers/api-documentation/README.md)
+  * [Specifications](developers/api-documentation/specifications.md)
+  * [Guides and tutorials](developers/api-documentation/guides-and-tutorials/README.md)
+    * [Administration](developers/api-documentation/guides-and-tutorials/administration.md)
+    * [Data import and export](developers/api-documentation/guides-and-tutorials/data-import.md)
+    * [Favorites, tagging, renaming](developers/api-documentation/guides-and-tutorials/tagging.md)
+    * [Alarming](developers/api-documentation/guides-and-tutorials/alarming.md)
+    * [Analytics](developers/api-documentation/guides-and-tutorials/analytics.md)
+    * [Controls](developers/api-documentation/guides-and-tutorials/setpoints-and-schedules.md)
+* [MQTT API](developers/mqtt-api/README.md)
+  * [Specification](developers/mqtt-api/specification.md)
+  * [Guides and tutorials](developers/mqtt-api/guides-and-tutorials/README.md)
+    * [Websockets](developers/mqtt-api/guides-and-tutorials/websockets.md)
 
 ## Engineers
 

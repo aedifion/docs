@@ -23,7 +23,7 @@ aedifion.io offers plant-, building-, and even district-wide data acquisition fr
 aedifion.io works fully plug-and-play for BACnet systems. All it needs is the aedifion.io edge device that operating personnel simply connect to the local \(building\) network. Once plugged in, the edge device connects automatically to our servers and we configure, start, and continuously monitor the data ingress.
 {% endhint %}
 
-_Learn more? Explore our_ [_data import and export tutorial_](../tutorials/api/data-import.md)_._
+_Learn more? Explore our_ [_data import and export tutorial_](../developers/api-documentation/guides-and-tutorials/data-import.md)_._
 
 ### Metadata
 
@@ -53,15 +53,15 @@ _Learn more? Explore the_ [_frontend guide_]() _or visit our frontend at_ [_www.
 
 ### HTTP API
 
-All functionality of aedifion.io is exposed through the [HTTP API](../developers/api-documentation.md). Thus, it covers all functionality of the frontend and more. The API can be used with various third party tools or called from virtually any modern programming language. At [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/), you can find a web environment for user‐friendly testing and compilation of API interactions. In addition, other retrieval methods can be provided for e.g. MATLAB upon request.
+All functionality of aedifion.io is exposed through the [HTTP API](../developers/api-documentation/). Thus, it covers all functionality of the frontend and more. The API can be used with various third party tools or called from virtually any modern programming language. At [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/), you can find a web environment for user‐friendly testing and compilation of API interactions. In addition, other retrieval methods can be provided for e.g. MATLAB upon request.
 
-_Learn more? Explore our_ [_HTTP API tutorials_](../tutorials/api/) _or try out our API user interface at_ [_https://api.aedifion.io/ui/_](https://api.aedifion.io/ui/)_!_
+_Learn more? Explore our_ [_HTTP API tutorials_]() _or try out our API user interface at_ [_https://api.aedifion.io/ui/_](https://api.aedifion.io/ui/)_!_
 
 ### MQTT API
 
 The MQTT API offers a publish/subscribe model to stream data into and from the aedifion.io platform. You can subscribe to the data of your whole plant or limit your subscriptions to a few selected datapoints of interest.
 
-_Learn more? Try out our_ [_MQTT websockets demo._](../tutorials/mqtt/websockets.md)\_\_
+_Learn more? Try out our_ [_MQTT websockets demo._](../developers/mqtt-api/guides-and-tutorials/websockets.md)\_\_
 
 ### Third party software
 
@@ -129,7 +129,7 @@ You can flag any datapoint as a favorite, e.g., to mark frequently inspected or 
 
 A [datapointkey](../glossary.md#datapointkey) is a datapoint naming schemes that groups alternate for all or some datapoints of a building under a common key. Alternate datapointkeys are required, e.g., to address needs of different datapoint naming schemes such as as [Brick](https://brickschema.org/) or [BUDO](https://github.com/RWTH-EBC/BUDO), logical uniqueness, or simply individual user preferences. 
 
-_Learn more? Explore our_ [_tutorials on favorites, tagging, and renaming_](../tutorials/api/tagging.md)_._
+_Learn more? Explore our_ [_tutorials on favorites, tagging, and renaming_](../developers/api-documentation/guides-and-tutorials/tagging.md)_._
 
 ## Project, user, and permission management
 
@@ -137,13 +137,13 @@ Each customer on aedifion.io is managed within his/her own realm such that data 
 
 Access to all resources within a company and its projects is strictly controlled through a role based access control \(RBAC\) mechanism which allows flexible and fine-grained rights management, e.g., you can restrict users' access to specific projects, to a subset of API endpoints, or even to single datapoints or tags. The RBAC system allows you to configure aedifion.io to meet your individual data privacy requirements.
 
-_Learn more? Explore our_ [_administration tutorial_](../tutorials/api/administration.md)_._
+_Learn more? Explore our_ [_administration tutorial_](../developers/api-documentation/guides-and-tutorials/administration.md)_._
 
 ## Alarming and notifications
 
 aedifion.io has various alarming schemes built-in that you can deploy on projects and datapoints. Threshold alarms trigger alerts, e.g., when the CO2 concentration rises too high, while throughput alerts can be used to monitor the health of your sensors. Alerts are delivered through different alarming channels, such as email, instant messengers, or voice output through, e.g., Amazon's Alexa. This accounts for flexible, user-centric and innovative alarming functionalities.
 
-_Learn more? Explore our_ [_alarming tutorial_](../tutorials/api/alarming.md)_._
+_Learn more? Explore our_ [_alarming tutorial_](../developers/api-documentation/guides-and-tutorials/alarming.md)_._
 
 ## Integrations
 

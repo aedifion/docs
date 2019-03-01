@@ -1,34 +1,14 @@
 ---
-description: How to access the aedifion.io MQTT API
+description: Specifications of the aedifion.io MQTT API
 ---
 
-# MQTT API
+# Specification
 
 ## Overview
 
-MQTT is a lightweight publish/subscribe messaging protocol designed. Originally designed for machine to machine telemetry in low bandwidth environments \(M2M\), MQTT has nowadays become one of the main protocols for \(data collection in\) Internet of Things \(IoT\) deployments \[1\].
-
-MQTT has multiple advantages over HTTP \[3\] and other protocols: 
-
-* Due to its binary encoding and minimal packet overhead, MQTT is 20x faster than HTTP, uses 50x less traffic, and consumes 20% less energy than HTTP according to the direct performance comparison presented in \[4\]. 
-* Contrary to HTTP's client/server architecture, MQTT's publish/subscribe pattern decouples data sources from data sinks through a third party, the MQTT broker. Decoupling means that sources never directly talk to sinks which implies that i\) they do not need to know each other, ii\) they do not need to run at the same time, and iii\) they do not require synchronization \[5\]. All this allows easily allows building flexible 1-to-many, many-to-1, and many-to-many data pipelines.
-* MQTT has message filtering built-in, i.e., data sinks can subscribe to arbitrary subsets of the data collected from the sources specified through a hierarchical topic theme \[6\].
-
-When you are building an application that streams data into or from the aedifion.io platform, MQTT is probably a better choice than the [HTTP API](api-documentation.md).
-
-**Sources and further resources:**  
-\[1\] Introduction to MQTT: [http://www.steves-internet-guide.com/mqtt/](http://www.steves-internet-guide.com/mqtt/)  
-\[2\] Introduction to MQTT: [https://www.hivemq.com/blog/mqtt-essentials-part-1-introducing-mqtt/](https://www.hivemq.com/blog/mqtt-essentials-part-1-introducing-mqtt/)  
-\[3\] MQTT vs. HTTP: [https://iotdunia.com/mqtt-and-http/](https://iotdunia.com/mqtt-and-http/)  
-\[4\] MQTT vs. HTTP: [https://flespi.com/blog/http-vs-mqtt-performance-tests](https://flespi.com/blog/http-vs-mqtt-performance-tests)  
-\[5\] MQTT publish/subscribe: [https://www.hivemq.com/blog/mqtt-essentials-part2-publish-subscribe/](https://www.hivemq.com/blog/mqtt-essentials-part2-publish-subscribe/)  
-\[6\] MQTT topics: [https://www.hivemq.com/blog/mqtt-essentials-part-5-mqtt-topics-best-practices/](https://www.hivemq.com/blog/mqtt-essentials-part-5-mqtt-topics-best-practices/)
-
-## The aedifion.io MQTT API
-
 Part of the aedifion.io platform is a MQTT broker which serves as the single logical point of data ingress to the aedifion.io, e.g., all data collected in the field through the aedifion edge devices is ingested to aedifion.io through this MQTT broker and, in turn, can also be subscribed to. The MQTT broker is clustered, i.e., distributed over multiple independent servers, to ensure seamless scalability and high availability.
 
-### MQTT Broker 
+## MQTT Broker 
 
 aedifion currently maintains three MQTT brokers:
 
@@ -47,7 +27,7 @@ aedifion currently maintains three MQTT brokers:
 
 Both brokers only accepts TLS 1.2 encrypted connections, i.e., all plain TCP connections are rejected. The brokers certificate can be viewed, e.g., by connecting to [https://mqtt2.aedifion.io](https://mqtt2.aedifion.io) or [https://mqtt-dev.aedifion.io](https://mqtt-dev.aedifion.io) from any browser.
 
-![Server MQTT certificate of the production MQTT broker.](../.gitbook/assets/mqtt_certificate.png)
+![Server MQTT certificate of the production MQTT broker.](../../.gitbook/assets/mqtt_certificate.png)
 
 Your operating system \(OS\) will accept this certificate if the DST Root CA X3 certificate is installed as a trusted root certification authority \(CA\) in your OS \[1\]. Don't worry, this is probably the case and you don't have to do anything. You can test if the certificate is accepted by navigating to [https://mqtt2.aedifion.io](https://mqtt2.aedifion.io) or [https://mqtt-dev.aedifion.io](https://mqtt-dev.aedifion.io) - if your browser doesn't issue a warning, you're fine.
 
@@ -86,7 +66,7 @@ After having established a TLS connection, the MQTT client has to present login 
 Credentials with unlimited validity are provided only on request by the aedifion staff. Please email us at support@aedifion.io.
 {% endhint %}
 
-Credentials with limited validity can be created through the aedifion.io [HTTP API](api-documentation.md) using the `POST /v2/project/{project_id}/mqttuser` endpoint. This endpoint requires the following parameters:
+Credentials with limited validity can be created through the aedifion.io [HTTP API](../api-documentation/) using the `POST /v2/project/{project_id}/mqttuser` endpoint. This endpoint requires the following parameters:
 
 <table>
   <thead>
@@ -175,7 +155,7 @@ Credentials with limited validity can be created through the aedifion.io [HTTP A
       <td style="text-align:left">A new test account just for reading.</td>
     </tr>
   </tbody>
-</table>Explore our [HTTP API tutorials](../tutorials/api/) or the [HTTP API developer articles](api-documentation.md) to learn how to build, authenticate, and post a corresponding HTTP request to the `POST /v2/project/{project_id}/mqttuser` endpoint. A successful response looks likes this:
+</table>Explore our [HTTP API tutorials]() or the [HTTP API developer articles](../api-documentation/) to learn how to build, authenticate, and post a corresponding HTTP request to the `POST /v2/project/{project_id}/mqttuser` endpoint. A successful response looks likes this:
 
 ```javascript
 {
@@ -312,7 +292,7 @@ Once connected and authenticated, the client can publish or subscribe to one or 
 
 Authorization is specified through a list of topics \(following exactly MQTT's topic syntax and semantics \[1,2\]\) where for each topic is specified whether the user has read or read/write access. Make sure to familiarize yourself with MQTT's topic structure, especially with hierarchy levels and the `#` wildcard \[1,2\].
 
-### Topic hierarchy 
+## Topic hierarchy 
 
 All MQTT topics _on aedifion.io_ have a hierarchy that consists of two main parts, i.e., a fixed prefix and a variable postfix.
 
@@ -354,7 +334,7 @@ It is important to note two things about publishing your own data via MQTT:
 
    If you have a `datapoint_A` on your local building network that is discovered by the edge device and you also write to  `datapoint_A` yourself, this data will be stored and intermingled in the same time-series.
 
-### Payload format 
+## Payload format 
 
 All messages you publish to or receive from the MQTT broker must adhere to strictly to the following format:
 
@@ -394,23 +374,9 @@ This is known as _Influx Line Protocol_ and specified in detail at \[1\]. We hig
 **Sources and further resources:**  
 \[1\] [https://docs.influxdata.com/influxdb/v1.6/write\_protocols/line\_protocol\_tutorial/](https://docs.influxdata.com/influxdb/v1.6/write_protocols/line_protocol_tutorial/)
 
-### Fair use 
+## Fair use 
 
 We as aedifion give our best to ensure seamless scalability and highest availability of our MQTT services. Since we give priority to a clean and simple user experience, we currently do not enforce any rate limits on the MQTT ingress and egress. Deliberately, this allows you to send bursts of data, e.g., to import a batch of historical data.
 
 This being said, we will negotiate a quota with each customer that we consider the basis of fair use of our MQTT services. In favor of your user experience, this quota will be monitored but not strictly enforced. aedifion reserves the right to technically enforce the fair use quota on repeated violations without prior notice.
-
-## Examples 
-
-Explore our step-by-step tutorial on [streaming data from our MQTT broker via websockets](../tutorials/mqtt/websockets.md) directly into a webpage using client-side javascript.
-
-aedifion provides examples for subscribing and publishing to the aedifion.io MQTT broker on request for the following languages and tool sets:
-
-* [Eclipse Paho MQTT Python library](https://pypi.org/project/paho-mqtt/)
-* [Mosquitto command line tools](https://mosquitto.org/download/)
-* [MQTT.fx](https://mqttfx.jensd.de/)
-* [Node-RED](https://nodered.org/)
-* [Matlab](https://www.mathworks.com/help/thingspeak/mqtt-api.html)
-* [Docker](https://www.docker.com/)
-* ...
 

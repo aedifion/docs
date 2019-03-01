@@ -71,7 +71,7 @@ Once a component has been [mapped](frontend.md#mapping), you can run a growing s
 
 ## Controls
 
-The aedifion.io platform offers [HTTP APIs for writing setpoint and schedules](../tutorials/api/setpoints-and-schedules.md) and we are currently developing a frontend for intuitive handling of these APIs. Additionally, we are actively developing and testing automated cloud-based building controls based on the configured [alerts](frontend.md#alerting) and [analytics](frontend.md#analytics).
+The aedifion.io platform offers [HTTP APIs for writing setpoint and schedules](../developers/api-documentation/guides-and-tutorials/setpoints-and-schedules.md) and we are currently developing a frontend for intuitive handling of these APIs. Additionally, we are actively developing and testing automated cloud-based building controls based on the configured [alerts](frontend.md#alerting) and [analytics](frontend.md#analytics).
 
 If you are interested in this feature, please [contact us](../contact.md). 
 

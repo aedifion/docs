@@ -14,7 +14,7 @@ The examples provided in this article partly build on each other. For the sake o
 
 To execute the examples provided in this tutorial, the following is needed:
 
-* A valid login \(username and password\) to the aedifion.io platform. If you do not have a login yet, please [contact us](../../contact.md) regarding a demo login. The login used in the example will not work!
+* A valid login \(username and password\) to the aedifion.io platform. If you do not have a login yet, please [contact us](../../../contact.md) regarding a demo login. The login used in the example will not work!
 * A project configured for access to timeseries data.
 * Optionally, a working installation of [Python](https://www.python.org/) or [Curl](https://curl.haxx.se/).
 
@@ -23,7 +23,7 @@ To execute the examples provided in this tutorial, the following is needed:
 There are two ways of ingesting data into the aedifion.io platform:
 
 * via [CSV upload](data-import.md#csv-upload)
-* via MQTT as treated in the [MQTT Tutorial](../mqtt/) section
+* via MQTT as treated in the [MQTT Tutorial]() section
 
 ### CSV Upload
 
@@ -251,11 +251,11 @@ The response tells us that only one line was imported successfully \(the _Correc
 There are two ways of retrieving data from the aedifion.io platform:
 
 * via JSON export
-* via MQTT as treated in the [MQTT Tutorial](../mqtt/) section
+* via MQTT as treated in the [MQTT Tutorial]() section
 
 ### JSON export
 
-The endpoint `GET /v2/datapoint/timeseries` allows querying the data of single [datapoints](../../glossary.md#datapoint) by start and end while optionally using down-sampling or limiting the number of returned [observations](../../glossary.md#observation).
+The endpoint `GET /v2/datapoint/timeseries` allows querying the data of single [datapoints](../../../glossary.md#datapoint) by start and end while optionally using down-sampling or limiting the number of returned [observations](../../../glossary.md#observation).
 
 | Parameter | Datatype | Type | Required | Description | Example |
 | :--- | :---: | :---: | :---: | :--- | :--- |
@@ -268,11 +268,11 @@ The endpoint `GET /v2/datapoint/timeseries` allows querying the data of single [
 
 Before we use that endpoint to shoot a couple of example queries for the data, let's insert some more useful data via the [CSV upload described above](data-import.md#csv-upload).
 
-{% file src="../../.gitbook/assets/sun\_degrees\_over\_horizon.csv" caption="Sun\'s position over the horizon" %}
+{% file src="../../../.gitbook/assets/sun\_degrees\_over\_horizon.csv" caption="Sun\'s position over the horizon" %}
 
 This dataset describes the degree of the sun over the horizon by calendar days. With day 0 equal to new year's, the data looks like this:
 
-![](../../.gitbook/assets/sun-degrees.png)
+![](../../../.gitbook/assets/sun-degrees.png)
 
 #### Querying by time window
 
