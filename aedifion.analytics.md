@@ -9,16 +9,20 @@ description: >-
 
 ## Overview
 
-aedifion.analytics is a data-driven service for deep analysis of heating, ventilation & air conditioning \(HVAC\) systems, energy-related plants, buildings, as well as energy networks such as district heating and cooling grids. This service is an embedded API functionality of the aedifion.io cloud platform. 
+aedifion.analytics is a framework for data analytics of heating, ventilation & air conditioning \(HVAC\) systems, energy-related plants, buildings, as well as energy networks such as district heating and cooling grids. In the one hand, there are dedicated API endpoints for interaction, providing functionalities to set up and conduct large scale data analytics, one the other hand, there are analytic algorithms.
 
-The goal of analytics is to support technicians and engineers who want to optimize \(or commision\) theses systems in respect of indoor comfort, energy efficiency, and maintenance expenditure. For this purpose, aedifion.analytics creates a profound transparency and interpretation of system operation. 
+The goal of aedifion.analytics is to support technicians and engineers who want to optimize \(or commision\) systems in respect of indoor comfort, energy efficiency, and maintenance expenditure. For this purpose, aedifion.analytics aims at profound transparency and interpretation of system operation and is continuously extended.
 
  Its configuration and analysis workflow is straightforward:
 
-1. Choose the [components ](aedifion.analytics.md#components)of the energy system.
-2. [Map datapoints](aedifion.analytics.md#mapping) to components with the help of the AI meta-data service of aedifion.
+1. Instantiate [components ](aedifion.analytics.md#components)of the energy system.
+2. [Map datapoints](aedifion.analytics.md#mapping) to components
 3. Choose [analysis functions](aedifion.analytics.md#analysis-functions) of interest to [configure analysis](aedifion.analytics.md#analysis-config) on the chosen components.
 4. Get and [explore analytics results](aedifion.analytics.md#explore-analysis-results).
+
+{% hint style="info" %}
+[Ingested ](aedifion.io/features.md#data-ingress)and [AI-generated](aedifion.io/features.md#ai-generated-meta-data) meta data support the mapping process.
+{% endhint %}
 
 ![](.gitbook/assets/tmp_analytics.png)
 
