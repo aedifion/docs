@@ -25,9 +25,13 @@ aedifion.io works fully plug-and-play for BACnet systems. All it needs is the ae
 
 _Learn more? Explore our_ [_data import and export tutorial_](../developers/api-documentation/guides-and-tutorials/data-import.md)_._
 
-### Metadata
+### Meta data
 
 For each integrated [device](https://docs.aedifion.io/docs/glossary#device) and [datapoint](https://docs.aedifion.io/docs/glossary#datapoint), aedifion.io is able to acquire and maintain comprehensive metadata either directly via the [automation network](../glossary.md#automation-network), e.g., reading BACnet properties or Modbus plant descriptions, or from local databases and servers such as OPC. All metadata is automatically structured in aedifion.io's data model and can be used from thereon to search and sort the data as well as to enrich it further using artificial intelligence methods such as clustering and classification.
+
+### AI-generated meta data
+
+An artificial intelligence \(AI\) generates additional meta data 
 
 ### Weather and weather forecast data
 

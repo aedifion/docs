@@ -58,7 +58,7 @@ A short piece of information that can be attached to a [component](glossary.md#c
 
 ### **Time series**
 
-A list of \([timestamp](glossary.md#time-stamp), [observation](glossary.md#observation)\)-tuples measured for a certain [datapoint](glossary.md#datapoint).
+A list of \([time stamp](glossary.md#time-stamp), [observation](glossary.md#observation)\)-tuples measured for a certain [datapoint](glossary.md#datapoint).
 
 ### Time stamp
 
