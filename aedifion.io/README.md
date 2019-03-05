@@ -8,7 +8,7 @@ description: We introduce the aedifion.io platform and its components in this ch
 
 aedifion.io is an IoT platform tailored to monitoring and optimizing heating, ventilation & air conditioning \(HVAC\) systems, energy-related plants, as well as energy networks such as district heating and cooling grids. The main goal is to provide a one-stop solution for energy and cost efficient system operation with high effectiveness \(in terms of need fulfillment, e.g., thermal comfort, indoor air quality, and other generic energy services\). The leading use case of the aedifion.io platform is to connect to a local plant, discover, collect, and store all available data, apply analytic algorithms to uncover optimization potential, and use controls to optimize local plants' operation based on these insights.
 
-![Overview of the aedifion.io ecosystem](../.gitbook/assets/aedifion.io-overview%20%281%29.png)
+![](../.gitbook/assets/aedifion.io_overview.png)
 
 We introduce the main ingredients of the aedifion.io platform in the following, along the schematic overview of the aedifion.io ecosystem illustrated in the figure above. 
 

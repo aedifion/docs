@@ -130,7 +130,53 @@ units             | 'percent'
 
 ### AI-generated meta data
 
-Aedifion uses state-of-the-art machine learning and AI techniques to augment the already provided data. From the already given time series and metadata it predicts additional sets of tags \(e.g. the type of the data point\). The AI system is expanded upon perpetually to further improve the quality of the tag annotations.
+aedifion uses state-of-the-art machine learning and AI techniques to augment the already provided data. From the already given time series and metadata it predicts additional sets of tags \(e.g. the type of the data point\). The AI system is expanded perpetually to further improve the quality of the tag annotations.
+
+The latest classifier, "ClassifyV1" recognizes 22 classes according to the following list.
+
+1. Alarm message
+2. Counter 
+3. CO\_2 concentration
+4. Heat flow
+5. Operational message
+6. Power
+7. Pressure
+8. Revolutions
+9. Relative humidity
+10. Setpoint for operation
+11. Set Point in percent
+12. Setpoint of temperature
+13. Setpoint of temperature of potential meter
+14. Temperature of gas
+15. Temperature of liquid
+16. Volume flow for gases
+17. Volume flow for liquids
+18. Volatile organic compounds
+19. Valve Position
+20. Electric work
+21. Working set point in percent
+22. Working set point for temperature
+
+The for each time series classifier adds a tag that looks e.g. as follows. 
+
+{% code-tabs %}
+{% code-tabs-item title="AI generated meta data tag" %}
+```text
+{
+  "id": 92807,
+  "key": "ClassesV1",
+  "probability": 0.757322,
+  "protected": true,
+  "source": "ai",
+  "value": "CO2 concentration"
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+The tag has as "source" "ai", since it is originating from an AI-based classifier. It classified the time series according to the target system "ClassesV1", see "key". The classification result is "CO2 concentration" indicated with "value", with a probability of 75.73 %, see "probability".
+
+Please refer to the specifications chapter on [artificial intelligence](../engineers/specifications/artificial-intelligence.md) for further details and explanation of classes.
 
 ## Third party data
 
