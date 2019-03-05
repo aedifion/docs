@@ -2,7 +2,7 @@
 description: >-
   aedifion.controls offers basic control functionalities and control algorithms.
   We introduce both in this chapter and the various possibilities where they can
-  be implemented,
+  be implemented.
 ---
 
 # aedifion.controls
@@ -41,11 +41,11 @@ aedifion.controls enables remote and cloud control. Moreover, aedifion tailors e
 
 #### Remote control
 
-Using the remote control functionalities, you can directly operate local plants via the aedifion.io platform, e.g. by self-hosted control algorithms, by control applications or even manually via API.
+Using the remote control functionalities, you can directly operate local plants via the aedifion.io platform, e.g. by self-hosted control algorithms, by control functionalities or even manually via API.
 
 #### Cloud control
 
-aedifion.controls features various control algorithms that we operate within the aedifion.io platform. See section[ control algorithms](aedifion.controls.md#control-algorithms) for an introduction of available control algorithms.
+aedifion.controls features various control algorithms that we operate within the aedifion.io platform. See section[ control algorithms](engineers/specifications/controls.md) for an introduction of available control algorithms.
 
 As custom service, aedifion deploys and hosts your proprietary control algorithms as cloud control algorithm. It is now possible to easily manage your estate and buildings in order realize an overall demand side management. Please do not hesitate to [contact us](contact.md) to discuss your needs. 
 
