@@ -4,5 +4,8 @@ description: Detailed information on aedifion.analytics' algorithms
 
 # Analytics
 
-Describe analytics' algorithms here
+* Takt- und Laufzeitanalyse
+* PMV/PDD
+* Wirkungsgrad
+* Lastdauerlinie
 
