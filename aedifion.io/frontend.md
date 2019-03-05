@@ -2,7 +2,7 @@
 description: Overview and documentation of the frontend of the aedifion.io cloud platform.
 ---
 
-# Frontend
+# Frontend\_v2 =&gt; to be moved to staging
 
 ## Overview
 
