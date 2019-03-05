@@ -20,6 +20,8 @@ The top-most entity on the aedifion.io platform mapping to a real-world or virtu
 
 A physical or logical building automation device. A component is associated to exactly one [project](glossary.md#project) and may have arbitrary many [datapoints](glossary.md#datapoint).
 
+
+
 ### **Datapoint**
 
 A sensor, actor, or other physical or virtual data source. A datapoint belongs to exactly one [component](glossary.md#component) and one [project](glossary.md#project). It emits [observations](glossary.md#datapoint) that form the [time series](glossary.md#time-series) of this datapoint.

@@ -7,7 +7,7 @@ description: >-
 
 # aedifion.controls
 
-### Control functionalities
+## Control functionalities
 
 Control functionalities are defined actions with no automatic feedback usage, like
 
