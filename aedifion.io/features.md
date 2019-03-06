@@ -189,5 +189,5 @@ aedifion.io is mirrored across two identical but completely independent deployme
 
 
 
-Within the next subpage, we introduce the aedifion edge device in more detail.
+_Within the next subpage, we introduce the aedifion edge device in more detail._
 

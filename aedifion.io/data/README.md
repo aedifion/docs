@@ -128,7 +128,7 @@ units             | 'percent'
 
 A virtual datapoint is a datapoint not gathered from a local plant but denotes a predefined stream or batch process that runs on one or multiple datapoints. The virtual datapoint makes the output continuously available in the form of a new datapoint in aedifion.io's time series database. 
 
-The time series based on the virtual datapoint's result exactly handles the same as[ time series data](./#time-series-data). 
+The time series based on the virtual datapoint's result exactly handles the same as[ time series data](./#time-series-data). Virtual datapoints are denoted as such in their datapoint key according to customers conventions. 
 
 ### AI-generated meta data
 
@@ -196,5 +196,5 @@ We are using the services of [the Dark Sky Company, LLC](https://darksky.net/) f
 
 
 
-On the next subsubpage, we introduce our AI-based meta data generation. On the next subpage we introduce integrations to aedifion.io.
+_On the next subsubpage, we introduce our AI-based meta data generation. On the next subpage we introduce integrations to aedifion.io._
 

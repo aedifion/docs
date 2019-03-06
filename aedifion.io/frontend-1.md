@@ -46,7 +46,7 @@ Within the datapoint list, the frontend shows available meta data for each datap
 
 ![Meta data access](../.gitbook/assets/screenshot-beta-frontend_meta.JPG)
 
-## 
 
-This documentation continues with an introduction of the used data models in aedifion.io
+
+_This documentation continues with an introduction of the used data models in aedifion.io_
 

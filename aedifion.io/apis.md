@@ -51,7 +51,9 @@ The aedifion.io MQTT API is actively used in different places, e.g.,
 
 _Learn more? Go through_ [_the step-by-step tutorials_](../developers/mqtt-api/guides-and-tutorials/) _on how to interact with the MQTT API or explore the additional_ [_developer resources_](../developers/mqtt-api/)_._ 
 
-## 
+
+
+_This documentation continues with an introduction of the aedifion beta frontend._
 
 
 

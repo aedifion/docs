@@ -66,5 +66,7 @@ aedifion.io is able to connect to customers Microsoft Exchange servers. A typica
 
 
 
+_This documentation continues with a discussion of IT security and our approaches towards it._
+
 
 
