@@ -161,3 +161,7 @@ That is why aedifion commits to permanently guarantee highest security and data 
 
 And, we are willing to walk the talk: aedifion is currently in the process of obtaining TÜV certification for the aedifion.io platform.
 
+
+
+This documentation continues with a our products aedifion.analytics and .controls.
+

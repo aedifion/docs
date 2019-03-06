@@ -31,7 +31,7 @@ The aedifion.io HTTP API is actively used in different places, e.g.,
 * voice commands to [Alexa](integrations.md#alexa) trigger calls to the HTTP API to retrieve thermal comfort and to write setpoints
 * ...
 
-_Learn more? Go through_ [_the step-by-step tutorials_]() _on how to interact with this API or explore the additional_ [_developer resources_](../developers/api-documentation/)_._ 
+_Learn more? Go through the_ [_step-by-step tutorials_](../developers/api-documentation/guides-and-tutorials/) _on how to interact with this API or explore the additional_ [_developer resources_](../developers/api-documentation/)_._ 
 
 ## MQTT API
 
@@ -49,7 +49,7 @@ The aedifion.io MQTT API is actively used in different places, e.g.,
 * the interactive [3D visualization](integrations.md#3d-visualization) subscribes to live data via MQTT directly from within your browser using websockets
 * the aedifion.io platform publishes alarms created by the user on datapoints via MQTT
 
-_Learn more? Go through_ [_the step-by-step tutorials_]() _on how to interact with the MQTT API or explore the additional_ [_developer resources_](../developers/mqtt-api/)_._ 
+_Learn more? Go through_ [_the step-by-step tutorials_](../developers/mqtt-api/guides-and-tutorials/) _on how to interact with the MQTT API or explore the additional_ [_developer resources_](../developers/mqtt-api/)_._ 
 
 ## 
 

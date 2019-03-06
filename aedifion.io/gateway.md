@@ -20,7 +20,11 @@ The edge device offers very high security since its communication is unidirectio
 The edge device offers multi-core computation power accounting for divers edge services, such as cloud-control fallback functions, operation of local control algorithms, data buffering and so forth.
 {% endhint %}
 
+\_\_
 
+_Learn more? Go through the_ [_security section_ ](security.md)_for further information on how we approach IT security and take a look at the_ [_edge device subpage for system integrators and IT admins_](../system-integrators-and-it-admins/it-admins.md)_._ 
+
+\_\_
 
 On the next subpage, we introduce available APIs of aedifion.io.
 
