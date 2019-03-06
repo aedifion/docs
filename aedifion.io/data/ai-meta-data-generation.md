@@ -14,6 +14,8 @@ The method we apply for creating such an AI system is _supervised learning_. Thi
 
 The measure of performance of such a classifier is the _accuracy_, i.e. the percentage of examples which are classified correctly. After the training of the classifier its performance is evaluated on another dataset with known annotations called the test set. The model did not see any of these examples before. Therefore, the measure of accuracy on the test set should give an indication on how well the model performs on unknown data.
 
+The known annotations are a set of 22 classes. They describe the type of datapoint in your building. A complete list of all of the classes and their explanation is available.
+
 ## Deep Learning
 
 Within our AI based classification system we use state-of-the-art deep neural networks. Neural networks are a machine learning model, that was designed to behave similar to the human brain. In recent years the performance of computers did increase to that point, that training and using large \(i.e. deep\) neural networks has become feasible. Deep neural networks generally provide very good performance and can generalize very well to unknown data.
@@ -30,13 +32,7 @@ Aedifion provides the AI based classification service as a regular \(usually wee
 
 Since the classification system works with statistical models, it might classify a datapoint wrongly. To improve future classification accuracy you can disapprove an AI annotation of a datapoint. With this you not only help the AI system directly, but also improve the quality of data such that the AI system keeps improving.
 
+## TODO:
 
-
-* Problem Description
-* Supervised Learning
-* Deep Learning
-* Results
-* Weekly classification service
-* Paper link, link to specifications
-* Confirmation app?
+1. Confirmation app?
 
