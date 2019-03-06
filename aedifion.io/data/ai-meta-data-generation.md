@@ -14,7 +14,7 @@ The method we apply for creating such an AI system is _supervised learning_. Thi
 
 The measure of performance of such a classifier is the _accuracy_, i.e. the percentage of examples which are classified correctly. After the training of the classifier its performance is evaluated on another dataset with known annotations called the test set. The model did not see any of these examples before. Therefore, the measure of accuracy on the test set should give an indication on how well the model performs on unknown data.
 
-The known annotations are a set of 22 classes. They describe the type of datapoint in your building. A complete list of all of the classes and their explanation is available.
+The known annotations are a set of 22 classes. They describe the type of datapoint in your building. A [complete list of all of the classes and their explanation](https://docs.aedifion.io/docs/engineers/specifications/artificial-intelligence) is available.
 
 ## Deep Learning
 
