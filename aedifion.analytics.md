@@ -32,7 +32,7 @@ In the following, we will explain the ingredients of aedifion.analytics.
 
 ## Technical overview
 
-The framework aedifion.analytics consists of a component library, a library of algorithms for data analytics, a knowledge & fault pattern database, a decision engine, an analysis configuration pattern, and an analysis runtime environment. 
+The framework aedifion.analytics consists of a component library, a library of algorithms for data analytics, a knowledge & fault pattern database, a decision engine, an analysis configuration pattern, and an analysis runtime environment. Results are provided via API.
 
 All required interaction is available via APIs. 
 
@@ -58,23 +58,31 @@ _Learn more? Explore the_ [_available analysis functions_](engineers/specificati
 
 ### Analysis runtime
 
-* gets config, executes it, provides & restructures analysis results
-* depending on the ana-fct it gets decision & knowledge from other services
-
-### Knowledge & fault pattern databse
-
-* knowledge: decision thresholds, interpretations, recommendations, knowledge about fault patterns in plant operation
+The analysis runtime is the engine which executes the analysis determinations. It utilizes the [stream ](aedifion.io/features.md#stream-processing)and [batch ](aedifion.io/features.md#batch-processing)processing services of the aedifion.io platform and performs evaluations of the [analysis configuration](aedifion.analytics.md#configuring-analysis) on demand. If an interpretation of the analysis results is required, the analysis runtime calls the [decision engine](aedifion.analytics.md#decision-engine).
 
 ### Decision engine
 
-* compars analysis results with knowledge to decide on operational quality
+The decision engine is the part of the analytics process which interprets a determined analytics result. It takes digitalized engneering knowledge from the [knowledge & fault pattern database](aedifion.analytics.md#knowledge-and-fault-pattern-databse) into account in order to decide either the analyzed components operation is okay, suboptimal, faulty, or even dangerous. Interpretations of the operational quality and recommendations on how to optimize it are based on this decision. E.g., a heat pump cycles several times per hour, which can easily be identified via the KPI _number of cycles per hour_. The decision at which threshold value this is too frequent is made in the decision engine. If the decision is _too frequent_, recommondation on how to increase the cylce time is queried from the [knowledge & fault pattern database](aedifion.analytics.md#knowledge-and-fault-pattern-databse) and returned together with the decision to the [analytics runtime](aedifion.analytics.md#analysis-runtime).
+
+### Knowledge & fault pattern databse
+
+The knowledge & fault pattern databse is the gathered engineering knowledge used to interpret analysis results, identify faulty component operation and give recommendations of optimization measures.
 
 ### Results
 
-* via API, can be used by several services
-* optimization measures, etc.
+Results are KPIs known from engineering and thermodynamics, rearranged or virtually determined time serieses and interpretations thereof. Interpretations can be composed of qualitative ratings such as traffic lights, notification typs, and free texts for the interpretation and recommendations for action. The results determined are depending on the [analysis functions](aedifion.analytics.md#analysis-functions) executed.
+
+Learn more? _Explore the_ [_available analysis functions_](engineers/specifications/analytics.md) _and corresponding_ [_API endpoints_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
 
 ## Process 
+
+### Instantiating components
+
+Instantiating components is the process of adding [components ](aedifion.analytics.md#components)from the aedifion component library to a specific project.
+
+By [mapping ](aedifion.analytics.md#mapping)data points and meta data to the generic component data model it becomes project individual and is ready for analysis.
+
+_Learn more? Try the_ [_API tutorial_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
 
 ### Mapping
 
@@ -98,7 +106,19 @@ _Learn more? Try the_ [_API tutorial_](developers/api-documentation/guides-and-t
 
 ## Example
 
-Analysis functionality is offered component wise. Therefore, choose the components of interest from the growing library of components, e.g., the component _boiler_. These components are generic data models which describe the link between individual data points and specific plants, e.g., the link of the component _boiler_ to its _supply temperature_ and _return temperature_ sensor. This generic link is called _pin._
+_School A_ has extraordinary high primary energy consumption for heating. A technician is asked to optimize this system. After the technician plug and play installed [aedifion.io ](aedifion.io/)at _School A_, the analysis of the building can start: One condensing boiler, and three heat distribution circuits shall be analysed.
+
+The technician adds one _boiler_, and three _heating loop_ components to the _School A_ project and maps the correct data points to the pins of the components - supported by the provided meta data on data points. Since the technician suspects something might be wrong with the temperature levels, the _setpoint compliance_ analysis function is run on the heat distribution circuits and on the boiler.
+
+The analysis results confirm the assumption: All three circuits exceed their temperature levels while the boiler meets its setpoint temperature quiet fine. The reason for that is identified by the decision engine of aedifion.analytics: The heating curve of the boiler is not designed according to demand. Therefore, the analytics results recommend an adjustment of the heat curve which the technician does right away.
+
+This means that not only can the boiler be operated with a significantly lower load, but overheating of the classrooms can also be avoided. The school principal is glad about the saved energy costs. the pupils and teachers are happy about the fact that they don't have to constantly open the window in winter, because it is too warm in the room.
 
 ## Use cases
+
+* Zyklus/Laufzeitanalyse
+  * RLT
+    * identifizierung von "Dauerlaufen" -&gt; E
+  * Heat pump
+* Filterverschmutzung
 
