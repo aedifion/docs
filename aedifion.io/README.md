@@ -41,7 +41,7 @@ Within the next subpages, you will find more in-depth information about the diff
 * [Features ](features.md)gives an overview of all relevant key functionalities of aedifion.io. 
 * [Edge device](gateway.md) explains what the edge device is and how it works.
 * [APIs](apis.md) introduces the aedifion.io’s APIs. 
-* [Frontend]() introduced introduces the main platform HMI.
+* [Frontend](frontend-1.md) introduced introduces the main platform HMI.
 * [Data](data/) explains the main specifications of used data models.
 * [Integrations](integrations.md) describes integrations to aedifion.io
 * [Security ](security.md)discusses aedifion's approaches to deliver high ICT security.
