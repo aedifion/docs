@@ -1,14 +1,28 @@
 ---
-description: This section describes the working principle of the aedifion.device.
+description: Overview of the aedifion edge device
 ---
 
 # Edge device
 
-## Functional overview
+## Introduction
 
-The aedifion.device is an industrial PC enabling data connection between local data sources and the aedifion.io cloud plattform. It is a commercially available industrial PC which has been designed, assembled and approved according to German standards. It is able to connect to IP-based sensors, actors and control devices communicating via supported protocols. This so-called gateway component enables high-performance, manufacturer-independent and secure data recording, intermediate storage and interaction. 
+The aedifion edge device is an industrial PC enabling data connection between local devices as well as local data sources and the aedifion.io cloud platform. It uses most industry bus communication standards and is able to automatically ingest data from your plant, building, or district using auto-discovery of all available [datapoints ](https://docs.aedifion.io/docs/glossary#datapoint)and [devices](https://docs.aedifion.io/docs/glossary#device) for easy set-up. 
 
-The aedifion.device has two built-in network adapters, enabling the separation of the a local plant or building automation network and the internet, if needed. In the case of no internet connectivity within the local plant's operation network, one adapter establishes the connection to the local plant and the other connects to any given network with access to the internet.
+The edge device connects to a [plant's](../glossary.md#plant) automation network and to the aedifion.io platform. If a plant's automation network has limited connectivity, it uses its second Ethernet adapter to connect to a network offering internet access. 
+
+The edge device operates fully plug-and-play from a customers perspective. Once connected to the internet, the edge device connects to the aedifion.io platform where aedifion's staff take care of its configuration.
+
+![aedifion edge device](../.gitbook/assets/grafik%20%289%29.png)
+
+VGateway
+
+connection
+
+plug and play
+
+edge computing
+
+IT security
 
 The connection for the exchange of local plant data between aedifion.device and cloud is established via the MQTT protocol, which is encrypted using state-of-the-art TLS technology. Furthermore, it is ensured that every message from the local pant reaches the aedifion platform at least once. 
 
