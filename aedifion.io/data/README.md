@@ -194,3 +194,7 @@ On request, data from Microsoft Exchange can be integrated into the aedifion.io 
 
 We are using the services of [the Dark Sky Company, LLC](https://darksky.net/) for weather data integration. In case your use-case is not covered by the weather data services provided, do not hesitate to [contact ](https://docs.aedifion.io/docs/contact)us.
 
+
+
+On the next subsubpage, we introduce our AI-based meta data generation. On the next subpage we introduce integrations to aedifion.io.
+

@@ -10,7 +10,13 @@ Since there a usually hundreds or thousands of datapoints within a building it i
 
 ## Supervised Learning
 
-The method we apply for creating such an AI system is _supervised learning_. This methods creates a model based upon training data examples and their known annotations \(called training set\). The model is basically a parameterized function from the input data to a probability distribution over the target labels. Each model uses the training set as input, then optimizes its parameters to match the known annotations best.
+The method we apply for creating such an AI system is _supervised learning_. This methods creates a model based upon training data examples and their known annotations \(called training set\). The model is basically a parameterized function from the input data to a probability distribution over the target labels. Each model uses the training set as input, then optimizes its parameters to match the known annotations best \(called training\). While optimizing it aims at reducing the probability of wrongly classifying an example on the training set.
+
+The measure of performance of such a classifier is the _accuracy_, i.e. the percentage of examples which are classified correctly. After the training of the classifier its performance is evaluated on another dataset with known annotations called the test set. The model did not see any of these examples before. Therefore, the measure of accuracy on the test set should give an indication on how well the model performs on unknown data.
+
+## Deep Learning
+
+Within our AI based classification system we use state-of-the-art deep neural networks. Neural networks are a machine learning model, that was designed to behave similar to the human brain. In recent years the performance of computers did increase to that point, that training and using large \(i.e. deep\) neural networks has become feasible. Deep neural networks generally provide very good performance and can generalize very well to unknown data.
 
 
 
