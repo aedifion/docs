@@ -26,7 +26,7 @@ A physical or logical building automation device. A component is associated to e
 
 A sensor, actor, or other physical or virtual data source. A datapoint belongs to exactly one [component](glossary.md#component) and one [project](glossary.md#project). It emits [observations](glossary.md#datapoint) that form the [time series](glossary.md#time-series) of this datapoint.
 
-### Datapointkey
+### Datapoint key
 
 Datapointkeys define how [datapoints](glossary.md#datapoint) are named and allow providing alternate names such as translations to different languages or names that adhere to standardized formats such as BUDO. The standard datapoint key is called _aedifion-fully-qualified-datapointname_, comprising the device name, datapoint name, datapoint type and instance id.
 

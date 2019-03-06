@@ -46,5 +46,3 @@ Within the next subpages, you will find more in-depth information about the diff
 * [Integrations](integrations.md) describes integrations to aedifion.io
 * [Security ](security.md)discusses aedifion's approaches to deliver high ICT security.
 
-
-
