@@ -6,7 +6,6 @@
   * [Edge device](aedifion.io/gateway.md)
   * [APIs](aedifion.io/apis.md)
   * [Frontend](aedifion.io/frontend-1.md)
-  * [Frontend\_v2 =&gt; to be moved to staging](aedifion.io/frontend.md)
   * [Data](aedifion.io/data/README.md)
     * [AI meta data generation](aedifion.io/data/ai-meta-data-generation.md)
   * [Integrations](aedifion.io/integrations.md)

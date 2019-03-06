@@ -107,7 +107,9 @@ Examples for batch processes:
 
 ### Virtual data points
 
-A virtual datapoint is a datapoint not gathered from a local plant but denotes a predefined stream or batch process that runs on one or multiple datapoints and makes the output continuously available in the form of a new datapoint in aedifion.io's time series database. You can choose from a continuously growing list of virtual datapoints engineered and provided by aedifion and apply them to your project. Of course, all alarming and notification paradigms that run on the original physical datapoints can also be used on such virtual datapoints. This allows you, e.g., to monitor and alert on complex relationships and conditions.
+A virtual datapoint is a datapoint not gathered from a local plant but denotes a predefined stream or batch process that runs on one or multiple datapoints. The virtual datapoint makes the output continuously available in the form of a new datapoint in aedifion.io's time series database. 
+
+You can choose from a continuously growing list of virtual datapoints engineered and provided by aedifion and apply them to your project. Of course, all alarming and notification paradigms that run on the original physical datapoints can also be used on such virtual datapoints. This allows you, e.g., to monitor and alert on complex relationships and conditions.
 
 {% hint style="info" %}
 Examples for virtual datapoints:

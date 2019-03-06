@@ -126,7 +126,9 @@ units             | 'percent'
 
 ### Virtual datapoints
 
-**TODO ERIK / JOHANNES**
+A virtual datapoint is a datapoint not gathered from a local plant but denotes a predefined stream or batch process that runs on one or multiple datapoints. The virtual datapoint makes the output continuously available in the form of a new datapoint in aedifion.io's time series database. 
+
+The time series based on the virtual datapoint's result exactly handles the same as[ time series data](./#time-series-data). 
 
 ### AI-generated meta data
 

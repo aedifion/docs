@@ -26,7 +26,7 @@ To execute the examples provided in this tutorial, the following is needed:
 
 ## Favorites
 
-Favorites are a way of flagging datapoints that you frequently view. They are, e.g., used in the [frontend](../../../aedifion.io/frontend.md) to sort the datapoint selector list where they are marked by a star ⭐️. Favorites are scoped to the user, i.e., each user can have different favorites and is not able to see other users' favorites.
+Favorites are a way of flagging datapoints that you frequently view. They are, e.g., used in the [frontend]() to sort the datapoint selector list where they are marked by a star ⭐️. Favorites are scoped to the user, i.e., each user can have different favorites and is not able to see other users' favorites.
 
 ### Adding a favorite
 

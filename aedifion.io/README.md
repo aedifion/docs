@@ -16,7 +16,7 @@ The core aedifion.io platform \(middle\) provides data filing and processing, AI
 
 The aedifion [edge device](gateway.md) \(middle left\) provides plug-and-play connectivity to building automation and control systems \(far left\) and to automation systems of energy-related plants, such as e.g. larger scale combined heat and power plants, air handling units, heat pumps, etc.
 
-The aedifion [frontend ](frontend.md)\(top\) is a browser-based human machine interface \(HMI\). It offers data visualization, data management, platform administration and provides access to various further [features](features.md).
+The aedifion [frontend ]()\(top\) is a browser-based human machine interface \(HMI\). It offers data visualization, data management, platform administration and provides access to various further [features](features.md).
 
 aedifion.io's [application programming interfaces ](apis.md)\(APIs, middle right\) offer access to all mayor platform features and functionalities. You can operate the platform directly over these APIs and/or connect your own programs and scripts to it. 
 
@@ -41,7 +41,7 @@ Within the next subpages, you will find more in-depth information about the diff
 * [Features ](features.md)gives an overview of all relevant key functionalities of aedifion.io. 
 * [Edge device](gateway.md) explains what the edge device is and how it works.
 * [APIs](apis.md) introduces the aedifion.io’s APIs. 
-* [Frontend](frontend.md) introduced introduces the main platform HMI.
+* [Frontend]() introduced introduces the main platform HMI.
 * [Data](data/) explains the main specifications of used data models.
 * [Integrations](integrations.md) describes integrations to aedifion.io
 * [Security ](security.md)discusses aedifion's approaches to deliver high ICT security.
