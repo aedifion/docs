@@ -8,7 +8,7 @@ description: >-
 
 ## Overview
 
-At the moment, aedifion only provides a beta version of its native web frontend for some functionality of aedifion.io, i.e. data exploration on limited data management[:](frontend.md#data-management-and-exploration) Plotting, saving and calling saved plots, so-called views, adding favorites, adding [datapointkeys](../glossary.md#datapointkey) and renaming [datapoints](../glossary.md#datapoint).
+At the moment, aedifion provides a beta version of its web frontend offering access to some functionalities of aedifion.io, i.e. data exploration and limited data management, such as plotting, saving and calling saved plots, so-called views, adding favorites, adding [datapointkeys](../glossary.md#datapointkey) and renaming [datapoints](../glossary.md#datapoint).
 
 
 
