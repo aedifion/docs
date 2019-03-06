@@ -177,7 +177,7 @@ aedifion.io supports various \(single-sign on\) authentication methods, e.g., HT
 
 ## Legal framework
 
-Aedifion.io's legal framework consists of a license agreement \(Nutzungsvertrag\) between the customer and aedifion with attachments. I.e. the aedifion Terms and Conditions \(AGBs\), a contract for the commissioned data processing \(Auftragsdatenverarbeitung, ADV\), and technical and organizational measures for data security \(technisch-organisatorische Maßnahmen, TOMs\).​
+aedifion.io's legal framework consists of a license agreement \(Nutzungsvertrag\) between the customer and aedifion with attachments. I.e. the aedifion Terms and Conditions \(AGBs\), a contract for the commissioned data processing \(Auftragsdatenverarbeitung, ADV\), and technical and organizational measures for data security \(technisch-organisatorische Maßnahmen, TOMs\).​
 
 ## Availability and quality assurance
 
@@ -186,4 +186,6 @@ aedifion continuously supervises aedifion.io's system health using internal real
 aedifion.io is mirrored across two identical but completely independent deployments that work redundantly in parallel. All time series data is backed up on a weekly basis while backups of all meta data are created each night. Backups are kept for the whole duration of the project.
 
 
+
+Within the next subpage, we introduce the aedifion edge device in more detail.
 
