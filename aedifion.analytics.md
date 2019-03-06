@@ -1,34 +1,33 @@
 ---
 description: >-
-  aedifion.analytics offers deep insights into operational quality of energy
-  systems and their plants. This chapter provides an introduction to this
-  service.
+  Offering deep insights into performance and operational quality of energy
+  systems and their plants.
 ---
 
 # aedifion.analytics
 
 ## Introduction
 
-aedifion.analytics is a framework for data analytics of heating, ventilation & air conditioning \(HVAC\) systems, energy-related plants, buildings, as well as energy networks such as district heating and cooling grids. The framework has a special focus on scale-able analytics of large sets of time series data.
+aedifion.analytics is a framework for data analytics of heating, ventilation & air conditioning \(HVAC\) systems, energy-related plants, buildings, as well as energy networks such as district heating and cooling grids. The framework has a special focus on scalable analytics of large sets of time series data.
 
-The goal of aedifion.analytics is to support technicians and engineers who want to optimize \(or commission\) systems in respect of indoor comfort, energy efficiency, and maintenance expenditure. For this purpose, aedifion.analytics aims at profound transparency and interpretation of system operation and is continuously extended.
+The goal of aedifion.analytics is to support technicians and engineers who want to optimize \(or commission\) systems in terms of indoor comfort, energy efficiency, and maintenance and operation costs. For this purpose, aedifion.analytics aims at profound transparency and interpretation of system operation at a deep, data-driven level. aedifion continuously extends its scope.
 
  Its configuration and analysis workflow is straightforward:
 
 1. Instantiate [components ](aedifion.analytics.md#components)of the energy system.
-2. [Map data points](aedifion.analytics.md#mapping) to components.
+2. [Map datapoints](aedifion.analytics.md#mapping) to components.
 3. Choose [analysis functions](aedifion.analytics.md#analysis-functions) of interest to [configure analysis](aedifion.analytics.md#analysis-config) on the chosen components.
 4. Get and [explore analytics results](aedifion.analytics.md#explore-analysis-results).
 
 {% hint style="info" %}
-[Ingested ](aedifion.io/features.md#data-ingress)as well as [AI-generated](aedifion.io/features.md#ai-generated-meta-data) meta data can be used to support the mapping process.
+[Ingested ](aedifion.io/features.md#data-ingress)as well as [AI-generated](aedifion.io/features.md#ai-generated-meta-data) meta data can be used to support the mapping between components and datapoints.
 {% endhint %}
 
 Please refer to the figure below for a schematic overview of the aedifion.analytics framework.
 
 ![Schematic overview of aedifion.analytics](.gitbook/assets/tmp_analytics.png)
 
-In the following, we will explain the ingredients of aedifion.analytics. 
+In the following, we will explain first the ingredients and second the process of aedifion.analytics. Finally we provide an application example and its various use cases.
 
 ## Technical overview
 
@@ -40,17 +39,17 @@ All required interaction is available via APIs.
 
 Components are generic data models of physical, virtual or logical objects within a building or energy-related plants, such as e.g. pumps, boilers, thermal zones, control loops and so forth. The aedifion component library inherits all contemporary available components within aedifion.analytics.
 
-A component can be instantiated for a specific project. This means that e.g. a _project A_ has a component _control loop B_. After instantiating, time series data can be [mapped ](aedifion.analytics.md#mapping)to the pins of a component.
+A component can be instantiated for a specific project. This means that e.g. a _project A_ has a component _B_, e.g. a _control loop_. After instantiating, time series data can be [mapped ](aedifion.analytics.md#mapping)to the **pins** of a component, e.g. the _set point_, the _system_ _output_, and the _manipulated variable \(i.e. controller output\)_. Further, **meta data**, i.e. the component's characteristics or parameters, can be added to the component, e.g. a _proportional gain_ for a _control loop_.
 
-A pin of a component represents an expected data point of this component. It is a generic placeholder for [mapping ](aedifion.analytics.md#mapping)a data point to an instantiated component within a specific project. Analyses are performed on these generic pins. E.g., the generic component _control loop_ has the pin _controller output_. As soon as the component gets instanced in _project A_ as the component _control loop B_ the data point _bacnet-101\_contr.loop B-AO2_ can get mapped to the pin _controller output_ and is therefore available for analysis on the pin _controller output_.
+A **pin** of a component represents thus an placeholder for a time series of a respective datapoint for this component. It is a generic placeholder used for [mapping ](aedifion.analytics.md#mapping)a datapoint to an instantiated component within a specific project. 
 
-Additionally, each component has or can have certain meta data.
+Analyses are performed on these generic pins in combination with component's meta data based on [analysis algorithms](aedifion.analytics.md#analysis-algorithms).
 
 _Learn more? Explore the_ [_available components_](engineers/specifications/analytics.md) _and_ corresponding __[_API endpoints_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
 
-### Analysis functions
+### Analysis algorithms
 
-Analysis functions are granular and generic algorithms to analyse the operation of building equipment or energy-related plants. The aedifion analysis function library inherits all contemporary available analysis functions within aedifion.analytics.
+Analysis algorithms are granular and generic algorithms to analyse the operation of building equipment or energy-related plants. The aedifion analysis function library inherits all contemporary available analysis functions within aedifion.analytics.
 
 Analysis functions are available per component model and get executed on [mapped ](aedifion.analytics.md#mapping)pins and meta-data of instanced [components](aedifion.analytics.md#components). E.g., an analysis of plant cycles is available for several components like heat pump, air handling unit, boiler and so forth. This analysis requires a [mapping ](aedifion.analytics.md#mapping)of the pin _operating message_ of the analyzed component.
 
