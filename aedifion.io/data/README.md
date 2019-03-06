@@ -130,13 +130,13 @@ units             | 'percent'
 
 ### AI-generated meta data
 
-aedifion uses state-of-the-art machine learning and AI techniques to augment the already provided data. From the already given time series and metadata it predicts additional sets of tags \(e.g. the type of the data point\). The AI system is expanded perpetually to further improve the quality of the tag annotations.
+The aedifion.io platform uses state-of-the-art machine learning and AI techniques to augment the already provided data. From the already given observations and metadata collected from the edge devices it regularly predicts additional tags \(e.g. the type of the data point\) and provides them via the API or the frontend. The AI system is able to learn and is therefore expanded perpetually to further improve the quality of the annotations.
 
-The latest classifier, "ClassifyV1" recognizes 22 classes according to the following list.
+The latest classifier we provide, classifies the datapoints with a set of 22 classes used in [current research](http://dx.doi.org/10.1016/j.egypro.2017.07.428). Each class represents a type of datapoint commonly found within building automation systems, these are:
 
 1. Alarm message
 2. Counter 
-3. CO\_2 concentration
+3. CO2 concentration
 4. Heat flow
 5. Operational message
 6. Power
@@ -155,13 +155,13 @@ The latest classifier, "ClassifyV1" recognizes 22 classes according to the follo
 19. Valve Position
 20. Electric work
 21. Working set point in percent
-22. Working set point for temperature
+22. Working set point for temperature.
 
-The for each time series classifier adds a tag that looks e.g. as follows. 
+Each time the classifier runs, a tag for the datapoint is created, which looks as follows:
 
 {% code-tabs %}
 {% code-tabs-item title="AI generated meta data tag" %}
-```text
+```javascript
 {
   "id": 92807,
   "key": "ClassesV1",
@@ -174,9 +174,11 @@ The for each time series classifier adds a tag that looks e.g. as follows.
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-The tag has as "source" "ai", since it is originating from an AI-based classifier. It classified the time series according to the target system "ClassesV1", see "key". The classification result is "CO2 concentration" indicated with "value", with a probability of 75.73 %, see "probability".
+The _key_ of the tag is "ClassesV1", which indicates the classification system it is using. The _value_ of this tag is "CO2 concentration", which indicates that the analyzed datapoint is recognized as a CO2 sensor. A complete list of all the possible values and their meaning you can find within the [engineers' specification section](https://docs.aedifion.io/docs/engineers/specifications/artificial-intelligence). With just those properties you can easily filter the set of datapoints. 
 
-Please refer to the specifications chapter on [artificial intelligence](../../engineers/specifications/artificial-intelligence.md) for further details and explanation of classes.
+The tag has as _source_ "ai", since it is originating from an AI-based classifier. Each classifier also provides the property _probability._ In this example the classifier has a confidence of 75.73% that the given classification is correct.
+
+For more information on the classification process refer to the section on [artificial intelligence based meta data generation](https://docs.aedifion.io/docs/data/ai-meta-data-generation).
 
 ## Third party data
 
