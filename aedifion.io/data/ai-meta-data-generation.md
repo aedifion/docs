@@ -18,12 +18,25 @@ The measure of performance of such a classifier is the _accuracy_, i.e. the perc
 
 Within our AI based classification system we use state-of-the-art deep neural networks. Neural networks are a machine learning model, that was designed to behave similar to the human brain. In recent years the performance of computers did increase to that point, that training and using large \(i.e. deep\) neural networks has become feasible. Deep neural networks generally provide very good performance and can generalize very well to unknown data.
 
+## Results
+
+The aedifion.io AI based classification system was trained on a year's worth of data from our building. In our evaluation 82.64% of the examples in our test set were classified correctly.
+
+## Classification Service
+
+Aedifion provides the AI based classification service as a regular \(usually weekly\) analysis on your building. During each analysis, the observations are collected, the model is applied and the datapoints are augmented with updated meta data tags.
+
+## Continuous Learning
+
+Since the classification system works with statistical models, it might classify a datapoint wrongly. To improve future classification accuracy you can disapprove an AI annotation of a datapoint. With this you not only help the AI system directly, but also improve the quality of data such that the AI system keeps improving.
+
 
 
 * Problem Description
 * Supervised Learning
 * Deep Learning
 * Results
+* Weekly classification service
 * Paper link, link to specifications
 * Confirmation app?
 
