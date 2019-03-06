@@ -31,7 +31,7 @@ For each integrated [device](https://docs.aedifion.io/docs/glossary#device) and 
 
 ### AI-generated meta data
 
-An artificial intelligence \(AI\) generates additional meta data 
+Our platform augments the existing the Meta data obtained from the automation network with Artificial Intelligence \(AI\)-generated information. Each datapoint and its observations are analyzed and an AI generates annotations from a set of predefined classes. The newly generated descriptions can be searched and filtered to organize your building. Since this is a statistical decision process, each annotation also provides a probability on the AI's confidence.
 
 ### Weather and weather forecast data
 
