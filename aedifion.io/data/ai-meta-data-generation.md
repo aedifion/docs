@@ -1,5 +1,5 @@
 ---
-description: This page describes the concept of aedifion AI-based meta data generation
+description: The concept of aedifion.io's AI-based meta data generation
 ---
 
 # AI meta data generation
