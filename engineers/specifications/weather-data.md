@@ -22,7 +22,7 @@ This list provides the meteorological conditions which can be integrated by defa
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left">Apperent (&quot;feels like&quot;) temperature</td>
+      <td style="text-align:left">Apparent (&quot;feels like&quot;) temperature</td>
       <td style="text-align:left">apparentTemperature</td>
       <td style="text-align:left">&#xB0;C</td>
       <td style="text-align:left">Human felt temperature, determined by air temperature, wind speed, and

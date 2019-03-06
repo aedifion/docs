@@ -37,7 +37,7 @@ An artificial intelligence \(AI\) generates additional meta data
 
 aedifion.io automatically supplies local weather data and forecast data for each project, depending on its GPS coordinates.
 
-_Learn more? Explore what_ [_weather data_](data.md#weather-data) _is available on aedifion.io._
+_Learn more? Explore what_ [_weather data_](data/#weather-data) _is available on aedifion.io._
 
 ## Data storage and resolution
 

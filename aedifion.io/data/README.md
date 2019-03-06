@@ -8,7 +8,7 @@ description: Overview of data available on aedifion.io
 
 The aedifion.io platform is all about collecting, storing, processing, and visualizing _data_ with the goal to optimize the operation of buildings, plants, or even whole districts w.r.t. their primary energy consumption.  To this end, aedifion continuously collects fine-grained time series and meta data directly from the building automation technology in the targeted plants, buildings, and districts. This primary, _native_ dataset is complemented by further useful data from third party sources such as weather predictions or room occupancy. 
 
-In this article, we first lay out the [data model](data.md#data-model) of the aedifion.io platform, then provide an overview of the [native](data.md#native-data) and [third party data](data.md#third-party-data) it provides.
+In this article, we first lay out the [data model](./#data-model) of the aedifion.io platform, then provide an overview of the [native](./#native-data) and [third party data](./#third-party-data) it provides.
 
 ## Data model
 
@@ -79,7 +79,7 @@ Native data refers to all time series and meta data that is directly collected o
 
 ### Data from building automation
 
-Most of the native data is collected automatically from your building automation network by the [aedifion edge device](gateway.md). This includes time series data for all discovered datapoints as well as meta data for all discovered devices and datapoints.
+Most of the native data is collected automatically from your building automation network by the [aedifion edge device](../gateway.md). This includes time series data for all discovered datapoints as well as meta data for all discovered devices and datapoints.
 
 #### Time series
 
@@ -93,7 +93,7 @@ A typical non-residential building has between 1000 and 15 000 datapoints that c
 
 _Want to see in detail which datapoints are discovered?_ The following is a complete list of datapoints that the aedifion edge device has discovered in the main building of the EON ERC.
 
-{% file src="../.gitbook/assets/eonerc-datapoints.csv" caption="Datapoints in EON ERC" %}
+{% file src="../../.gitbook/assets/eonerc-datapoints.csv" caption="Datapoints in EON ERC" %}
 
 #### Meta data
 
@@ -176,7 +176,7 @@ The for each time series classifier adds a tag that looks e.g. as follows.
 
 The tag has as "source" "ai", since it is originating from an AI-based classifier. It classified the time series according to the target system "ClassesV1", see "key". The classification result is "CO2 concentration" indicated with "value", with a probability of 75.73 %, see "probability".
 
-Please refer to the specifications chapter on [artificial intelligence](../engineers/specifications/artificial-intelligence.md) for further details and explanation of classes.
+Please refer to the specifications chapter on [artificial intelligence](../../engineers/specifications/artificial-intelligence.md) for further details and explanation of classes.
 
 ## Third party data
 
@@ -184,7 +184,7 @@ Please refer to the specifications chapter on [artificial intelligence](../engin
 
 On request, data from Microsoft Exchange can be integrated into the aedifion.io platform. This currently includes only the booking status of rooms that are available as a resource in Microsoft Exchange. Booking status is made available for the past and future as a boolean time series on aedifion.io.
 
-![Visualization of the temperature, CO2 concentration and booking status of a meeting room.](../.gitbook/assets/data_exchange.png)
+![Visualization of the temperature, CO2 concentration and booking status of a meeting room.](../../.gitbook/assets/data_exchange.png)
 
 ### Weather data
 
