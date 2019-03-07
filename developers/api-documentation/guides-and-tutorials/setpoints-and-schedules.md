@@ -6,7 +6,7 @@ description: Tutorial on writing setpoints and schedules for active building con
 
 ## Overview
 
-The [aedifion.device](../../../aedifion.io/gateway.md) allows writing setpoints or whole schedules of many setpoints to any writable datapoint on any building automation component in the attached building network. The semantics of writing setpoints and schedules abstracts from the underlying building networks and automation protocols and thereby provides a unified, fine-grained control of the building's automation components. In this article, we cover basic concepts and examples of writing setpoints and schedules for active building control.
+The [aedifion edge device](../../../aedifion.io/gateway.md) allows writing setpoints or whole schedules of many setpoints to any writable datapoint on any building automation component in the attached building network. The semantics of writing setpoints and schedules abstracts from the underlying building networks and automation protocols and thereby provides a unified, fine-grained control of the building's automation components. In this article, we cover basic concepts and examples of writing setpoints and schedules for active building control.
 
 ### Preliminaries
 
