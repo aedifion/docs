@@ -31,7 +31,7 @@ In the following, we will explain first the ingredients and second the process o
 
 ## Technical overview
 
-The framework aedifion.analytics consists of a component library, a library of algorithms for data analytics, a knowledge & fault pattern database, a decision engine, an analysis configuration pattern, and an analysis run-time environment. Results are provided via API.
+The framework aedifion.analytics consists of a component library, a library of algorithms for data analytics, a knowledge & fault pattern database, a decision engine, an analysis configuration pattern, and an analysis runtime environment. Results are provided via API.
 
 All required interaction is available via APIs. 
 
@@ -55,13 +55,15 @@ Analysis functions are available per component model and get executed on [mapped
 
 _Learn more? Explore the_ [_available analysis functions_](engineers/specifications/analytics.md) _and corresponding_ [_API endpoints_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
 
-### Analysis run-time
+### Analysis runtime
 
-The analysis run-time is the engine which executes the analysis determinations. It utilizes the [stream ](aedifion.io/features.md#stream-processing)and [batch ](aedifion.io/features.md#batch-processing)processing services of the aedifion.io platform and performs evaluations of the [analysis configuration](aedifion.analytics.md#configuring-analysis) on demand. If an interpretation of the analysis results is required, the analysis run-time calls the [decision engine](aedifion.analytics.md#decision-engine).
+The analysis run-time is the engine which executes the analysis determinations. It utilizes the [stream ](aedifion.io/features.md#stream-processing)and [batch ](aedifion.io/features.md#batch-processing)processing services of the aedifion.io platform and performs evaluations of the [analysis configuration](aedifion.analytics.md#configuring-analysis) on demand. If an interpretation of the analysis results is required, the analysis runime calls the [decision engine](aedifion.analytics.md#decision-engine).
 
 ### Decision engine
 
-The decision engine is the part of the analytics process which interprets a determined analytics result. It takes digitized engineering knowledge from the [knowledge & fault pattern database](aedifion.analytics.md#knowledge-and-fault-pattern-databse) into account in order to decide either the analyzed components operation is okay, sub-optimal, faulty, or even dangerous. Interpretations of the operational quality and recommendations on how to optimize it are based on this decision. E.g., a heat pump cycles several times per hour, which can easily be identified via the KPI _number of cycles per hour_. The decision at which threshold value this is too frequent is made in the decision engine. If the decision is _too frequent_, recommendation on how to increase the cycle time is queried from the [knowledge & fault pattern database](aedifion.analytics.md#knowledge-and-fault-pattern-databse) and returned together with the decision to the [analytics run-time](aedifion.analytics.md#analysis-runtime).
+The decision engine is the part of the analytics process which interprets a determined analytics result. It takes digitized engineering knowledge from the [knowledge & fault pattern database](aedifion.analytics.md#knowledge-and-fault-pattern-databse) into account in order to decide either the analyzed components operation is okay, sub-optimal, faulty, or even dangerous. 
+
+Interpretations of the operational quality and recommendations on how to optimize it are based on this decision. E.g., a heat pump cycles several times per hour, which can easily be identified via the KPI _number of cycles per hour_. The decision at which threshold value this is too frequent is made in the decision engine. If the decision is _too frequent_, recommendation on how to increase the cycle time is queried from the [knowledge & fault pattern database](aedifion.analytics.md#knowledge-and-fault-pattern-databse) and returned together with the decision to the [analytics run-time](aedifion.analytics.md#analysis-runtime).
 
 ### Knowledge & fault pattern database
 
@@ -97,7 +99,8 @@ Configuring analysis is the process to individualize the analysis which should b
 
 * Which [analysis functions](aedifion.analytics.md#analysis-functions) shall be run on the component? This can be a subset of the analysis functions available for the component model.
 * It is possible to define several configurations on one instanced component and thus create individual analysis sets.
-* Advanced settings: Analyse multi-time intervals. This option allows to perform analyses over a fixed number of time intervals, a fixed interval length or a combination of both. _Learn more on multi-time intervals? Try the_ [_API tutorial_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
+* Advanced settings: analyse multi-time intervals. This option allows to perform analyses over a fixed number of time intervals, a fixed interval length or a combination of both. 
+  * _Learn more on multi-time intervals? Try the_ [_API tutorial_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
 
 The configuration will be passed to the [analytics run-time](aedifion.analytics.md#analysis-runtime) when [analysis results](aedifion.analytics.md#results) of this configuration are queried.
 
@@ -118,8 +121,12 @@ This means that not only can the boiler be operated with a significantly lower l
 The use of aedifion.analytics is beneficial in several scenarios and business cases. Just to mention a few:
 
 * **Optimization projects:** aedifion.analytics provides deep system transparency and recommendations to optimize operations in the dimensions of energy service delivery, indoor comfort, energy efficiency, and maintenance expanses. Therefore aedifion.analytics can be used by technicians or engineers to support their optimization projects.
-* **Original equipment manufacturer:** aedifion.analytics provides scale-able analysis which can be offered as additional data service to end customers of OEMs. Furthermore, aedifion.analytics supports R&D departments of OEMs with deep insights on actual operational behavior and usage of their equipment in the field - of course without revealing the individuals behind the data.
+* **Original equipment manufacturers \(OEMs\):** aedifion.analytics provides scalable analysis which can be offered as additional data service to end customers of OEMs. Furthermore, aedifion.analytics supports R&D departments of OEMs with deep insights on actual operational behavior and usage of their equipment in the field - of course without revealing the individuals behind the data.
 * **Enhancement of existing software:** Existing data applications and cloud services can be extended with aedifion.analytics functionalities. All that is necessary for this is the integration of the API.
 
 You have further ideas or questions if your use case can be supported by aedifion.analytics? [Contact us](contact.md#support)!
+
+
+
+_This documentation continuous with an introduction of our product aedifion.controls._
 
