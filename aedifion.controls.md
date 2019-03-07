@@ -6,6 +6,26 @@ description: >-
 
 # aedifion.controls
 
+## Introduction
+
+aedifion.controls consists of basic control functions whenever a datapoint is generally controllable in the field and control algorithms that can be operated edge- and cloud-based.
+
+[Control functionalities ](aedifion.controls.md#control-functionalities)cover simple set point writing as well as manipulating local control loops or even overruling local system output. Further, aedifion provides  a decent scheduling functionality that allows you to robustly execute control sequences on the aedifion edge device and monitor and control the execution from cloud as well as to even chain control to our integrations such as Alexa or chatbots. 
+
+{% hint style="success" %}
+In extreme cases, local control hardware can be reduced to in-out-devices whereas all logic is operated in the cloud.
+{% endhint %}
+
+{% hint style="warning" %}
+Safety of cloud-based controls is critical. aedifion.io offers various, locally executed, safety mechanisms that handle, e.g., connection loss, crashes, and human error.
+{% endhint %}
+
+[Control algorithms](aedifion.controls.md#control-algorithms) are virtually embedded control algorithms. In future, the user can choose control algorithms from the aedifion control library and set it up by adding parameters system outputs and controller outputs/manipulated variables. The algorithm is then operated as-a-service within aedifion.io. All interaction will be available via API.
+
+For now, aedifion staff sets up the control algorithms from the aedifion control library according to the users need.
+
+In the following we introduce control functionalities and algorithms in more detail. Visit [control specifications](engineers/specifications/controls.md) on in-depth information on the o[ffered control algorithms](engineers/specifications/controls.md#available-algorithms).
+
 ## Control functionalities
 
 Control functionalities are defined actions with no automatic feedback usage, like
@@ -30,7 +50,7 @@ In the meaning of the classic control theory, control algorithms are defined as 
 
 Find the detailed descriptions of our currently available control algorithms [here](engineers/specifications/controls.md).
 
-### Place of implementation
+## Place of implementation
 
 aedifion.controls enables remote and cloud control. Moreover, aedifion tailors edge control solutions if required. See the schematic below for a basic differentiation of these control concepts.
 
@@ -50,5 +70,9 @@ As custom service, aedifion deploys and hosts your proprietary control algorithm
 
 #### Edge control
 
-In edge control, control algorithms run directly on the aedifion edge device. This accounts for low communication latency. At the same time, it lowers the risks of down times due to communication issues between the edge device and the cloud. 
+In edge control, control algorithms run directly on the aedifion edge device. This accounts for low communication latency. At the same time, it lowers the risks of down times due to communication issues between the edge device and the cloud.
+
+
+
+_This documentation continues with an introduction of aedifion.custom._ 
 
