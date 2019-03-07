@@ -4,6 +4,10 @@ description: Detailed specification of aedifion.controls' control algorithms
 
 # Controls
 
+## Available algorithms
+
+* [MaxPhi](controls.md#maxphi) - controlling pump or fan speed according to opening angles of downstream dampers and valves.
+
 ## MaxPhi
 
 ### Description

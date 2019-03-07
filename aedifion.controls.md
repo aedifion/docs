@@ -1,8 +1,7 @@
 ---
 description: >-
-  aedifion.controls offers basic control functionalities and control algorithms.
-  We introduce both in this chapter and the various possibilities where they can
-  be implemented.
+  Basic control functionalities for cloud, edge and remote control, as well as 
+  virtually embedded control algorithms for self-deployment.
 ---
 
 # aedifion.controls
