@@ -35,5 +35,4 @@ Since the classification system works with statistical models, it might classify
 ## TODO:
 
 1. Bilder!
-2. Confirmation app?
 
