@@ -20,6 +20,8 @@ The known annotations are a set of 22 classes. They describe the type of datapoi
 
 Within our AI based classification system we use state-of-the-art deep neural networks. Neural networks are a machine learning model, that was designed to behave similar to the human brain. In recent years the performance of computers did increase to that point, that training and using large \(i.e. deep\) neural networks has become feasible. Deep neural networks generally provide very good performance and can generalize very well to unknown data.
 
+![A convolutional neural network \(for images\) \[Source: Aphex34\]](../../.gitbook/assets/cnn.png)
+
 ## Results
 
 The aedifion.io AI based classification system was trained on a year's worth of data from our building. In our evaluation 82.64% of the examples in our test set were classified correctly.
