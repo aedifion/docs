@@ -147,7 +147,9 @@ _Learn more? Explore our_ [_administration tutorial_](../developers/api-document
 
 ## Alarming and notifications
 
-aedifion.io has various alarming schemes built-in that you can deploy on projects and datapoints. Threshold alarms trigger alerts, e.g., when the CO2 concentration rises too high, while throughput alerts can be used to monitor the health of your sensors. Alerts are delivered through different alarming channels, such as email, instant messengers, or voice output through, e.g., Amazon's Alexa. This accounts for flexible, user-centric and innovative alarming functionalities.
+aedifion.io has various alarming schemes built-in that you can deploy on projects and datapoints. Threshold alarms trigger alerts, e.g., when the CO2 concentration rises too high, while throughput alerts can be used to monitor the health of your sensors. Alerts are delivered through different alarming channels, such as web, email, instant messengers, or voice output using, e.g., Amazon's Alexa. This accounts for flexible, user-centric and innovative alarming functionalities.
+
+![The aedifion.io alarming web frontend.](../.gitbook/assets/bildschirmfoto-2019-03-08-um-17.04.57.png)
 
 _Learn more? Explore our_ [_alarming tutorial_](../developers/api-documentation/guides-and-tutorials/alarming.md)_._
 
