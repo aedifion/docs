@@ -26,7 +26,7 @@ A component is a physical or virtual object or system in a [building](glossary.m
 
 ### Component data model
 
-A component data model is a generic data model of a [component](glossary.md#component). It may have arbitrary many [pins ](glossary.md#pin)and [tags ](glossary.md#tag)for meta-data.
+A component data model is a generic data model of a [component](glossary.md#component). It may have arbitrary many [pins ](glossary.md#pin)and [tags ](glossary.md#tag)for meta data.
 
 ### **Datapoint**
 
@@ -42,11 +42,11 @@ A physical building automation device, e.g., a programmable logic controller, co
 
 ### Instanced component
 
-An instanced component is a [component data model](glossary.md#component-data-model) instanced for a specific [project](glossary.md#project). An instanced component is associated to exactly one project, the [pins ](glossary.md#pin)of the component data model it is instanced from may be mapped to the [datapoints ](glossary.md#datapoint)of the project. Meta-data [tags ](glossary.md#tag)may be added to an instanced component to further individualize it.
+An instanced component is a [component data model](glossary.md#component-data-model) instanced for a specific [project](glossary.md#project). An instanced component is associated to exactly one project, the [pins ](glossary.md#pin)of the component data model it is instanced from may be mapped to the [datapoints ](glossary.md#datapoint)of the project. Meta data [tags ](glossary.md#tag)may be added to an instanced component to further individualize it.
 
 ### Mapping
 
-Mapping is the process of individualizing an [instanced component](glossary.md#instanced-component). It includes the linking of a [datapoint ](glossary.md#datapoint)and thus its [time series](glossary.md#time-series) of a [project ](glossary.md#project)with a [pin ](glossary.md#pin)and parametrizing meta-data [tags](glossary.md#tag).
+Mapping is the process of individualizing an [instanced component](glossary.md#instanced-component). It includes the linking of a [datapoint ](glossary.md#datapoint)and thus its [time series](glossary.md#time-series) of a [project ](glossary.md#project)with a [pin ](glossary.md#pin)and parametrizing meta data [tags](glossary.md#tag).
 
 ### Measurement
 
