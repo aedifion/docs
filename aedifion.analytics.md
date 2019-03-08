@@ -42,43 +42,47 @@ _Short summary on terminology:_
 * [Mapping ](glossary.md#mapping)is the process of linking [datapoints ](glossary.md#datapoint)to [pins ](glossary.md#pin)of the component data model and adding meta-data [tags](glossary.md#tag).
 {% endhint %}
 
-All contemporary available component ****data models are collected in the aedifion component data model library. The component data models needed for a specific project can be chosen from this library and be [instanced](aedifion.analytics.md#instance-components) and [mapped ](aedifion.analytics.md#mapping)for this project. [Configuring ](aedifion.analytics.md#configuring-analysis)an instanced component with [analysis functions ](aedifion.analytics.md#analysis-functions)enables its analysis.
+All contemporary available component ****data models are collected in the aedifion component data model library. The component data models needed for a specific project can be chosen from this library. As soon as a component gets [instanced](aedifion.analytics.md#instance-components) to a specific project, it can be [mapped](aedifion.analytics.md#mapping) to specify it for that project. [Configuring ](aedifion.analytics.md#configuring-analysis)an instanced component with [analysis functions ](aedifion.analytics.md#analysis-functions)enables its analysis.
 
 _Learn more? Explore the_ [_available components_](engineers/specifications/analytics.md) _and_ corresponding __[_API endpoints_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
 
 ### Analysis functions
 
-Analysis algorithms are granular and generic algorithms to analyse the operation of building equipment or energy-related plants. The aedifion analysis function library inherits all contemporary available analysis functions within aedifion.analytics.
+Analysis functions are granular and generic functions to analyse the operation of [components](glossary.md#component). The aedifion analysis function library inherits all contemporary available analysis functions within aedifion.analytics.
 
-Analysis functions are available per component model and get executed on [mapped ](aedifion.analytics.md#mapping)pins and meta-data of instanced [components](aedifion.analytics.md#components). E.g., an analysis of plant cycles is available for several components like heat pump, air handling unit, boiler and so forth. This analysis requires a [mapping ](aedifion.analytics.md#mapping)of the pin _operating message_ of the analyzed component.
+Analysis functions are available per component data model and get executed on [mapped ](glossary.md#mapping)[pins ](glossary.md#pin)and meta-data of [instanced components](glossary.md#instanced-component). E.g., an analysis of plant cycles is available for several instanced components like heat pumps, air handling units, boilers and so forth. This analysis requires a [mapping ](aedifion.analytics.md#mapping)of the pin _operating message_ of the analyzed instanced component.
 
 _Learn more? Explore the_ [_available analysis functions_](engineers/specifications/analytics.md) _and corresponding_ [_API endpoints_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
 
 ### Analysis runtime
 
-The analysis run-time is the engine which executes the analysis determinations. It utilizes the [stream ](aedifion.io/features.md#stream-processing)and [batch ](aedifion.io/features.md#batch-processing)processing services of the aedifion.io platform and performs evaluations of the [analysis configuration](aedifion.analytics.md#configuring-analysis) on demand. If an interpretation of the analysis results is required, the analysis runime calls the [decision engine](aedifion.analytics.md#decision-engine).
+The analysis run-time is the engine which executes analysis determinations. It utilizes the [stream ](aedifion.io/features.md#stream-processing)and [batch ](aedifion.io/features.md#batch-processing)processing services of the aedifion.io platform and performs evaluations of the [analysis configuration](aedifion.analytics.md#configuring-analysis) on demand. If an interpretation of the analysis results is required, the analysis runime calls the [decision engine](aedifion.analytics.md#decision-engine).
 
 ### Decision engine
 
-The decision engine is the part of the analytics process which interprets a determined analytics result. It takes digitized engineering knowledge from the [knowledge & fault pattern database](aedifion.analytics.md#knowledge-and-fault-pattern-databse) into account in order to decide either the analyzed components operation is okay, sub-optimal, faulty, or even dangerous. 
+The decision engine is the part of the analytics process which interprets a determined analytics result. It takes digitized engineering knowledge from the [knowledge & fault pattern database](aedifion.analytics.md#knowledge-and-fault-pattern-database) into account in order to decide either the operation of the instanced components is okay, sub-optimal, faulty, dangerous, etc. Interpretations of the operational quality and recommendations on how to optimize it are based on this decision. 
 
-Interpretations of the operational quality and recommendations on how to optimize it are based on this decision. E.g., a heat pump cycles several times per hour, which can easily be identified via the KPI _number of cycles per hour_. The decision at which threshold value this is too frequent is made in the decision engine. If the decision is _too frequent_, recommendation on how to increase the cycle time is queried from the [knowledge & fault pattern database](aedifion.analytics.md#knowledge-and-fault-pattern-databse) and returned together with the decision to the [analytics run-time](aedifion.analytics.md#analysis-runtime).
+{% hint style="info" %}
+_Example:_
+
+* A heat pump cycles several times per hour.
+* This can easily be identified via the KPI _number of cycles per hour_.
+* The decision engine decides at which threshold value this is too frequent is made in the decision engine.
+* If the decision is _too frequent_, recommendation on how to increase the cycle time is queried from the [knowledge & fault pattern database](aedifion.analytics.md#knowledge-and-fault-pattern-databse) by the decision engine.
+* The decision and recommendations are returned to the [analytics run-time](aedifion.analytics.md#analysis-runtime).
+{% endhint %}
 
 ### Knowledge & fault pattern database
 
 The knowledge & fault pattern database is the gathered engineering knowledge used to interpret analysis results, identify faulty component operation and give recommendations of optimization measures.
 
-### Results
-
-Results are KPIs known from engineering and thermodynamics, rearranged or virtually determined time series and interpretations thereof. Interpretations can be composed of qualitative ratings such as traffic lights, notification types, and free texts for the interpretation and recommendations for action. The results determined are depending on the [analysis functions](aedifion.analytics.md#analysis-functions) executed.
-
-Learn more? _Explore the_ [_available analysis functions_](engineers/specifications/analytics.md) _and corresponding_ [_API endpoints_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
-
 ## Process 
 
-### Instance components
+The framework aedifion.analytics requires the processes _instancing component_, _mapping component_, and _configuring analysis_. The process _exploring results_ is explicitly discussed to demonstrate the outputs of aedifion.analytics and how to make use of them.
 
-A component can be instantiated for a specific project. This means that e.g. a _project A_ has a component _B_, e.g. a _control loop_. After instantiating, time series data can be [mapped ](aedifion.analytics.md#mapping)to the **pins** of a component, e.g. the _set point_, the _system_ _output_, and the _manipulated variable \(i.e. controller output\)_. Further, **meta data**, i.e. the component's characteristics or parameters, can be added to the component, e.g. a _proportional gain_ for a _control loop_.
+### Instancing component
+
+A component data model can be instantiated for a specific project. This means that e.g. a _project A_ has a component _B_, e.g. a _control loop_. After instantiating, time series data can be [mapped ](aedifion.analytics.md#mapping)to the **pins** of a component, e.g. the _set point_, the _system_ _output_, and the _manipulated variable \(i.e. controller output\)_. Further, **meta data**, i.e. the component's characteristics or parameters, can be added to the component, e.g. a _proportional gain_ for a _control loop_.
 
 Instantiating components is the process of adding [components ](aedifion.analytics.md#components)from the aedifion component library to a specific project.
 
@@ -86,7 +90,7 @@ By [mapping ](aedifion.analytics.md#mapping)data points and meta data to the gen
 
 _Learn more? Try the_ [_API tutorial_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
 
-### Mapping
+### Mapping component
 
 Mapping is the process of connecting a components pin to a data point, respectively its time series.
 
@@ -110,6 +114,12 @@ Configuring analysis is the process to individualize the analysis which should b
 The configuration will be passed to the [analytics run-time](aedifion.analytics.md#analysis-runtime) when [analysis results](aedifion.analytics.md#results) of this configuration are queried.
 
 _Learn more? Try the_ [_API tutorial_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
+
+### Exploring results
+
+Results are KPIs known from engineering and thermodynamics, rearranged or virtually determined time series and interpretations thereof. Interpretations can be composed of qualitative ratings such as traffic lights, notification types, and free texts for the interpretation and recommendations for action. The results determined are depending on the [analysis functions](aedifion.analytics.md#analysis-functions) executed.
+
+Learn more? _Explore the_ [_available analysis functions_](engineers/specifications/analytics.md) _and corresponding_ [_API endpoints_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
 
 ## Example
 
