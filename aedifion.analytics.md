@@ -14,40 +14,39 @@ The goal of aedifion.analytics is to support technicians and engineers who want 
 
  Its configuration and analysis workflow is straightforward:
 
-1. Instantiate [components ](aedifion.analytics.md#components)of the energy system.
-2. [Map datapoints](aedifion.analytics.md#mapping) to components.
-3. Choose [analysis functions](aedifion.analytics.md#analysis-functions) of interest to [configure analysis](aedifion.analytics.md#analysis-config) on the chosen components.
+1. [Instance components](aedifion.analytics.md#instance-components) of the energy system.
+2. [Map datapoints](aedifion.analytics.md#mapping) to instanced components.
+3. [Configure analysi](aedifion.analytics.md#configuring-analysis)s on instanced components.
 4. Get and [explore analytics results](aedifion.analytics.md#explore-analysis-results).
-
-{% hint style="info" %}
-[Ingested ](aedifion.io/features.md#data-ingress)as well as [AI-generated](aedifion.io/features.md#ai-generated-meta-data) meta data can be used to support the mapping between components and datapoints.
-{% endhint %}
 
 Please refer to the figure below for a schematic overview of the aedifion.analytics framework.
 
-![Schematic overview of aedifion.analytics](.gitbook/assets/tmp_analytics.png)
+![Schematic overview of aedifion.analytics ](.gitbook/assets/20190308_aedifion.analytics.png)
 
-In the following, we will explain first the ingredients and second the process of aedifion.analytics. Finally we provide an application example and its various use cases.
+In the following, we will explain first the ingredients and second the processes of aedifion.analytics. Finally we provide an application example and its various use cases.
 
 ## Technical overview
 
-The framework aedifion.analytics consists of a component library, a library of algorithms for data analytics, a knowledge & fault pattern database, a decision engine, an analysis configuration pattern, and an analysis runtime environment. Results are provided via API.
+The framework aedifion.analytics consists of a [component data model](glossary.md#component-data-model) library, a library of [analysis functions](glossary.md#analysis-function), a knowledge & fault pattern database, a decision engine, an analysis configuration pattern, and an analysis runtime environment. Results are provided via API.
 
 All required interaction is available via APIs. 
 
-### Components
+### Component data model library
 
-Components are generic data models of physical, virtual or logical objects within a building or energy-related plants, such as e.g. pumps, boilers, thermal zones, control loops and so forth. The aedifion component library inherits all contemporary available components within aedifion.analytics.
+{% hint style="info" %}
+_Short summary on terminology:_ 
 
-A component can be instantiated for a specific project. This means that e.g. a _project A_ has a component _B_, e.g. a _control loop_. After instantiating, time series data can be [mapped ](aedifion.analytics.md#mapping)to the **pins** of a component, e.g. the _set point_, the _system_ _output_, and the _manipulated variable \(i.e. controller output\)_. Further, **meta data**, i.e. the component's characteristics or parameters, can be added to the component, e.g. a _proportional gain_ for a _control loop_.
+* [Components ****](glossary.md#component)are virtual or logical objects within a building or energy-related plants, such as e.g. pumps, boilers, thermal zones, control loops and so forth.
+* \*\*\*\*[Component data models](glossary.md#component-data-model) are generic data models of components.
+* [Instanced components](glossary.md#instanced-component) are component data models instanced for a specific project. They can be [mapped ](aedifion.analytics.md#mapping)to adapt them to specific projects.
+* [Mapping ](glossary.md#mapping)is the process of linking [datapoints ](glossary.md#datapoint)to [pins ](glossary.md#pin)of the component data model and adding meta-data [tags](glossary.md#tag).
+{% endhint %}
 
-A **pin** of a component represents thus an placeholder for a time series of a respective datapoint for this component. It is a generic placeholder used for [mapping ](aedifion.analytics.md#mapping)a datapoint to an instantiated component within a specific project. 
-
-Analyses are performed on these generic pins in combination with component's meta data based on [analysis algorithms](aedifion.analytics.md#analysis-algorithms).
+All contemporary available component ****data models are collected in the aedifion component data model library. The component data models needed for a specific project can be chosen from this library and be [instanced](aedifion.analytics.md#instance-components) and [mapped ](aedifion.analytics.md#mapping)for this project. [Configuring ](aedifion.analytics.md#configuring-analysis)an instanced component with [analysis functions ](aedifion.analytics.md#analysis-functions)enables its analysis.
 
 _Learn more? Explore the_ [_available components_](engineers/specifications/analytics.md) _and_ corresponding __[_API endpoints_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
 
-### Analysis algorithms
+### Analysis functions
 
 Analysis algorithms are granular and generic algorithms to analyse the operation of building equipment or energy-related plants. The aedifion analysis function library inherits all contemporary available analysis functions within aedifion.analytics.
 
@@ -77,7 +76,9 @@ Learn more? _Explore the_ [_available analysis functions_](engineers/specificati
 
 ## Process 
 
-### Instantiating components
+### Instance components
+
+A component can be instantiated for a specific project. This means that e.g. a _project A_ has a component _B_, e.g. a _control loop_. After instantiating, time series data can be [mapped ](aedifion.analytics.md#mapping)to the **pins** of a component, e.g. the _set point_, the _system_ _output_, and the _manipulated variable \(i.e. controller output\)_. Further, **meta data**, i.e. the component's characteristics or parameters, can be added to the component, e.g. a _proportional gain_ for a _control loop_.
 
 Instantiating components is the process of adding [components ](aedifion.analytics.md#components)from the aedifion component library to a specific project.
 
@@ -90,6 +91,10 @@ _Learn more? Try the_ [_API tutorial_](developers/api-documentation/guides-and-t
 Mapping is the process of connecting a components pin to a data point, respectively its time series.
 
 To adjust a [generic component model](aedifion.analytics.md#components) to a specific project it only requires the mapping of data points to the corresponding pins of this component. The [data management functionalities](aedifion.io/features.md#data-management-and-structuring) and [meta-data](aedifion.io/features.md#meta-data) available on aedifion.io are supporting this process.
+
+{% hint style="info" %}
+[Ingested ](aedifion.io/features.md#data-ingress)as well as [AI-generated](aedifion.io/features.md#ai-generated-meta-data) meta data can be used to support the mapping between components and datapoints.
+{% endhint %}
 
 _Learn more? Try the_ [_API tutorial._](developers/api-documentation/guides-and-tutorials/analytics.md)\_\_
 
