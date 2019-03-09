@@ -12,59 +12,17 @@ Detailed specification of generic [component data models](../../glossary.md#comp
 
 #### Pins
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Description</th>
-      <th style="text-align:left">Unit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">heat flow</td>
-      <td style="text-align:left">Heat flux sensor</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">inlet temperature</td>
-      <td style="text-align:left">Temperature sensor</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">malfunction message</td>
-      <td style="text-align:left">
-        <p>Digital datapoint for malfunction shutdown of component.</p>
-        <p>True for &quot;malfunction&quot;.</p>
-      </td>
-      <td style="text-align:left">binary</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">
-        <p>Digital datapoint for operation of component.</p>
-        <p>True for &quot;on&quot;.</p>
-      </td>
-      <td style="text-align:left">binary</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature</td>
-      <td style="text-align:left">Temperature sensor</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">power consumption</td>
-      <td style="text-align:left">Power sensor. Probably gas meter. Power or cumulating counter possible.</td>
-      <td
-      style="text-align:left">kWh or kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">volume flow</td>
-      <td style="text-align:left">Volume flow sensor</td>
-      <td style="text-align:left">l/s</td>
-    </tr>
-  </tbody>
-</table>#### Available analytics functions
+| Pin | Description | Unit |
+| :--- | :--- | :--- |
+| heat flow | Heat flux sensor | kW |
+| inlet temperature | Temperature sensor | °C |
+| malfunction message | Malfunction shutdown of component: True for "malfunction" | binary |
+| operating message | Operation of component: True for "on" | binary |
+| outlet temperature | Temperature sensor | °C |
+| power consumption | Power sensor. Usually gas meter. Power or cumulating counter possible. | kWh or kW |
+| volume flow | Volume flow sensor | l/s |
+
+#### Available analytics functions
 
 <table>
   <thead>
@@ -100,64 +58,18 @@ Detailed specification of generic [component data models](../../glossary.md#comp
 
 #### Pins
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Description</th>
-      <th style="text-align:left">Unit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">power consumption</td>
-      <td style="text-align:left">Power sensor. Probably gas meter. Power or cumulating counter possible.</td>
-      <td
-      style="text-align:left">kWh or kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">inlet temperature</td>
-      <td style="text-align:left">Temperature Sensor</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">heat flow</td>
-      <td style="text-align:left">Heat flux sensor</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">malfunction message</td>
-      <td style="text-align:left">
-        <p>Digital datapoint for malfunction shutdown of component.</p>
-        <p>True for &quot;malfunction&quot;.</p>
-      </td>
-      <td style="text-align:left">binary</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">
-        <p>Digital datapoint for operation of component.</p>
-        <p>True for &quot;on&quot;.</p>
-      </td>
-      <td style="text-align:left">binary</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature</td>
-      <td style="text-align:left">Temperature sensor</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">power generation</td>
-      <td style="text-align:left">Power sensor of electricity output</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">volume flow</td>
-      <td style="text-align:left">Volume flow sensor</td>
-      <td style="text-align:left">l/s</td>
-    </tr>
-  </tbody>
-</table>#### Available analytics functions
+| Pin | Description | Unit |
+| :--- | :--- | :--- |
+| power consumption | Power sensor. Usually gas meter. Power or cumulating counter possible. | kWh or kW |
+| inlet temperature | Temperature Sensor | °C |
+| heat flow | Heat flux sensor | kW |
+| malfunction message | Malfunction shutdown of component: True for "malfunction" | binary |
+| operating message | Operation of component: True for "on" | binary |
+| outlet temperature | Temperature sensor | °C |
+| power generation | Power sensor of electricity output | kW |
+| volume flow | Volume flow sensor | l/s |
+
+#### Available analytics functions
 
 <table>
   <thead>
@@ -188,15 +100,23 @@ Detailed specification of generic [component data models](../../glossary.md#comp
   </tbody>
 </table>### control loop
 
-#### Pins
-
-#### Available analytics functions
-
-### heat exchanger
+Available for liquid based heating/cooling circuits.
 
 #### Pins
 
+| Pin | Description | Unit |
+| :--- | :--- | :--- |
+| controller output | Valve setpoint | % |
+| operating message | Operation of component: True for "on" | binary |
+| process value | Temperature sensor | °C |
+| setpoint | Temperature setpoint | °C |
+
 #### Available analytics functions
+
+| Analysis function | Specification for component |
+| :--- | :--- |
+| cycle analysis |  |
+| setpoint attainment |  |
 
 ### heat flux sensor
 
@@ -220,78 +140,21 @@ Available as water/water heat pump.
 
 #### Pins
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Description</th>
-      <th style="text-align:left">Unit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">condenser inlet temperature</td>
-      <td style="text-align:left">Temperature sensor</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">condenser outlet heat flow</td>
-      <td style="text-align:left">Heat flux sensor</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">condenser outlet temperature</td>
-      <td style="text-align:left">Temperature sensor</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">condenser volume flow</td>
-      <td style="text-align:left">Volume flow sensor</td>
-      <td style="text-align:left">l/s</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">evaporator inlet heat flow</td>
-      <td style="text-align:left">Heat flux sensor</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">evaporator inlet temperature</td>
-      <td style="text-align:left">Temperature sensor</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">evaporator outlet temperature</td>
-      <td style="text-align:left">Temperature sensor</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">evaporator volume flow</td>
-      <td style="text-align:left">Volume flow sensor</td>
-      <td style="text-align:left">l/s</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">malfunction message</td>
-      <td style="text-align:left">
-        <p>Digital datapoint for malfunction shutdown of component.</p>
-        <p>True for &quot;malfunction&quot;.</p>
-      </td>
-      <td style="text-align:left">binary</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">
-        <p>Digital datapoint for operation of component.</p>
-        <p>True for &quot;on&quot;.</p>
-      </td>
-      <td style="text-align:left">binary</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">power consumption</td>
-      <td style="text-align:left">Power sensor</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-  </tbody>
-</table>#### Available analytics functions
+| Pin | Description | Unit |
+| :--- | :--- | :--- |
+| condenser inlet temperature | Temperature sensor | °C |
+| condenser outlet heat flow | Heat flux sensor | kW |
+| condenser outlet temperature | Temperature sensor | °C |
+| condenser volume flow | Volume flow sensor | l/s |
+| evaporator inlet heat flow | Heat flux sensor | kW |
+| evaporator inlet temperature | Temperature sensor | °C |
+| evaporator outlet temperature | Temperature sensor | °C |
+| evaporator volume flow | Volume flow sensor | l/s |
+| malfunction message | Malfunction shutdown of component: True for "malfunction" | binary |
+| operating message | Operation of component: True for "on" | binary |
+| power consumption | Power sensor | kW |
+
+#### Available analytics functions
 
 <table>
   <thead>
@@ -338,37 +201,51 @@ Available as water/water heat pump.
 
 #### Pins
 
+| Pin | Description | Unit |
+| :--- | :--- | :--- |
+| CO2 | CO2 sensor | ppm |
+| humidity | Relative humidity sensor | % |
+| presence | Presence detection sensor or presence counter | binary or number |
+| temperature | Room temperature sensor | °C |
+| temperature setpoint | Temperature setpoint | °C |
+| VOC | Volatile organic compound sensor | ppm |
+| window opening | Window opening sensor: True for open | binary |
+
 #### Available analytics functions
 
-### thermal storage
-
-#### Pins
-
-#### Available analytics functions
+| Analysis function | Specification for component |
+| :--- | :--- |
+| CO2 comfort | Comfort up to 1000 ppm CO2 |
+| humidity comfort | Comfort range between 30 % and 70 % |
 
 ### thermally activated systems
 
 #### Pins
 
+| Pin | Description | Unit |
+| :--- | :--- | :--- |
+| condensation alarm | Alarm message: True for alarm | binary |
+| heat flow | Heat flux sensor | kW |
+| inlet temperature | Temperature sensor | °C |
+| outlet temperature | Temperature sensor | °C |
+| volume flow | Volume flow sensor | l/s |
+
 #### Available analytics functions
 
-### weather station
-
-#### Pins
-
-#### Available analytics functions
+| Analysis function | Specification for component |
+| :--- | :--- |
+| condensate limit violation |  |
+| heat flux | Heat input |
 
 ## Analytics functions
 
-### efficiency ratio
+Required pins... TODO
 
-The efficiency ratio is a KPI defined in by the beneficial energy divided by the energy expenses in an energy conversion:
+### 
 
-$$
-\eta = Q_{benefit}/P_{expenses}
-$$
+### CO2 comfort
 
-This KPI is outputted as an overall integral over the analyzed time interval as well a time series with continuous values \(change of value based\).
+### condensate limit violation
 
 ### cycle analysis
 
@@ -398,11 +275,23 @@ This KPI is outputted as an overall integral over the analyzed time interval as 
     </tr>
   </thead>
   <tbody></tbody>
-</table>### heat flux
+</table>### efficiency ratio
+
+The efficiency ratio is a KPI defined in by the beneficial energy divided by the energy expenses in an energy conversion:
+
+$$
+\eta = Q_{benefit}/P_{expenses}
+$$
+
+This KPI is outputted as an overall integral over the analyzed time interval as well a time series with continuous values \(change of value based\).
+
+### heat flux
+
+### humidity comfort
 
 ### ordered load duration
 
-### 
+### setpoint attainment
 
 ## Information
 
