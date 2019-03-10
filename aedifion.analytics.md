@@ -44,7 +44,7 @@ _Short summary on terminology:_
 
 All contemporary available component ****data models are collected in the aedifion component data model library. The component data models needed for a specific project can be chosen from this library. As soon as a component gets [instanced](aedifion.analytics.md#instance-components) to a specific project, it can be [mapped](aedifion.analytics.md#mapping) to specify it for that project. [Configuring ](aedifion.analytics.md#configuring-analysis)an instanced component with [analysis functions ](aedifion.analytics.md#analysis-functions)enables its analysis.
 
-_Learn more? Explore the_ [_available components_](engineers/specifications/analytics.md) _and_ corresponding __[_API endpoints_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
+_Learn more? Explore the_ [_available components_](engineers/specifications/analytics.md)_._
 
 ### Analysis functions
 
@@ -52,7 +52,7 @@ Analysis functions are granular and generic functions to analyse the operation o
 
 Analysis functions are available per component data model and get executed on [mapped ](glossary.md#mapping)[pins ](glossary.md#pin)and meta data of [instanced components](glossary.md#instanced-component). E.g., an analysis of plant cycles is available for several instanced components like heat pumps, air handling units, boilers and so forth. This analysis requires a [mapping ](aedifion.analytics.md#mapping)of the pin _operating message_ of the analyzed instanced component.
 
-_Learn more? Explore the_ [_available analysis functions_](engineers/specifications/analytics.md) _and corresponding_ [_API endpoints_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
+_Learn more? Explore the_ [_available analysis functions_](engineers/specifications/analytics.md)_._
 
 ### Analysis runtime
 
@@ -84,8 +84,6 @@ The aedifion.analytics framework process starts with _instancing a component_: a
 
 Instancing a component describes the process of assigning a generic [component data model](glossary.md#component-model) to a specific [project](glossary.md#project). Colloquially expressed: Choose the [components ](glossary.md#component)of your [building/project](glossary.md#project) from the [component data model library](aedifion.analytics.md#component-data-model-library).
 
-_Learn more? Try the_ [_API tutorial_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
-
 ### Mapping a component
 
 Mapping a component is the process which individualizes the generic [instanced component](glossary.md#instanced-component) data model for a specific project. This comprise linking [datapoints, ](glossary.md#datapoint)respectively their time series,[ ](glossary.md#datapoint)to the [pins ](glossary.md#pin)of the instanced component and adding meta data [tags](glossary.md#tag) to it. A mapped component is ready for analysis.
@@ -93,8 +91,6 @@ Mapping a component is the process which individualizes the generic [instanced c
 {% hint style="info" %}
 [Ingested ](aedifion.io/features.md#data-ingress)as well as [AI-generated](aedifion.io/features.md#ai-generated-meta-data) meta data can be used to support the mapping, especially the linking of datapoints and pins.
 {% endhint %}
-
-_Learn more? Try the_ [_API tutorial._](developers/api-documentation/guides-and-tutorials/analytics.md)\_\_
 
 ### Configuring an analysis
 
@@ -106,8 +102,6 @@ Configuring analysis is the process to individualize the analysis which should b
   * _Learn more on multi-time intervals? Try the_ [_API tutorial_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
 
 The analysis configuration will be passed to the [analytics runtime](aedifion.analytics.md#analysis-runtime) when [analysis results](aedifion.analytics.md#results) of this configuration are queried.
-
-_Learn more? Try the_ [_API tutorial_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
 
 ### Exploring results
 
@@ -129,7 +123,7 @@ Depending on the utilized analysis functions, the result type differentiates. A 
 
 **Recommendation:** This is the recommendation of optimization measures given by the decision engine. E.g., "Reduce component pulsing by throttling the output heat power. Throttling can be realized by partial-load operation of the component or installation of an input power choke."
 
-Learn more? _Explore the_ [_available analysis functions_](engineers/specifications/analytics.md) _and corresponding_ [_API endpoints_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
+Learn more? _Explore the_ [_available analysis functions_](engineers/specifications/analytics.md)_._
 
 ## Example
 
