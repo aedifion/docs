@@ -150,7 +150,7 @@ Writing bounds can be configured through the `PUT /v2/datapoint` endpoint which 
 <table>
   <thead>
     <tr>
-      <th style="text-align:left"><b>Paramater</b>
+      <th style="text-align:left"><b>Parameter</b>
       </th>
       <th style="text-align:center">Datatype</th>
       <th style="text-align:center">Type</th>
@@ -415,7 +415,7 @@ A new schedule is created through the `POST /v2/datapoint/schedule` endpoint. Th
 <table>
   <thead>
     <tr>
-      <th style="text-align:left"><b>Paramater</b>
+      <th style="text-align:left"><b>Parameter</b>
       </th>
       <th style="text-align:center">Datatype</th>
       <th style="text-align:center">Type</th>
@@ -559,14 +559,6 @@ r = requests.post(url + "/v2/datapoint/schedule",
 print(r.text)
 ```
 {% endtab %}
-
-{% tab title="Curl" %}
-Coming soon 🐒
-{% endtab %}
-
-{% tab title="Swagger UI" %}
-Coming soon 🐒
-{% endtab %}
 {% endtabs %}
 
 When this request is posted to the API, the API will check \(among permissions\) the syntactic correctness of the request and that no other schedule is active on the same datapoint and priority. If the request is accepted by the API, it is sent to the aedifion.device in the building network. It is important to note that the API returns immediately after sending the schedule to the aedifion.device, i.e., without waiting for a confirmation from the remote device. Instead, the aedifion.device will asynchronously update the schedule's status on the API at a later point. Creation of schedules is asynchronous because it requires one round of communication with the aedifion.device that may be subject to delay and intermittent connectivity that would heavily slow down or even break synchronous operation.
@@ -611,7 +603,7 @@ The answer confirms that the schedule has been created and provides further deta
 
 When a setpoint is created or executed, the aedifion.device updates the schedule's status on the API on each major event, e.g., on activation, on writing a setpoint from the schedule, and any kind of error. It is the user's responsibility to check the status of his/her schedule continuously. To this end, the `GET /v2/datapoint/schedule/{reference}` can be used to which the caller must only provide a single argument:
 
-| **Paramater** | Datatype | Type | Required | Description | Example |
+| **Parameter** | Datatype | Type | Required | Description | Example |
 | :--- | :---: | :---: | :---: | :--- | :--- |
 | **reference** | string | path | yes | The alphanumeric id of the schedule returned on creation. | 18f86b8a-1669-49da-adc3-e171c8e4e229 |
 
@@ -674,7 +666,7 @@ All schedules that are not in state `failed` or `terminated` \(such as our secon
 <table>
   <thead>
     <tr>
-      <th style="text-align:left"><b>Paramater</b>
+      <th style="text-align:left"><b>Parameter</b>
       </th>
       <th style="text-align:center">Datatype</th>
       <th style="text-align:center">Type</th>
@@ -821,14 +813,6 @@ r = requests.put(url + "/v2/datapoint/schedule/{}".format(reference),
 print(r.status_code, r.json())
 ```
 {% endtab %}
-
-{% tab title="Curl" %}
-Coming soon 🐒
-{% endtab %}
-
-{% tab title="Swagger UI" %}
-Coming soon 🐒
-{% endtab %}
 {% endtabs %}
 
 {% hint style="info" %}
@@ -845,7 +829,7 @@ This order of applying updates means that one could add a new setpoint, modify i
 
 Any schedule that is not `terminated` or `failed` can be stopped through the `DELETE /v2/datapoint/schedule/{reference}` endpoint which takes a single argument:
 
-| **Paramater** | Datatype | Type | Required | Description | Example |
+| **Parameter** | Datatype | Type | Required | Description | Example |
 | :--- | :---: | :---: | :---: | :--- | :--- |
 | **reference** | string | path | yes | The alphanumeric id of the schedule returned on creation. | 18f86b8a-1669-49da-adc3-e171c8e4e229 |
 
@@ -856,14 +840,6 @@ reference = '18f86b8a-1669-49da-adc3-e171c8e4e229'
 r = requests.delete(url + "/v2/datapoint/schedule/{}".format(ref))
 print(r.status_code, r.json())
 ```
-{% endtab %}
-
-{% tab title="Curl" %}
-
-{% endtab %}
-
-{% tab title="Matlab" %}
-
 {% endtab %}
 {% endtabs %}
 

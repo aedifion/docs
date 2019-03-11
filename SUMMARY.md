@@ -25,7 +25,6 @@
     * [Data import and export](developers/api-documentation/guides-and-tutorials/data-import.md)
     * [Favorites, tagging, renaming](developers/api-documentation/guides-and-tutorials/tagging.md)
     * [Alarming](developers/api-documentation/guides-and-tutorials/alarming.md)
-    * [Analytics](developers/api-documentation/guides-and-tutorials/analytics.md)
     * [Controls](developers/api-documentation/guides-and-tutorials/setpoints-and-schedules.md)
 * [MQTT API](developers/mqtt-api/README.md)
   * [Specifications](developers/mqtt-api/specification.md)

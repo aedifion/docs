@@ -99,7 +99,6 @@ Configuring analysis is the process to individualize the analysis which should b
 * Which [analysis functions](aedifion.analytics.md#analysis-functions) shall be run on the component? This can be a subset of the analysis functions available for the [component data model](glossary.md#component-data-model).
 * It is possible to define several configurations on the same instanced component and thus create individual analysis sets.
 * Advanced settings: analyse multi-time intervals. This option allows to perform analyses over a fixed number of time intervals, a fixed interval length or a combination of both. 
-  * _Learn more on multi-time intervals? Try the_ [_API tutorial_](developers/api-documentation/guides-and-tutorials/analytics.md)_._
 
 The analysis configuration will be passed to the [analytics runtime](aedifion.analytics.md#analysis-runtime) when [analysis results](aedifion.analytics.md#results) of this configuration are queried.
 

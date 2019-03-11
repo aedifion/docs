@@ -27,7 +27,7 @@ _Learn more? Explore our_ [_data import and export tutorial_](../developers/api-
 
 ### Meta data
 
-For each integrated [device](https://docs.aedifion.io/docs/glossary#device) and [datapoint](https://docs.aedifion.io/docs/glossary#datapoint), aedifion.io is able to acquire and maintain comprehensive metadata either directly via the [automation network](../glossary.md#automation-network), e.g., reading BACnet properties or Modbus plant descriptions, or from local databases and servers such as OPC. All metadata is automatically structured in aedifion.io's data model and can be used from thereon to search and sort the data as well as to enrich it further using artificial intelligence methods such as clustering and classification.
+For each integrated [device](https://docs.aedifion.io/docs/glossary#device) and [datapoint](https://docs.aedifion.io/docs/glossary#datapoint), aedifion.io is able to acquire and maintain comprehensive meta data either directly via the [automation network](../glossary.md#automation-network), e.g., reading BACnet properties or Modbus plant descriptions, or from local databases and servers such as OPC. All meta data is automatically structured in aedifion.io's data model and can be used from thereon to search and sort the data as well as to enrich it further using artificial intelligence methods such as clustering and classification.
 
 ### AI-generated meta data
 
@@ -51,34 +51,34 @@ aedifion.io offers various ways of data provision, i.e., via a web frontend, via
 
 ### Frontend
 
-The aedifion.io web frontend offers, among other features, search of data and metadata, different means of personalization, various flavors of plots, export of data, plots, and reports, management of users, projects, and permissions, and many more. A major revision with better user experience and even more functionality is scheduled for March 2019.
+The aedifion.io web frontend offers, among other features, search of data and meta data, different means of personalization, various flavors of plots, export of data, plots, and reports, management of users, projects, and permissions, and many more. A major revision with better user experience and even more functionality is scheduled for March 2019.
 
-_Learn more? Explore the_ [_frontend guide_]() _or visit our frontend at_ [_www.aedifion.io_](https://www.aedifion.io)_._
+_Learn more? Explore the_ [_frontend guide_](frontend-1.md) _or visit our frontend at_ [_www.aedifion.io_](https://www.aedifion.io)_._
 
 ### HTTP API
 
 All functionality of aedifion.io is exposed through the [HTTP API](../developers/api-documentation/). Thus, it covers all functionality of the frontend and more. The API can be used with various third party tools or called from virtually any modern programming language. At [https://api.aedifion.io/ui/](https://api.aedifion.io/ui/), you can find a web environment for user‐friendly testing and compilation of API interactions. In addition, other retrieval methods can be provided for e.g. MATLAB upon request.
 
-_Learn more? Explore our_ [_HTTP API tutorials_]() _or try out our API user interface at_ [_https://api.aedifion.io/ui/_](https://api.aedifion.io/ui/)_!_
+_Learn more? Explore our_ [_HTTP API tutorials_](../developers/api-documentation/guides-and-tutorials/) _or try out our API user interface at_ [_https://api.aedifion.io/ui/_](https://api.aedifion.io/ui/)_._
 
 ### MQTT API
 
 The MQTT API offers a publish/subscribe model to stream data into and from the aedifion.io platform. You can subscribe to the data of your whole plant or limit your subscriptions to a few selected datapoints of interest.
 
-_Learn more? Try out our_ [_MQTT websockets demo._](../developers/mqtt-api/guides-and-tutorials/websockets.md)\_\_
+_Learn more? Try out our_ [_MQTT API tutorials_](../developers/mqtt-api/guides-and-tutorials/)_._
 
 ### Third party software
 
 We are integrating access to data on aedifion.io into a growing amount of third-party software such as Microsoft Excel or Grafana.
 
-_Learn more? Explore the overview of_ [_existing integrations_](integrations.md) _or go through the_ [_relevant tutorials_]()_._
+_Learn more? Explore the overview of_ [_existing integrations_](integrations.md)_._
 
 ## Data processing
 
-A growing range of post-processing methods is continuously being built directly into the aedifion.io platform such as downsampling, interpolation, or different general purpose statistical analyses. Beyond the built-in functionality, you can set up custom stream and batch processes and deploy virtual datapoints that run on your project's data.
+A growing range of post-processing methods is continuously being built directly into the aedifion.io platform such as down sampling, interpolation, or different general purpose statistical analyses. Beyond the built-in functionality, you can set up custom stream and batch processes and deploy virtual datapoints that run on your project's data.
 
 {% hint style="success" %}
-aedifion.io offers data processing in compliance with the German VDI 6041 "Technical Monitoring" and the international ISO x50 001 "Energy Management" standards.
+aedifion.io offers data processing in compliance with the German VDI 6041 "Technical Monitoring" and the international ISO 50 001 "Energy Management" standards.
 {% endhint %}
 
 ### Stream processing
@@ -86,9 +86,9 @@ aedifion.io offers data processing in compliance with the German VDI 6041 "Techn
 Stream processes cover use cases such as nominal-actual-comparisons as required in the German VDI 6041 "Technical Monitoring" standard. A stream process runs a calculation of a free-to-choose mathematical relationship on each new event/observation of a referred datapoint. Stream processes relate to one or more datapoints.
 
 {% hint style="info" %}
-Examples for stream process: 
+Examples for stream processes: 
 
-* Heat flow calculation: $$\dot{Q} = \dot{m} c_p (\vartheta_{out} - \vartheta_{in})$$
+* Heat flow calculation: $$\dot{Q} = \dot{m} \cdot c_p \cdot (\vartheta_{out} - \vartheta_{in})$$
 * Coefficient of performance: $$\eta = \frac{\dot{Q{th}}}{P_{el}}$$ 
 * System sanity/operation checks: $$\text{actual value} \approx \text{expected value}$$ 
 {% endhint %}
@@ -129,7 +129,7 @@ You can flag any datapoint as a favorite, e.g., to mark frequently inspected or 
 
 ### Tags
 
-[Tags](../glossary.md#tag) are small pieces of metadata that are attached to [devices](../glossary.md#device) and [datapoints](../glossary.md#datapoint). Tags are automatically added by aedifion from the collected meta data as well as using artificial intelligence methods. Of course, users can freely add their own tags. Tags can then be used to filter devices and datapoints, to match analysis algorithms, or to build up structured naming schemes such as [Brick](https://brickschema.org/) or [BUDO](https://github.com/RWTH-EBC/BUDO).
+[Tags](../glossary.md#tag) are small pieces of meta data that are attached to [devices](../glossary.md#device) and [datapoints](../glossary.md#datapoint). Tags are automatically added by aedifion from the collected meta data as well as using artificial intelligence methods. Of course, users can freely add their own tags. Tags can then be used to filter devices and datapoints, to match analysis algorithms, or to build up structured naming schemes such as [Brick](https://brickschema.org/) or [BUDO](https://github.com/RWTH-EBC/BUDO).
 
 ### Datapointkeys
 

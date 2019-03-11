@@ -24,7 +24,7 @@ Within our AI based classification system we use state-of-the-art deep neural ne
 
 ## Results
 
-The aedifion.io AI based classification system was trained on a year's worth of data from our building. In our evaluation 82.64% of the examples in our test set were classified correctly.
+The aedifion.io AI based classification system was trained on a year's worth of data from our building. In our evaluation 82.64 % of the examples in our test set were classified correctly.
 
 ## Classification Service
 
@@ -33,8 +33,4 @@ Aedifion provides the AI based classification service as a regular \(usually wee
 ## Continuous Learning
 
 Since the classification system works with statistical models, it might classify a datapoint wrongly. To improve future classification accuracy you can disapprove an AI annotation of a datapoint. With this you not only help the AI system directly, but also improve the quality of data such that the AI system keeps improving.
-
-## TODO:
-
-1. Bilder!
 

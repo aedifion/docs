@@ -299,7 +299,7 @@ Required pins:
 The heat flux analysis function determines a virtual heat flux sensor and its virtual time series from a temperature difference and a volume flow for water \(density $$\rho$$; heat capacity $$c_p$$\):
 
 $$
-\dot Q = \rho \cdot c_p \cdot \dot V \cdot (T_{outlet}-T_{inlet})
+\dot Q = \rho \cdot c_p \cdot \dot V \cdot (\vartheta_{outlet}-\vartheta_{inlet})
 $$
 
 Pins required:

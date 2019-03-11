@@ -167,7 +167,7 @@ Each time the classifier runs, a tag for the datapoint is created, which looks a
 {
   "id": 92807,
   "key": "ClassesV1",
-  "probability": 0.757322,
+  "probability": 0.857322,
   "protected": true,
   "source": "ai",
   "value": "CO2 concentration"
@@ -178,9 +178,9 @@ Each time the classifier runs, a tag for the datapoint is created, which looks a
 
 The _key_ of the tag is "ClassesV1", which indicates the classification system it is using. The _value_ of this tag is "CO2 concentration", which indicates that the analyzed datapoint is recognized as a CO2 sensor. A complete list of all the possible values and their meaning you can find within the [engineers' specification section](https://docs.aedifion.io/docs/engineers/specifications/artificial-intelligence). With just those properties you can easily filter the set of datapoints. 
 
-The tag has as _source_ "ai", since it is originating from an AI-based classifier. Each classifier also provides the property _probability._ In this example the classifier has a confidence of 75.73% that the given classification is correct.
+The tag has as _source_ "ai", since it is originating from an AI-based classifier. Each classifier also provides the property _probability._ In this example the classifier has a confidence of 85.73% that the given classification is correct.
 
-For more information on the classification process refer to the section on [artificial intelligence based meta data generation](https://docs.aedifion.io/docs/data/ai-meta-data-generation).
+For more information on the classification process refer to the section on [artificial intelligence based meta data generation](ai-meta-data-generation.md).
 
 ## Third party data
 
@@ -192,7 +192,9 @@ On request, data from Microsoft Exchange can be integrated into the aedifion.io 
 
 ### Weather data
 
-We are using the services of [the Dark Sky Company, LLC](https://darksky.net/) for weather data integration. In case your use-case is not covered by the weather data services provided, do not hesitate to [contact ](https://docs.aedifion.io/docs/contact)us.
+aedifion.io uses the data services of [the Dark Sky Company, LLC](https://darksky.net/) for weather data integration. Therefore, both current and predicted weather conditions localized by geocoordinates are available on aedifion.io.
+
+_Learn more? Explore the_ [_weather data specifications_](../../engineers/specifications/weather-data.md)_._
 
 
 

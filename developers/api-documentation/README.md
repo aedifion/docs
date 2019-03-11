@@ -168,8 +168,6 @@ $: python3
 {% endtab %}
 
 {% tab title="Other languages" %}
-Coming soon 🐒
-
 {% hint style="info" %}
 The process for generating API clients in other languages is similar. But make sure that you set the APIs base URL as well as your login credentials correctly.
 {% endhint %}

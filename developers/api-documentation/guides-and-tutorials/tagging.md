@@ -6,8 +6,6 @@ description: >-
 
 # Favorites, tagging, renaming
 
-## 
-
 ## Overview
 
 This article deals with creating [favorites](tagging.md#favorites), [renamings](tagging.md#renamings), and [tags](tagging.md#tags) on datapoints as well as modifying and removing them. We start by adding, querying, and removing favorite datapoints. We then cover the concept of datapointkeys, and show how datapoints can be assigned alternate names \(renamings\). Finally, we cover creating tags, assigning them to datapoints, modifying them and their association with a datapoint, and ultimately removing associations with a datapoint or removing tags completely.

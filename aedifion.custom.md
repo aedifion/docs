@@ -24,7 +24,7 @@ aedifion offers a variety of services around its core platform aedifion.io and i
   *  Discussion of technical possibilities and option in group. Outcome is a structured priority setting of technical options
   * In-detail technical concepts for most the important technical option/options and derivation of recommendations for action. 
 
-Please feel free to contact us. We would be more than happy to discuss your case.
+Please feel free to[ contact us](contact.md#support). We would be more than happy to discuss your case.
 
 
 

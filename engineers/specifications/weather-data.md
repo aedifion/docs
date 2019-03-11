@@ -4,7 +4,7 @@ description: 'In this section, we explain the basic concept of weather data inte
 
 # Weather data
 
-#### Meteorological conditions
+## Meteorological conditions
 
 This list provides the meteorological conditions which can be integrated by default:
 
@@ -113,13 +113,13 @@ This list provides the meteorological conditions which can be integrated by defa
 
 
 
-#### Prediction horizons
+## Prediction horizons
 
 Besides the current state of a meteorological condition some use-cases require prediction data. We offer hourly predictions up to 168 hours \(7 days\) in the future and update them every hour. On ordering you can flexibly choose which horizons you need. The predicted states are aligned to the top of the prediction’s timestamp.
 
 We combine every prediction horizon with the meteorological state monitored to create unique datapoints. You can use the unique datapoints to address the historicized meteorological conditions and their predications on the platform. More on this in the subchapter [Datapoint and observation convention](../../aedifion.io/integrations.md#datapoint-and-observation-convention).
 
-#### Datapoint and observation convention
+## Datapoint and observation convention
 
 Like any other datapoint on the aedifion.io platform the weather datapoints are identifiable by an alphanumeric identifier which is unique for each project. The timeseries data for particular weather datapoints is stored as observations with a tuple of _value_ and _timestamp_.
 
@@ -142,4 +142,10 @@ Now, how would the datapoint string-id for _temperature_ with _1h_ prediction be
 * For datapoint _aedifion\_weather- dewpoint \_1h_: 2020-02-20 23:00:00
 * For datapoint _aedifion\_weather- dewpoint \_3h_: 2020-02-21 01:00:00
 {% endhint %}
+
+\_\_
+
+_Your use-case is not covered by the weather data services provided? Do not hesitate to_ [_contact_ ](https://docs.aedifion.io/docs/contact)_us._
+
+
 
