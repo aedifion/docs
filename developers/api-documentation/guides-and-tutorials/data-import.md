@@ -23,7 +23,7 @@ To execute the examples provided in this tutorial, the following is needed:
 There are two ways of ingesting data into the aedifion.io platform:
 
 * via [CSV upload](data-import.md#csv-upload)
-* via MQTT as treated in the [MQTT Tutorial]() section
+* via MQTT as treated in the [MQTT Tutorial](../../mqtt-api/guides-and-tutorials/publishers.md) section
 
 ### CSV Upload
 
