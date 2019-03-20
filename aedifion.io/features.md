@@ -159,9 +159,9 @@ We continuously build integrations of aedifion.io with and into various popular 
 
 _Learn more? Read about the_ [_existing integrations_](integrations.md)_._
 
-## Controls
+## Setpoint management and system overwrite
 
-aedifion.io provides basic control functions whenever a datapoint is generally controllable in the field. This covers simple set point writing as well as manipulating local control loops or even overruling local system output. Further, aedifion.io has a decent scheduling functionality that allows you to robustly execute control sequences on the aedifion edge device and monitor and control the execution from cloud as well as to even chain control to our integrations such as Alexa or chatbots. In extreme cases, local control hardware can be reduced to in-out-devices whereas all logic is operated in the cloud.
+aedifion.io provides basic control functions whenever a datapoint is generally controllable in the field. This covers simple setpoint writing as well as manipulating local control loops or even overwriting local system output. Further, aedifion.io has a decent scheduling functionality that allows you to robustly execute control sequences on the aedifion edge device and monitor and control the execution from cloud as well as to even chain control to our integrations such as Alexa or chatbots. In extreme cases, local control hardware can be reduced to in-out-devices whereas all logic is operated in the cloud.
 
 {% hint style="danger" %}
 Safety of cloud-based controls is critical. aedifion.io offers various, locally executed, safety mechanisms that handle, e.g., connection loss, crashes, and human error.
@@ -169,7 +169,7 @@ Safety of cloud-based controls is critical. aedifion.io offers various, locally 
 
 ### Deployment scenarios
 
-Control algorithms can be operated in different ways. A cloud-operated algorithm uses the Internet to communicate its control decisions or manipulated variables. Contrary, an edge-operated algorithm is executed locally on the aedifion.io edge device within the customer's control system and only requires Internet connectivity to receive commands and updates. An air-gapped deployment is a more classical set up, quite like a local programmable logic controller, but with a more advanced control runtime, offering the possibility to execute more complex controls, including optimizations and simulations.
+Control algorithms can be operated in different ways. A cloud-operated algorithm uses the internet to communicate its control decisions or manipulated variables. Contrary, an edge-operated algorithm is executed locally on the aedifion.io edge device within the customer's control system and only requires Internet connectivity to receive commands and updates. An air-gapped deployment is a more classical set up, quite like a local programmable logic controller, but with a more advanced control runtime, offering the possibility to execute more complex controls, including optimizations and simulations.
 
 {% hint style="success" %}
 aedifion.io runs in cloud, edge, and air-gapped deployments.
