@@ -121,7 +121,7 @@ Examples for virtual datapoints:
 
 ## Data management and structuring
 
-Your building or plant can easily comprise thousands of datapoints and managing these can quickly become a complex task. Thus, aedifion.io offers different methods to manage and structure data such as well as to enrich it with meta data.
+Your building or plant can easily comprise thousands of datapoints and managing these can quickly become a complex task. Thus, aedifion.io offers different methods to manage and structure data as well as to enrich it with meta data.
 
 ### Favorites 
 
@@ -131,9 +131,9 @@ You can flag any datapoint as a favorite, e.g., to mark frequently inspected or 
 
 [Tags](../glossary.md#tag) are small pieces of meta data that are attached to [devices](../glossary.md#device) and [datapoints](../glossary.md#datapoint). Tags are automatically added by aedifion from the collected meta data as well as using artificial intelligence methods. Of course, users can freely add their own tags. Tags can then be used to filter devices and datapoints, to match analysis algorithms, or to build up structured naming schemes such as [Brick](https://brickschema.org/) or [BUDO](https://github.com/RWTH-EBC/BUDO).
 
-### Datapointkeys
+### Datapoint keys
 
-A [datapointkey](../glossary.md#datapointkey) is a datapoint naming schemes that groups alternate for all or some datapoints of a building under a common key. Alternate datapointkeys are required, e.g., to address needs of different datapoint naming schemes such as as [Brick](https://brickschema.org/) or [BUDO](https://github.com/RWTH-EBC/BUDO), logical uniqueness, or simply individual user preferences. 
+A [datapoint key](../glossary.md#datapointkey) is a datapoint naming schemes that groups alternate for all or some datapoints of a building under a common key. Alternate datapointkeys are required, e.g., to address needs of different datapoint naming schemes such as as [Brick](https://brickschema.org/) or [BUDO](https://github.com/RWTH-EBC/BUDO), logical uniqueness, or simply individual user preferences. 
 
 _Learn more? Explore our_ [_tutorials on favorites, tagging, and renaming_](../developers/api-documentation/guides-and-tutorials/tagging.md)_._
 
