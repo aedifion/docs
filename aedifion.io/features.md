@@ -14,7 +14,7 @@ aedifion.io offers plant-, building-, and even district-wide data acquisition fr
 
 | Data source | Example |
 | :--- | :--- |
-| Automation networks | BACnet, Modbus, KNX, M-Bus, LON, OPC UA/DA, ... |
+| Automation networks | BACnet, Modbus, KNX, M-Bus, OPC UA/DA, ... |
 | Databases | Different flavors of SQL and NoSQL, Influx, OpenTSDB, ... |
 | Third party APIs | MS Exchange, weather data and forecasts, ... |
 | User | MQTT stream, file upload, ... |
