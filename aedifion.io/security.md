@@ -81,8 +81,14 @@ Communication on the above listed ports only has to be opened towards a fixed se
   <tbody>
     <tr>
       <td style="text-align:left">22/TCP - SSH</td>
-      <td style="text-align:left">ssh2.aedifion</td>
-      <td style="text-align:left">ssh3.aedifion.io</td>
+      <td style="text-align:left">
+        <p>ssh2.aedifion.io</p>
+        <p>IP: 94.130.225.123</p>
+      </td>
+      <td style="text-align:left">
+        <p>ssh3.aedifion.io</p>
+        <p>IP: 88.99.34.202</p>
+      </td>
     </tr>
     <tr>
       <td style="text-align:left">123/TCP - NTP</td>
@@ -98,11 +104,17 @@ Communication on the above listed ports only has to be opened towards a fixed se
     <tr>
       <td style="text-align:left">443/TCP - HTTPS</td>
       <td style="text-align:left">
-        <p>discovery2.aedifion.io</p>
+        <p>discovery2.aedifion.io
+          <br />IP: 94.130.225.123
+          <br />
+        </p>
         <p>security.ubuntu.com</p>
         <p>archive.ubuntu.com</p>
       </td>
-      <td style="text-align:left">discovery3.aedifion.io</td>
+      <td style="text-align:left">
+        <p>discovery3.aedifion.io</p>
+        <p>IP: 88.99.34.202</p>
+      </td>
     </tr>
     <tr>
       <td style="text-align:left">8884/TCP - MQTTS</td>

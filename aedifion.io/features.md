@@ -51,7 +51,7 @@ aedifion.io offers various ways of data provision, i.e., via a web frontend, via
 
 ### Frontend
 
-The aedifion.io web frontend offers, among other features, search of data and meta data, different means of personalization, various flavors of plots, export of data, plots, and reports, management of users, projects, and permissions, and many more. A major revision with better user experience and even more functionality is scheduled for March 2019.
+The aedifion.io web frontend offers, among other features, search of data and meta data, different means of personalization, various flavors of plots, and export of data. A major revision with better user experience and more functionality is scheduled for mid/end 2019.
 
 _Learn more? Explore the_ [_frontend guide_](frontend-1.md) _or visit our frontend at_ [_www.aedifion.io_](https://www.aedifion.io)_._
 
@@ -75,7 +75,7 @@ _Learn more? Explore the overview of_ [_existing integrations_](integrations.md)
 
 ## Data processing
 
-A growing range of post-processing methods is continuously being built directly into the aedifion.io platform such as down sampling, interpolation, or different general purpose statistical analyses. Beyond the built-in functionality, you can set up custom stream and batch processes and deploy virtual datapoints that run on your project's data.
+A growing range of post-processing methods is continuously being built directly into the aedifion.io platform such as down sampling, interpolation, or different general-purpose statistical analyses. Beyond the built-in functionality, you can set up custom stream and batch processes and deploy virtual datapoints that run on your project's data.
 
 {% hint style="success" %}
 aedifion.io offers data processing in compliance with the German VDI 6041 "Technical Monitoring" and the international ISO 50 001 "Energy Management" standards.
