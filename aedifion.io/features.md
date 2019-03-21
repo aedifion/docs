@@ -81,7 +81,7 @@ A growing range of post-processing methods is continuously being built directly 
 aedifion.io offers data processing in compliance with the German VDI 6041 "Technical Monitoring" and the international ISO 50 001 "Energy Management" standards.
 {% endhint %}
 
-### Stream processing
+### Stream
 
 Stream processes cover use cases such as nominal-actual-comparisons as required in the German VDI 6041 "Technical Monitoring" standard. A stream process runs a calculation of a free-to-choose mathematical relationship on each new event/observation of a referred datapoint. Stream processes relate to one or more datapoints.
 
@@ -93,7 +93,7 @@ Examples for stream processes:
 * System sanity/operation checks: $$\text{actual value} \approx \text{expected value}$$ 
 {% endhint %}
 
-### Batch processing
+### Batch
 
 Batch processes cover more complex calculations and account for the more complex use cases of the ISO 50 001 "Energy Management" standard. A batch process is not operated continuously - like stream processes - but on a certain trigger, e.g., a pre-set time or up on your request. This process can run complex calculation using high-volumes of historical data.
 
@@ -105,7 +105,7 @@ Examples for batch processes:
 * Control loop analysis
 {% endhint %}
 
-### Virtual data points
+### Virtual datapoints
 
 A virtual datapoint is a datapoint not gathered from a local plant but denotes a predefined stream or batch process that runs on one or multiple datapoints. The virtual datapoint makes the output continuously available in the form of a new datapoint in aedifion.io's time series database. 
 
