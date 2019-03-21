@@ -139,9 +139,9 @@ _Learn more? Explore our_ [_tutorials on favorites, tagging, and renaming_](../d
 
 ## Project, user, and permission management
 
-Each customer on aedifion.io is managed within his/her own realm such that data and meta data of that customer are at all times strictly separated from the resources of other customers. Each customer can have multiple projects on aedifion.io which correspond to administrative sub-realms within that company. Users can be freely added to the company and be flexibly assigned to or removed from the company's projects.
+Each customer on aedifion.io is managed within his/her own realm such that data and meta data of that customer are always strictly separated from the resources of other customers. Each customer can have multiple projects on aedifion.io which correspond to administrative sub-realms within that company. Users can be freely added to the company and be flexibly assigned to or removed from the company's projects.
 
-Access to all resources within a company and its projects is strictly controlled through a role based access control \(RBAC\) mechanism which allows flexible and fine-grained rights management, e.g., you can restrict users' access to specific projects, to a subset of API endpoints, or even to single datapoints or tags. The RBAC system allows you to configure aedifion.io to meet your individual data privacy requirements.
+Access to all resources within a company and its projects is strictly controlled through a role-based access control \(RBAC\) mechanism which allows flexible and fine-grained rights management, e.g., you can restrict users' access to specific projects, to a subset of API endpoints, or even to single datapoints or tags. The RBAC system allows you to configure aedifion.io to meet your individual data privacy requirements.
 
 _Learn more? Explore our_ [_administration tutorial_](../developers/api-documentation/guides-and-tutorials/administration.md)_._
 
