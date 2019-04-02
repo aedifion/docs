@@ -10,7 +10,7 @@ Part of the aedifion.io platform is a MQTT broker which serves as the single log
 
 ## MQTT Broker 
 
-aedifion currently maintains three MQTT brokers:
+aedifion currently maintains two MQTT brokers:
 
 * Production
   * Stable broker that receives updates and new features only after an intensive testing phase in our development environment.
