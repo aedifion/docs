@@ -11,14 +11,14 @@ Follow us on [Linkedin](https://www.linkedin.com/company/aedifion/), [Twitter](h
 If you are interested in our products and services or want to cooperate with us, please contact us via mail or phone:
 
 **mail:** info \(at\) aedifion.com  
-**phone:** +49 241 80 49 775
+**phone:** +49 221 98650770
 
 ## Support
 
 If you are already an aedifion customer and require \(technical\) support, please contact us via mail or phone:
 
 **mail:** support \(at\) aedifion.com  
-**phone:** +49 241 80 49 771
+**phone:** +49 221 98650770
 
 ## Jobs
 
