@@ -318,7 +318,7 @@ The postfix matching the `#` can generally have arbitrary length or structure as
 
   Via MQTT, you thus have datapoint-level publish/subscribe access to the datapoints of your building.
 
-  For efficiency reasons, the edge device uses short 4 to 12 characters long base62-encoded hash identifiers generated from the full datapoint names.
+  For efficiency reasons, the edge device uses short 4 to 12 characters long base62-encoded hash identifiers generated from the full datapoint names, for example: `load-balancing-group/project-handle/0OHgK8nP`
 
 * If you ingest data yourself, you can publish to arbitrary postfixes since the `#` wildcard of your topic authorization matches any number of sublevels.
 
@@ -368,6 +368,16 @@ This is known as _Influx Line Protocol_ and specified in detail at \[1\]. We hig
   It must be separated from the `observation` by a single blank.
 
   If your timestamp is in millisecond or microsecond precision you must append 6 or 3 zeros, respectively.
+
+According to the documentation of _Influx Line Protocol_ it is possible to publish multiple datapoints in a single message. You have to separate them by a line brake with \n, for example:
+
+`RoomTemperature,location=office20.32,unit=C value=20.3 1465839830100400200  
+ExtTemperature,location=office20.32,unit=C value=14.7 1465839830100400200  
+RoomTemperature,location=office22.34,unit=C value=22.3 1465839830100400200  
+ExtTemperature,location=office22.34,unit=C value=14.9 1465839830100400200  
+...`
+
+The outcome of this is a small performance gain, the disadvantage is that it is not possible to publish each datapoint to its own topic, as described above.
 
 **Note:** Observations from messages that do not strictly adhere to this format will still be received from the MQTT broker but will not be stored in the aedifion.io platform.
 
