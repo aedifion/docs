@@ -71,7 +71,7 @@ Credentials with limited validity can be created through the aedifion.io [HTTP A
 <table>
   <thead>
     <tr>
-      <th style="text-align:left"><b>Paramater</b>
+      <th style="text-align:left"><b>Parameter</b>
       </th>
       <th style="text-align:center">Datatype</th>
       <th style="text-align:center">Type</th>
@@ -155,7 +155,7 @@ Credentials with limited validity can be created through the aedifion.io [HTTP A
       <td style="text-align:left">A new test account just for reading.</td>
     </tr>
   </tbody>
-</table>Explore our [HTTP API tutorials]() or the [HTTP API developer articles](../api-documentation/) to learn how to build, authenticate, and post a corresponding HTTP request to the `POST /v2/project/{project_id}/mqttuser` endpoint. A successful response looks likes this:
+</table>Explore our [HTTP API tutorials](../api-documentation/guides-and-tutorials/) or the [HTTP API developer articles](../api-documentation/) to learn how to build, authenticate, and post a corresponding HTTP request to the `POST /v2/project/{project_id}/mqttuser` endpoint. A successful response looks likes this:
 
 ```javascript
 {
