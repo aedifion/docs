@@ -4,6 +4,10 @@ description: Writing protocol specifications.
 
 # Writing Protocol
 
+{% hint style="danger" %}
+This document is work-in-progress and due to change.
+{% endhint %}
+
 ## Introduction
 
 ### What is SWOP?
@@ -87,7 +91,6 @@ Currently, SWOP defines the following flows:
 Following flows are in design but not specified yet:
 
 * Schedule Creation Flow
-* Schedule Read Flow
 * Schedule Update Flow
 * Schedule Deletion Flow
 
@@ -103,8 +106,8 @@ The usual flow without any errors proceeds as follows \(square brackets mark opt
 | :--- | :--- | :---: | :--- |
 | 1 |  |  | User provides parameters for write operation. |
 | 2 | Receive `CMD` message. | &lt;--`CMD`-- | Initiate the Setpoint flow with `CMD` message. |
-| 3 | Write the setpoint to the building network. |  |  |
-| \[4\] | Acknowledge success or error of write operation. | --`ACK`--&gt; | Receive `ACK`. |
+| 3 | Write the setpoint. |  |  |
+| \[4\] | Acknowledge success or error. | --`ACK`--&gt; | Receive `ACK`. |
 | \[5\] |  |  | Update internal operation state. |
 
 If the receiver does not require and acknowledgement \(see `CMD` message format below\), Steps 4 and 5 are omitted.
@@ -129,11 +132,12 @@ The protocol defines the following objects:
 
 The protocol defines the following messages:
 
+* Base \(`BASE`\)
 * Command \(`CMD`\)
 * Acknowledgement \(`ACK`\)
 
-#### Setpoint Object
-
+{% tabs %}
+{% tab title="SPT" %}
 The setpoint object contains all information required to write a setpoint. It allows the fields summarized in Table 1.
 
 | Field | Type | Required | Comment |
@@ -178,12 +182,9 @@ _Explanation of object attributes:_
 ```
 
 **Example 1:** A setpoint object.
+{% endtab %}
 
-* The field `type` identifies this message as a command, an acknowledgement, or an error message.
-* The field `protocol_version` specifies the used version of SWOP. This caters to later versions of the protocol that may not be backwards compatible.
-
-#### Base Message
-
+{% tab title="BASE" %}
 The Base Message defines common fields for _all_ messages that are actually send during runs of the SWOP protocol. It should be thought of as an abstract base class for all other message types. Table 2 summarizes its defined fields:
 
 | Field | Type | Required | Comment |
@@ -197,7 +198,9 @@ _Explanation of message fields:_
 
 * The field `type` identifies this message as a command, an acknowledgement, or an error message.
 * The field `protocol_version` specifies the used version of SWOP. This caters to later versions of the protocol that may not be backwards compatible.
+{% endtab %}
 
+{% tab title="CMD" %}
 #### Command Message \(extends Base Message\)
 
 A `CMD` message conveys a command from the API to the edge device. A command encapsulates a setpoint \(i.e., the details of what to write\) in an envelope that contains further context \(i.e., the details of how to write\). A `CMD` message may / must provide the fields summarized in Table 2.
@@ -249,7 +252,9 @@ It is up to the edge- or API-side implementation of the SWOP protocol to set def
 ```
 
 **Example 2:** A Command message for a new setpoint.
+{% endtab %}
 
+{% tab title="ACK" %}
 #### Acknowledgement Message
 
 The `ACK` message conveys an acknowledgement of success or error from the receiver of a write operation to the issuer. An acknowledgement may / must provide the fields summarized in Table 4.
@@ -317,6 +322,8 @@ _**Explanation of message fields:**_
 ```
 
 **Example 4:** An Acknowledgement message for a successful setpoint write operation.
+{% endtab %}
+{% endtabs %}
 
 ## Message Transport
 
@@ -324,11 +331,15 @@ This section defines how the SWOP protocol is transported between issuer and rec
 
 ### Via HTTP
 
+{% hint style="warning" %}
 TODO
+{% endhint %}
 
 ### Via MQTT
 
+{% hint style="warning" %}
 TODO
+{% endhint %}
 
 ## Limitations
 
