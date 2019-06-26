@@ -129,7 +129,7 @@ In this section, we first add a demo project, then modify its details, and final
 
 ### Adding projects
 
-Projects are created through the `POST /v2/project` API endpoint. You need to supply the details of the new project in [JSON-format](https://www.json.org/) in the body of this request. The JSON should contain the following name/value-pairs:
+Projects are created through the `POST /v2/company/project` API endpoint by a user with a company-role. You need to supply the details of the new project in [JSON-format](https://www.json.org/) in the body of this request. The JSON should contain the following name/value-pairs:
 
 | Parameter | Datatype | Type | Required | Description | Example |
 | :--- | :---: | :---: | :---: | :--- | :--- |
@@ -418,7 +418,7 @@ The flow for managing users is mostly the same as for [managing projects](admini
 
 ### Adding users
 
-New users are created through the `POST /v2/user` API endpoint. As usual, you need to supply the details of the new user in [JSON-format](https://www.json.org/) in the body of this request. The JSON should contain the following name/value-pairs:
+New users are created by user with company-roles through the `POST /v2/company/user` API endpoint. As usual, you need to supply the details of the new user in [JSON-format](https://www.json.org/) in the body of this request. The JSON should contain the following name/value-pairs:
 
 <table>
   <thead>
