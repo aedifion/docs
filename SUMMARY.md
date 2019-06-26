@@ -31,6 +31,7 @@
   * [Guides and tutorials](developers/mqtt-api/guides-and-tutorials/README.md)
     * [Publishers](developers/mqtt-api/guides-and-tutorials/publishers.md)
     * [Websockets](developers/mqtt-api/guides-and-tutorials/websockets.md)
+* [Writing Protocol](developers/writing-protocol.md)
 
 ## Engineers
 
