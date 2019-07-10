@@ -133,7 +133,6 @@ Projects are created through the `POST /v2/company/project` API endpoint by a us
 
 | Parameter | Datatype | Type | Required | Description | Example |
 | :--- | :---: | :---: | :---: | :--- | :--- |
-| **company\_id** | integer | body \(JSON\) | yes | The numeric id of the company the  new project is added to. | 1 |
 | **name** | string | body \(JSON\) | yes | The name of the project. | simu\_01 |
 | **description** | string | body \(JSON\) | no | An optional free text description of this project, e.g., something to help others understand what this project is about. | My first simulation project. |
 
@@ -141,7 +140,6 @@ This information must be encoded as a [valid JSON](https://jsonlint.com/):
 
 ```javascript
 {
-	"company_id":1,
 	"name": "simu_01",
 	"description": "My first simulation project."
 }
@@ -153,11 +151,10 @@ You can write this JSON by hand, use an [editor](https://jsoneditoronline.org/),
 {% tab title="Python" %}
 ```python
 new_project =  {
-	"company_id":1,
 	"name": "simu_01",
 	"description": "My first simulation project."
 }
-r = requests.post(f"{api_url}/v2/project", 
+r = requests.post(f"{api_url}/v2/company/project", 
 	              auth=auth, json=new_project)
 ```
 
