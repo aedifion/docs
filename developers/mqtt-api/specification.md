@@ -222,9 +222,22 @@ After the MQTT account expires it will be automatically removed. You can either 
         <p>body</p>
         <p>(JSON)</p>
       </td>
-      <td style="text-align:center">yes</td>
+      <td style="text-align:center">no</td>
       <td style="text-align:left">The changed password for the given MQTT user account.</td>
       <td style="text-align:left">ch4ng3dp4ssw0rd</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>rights</b>
+      </td>
+      <td style="text-align:center">string</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">The changed read or write permissions to this account. Note that write
+        permission imply read permissions.</td>
+      <td style="text-align:left">read</td>
     </tr>
     <tr>
       <td style="text-align:left"><b>validity</b>
