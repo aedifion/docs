@@ -28,7 +28,7 @@ Many of our existing customers concerns were settled once they had understood ex
 
 ### Hardware
 
-The [aedifion edge device](gateway.md) is a small industrial PC hardened against splash water, extreme temperatures, vibrations, shocks, etc. It can be mounted on standard DIN rails. The edge device has been designed, assembled, and approved according to German standards. We currently use the following hardware:
+The [aedifion edge device](../gateway.md) is a small industrial PC hardened against splash water, extreme temperatures, vibrations, shocks, etc. It can be mounted on standard DIN rails. The edge device has been designed, assembled, and approved according to German standards. We currently use the following hardware:
 
 * [Spectra Powerbox 3000 - Series](https://www.spectra.de/files/produkte/KA001477/web/spectra/Datasheet-Spectra-PowerBox-3000_Series.pdf)
 * [Logic Supply CL210](http://static.logicsupply.com/resources/spec-sheets/logic-supply-cl200-series-spec-sheet-120618.pdf)
@@ -141,7 +141,7 @@ On demand, aedifion stores and processes your data on dedicated servers thereby 
 
 All our servers and services are authenticated using standard X.509 certificates issued by Let's Encrypt that are renewed each quarter. As of January 2019, Let's Encrypt has a market share of more than 50%.
 
-![Our certification chain](../.gitbook/assets/bildschirmfoto-2019-01-22-um-16.39.08.png)
+![Our certification chain](../../.gitbook/assets/bildschirmfoto-2019-01-22-um-16.39.08.png)
 
 ### Service availability
 
@@ -169,7 +169,7 @@ Access can be controlled down to the granularity of allowing read or write acces
 
 We are convinced that digitization, and, in particular, the use of cloud and IoT technology, are key to enable and implement resource-conserving, energy-efficient, and user-expanding solutions. In this process, security and data protection are not _nice-to-have,_ but a non-negotiable requirement that must be addressed and built into the design of IT systems right from the start.
 
-That is why aedifion commits to permanently guarantee highest security and data protection standards.  If at any time there is any uncertainty about the function of our services, the guarantee of security and data protection, you are welcome to [contact](../contact.md) us with your questions at any time. 
+That is why aedifion commits to permanently guarantee highest security and data protection standards.  If at any time there is any uncertainty about the function of our services, the guarantee of security and data protection, you are welcome to [contact](../../contact.md) us with your questions at any time. 
 
 And, we are willing to walk the talk: aedifion is currently in the process of obtaining TÜV certification for the aedifion.io platform.
 

@@ -22,7 +22,7 @@ The edge device offers multi-core computation power accounting for divers edge s
 
 \_\_
 
-_Learn more? Go through the_ [_security section_ ](security.md)_for further information on how we approach IT security and take a look at the_ [_edge device subpage for system integrators and IT admins_](../system-integrators-and-it-admins/it-admins.md)_._ 
+_Learn more? Go through the_ [_security section_ ](security/)_for further information on how we approach IT security and take a look at the_ [_edge device subpage for system integrators and IT admins_](../system-integrators-and-it-admins/it-admins.md)_._ 
 
 \_\_
 

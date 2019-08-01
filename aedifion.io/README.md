@@ -44,7 +44,7 @@ Within the next sub pages, you will find more in-depth information about the dif
 * [Frontend](frontend-1.md) introduced introduces the main platform HMI.
 * [Data](data/) explains the main specifications of used data models.
 * [Integrations](integrations.md) describes integrations to aedifion.io
-* [Security ](security.md)discusses aedifion's approaches to deliver high ICT security.
+* [Security ](security/)discusses aedifion's approaches to deliver high ICT security.
 
 
 
