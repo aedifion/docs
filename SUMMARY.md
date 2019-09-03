@@ -9,6 +9,7 @@
   * [Data](aedifion.io/data/README.md)
     * [AI meta data generation](aedifion.io/data/ai-meta-data-generation.md)
   * [Integrations](aedifion.io/integrations.md)
+  * [Basic control functionalities](aedifion.io/basic-control-functionalities.md)
   * [Security](aedifion.io/security/README.md)
     * [Two factor authentication](aedifion.io/security/two-factor-authentication.md)
 * [aedifion.analytics](aedifion.analytics.md)
