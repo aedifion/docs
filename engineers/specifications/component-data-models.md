@@ -20,7 +20,7 @@ description: >-
 Hints for a smooth application of [component data models](../../glossary.md#component-data-model) and their mapping.
 
 * **1-to-n mapping:** One [datapoint](../../glossary.md#datapoint) can be mapped to several [instantiated components](../../glossary.md#instanced-component) to allow data models of different granularity.
-* **Unit sensitivity:** To this state, our algorithms are unit sensitive. Every [pin ](../../glossary.md#pin)and [attribute ](../../glossary.md#attribute)is specified with an unit. Note the specifications.
+* **Unit sensitivity:** To this state, our algorithms are unit sensitive. Every [pin ](../../glossary.md#pin)and [attribute ](../../glossary.md#attribute)is specified with an unit. Mind the specifications.
 
 {% hint style="danger" %}
 If unit conventions are disregarded, this can lead to errors and even misleading results of algorithms.
@@ -28,7 +28,7 @@ If unit conventions are disregarded, this can lead to errors and even misleading
 
 * **Incomplete mapping:** [Pins ](../../glossary.md#pin)and [attributes](../../glossary.md#attribute), are placeholders which might or might not be [mapped ](../../glossary.md#mapping)to data. Algorithms will work on incomplete mapped components, they require mapping for specific placeholders though. Check the [algorithm documentation](analytics.md) for required mappings.
 
-## Example
+## Example Component
 
 This example leads through our description of [component data models](../../glossary.md#component-data-model) by providing exemplary values and descriptions. The first paragraph of a component data model provides information regarding the component and the data model itself, special features, exceptions and so forth.
 
@@ -36,11 +36,11 @@ This example leads through our description of [component data models](../../glos
 {% tab title="Component Identifier" %}
 ### example\_component
 
-The **Component Identifier** is the string identifier of the component. It is used as input parameter for some endpoints \([example endpoint](https://api.aedifion.io/ui/#!/Analytics/get_component_analysisfunctions)\).
+_The **Component Identifier** is the string identifier of the component. It is used as input parameter for some endpoints \(_[_example endpoint_](https://api.aedifion.io/ui/#!/Analytics/get_component_analysisfunctions)_\)._
 {% endtab %}
 
 {% tab title="Pins" %}
-The pin table lists basic information on each pin of the component.
+_The **Pins** table lists basic information on each pin of the component._
 
 {% hint style="danger" %}
  **Mind the units.**
@@ -53,7 +53,11 @@ The pin table lists basic information on each pin of the component.
 {% endtab %}
 
 {% tab title="Attributes" %}
-The attributes table lists basic information on each attribute of the component. **Mind the unit.**
+_The **Attributes** table lists basic information on each attribute of the component._
+
+{% hint style="danger" %}
+Mind the units.
+{% endhint %}
 
 | Name | Info | Unit |
 | :--- | :--- | :--- |
@@ -62,13 +66,15 @@ The attributes table lists basic information on each attribute of the component.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-The **Available Functions** tab provide a list of functions available for the component data model. For more information click the regarding function. 
+_The **Available Functions** tab provide a list of functions available for the component data model. For more information click the regarding function._
 
-### [Example Function](analytics.md#example)
+### [Example Function](analytics.md#example-analysis)
 
 Exemplary specification of the function, if applied to this component.
 
-### Another Example Function
+
+
+### [Another Example Function](analytics.md#example-analysis)
 
 Exemplary specification of the function, if applied to this component.
 {% endtab %}
@@ -185,6 +191,8 @@ No attributes defined for this component data model.
 ### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
+
+
 
 ### [Schedule Analysis](analytics.md#schedule-analysis)
 
@@ -304,6 +312,8 @@ No attributes defined for this component data model.
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
 
+
+
 ### [Schedule Analysis](analytics.md#schedule-analysis)
 
 Checks if plant is operated according to a provided schedule.
@@ -421,6 +431,8 @@ No attributes defined for this component data model.
 ### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
+
+
 
 ### [Schedule Analysis](analytics.md#schedule-analysis)
 
@@ -550,6 +562,8 @@ No attributes defined for this component data model.
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
 
+
+
 ### [Schedule Analysis](analytics.md#schedule-analysis)
 
 Checks if plant is operated according to a provided schedule.
@@ -634,6 +648,8 @@ No attributes defined for this component data model.
 ### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
+
+
 
 ### [Schedule Analysis](analytics.md#schedule-analysis)
 
@@ -762,6 +778,8 @@ No attributes defined for this component data model.
 ### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
+
+
 
 ### [Schedule Analysis](analytics.md#schedule-analysis)
 
