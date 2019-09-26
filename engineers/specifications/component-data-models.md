@@ -8,29 +8,29 @@ description: >-
 
 ## Available component data models
 
-* [Boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#boiler)
-  * [Condensing Boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#condensing-boiler)
-  * [Low-Temperature Boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#low-temperature-boiler)
-* [Combined Heat and Power](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#combined-heat-and-power)
-* [Fan](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#fan)
+* [Boiler](component-data-models.md#boiler)
+  * [Condensing Boiler](component-data-models.md#condensing-boiler)
+  * [Low-Temperature Boiler](component-data-models.md#low-temperature-boiler)
+* [Combined Heat and Power](component-data-models.md#combined-heat-and-power)
+* [Fan](component-data-models.md#heat-pump)
 * [Heat Pump](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)
 
 ## Application notes
 
-Hints for a smooth application of [component data models](https://docs.aedifion.io/docs/glossary#component-data-model) and their mapping.
+Hints for a smooth application of [component data models](../../glossary.md#component-data-model) and their mapping.
 
-* **1-to-n mapping:** One [datapoint](https://docs.aedifion.io/docs/glossary#datapoint) can be mapped to several [instantiated components](https://docs.aedifion.io/docs/glossary#instanced-component) to allow data models of different granularity.
-* **Unit sensitivity:** To this state, our algorithms are unit sensitive. Every [pin ](https://docs.aedifion.io/docs/glossary#pin)and attribute is specified with an unit. Note the specifications.
+* **1-to-n mapping:** One [datapoint](../../glossary.md#datapoint) can be mapped to several [instantiated components](../../glossary.md#instanced-component) to allow data models of different granularity.
+* **Unit sensitivity:** To this state, our algorithms are unit sensitive. Every [pin ](../../glossary.md#pin)and [attribute ](../../glossary.md#attribute)is specified with an unit. Note the specifications.
 
 {% hint style="danger" %}
 If unit conventions are disregarded, this can lead to errors and even misleading results of algorithms.
 {% endhint %}
 
-* **Incomplete mapping:** [Pins ](https://docs.aedifion.io/docs/glossary#pin)and attributes, are placeholders which might or might not be [mapped ](https://docs.aedifion.io/docs/glossary#mapping)to data. Algorithms will work on incomplete mapped components, they require mapping for specific placeholders though. Check the [algorithm documentation](https://docs.aedifion.io/docs/engineers/specifications/analytics) for required mappings.
+* **Incomplete mapping:** [Pins ](../../glossary.md#pin)and [attributes](../../glossary.md#attribute), are placeholders which might or might not be [mapped ](../../glossary.md#mapping)to data. Algorithms will work on incomplete mapped components, they require mapping for specific placeholders though. Check the [algorithm documentation](analytics.md) for required mappings.
 
 ## Example
 
-This example leads through our description of [component data models](https://docs.aedifion.io/docs/glossary#component-data-model) by providing exemplary values and descriptions. The first paragraph of a component data model provides information regarding the component and the data model itself, special features, exceptions and so forth.
+This example leads through our description of [component data models](../../glossary.md#component-data-model) by providing exemplary values and descriptions. The first paragraph of a component data model provides information regarding the component and the data model itself, special features, exceptions and so forth.
 
 {% tabs %}
 {% tab title="Component Identifier" %}
@@ -64,7 +64,7 @@ The attributes table lists basic information on each attribute of the component.
 {% tab title="Available Functions" %}
 The **Available Functions** tab provide a list of functions available for the component data model. For more information click the regarding function. 
 
-### [Example Function](https://docs.aedifion.io/docs/engineers/specifications/analytics#example)
+### [Example Function](analytics.md#example)
 
 Exemplary specification of the function, if applied to this component.
 
@@ -76,7 +76,7 @@ Exemplary specification of the function, if applied to this component.
 
 ## Boiler
 
-The **Boiler** is the basic model of the heat conversion plant boiler. Further component data models like the [Condensing Boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#condensing-boiler) and [Low-Temperature Boiler ](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#low-temperature-boiler)inherit this component_._ Boilers __burn fuels like oil, natural gas, pallets etc. to heat up a heat carrier fluid \(water in general\).
+The **Boiler** is the basic model of the heat conversion plant boiler. Further component data models like the [Condensing Boiler](component-data-models.md#condensing-boiler) and [Low-Temperature Boiler ](component-data-models.md#low-temperature-boiler)inherit this component_._ Boilers __burn fuels like oil, natural gas, pallets etc. to heat up a heat carrier fluid \(water in general\).
 
 {% tabs %}
 {% tab title="Component Identifier" %}
@@ -182,11 +182,11 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### [Operating Cycle Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#operating-cycle-analysis)
+### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
 
-### [Schedule Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#schedule-analysis)
+### [Schedule Analysis](analytics.md#schedule-analysis)
 
 Checks if plant is operated according to a provided schedule.
 {% endtab %}
@@ -194,7 +194,7 @@ Checks if plant is operated according to a provided schedule.
 
 ### Condensing Boiler
 
-The **Condensing Boiler** is a specific type of [boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#boiler). One of the flue gas components of fuel combustion is gaseous water. A condensing boiler liquefies the water from the flue gases. The condensate heat released is used to heat the heat carrier fluid.
+The **Condensing Boiler** is a specific type of [boiler](component-data-models.md#boiler). One of the flue gas components of fuel combustion is gaseous water. A condensing boiler liquefies the water from the flue gases. The condensate heat released is used to heat the heat carrier fluid.
 
 {% tabs %}
 {% tab title="Component Identifier" %}
@@ -300,11 +300,11 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### [Operating Cycle Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#operating-cycle-analysis)
+### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
 
-### [Schedule Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#schedule-analysis)
+### [Schedule Analysis](analytics.md#schedule-analysis)
 
 Checks if plant is operated according to a provided schedule.
 {% endtab %}
@@ -312,7 +312,7 @@ Checks if plant is operated according to a provided schedule.
 
 ### Low-Temperature Boiler
 
-The **Low-Temperature Boiler** is a specific type of [boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#boiler). It is defined by the low temperature level of the supply temperature output provided by the boiler.
+The **Low-Temperature Boiler** is a specific type of [boiler](component-data-models.md#boiler). It is defined by the low temperature level of the supply temperature output provided by the boiler.
 
 {% tabs %}
 {% tab title="Component Identifier" %}
@@ -418,11 +418,11 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### [Operating Cycle Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#operating-cycle-analysis)
+### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
 
-### [Schedule Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#schedule-analysis)
+### [Schedule Analysis](analytics.md#schedule-analysis)
 
 Checks if plant is operated according to a provided schedule.
 {% endtab %}
@@ -546,11 +546,11 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### [Operating Cycle Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#operating-cycle-analysis)
+### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
 
-### [Schedule Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#schedule-analysis)
+### [Schedule Analysis](analytics.md#schedule-analysis)
 
 Checks if plant is operated according to a provided schedule.
 {% endtab %}
@@ -631,11 +631,11 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### [Operating Cycle Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#operating-cycle-analysis)
+### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
 
-### [Schedule Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#schedule-analysis)
+### [Schedule Analysis](analytics.md#schedule-analysis)
 
 Checks if plant is operated according to a provided schedule.
 {% endtab %}
@@ -759,11 +759,11 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### [Operating Cycle Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#operating-cycle-analysis)
+### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
 
-### [Schedule Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#schedule-analysis)
+### [Schedule Analysis](analytics.md#schedule-analysis)
 
 Checks if plant is operated according to a provided schedule.
 {% endtab %}
@@ -771,5 +771,5 @@ Checks if plant is operated according to a provided schedule.
 
 ## Information
 
-The library of component data models is constantly expanded. If you are missing a component data model, or want us to implement it for you, feel free to [contact us](https://docs.aedifion.io/docs/~/drafts/-L_HZNFlbsllp3SXA5Xn/primary/contact).
+The library of component data models is constantly expanded. If you are missing a component data model, or want us to implement it for you, feel free to [contact us](../../contact.md#support).
 

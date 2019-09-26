@@ -8,6 +8,10 @@ description: Terminology used throughout this documentation sorted alphabeticall
 
 An analysis function is a generic function to determine a specific analysis output. An analysis function takes arbitrary many [pins ](glossary.md#pin)of a component data model and variable time spans as inputs. An analysis function can be designed for a specific component or be applicable on several components.
 
+### Attribute
+
+An attribute is a generic placeholder for meta data[ ](glossary.md#datapoint)of a [component data model](glossary.md#component-data-model). An attribute is used to [map](glossary.md#mapping) a meta data value to an [instanced component ](glossary.md#instanced-component)within a specific [project](glossary.md#project). Attributes are designed in analogy to [tags](glossary.md#tag).
+
 ### Automation network
 
 The automation network locally connects different [devices](glossary.md#device) within a [building](glossary.md#building) or [plant](glossary.md#plant). In most cases, the automation network is a dedicated physical wired network such as an Ethernet but can also be wireless or virtual. 
@@ -46,7 +50,7 @@ An instanced component is a [component data model](glossary.md#component-data-mo
 
 ### Mapping
 
-Mapping is the process of individualizing an [instanced component](glossary.md#instanced-component). It includes the linking of a [datapoint ](glossary.md#datapoint)and thus its [time series](glossary.md#time-series) of a [project ](glossary.md#project)with a [pin ](glossary.md#pin)and parametrizing meta data [tags](glossary.md#tag).
+Mapping is the process of individualizing an [instanced component](glossary.md#instanced-component). It includes the linking of a [datapoint ](glossary.md#datapoint)and thus its [time series](glossary.md#time-series) of a [project ](glossary.md#project)with a [pin ](glossary.md#pin)and parametrizing [attributes ](glossary.md#attribute)with meta data .
 
 ### Measurement
 
