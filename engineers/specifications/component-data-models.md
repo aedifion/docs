@@ -64,7 +64,7 @@ The attributes table lists basic information on each attribute of the component.
 {% tab title="Available Functions" %}
 The **Available Functions** tab provide a list of functions available for the component data model. For more information click the regarding function. 
 
-### Example Function
+### [Example Function](https://docs.aedifion.io/docs/engineers/specifications/analytics#example)
 
 Exemplary specification of the function, if applied to this component.
 
@@ -182,9 +182,13 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### Operating Cycle Analysis
+### [Operating Cycle Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#operating-cycle-analysis)
 
-### Schedule Analysis
+Checks for appropriate cycle behavior and provides recommendation on how to improve.
+
+### [Schedule Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#schedule-analysis)
+
+Checks if plant is operated according to a provided schedule.
 {% endtab %}
 {% endtabs %}
 
@@ -296,9 +300,13 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### Operating Cycle Analysis
+### [Operating Cycle Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#operating-cycle-analysis)
 
-### Schedule Analysis
+Checks for appropriate cycle behavior and provides recommendation on how to improve.
+
+### [Schedule Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#schedule-analysis)
+
+Checks if plant is operated according to a provided schedule.
 {% endtab %}
 {% endtabs %}
 
@@ -410,9 +418,13 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### Operating Cycle Analysis
+### [Operating Cycle Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#operating-cycle-analysis)
 
-### Schedule Analysis
+Checks for appropriate cycle behavior and provides recommendation on how to improve.
+
+### [Schedule Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#schedule-analysis)
+
+Checks if plant is operated according to a provided schedule.
 {% endtab %}
 {% endtabs %}
 
@@ -534,9 +546,13 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### Operating Cycle Analysis
+### [Operating Cycle Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#operating-cycle-analysis)
 
-### Schedule Analysis
+Checks for appropriate cycle behavior and provides recommendation on how to improve.
+
+### [Schedule Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#schedule-analysis)
+
+Checks if plant is operated according to a provided schedule.
 {% endtab %}
 {% endtabs %}
 
@@ -615,9 +631,13 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### Operating Cycle Analysis
+### [Operating Cycle Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#operating-cycle-analysis)
 
-### Schedule Analysis
+Checks for appropriate cycle behavior and provides recommendation on how to improve.
+
+### [Schedule Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#schedule-analysis)
+
+Checks if plant is operated according to a provided schedule.
 {% endtab %}
 {% endtabs %}
 
@@ -739,9 +759,17 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### Operating Cycle Analysis
+### [Operating Cycle Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#operating-cycle-analysis)
 
-### Schedule Analysis
+Checks for appropriate cycle behavior and provides recommendation on how to improve.
+
+### [Schedule Analysis](https://docs.aedifion.io/docs/engineers/specifications/analytics#schedule-analysis)
+
+Checks if plant is operated according to a provided schedule.
 {% endtab %}
 {% endtabs %}
+
+## Information
+
+The library of component data models is constantly expanded. If you are missing a component data model, or want us to implement it for you, feel free to [contact us](https://docs.aedifion.io/docs/~/drafts/-L_HZNFlbsllp3SXA5Xn/primary/contact).
 

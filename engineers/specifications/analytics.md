@@ -10,8 +10,8 @@ Currently under construction 🚧
 
 ## Available analysis functions
 
-* **Operating Cycle Analysis**
-* **Schedule Analysis**
+* \*\*\*\*[**Operating Cycle Analysis**](https://docs.aedifion.io/docs/engineers/specifications/analytics#operating-cycle-analysis)\*\*\*\*
+* \*\*\*\*[**Schedule Analysis**](https://docs.aedifion.io/docs/engineers/specifications/analytics#schedule-analysis)\*\*\*\*
 
 ## Application notes
 
@@ -25,5 +25,5 @@ This example leads through our description of analytics functions by providing e
 
 ## Information
 
-The libraries of component data models and analytics functions are constantly expanded. If you are missing a component and/or analytics function or wish to implement your own functions or want us to implement it, feel free to [contact us](https://docs.aedifion.io/docs/~/drafts/-L_HZNFlbsllp3SXA5Xn/primary/contact).
+The library of analytics functions is constantly expanded. If you are missing an analytics function, wish to implement your own functions, or want us to implement it for you, feel free to [contact us](https://docs.aedifion.io/docs/~/drafts/-L_HZNFlbsllp3SXA5Xn/primary/contact).
 
