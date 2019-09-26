@@ -558,7 +558,7 @@ Checks if plant is operated according to a provided schedule.
 
 ## Fan
 
-The **Fan** component data model represents various forms of fans.
+The **Fan** component data model represents various kinds of fans.
 
 {% tabs %}
 {% tab title="Component Identifier" %}
