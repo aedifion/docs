@@ -2,12 +2,12 @@
 
 ## Available component data models
 
-* Boiler
-  * Condensing Boiler
-  * Low-Temperature Boiler
-* Combined Heat and Power
-* Fan
-* Heat Pump
+* [Boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#boiler)
+  * [Condensing Boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#condensing-boiler)
+  * [Low-Temperature Boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#low-temperature-boiler)
+* [Combined Heat and Power](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#combined-heat-and-power)
+* [Fan](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#fan)
+* [Heat Pump](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)
 
 ## Application notes
 
@@ -70,7 +70,7 @@ Exemplary specification of the function, if applied to this component.
 
 ## Boiler
 
-The **Boiler** is the basic model of the heat conversion plant boiler. Further component data models like the _Condensing Boiler_ and _Low-Temperature Boiler_ inherit this component_._ Boilers __burn fuels like oil, natural gas, pallets etc. to heat up a heat carrier fluid \(water in general\).
+The **Boiler** is the basic model of the heat conversion plant boiler. Further component data models like the [Condensing Boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#condensing-boiler) and [Low-Temperature Boiler ](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#low-temperature-boiler)inherit this component_._ Boilers __burn fuels like oil, natural gas, pallets etc. to heat up a heat carrier fluid \(water in general\).
 
 {% tabs %}
 {% tab title="Component Identifier" %}
@@ -184,7 +184,7 @@ No attributes defined for this component data model.
 
 ### Condensing Boiler
 
-The **Condensing Boiler** is a specific type of &lt;boiler&gt;. One of the flue gas components of fuel combustion is gaseous water. A condensing boiler liquefies the water from the flue gases. The condensate heat released is used to heat the heat carrier fluid.
+The **Condensing Boiler** is a specific type of [boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#boiler). One of the flue gas components of fuel combustion is gaseous water. A condensing boiler liquefies the water from the flue gases. The condensate heat released is used to heat the heat carrier fluid.
 
 {% tabs %}
 {% tab title="Component Identifier" %}
@@ -298,7 +298,7 @@ No attributes defined for this component data model.
 
 ### Low-Temperature Boiler
 
-The **Low-Temperature Boiler** is a specific type of &lt;boiler&gt;. It is defined by the low temperature level of the supply temperature output provided by the boiler.
+The **Low-Temperature Boiler** is a specific type of [boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#boiler). It is defined by the low temperature level of the supply temperature output provided by the boiler.
 
 {% tabs %}
 {% tab title="Component Identifier" %}
@@ -614,8 +614,6 @@ No attributes defined for this component data model.
 ### Schedule Analysis
 {% endtab %}
 {% endtabs %}
-
-
 
 ## Heat Pump
 
