@@ -7,6 +7,7 @@
   * [APIs](aedifion.io/apis.md)
   * [Frontend](aedifion.io/frontend-1.md)
   * [Data](aedifion.io/data/README.md)
+    * [Semantic data model](aedifion.io/data/semantic-data-model.md)
     * [AI meta data generation](aedifion.io/data/ai-meta-data-generation.md)
   * [Integrations](aedifion.io/integrations.md)
   * [Basic control functionalities](aedifion.io/basic-control-functionalities.md)
@@ -38,10 +39,11 @@
 ## Engineers
 
 * [Specifications](engineers/specifications/README.md)
-  * [Artificial intelligence](engineers/specifications/artificial-intelligence.md)
-  * [Weather data](engineers/specifications/weather-data.md)
   * [Analytics](engineers/specifications/analytics.md)
+  * [Artificial intelligence](engineers/specifications/artificial-intelligence.md)
+  * [Component data models](engineers/specifications/component-data-models.md)
   * [Controls](engineers/specifications/controls.md)
+  * [Weather data](engineers/specifications/weather-data.md)
 
 ## System integrators and IT admins
 
