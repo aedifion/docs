@@ -1,3 +1,9 @@
+---
+description: >-
+  Detailed specification of available component data models and their
+  application.
+---
+
 # Component data models
 
 ## Available component data models
