@@ -14,6 +14,7 @@ description: >-
 * [Combined Heat and Power](component-data-models.md#combined-heat-and-power)
 * [Fan](component-data-models.md#heat-pump)
 * [Heat Pump](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)
+* [Thermal Control Loop](component-data-models.md#thermal-control-loop)
 
 ## Application notes
 
@@ -55,26 +56,38 @@ _The **Pins** table lists basic information on each pin of the component._
 {% tab title="Attributes" %}
 _The **Attributes** table lists basic information on each attribute of the component._
 
+_The **Key** parameter is the string identifier of the attribute used for our API._
+
+_The **Type** parameter is the value type expected, e.g. float, string, json, etc._
+
+_The **Unit** parameter is the unit of the value expected._
+
 {% hint style="danger" %}
 Mind the units.
 {% endhint %}
 
-| Name | Info | Unit |
+## Example Attribute
+
+Attributes are starting with a short description.
+
+| Key | Type | Unit |
 | :--- | :--- | :--- |
-| example attribute | Placeholder for any information on the requested meta data. | kW |
+| example\_attribute | float or integer | kW |
 | ... | ... | ... |
+
+## Another Example Attribute
+
+...
 {% endtab %}
 
 {% tab title="Available Functions" %}
 _The **Available Functions** tab provide a list of functions available for the component data model. For more information click the regarding function._
 
-### [Example Function](analytics.md#example-analysis)
+## [Example Function](analytics.md#example-analysis)
 
 Exemplary specification of the function, if applied to this component.
 
-
-
-### [Another Example Function](analytics.md#example-analysis)
+## [Another Example Function](analytics.md#example-analysis)
 
 Exemplary specification of the function, if applied to this component.
 {% endtab %}
@@ -188,13 +201,11 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
+## [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
 
-
-
-### [Schedule Analysis](analytics.md#schedule-analysis)
+## [Schedule Analysis](analytics.md#schedule-analysis)
 
 Checks if plant is operated according to a provided schedule.
 {% endtab %}
@@ -308,13 +319,11 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
+## [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
 
-
-
-### [Schedule Analysis](analytics.md#schedule-analysis)
+## [Schedule Analysis](analytics.md#schedule-analysis)
 
 Checks if plant is operated according to a provided schedule.
 {% endtab %}
@@ -428,13 +437,11 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
+## [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
 
-
-
-### [Schedule Analysis](analytics.md#schedule-analysis)
+## [Schedule Analysis](analytics.md#schedule-analysis)
 
 Checks if plant is operated according to a provided schedule.
 {% endtab %}
@@ -558,13 +565,11 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
+## [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
 
-
-
-### [Schedule Analysis](analytics.md#schedule-analysis)
+## [Schedule Analysis](analytics.md#schedule-analysis)
 
 Checks if plant is operated according to a provided schedule.
 {% endtab %}
@@ -645,13 +650,11 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
+## [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
 
-
-
-### [Schedule Analysis](analytics.md#schedule-analysis)
+## [Schedule Analysis](analytics.md#schedule-analysis)
 
 Checks if plant is operated according to a provided schedule.
 {% endtab %}
@@ -775,15 +778,210 @@ No attributes defined for this component data model.
 {% endtab %}
 
 {% tab title="Available Functions" %}
-### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
+## [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 Checks for appropriate cycle behavior and provides recommendation on how to improve.
 
 
 
-### [Schedule Analysis](analytics.md#schedule-analysis)
+## [Schedule Analysis](analytics.md#schedule-analysis)
 
 Checks if plant is operated according to a provided schedule.
+{% endtab %}
+{% endtabs %}
+
+## Thermal Control Loop
+
+The **Thermal Control Loop** component data model is representative for thermal control loops. It is not agnostic of its controller output like valve position or pump revolution speed.
+
+{% tabs %}
+{% tab title="Component Identifier" %}
+### thermal\_control\_loop
+{% endtab %}
+
+{% tab title="Pins" %}
+{% hint style="danger" %}
+Mind the units.
+{% endhint %}
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Name</th>
+      <th style="text-align:left">Info</th>
+      <th style="text-align:left">Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">heat flow</td>
+      <td style="text-align:left">Thermal power transferred to consumer circuit.</td>
+      <td style="text-align:left">kW</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">heat meter</td>
+      <td style="text-align:left">Thermal energy transferred to consumer circuit. Cumulating counter.</td>
+      <td
+      style="text-align:left">kWh</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">inlet temperature</td>
+      <td style="text-align:left">Temperature of heat carrier fluid (water, brine) entering the control
+        loop. Also referred to as <b>uncontrolled supply temperature</b> of the control
+        loop.</td>
+      <td style="text-align:left">&#xB0;C</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">
+        <p>Informs about operational state of component.</p>
+        <p>1 = operating</p>
+        <p>0 = switched-off</p>
+      </td>
+      <td style="text-align:left">binary</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">Temperature of heat carrier fluid (water, brine) exiting the control loop.
+        Also referred to as <b>controlled supply temperature</b>, or <b>consumer supply temperature</b>.</td>
+      <td
+      style="text-align:left">&#xB0;C</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature setpoint</td>
+      <td style="text-align:left">Setpoint temperature of heat carrier fluid (water, brine) exiting the
+        control loop. Also referred to as <b>setpoint of supply temperature</b>.</td>
+      <td
+      style="text-align:left">&#xB0;C</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outside air temperature</td>
+      <td style="text-align:left">Temperature of outside air.</td>
+      <td style="text-align:left">&#xB0;C</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">pump operating message</td>
+      <td style="text-align:left">
+        <p>Operating message of pump within the control loop.</p>
+        <p>1 = operating</p>
+        <p>0 = switched-off</p>
+      </td>
+      <td style="text-align:left">binary</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">pump revolution speed</td>
+      <td style="text-align:left">Revolution speed of pump within the control loop.</td>
+      <td style="text-align:left">rpm</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">return temperature</td>
+      <td style="text-align:left">Temperature of heat carrier fluid (water, brine) returning from consumer
+        circuit. Also referred to as <b>consumer return temperature</b>.</td>
+      <td
+      style="text-align:left">&#xB0;C</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">valve position</td>
+      <td style="text-align:left">
+        <p>Degree of valve opening.</p>
+        <p>0 = fully closed</p>
+        <p>100 = fully opened</p>
+      </td>
+      <td style="text-align:left">%</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">valve position setpoint</td>
+      <td style="text-align:left">
+        <p>Setpoint for degree of valve opening.</p>
+        <p>0 = fully closed</p>
+        <p>100 = fully opened</p>
+      </td>
+      <td style="text-align:left">%</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">volume flow</td>
+      <td style="text-align:left">Volume flow of heat carrier fluid (water, brine).</td>
+      <td style="text-align:left">l/s</td>
+    </tr>
+  </tbody>
+</table>
+{% endtab %}
+
+{% tab title="Attributes" %}
+{% hint style="danger" %}
+Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../../glossary.md#instanced-component).
+{% endhint %}
+
+{% hint style="danger" %}
+Mind the units.
+{% endhint %}
+
+## Cooling activation limit
+
+In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: Cooling is activated for outside air temperature above the threshold mapped to the attribute **Cooling activation limit**. Mapping this attribute implicitly defines the component as _Cooling Loop._ Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../../glossary.md#instanced-component).
+
+| Key | Type | Unit |
+| :--- | :--- | :--- |
+| cooling\_activation\_limit | float or integer | °C |
+
+## Heating activation limit
+
+In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: Heating is activated for outside air temperature below this threshold. Mapping this attribute implicitly defines the component as _Heating Loop._ Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../../glossary.md#instanced-component).
+
+| Key | Type | Unit |
+| :--- | :--- | :--- |
+| heating\_activation\_limit | float or integer | °C |
+
+## Lower deviation tolerance
+
+The **Lower deviation tolerance** is an **optional** parameter to override the default values for tolerable undercuts of the actual outlet temperature below its setpoint. The default value is 2.0 °C.
+
+| Key | Type | Unit |
+| :--- | :--- | :--- |
+| lower\_deviation\_tolerance | float or integer | °C |
+
+## Reference curve
+
+In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: The **Reference curve** represents the dependency of outlet temperature setpoint on outside air temperature. It can be used for cooling as well as heating. In case the _Thermal Control Loop_ is used for heating, the reference curve is also referred to as **heat curve**.
+
+The _Reference curve_ is created from two points. It is a linear curve. Copy-past the example json and fill in the numbers to specify the _Reference curve_ for the instanced _Thermal Control Loop._
+
+| Key | Type | Unit |
+| :--- | :--- | :--- |
+| reference\_heat\_curve | json |  |
+
+**Example json:** 
+
+```text
+{
+    "p1_outside_air_temperature":"18.0",
+    "p1_outlet_temperature_setpoint":"50.0",
+    "p2_outside_air_temperature":"-10.0",
+    "p2_outlet_temperature_setpoint":"85.0"
+}
+```
+
+{% hint style="warning" %}
+The json values are float formatted strings.
+{% endhint %}
+
+## Upper deviation tolerance
+
+The **Upper deviation tolerance** is an **optional** parameter to override the default values for tolerable overshoots of the actual outlet temperature above its setpoint. The default value is 2.0 °C.
+
+| Key | Type | Unit |
+| :--- | :--- | :--- |
+| upper\_deviation\_tolerance | float or integer | °C |
+{% endtab %}
+
+{% tab title="Available Functions" %}
+## [Heating Curve Analysis](analytics.md#heating-curve-analysis)
+
+Checks for quality of heat curve control and provides recommendation on how to improve.
+
+## [Schedule Analysis](analytics.md#schedule-analysis)
+
+Checks if control loop is operated according to a provided schedule.
 {% endtab %}
 {% endtabs %}
 

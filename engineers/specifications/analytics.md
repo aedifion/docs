@@ -128,6 +128,12 @@ The short text snippets below a component provide information about how to utili
 {% endtab %}
 {% endtabs %}
 
+## Heating Curve Analysis
+
+{% hint style="warning" %}
+Documentation currently under construction 🚧
+{% endhint %}
+
 ## Operating Cycle Analysis
 
 {% hint style="warning" %}
