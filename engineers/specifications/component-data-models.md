@@ -948,7 +948,7 @@ The _Reference curve_ is created from two points. It is a linear curve. Copy-pas
 
 | Key | Type | Unit |
 | :--- | :--- | :--- |
-| reference\_heat\_curve | json |  |
+| reference\_curve | json |  |
 
 **Example json:** 
 
