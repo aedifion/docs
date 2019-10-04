@@ -68,12 +68,14 @@ Mind the units.
 
 ## Example Attribute
 
+_Default Values are implemented within the analytics function themselves, they do not appear on API calls._
+
 Attributes are starting with a short description.
 
-| Key | Type | Unit |
-| :--- | :--- | :--- |
-| example\_attribute | float or integer | kW |
-| ... | ... | ... |
+| Key | Type | Default Value | Unit |
+| :--- | :--- | :--- | :--- |
+| example\_attribute | float or integer | 42.0 | kW |
+| ... | ... |  | ... |
 
 ## Another Example Attribute
 
@@ -920,25 +922,25 @@ Mind the units.
 
 In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: Cooling is activated for outside air temperature above the threshold mapped to the attribute **Cooling activation limit**. Mapping this attribute implicitly defines the component as _Cooling Loop._ Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../../glossary.md#instanced-component).
 
-| Key | Type | Unit |
-| :--- | :--- | :--- |
-| cooling\_activation\_limit | float or integer | °C |
+| Key | Type | Default Value | Unit |
+| :--- | :--- | :--- | :--- |
+| cooling\_activation\_limit | float or integer | 26.0 | °C |
 
 ## Heating activation limit
 
 In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: Heating is activated for outside air temperature below this threshold. Mapping this attribute implicitly defines the component as _Heating Loop._ Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../../glossary.md#instanced-component).
 
-| Key | Type | Unit |
-| :--- | :--- | :--- |
-| heating\_activation\_limit | float or integer | °C |
+| Key | Type | Default Value | Unit |
+| :--- | :--- | :--- | :--- |
+| heating\_activation\_limit | float or integer | 18.0 | °C |
 
 ## Lower deviation tolerance
 
 The **Lower deviation tolerance** is an **optional** parameter to override the default values for tolerable undercuts of the actual outlet temperature below its setpoint. The default value is 2.0 °C.
 
-| Key | Type | Unit |
-| :--- | :--- | :--- |
-| lower\_deviation\_tolerance | float or integer | °C |
+| Key | Type | Default Value | Unit |
+| :--- | :--- | :--- | :--- |
+| lower\_deviation\_tolerance | float or integer | 5.0 | °C |
 
 ## Reference curve
 
@@ -946,22 +948,30 @@ In case the _Thermal Control Loop_ is controlled in respect to the outside air t
 
 The _Reference curve_ is created from two points. It is a linear curve. Copy-past the example json and fill in the numbers to specify the _Reference curve_ for the instanced _Thermal Control Loop._
 
-| Key | Type | Unit |
-| :--- | :--- | :--- |
-| reference\_curve | json |  |
-
-**Example json:** 
-
-```text
-{
-    "p1_outside_air_temperature":"18.0",
-    "p1_outlet_temperature_setpoint":"50.0",
-    "p2_outside_air_temperature":"-10.0",
-    "p2_outlet_temperature_setpoint":"85.0"
-}
-```
-
-{% hint style="warning" %}
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Key</th>
+      <th style="text-align:left">Type</th>
+      <th style="text-align:left">Default Value</th>
+      <th style="text-align:left">Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">reference_curve</td>
+      <td style="text-align:left">json</td>
+      <td style="text-align:left">
+        <p>{</p>
+        <p>&quot;p1_outside_air_temperature&quot;: &quot;-12.0&quot;, &quot;p1_outlet_temperature_setpoint&quot;:
+          &quot;70.0&quot;, &quot;p2_outside_air_temperature&quot;: &quot;18&quot;,
+          &quot;p2_outlet_temperature_setpoint&quot;: &quot;35&quot;</p>
+        <p>}</p>
+      </td>
+      <td style="text-align:left">&#xB0;C</td>
+    </tr>
+  </tbody>
+</table>{% hint style="warning" %}
 The json values are float formatted strings.
 {% endhint %}
 
@@ -969,9 +979,9 @@ The json values are float formatted strings.
 
 The **Upper deviation tolerance** is an **optional** parameter to override the default values for tolerable overshoots of the actual outlet temperature above its setpoint. The default value is 2.0 °C.
 
-| Key | Type | Unit |
-| :--- | :--- | :--- |
-| upper\_deviation\_tolerance | float or integer | °C |
+| Key | Type | Default Value | Unit |
+| :--- | :--- | :--- | :--- |
+| upper\_deviation\_tolerance | float or integer | 5.0 | °C |
 {% endtab %}
 
 {% tab title="Available Functions" %}
