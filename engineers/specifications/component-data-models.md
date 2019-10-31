@@ -15,6 +15,7 @@ description: >-
 * [Fan](component-data-models.md#heat-pump)
 * [Heat Pump](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)
 * [Thermal Control Loop](component-data-models.md#thermal-control-loop)
+* [Weather Station](component-data-models.md#weather-station)
 
 ## Application notes
 
@@ -992,6 +993,60 @@ Checks for quality of heat curve control and provides recommendation on how to i
 ## [Schedule Analysis](analytics.md#schedule-analysis)
 
 Checks if control loop is operated according to a provided schedule.
+{% endtab %}
+{% endtabs %}
+
+## Weather Station
+
+The **Weather Station** component data model links weather sensors and correlating data points.
+
+{% tabs %}
+{% tab title="Component Identifier" %}
+### **weather\_station**
+{% endtab %}
+
+{% tab title="Pins" %}
+{% hint style="danger" %}
+Mind the units.
+{% endhint %}
+
+| Name | Info | Unit |
+| :--- | :--- | :--- |
+| cloud cover | Percent of sky covered by clouds. Measurement in order to e.g. differentiate between direct and indirect solar irradiation. | % |
+| co2 | CO2 concentration of outside air. | ppm |
+| dew point | Dew point temperature of outside air. | °C |
+| global solar irradiation | Current lobal solar irradiation. | W/m² |
+| humidity | Relative humidity of outside air. | % |
+| temperature | Temperature of outside air. | °C |
+| voc | Volatile organic compounds concentration of outside air. | ppm |
+{% endtab %}
+
+{% tab title="Attributes" %}
+{% hint style="danger" %}
+Mind the units.
+{% endhint %}
+
+## Latitude
+
+Geographical latitude of weather station.
+
+| Key | Type | Default Value | Unit |
+| :--- | :--- | :--- | :--- |
+| latitude | float | 6.9403 | ° |
+
+## Longitude
+
+Geographical longitude of weather station.
+
+| Key | Type | Default Value | Unit |
+| :--- | :--- | :--- | :--- |
+| longitude | float | 50.9407 | ° |
+{% endtab %}
+
+{% tab title="Available Functions" %}
+{% hint style="info" %}
+Outside air sensor checkup is under construction.
+{% endhint %}
 {% endtab %}
 {% endtabs %}
 
