@@ -24,6 +24,7 @@
 * [HTTP API](developers/api-documentation/README.md)
   * [Specifications](developers/api-documentation/specifications.md)
   * [Guides and tutorials](developers/api-documentation/guides-and-tutorials/README.md)
+    * [Authentication](developers/api-documentation/guides-and-tutorials/authentication.md)
     * [Administration](developers/api-documentation/guides-and-tutorials/administration.md)
     * [Data import and export](developers/api-documentation/guides-and-tutorials/data-import.md)
     * [Favorites, tagging, renaming](developers/api-documentation/guides-and-tutorials/tagging.md)
