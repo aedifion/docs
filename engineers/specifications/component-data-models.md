@@ -14,6 +14,7 @@ description: >-
 * [Combined Heat and Power](component-data-models.md#combined-heat-and-power)
 * [Fan](component-data-models.md#heat-pump)
 * [Heat Pump](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)
+* Room
 * [Thermal Control Loop](component-data-models.md#thermal-control-loop)
 * [Weather Station](component-data-models.md#weather-station)
 
@@ -790,6 +791,106 @@ Checks for appropriate cycle behavior and provides recommendation on how to impr
 ## [Schedule Analysis](analytics.md#schedule-analysis)
 
 Checks if plant is operated according to a provided schedule.
+{% endtab %}
+{% endtabs %}
+
+## Room
+
+The **Room** component data model is the basis component model for rooms.
+
+{% tabs %}
+{% tab title="Component Identifier" %}
+### room
+{% endtab %}
+
+{% tab title="Pins" %}
+{% hint style="danger" %}
+Mind the units.
+{% endhint %}
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Name</th>
+      <th style="text-align:left">Info</th>
+      <th style="text-align:left">Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">co2</td>
+      <td style="text-align:left">CO2 concentration in the room air.</td>
+      <td style="text-align:left">ppm</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">co2 setpoint</td>
+      <td style="text-align:left">Setpoint of the CO2 concentration in the room air.</td>
+      <td style="text-align:left">ppm</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">dew point alarm</td>
+      <td style="text-align:left">
+        <p>Alarm in case room conditions reach dew risk.</p>
+        <p>0 = no alarm</p>
+        <p>1 = alarm</p>
+      </td>
+      <td style="text-align:left">binary</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">humidity</td>
+      <td style="text-align:left">Relative humidity of the room air.</td>
+      <td style="text-align:left">%</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outside air temperature</td>
+      <td style="text-align:left">Temperature of outside air.</td>
+      <td style="text-align:left">&#xB0;C</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">presence</td>
+      <td style="text-align:left">
+        <p>Presence of one or more persons inside the room.</p>
+        <p>1 = presence</p>
+        <p>0 = no presence</p>
+      </td>
+      <td style="text-align:left">binary</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">temperature</td>
+      <td style="text-align:left">Inside air temperature in the room.</td>
+      <td style="text-align:left">&#xB0;C</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">temperature setpoint</td>
+      <td style="text-align:left">Setpoint of the inside air temperature in the room.</td>
+      <td style="text-align:left">&#xB0;C</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">voc</td>
+      <td style="text-align:left">Volatile organic compound concentration in the room air.</td>
+      <td style="text-align:left">ppm</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">window opening</td>
+      <td style="text-align:left">
+        <p>Status if window is opened or not.</p>
+        <p>1 = window open</p>
+        <p>0 = window closed</p>
+      </td>
+      <td style="text-align:left">binary</td>
+    </tr>
+  </tbody>
+</table>
+{% endtab %}
+
+{% tab title="Attributes" %}
+{% hint style="danger" %}
+Mind the units.No attributes defined for this component data model.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Available Functions" %}
+under construction
 {% endtab %}
 {% endtabs %}
 
