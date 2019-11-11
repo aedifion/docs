@@ -14,7 +14,7 @@ description: >-
 * [Combined Heat and Power](component-data-models.md#combined-heat-and-power)
 * [Fan](component-data-models.md#heat-pump)
 * [Heat Pump](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)
-* Room
+* [Room](component-data-models.md#room)
 * [Thermal Control Loop](component-data-models.md#thermal-control-loop)
 * [Weather Station](component-data-models.md#weather-station)
 
