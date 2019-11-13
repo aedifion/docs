@@ -842,6 +842,15 @@ Mind the units.
       <td style="text-align:left">%</td>
     </tr>
     <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">
+        <p>Operating message of room control.</p>
+        <p>1 = operating</p>
+        <p>0 = switched-off</p>
+      </td>
+      <td style="text-align:left">binary</td>
+    </tr>
+    <tr>
       <td style="text-align:left">outside air temperature</td>
       <td style="text-align:left">Temperature of outside air.</td>
       <td style="text-align:left">&#xB0;C</td>
