@@ -13,6 +13,7 @@ description: >-
   * [Low-Temperature Boiler](component-data-models.md#low-temperature-boiler)
 * [Combined Heat and Power](component-data-models.md#combined-heat-and-power)
 * [Fan](component-data-models.md#heat-pump)
+* [Heat Meter](component-data-models.md#heat-meter)
 * [Heat Pump](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)
 * [Room](component-data-models.md#room)
 * [Thermal Control Loop](component-data-models.md#thermal-control-loop)
@@ -661,6 +662,42 @@ Checks for appropriate cycle behavior and provides recommendation on how to impr
 ## [Schedule Analysis](analytics.md#schedule-analysis)
 
 Checks if plant is operated according to a provided schedule.
+{% endtab %}
+{% endtabs %}
+
+## Heat Meter
+
+The **Heat Meter** component data model represents a heat meter. It can be physically present in the energy system or virtually on the aedifion platform.
+
+{% tabs %}
+{% tab title="Component Identifier" %}
+### heat\_meter
+{% endtab %}
+
+{% tab title="Pins" %}
+{% hint style="danger" %}
+Mind the units.
+{% endhint %}
+
+| Name | Info | Unit |
+| :--- | :--- | :--- |
+| heat flow |  | kW |
+| heat meter | Thermal energy transferred to heat carrier fluid \(water\). Cumulating counter. | kWh |
+| inlet temperature | Temperature of heat carrier fluid \(water\) entering the heat meter. | °C |
+| outlet temperature | Temperature of heat carrier fluid \(water\) exiting the heat meter. | °C |
+| volume flow | Volume flow of heat carrier fluid \(water\). | l/s |
+{% endtab %}
+
+{% tab title="Attributes" %}
+{% hint style="danger" %}
+Mind the units.
+{% endhint %}
+
+No attributes defined for this component data model.
+{% endtab %}
+
+{% tab title="Available Functions" %}
+under construction
 {% endtab %}
 {% endtabs %}
 
