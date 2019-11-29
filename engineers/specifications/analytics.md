@@ -6,9 +6,15 @@ description: Detailed specification of available analytics functions and their a
 
 ## Available analysis functions
 
-* \*\*\*\*[**Operating Cycle Analysis**](analytics.md#operating-cycle-analysis)\*\*\*\*
-* \*\*\*\*[**Schedule Analysis**](analytics.md#schedule-analysis)\*\*\*\*
+* \*\*\*\*[**Control Loop Oscillation Analysis**](analytics.md#control-loop-oscillation-analysis)\*\*\*\*
+* \*\*\*\*[**Heat Flux Analysis**](analytics.md#heat-flux-analysis)\*\*\*\*
 * \*\*\*\*[**Heating Curve Analysis**](analytics.md#heating-curve-analysis)\*\*\*\*
+* \*\*\*\*[**Operating Cycle Analysis**](analytics.md#operating-cycle-analysis)\*\*\*\*
+* \*\*\*\*[**Outside Air Temperature Sensor Analysis**](analytics.md#outside-air-temperature-sensor-analysis)\*\*\*\*
+* \*\*\*\*[**Room Air Quality Analysis**](analytics.md#room-air-quality-analysis)\*\*\*\*
+* \*\*\*\*[**Schedule Analysis**](analytics.md#schedule-analysis)\*\*\*\*
+* \*\*\*\*[**Setpoint Deviation Analysis**](analytics.md#setpoint-deviation-analysis)\*\*\*\*
+* \*\*\*\*[**Temperature Spread Analysis**](analytics.md#temperature-spread-analysis)\*\*\*\*
 
 ## Application notes
 
@@ -140,6 +146,24 @@ _\*\*\*\*_
 ...
 {% endtab %}
 {% endtabs %}
+
+## **Control Loop Oscillation Analysis**
+
+{% hint style="warning" %}
+Documentation currently under construction 🚧
+{% endhint %}
+
+## **Heat Flux Analysis**
+
+{% hint style="warning" %}
+Documentation currently under construction 🚧
+{% endhint %}
+
+## **Heating Curve Analysis**
+
+{% hint style="warning" %}
+Documentation currently under construction 🚧
+{% endhint %}
 
 ## Operating Cycle Analysis
 
@@ -336,13 +360,31 @@ Results are limited to KPIs.
 {% endtab %}
 {% endtabs %}
 
+## **Outside Air Temperature Sensor Analysis**
+
+{% hint style="warning" %}
+Documentation currently under construction 🚧
+{% endhint %}
+
+## **Room Air Quality Analysis**
+
+{% hint style="warning" %}
+Documentation currently under construction 🚧
+{% endhint %}
+
 ## Schedule Analysis
 
 {% hint style="warning" %}
 Documentation currently under construction 🚧
 {% endhint %}
 
-## Heating Curve Analysis
+## **Setpoint Deviation Analysis**
+
+{% hint style="warning" %}
+Documentation currently under construction 🚧
+{% endhint %}
+
+## **Temperature Spread Analysis**
 
 {% hint style="warning" %}
 Documentation currently under construction 🚧

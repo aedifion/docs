@@ -29,8 +29,7 @@ First, we design a very simple frontend.
 
 Open the HTML editor of your choice and start a new document `websockets-demo.html`
 
-{% tabs %}
-{% tab title="websockets-demo.html" %}
+{% code title="websockets-demo.html" %}
 ```markup
 <!DOCTYPE html>
 <html>
@@ -44,8 +43,7 @@ Open the HTML editor of your choice and start a new document `websockets-demo.ht
 </body>
 </html>
 ```
-{% endtab %}
-{% endtabs %}
+{% endcode %}
 
 This page has a title, a description, and displays a single heading.
 
