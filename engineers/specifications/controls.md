@@ -40,7 +40,7 @@ Within the scope of testing this algorithm, every probe was provided with its ow
 
 ![Example for the MaxPhi-Algorithm tested on a borehole heat exchanger field](../../.gitbook/assets/bildschirmfoto-2019-03-05-um-17.09.23.png)
 
-Due to the opening of the actuating valves, the differential pressure of the distribution grid decreases. In the pump performance chart you can see the state before \(red\) and after \(green\) the activation of the MaxPhi-Algorithm. It is possible to operate the grid at 75% pumpspeed instead of 90% while fully fulfilling the consumers needs, meaning providing the needed volumeflow. As you can see in the below diagramm the positive outcome of the MaxPhi-algorithm is the saving of 1.5 kW energy consumption. Assuming a 50% operation time this is equivalent to roughly 6.6 MWh per year.
+Due to the opening of the actuating valves, the differential pressure of the distribution grid decreases. In the pump performance chart you can see the state before \(red\) and after \(green\) the activation of the MaxPhi-Algorithm. It is possible to operate the grid at 75% pumpspeed instead of 90% while fully fulfilling the consumers needs, meaning providing the needed volumeflow. As you can see in the below diagram the positive outcome of the MaxPhi-algorithm is the saving of 1.5 kW energy consumption. Assuming a 50% operation time this is equivalent to roughly 6.6 MWh per year.
 
 ![pump performance chart before and after activation of MaxPhi](../../.gitbook/assets/bildschirmfoto-2019-03-05-um-17.17.57.png)
 
