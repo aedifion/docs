@@ -352,7 +352,7 @@ Let's list the already available mapped components using the `GET /v2/project/{p
 ```python
 import requests
 auth = ("john.doe@aedifion.com", "s3cr3tp4ssw0rd")
-r = requests.get("https://api.aedifion.io//v2/project/1/componentsInProject", 
+r = requests.get("https://api.aedifion.io/v2/project/1/componentsInProject", 
                  auth=john)
 print(r.text)
 ```
@@ -446,7 +446,7 @@ We detail [all available analysis functions in the engineering part of this docs
 ```python
 import requests
 auth = ("john.doe@aedifion.com", "s3cr3tp4ssw0rd")
-r = requests.get("https://api.aedifion.io//v2/analytics/functions",
+r = requests.get("https://api.aedifion.io/v2/analytics/functions",
                  params={'component': 'thermal_control_loop'} 
                  auth=john)
 print(r.text)
@@ -507,7 +507,7 @@ Note that you can also use the `GET /v2/analytics/instances`endpoint to query a 
 ```python
 import requests
 auth = ("john.doe@aedifion.com", "s3cr3tp4ssw0rd")
-r = requests.get("https://api.aedifion.io//v2/analytics/instance/318",
+r = requests.get("https://api.aedifion.io/v2/analytics/instance/318",
                  params={'project_id': 1} 
                  auth=john)
 print(r.text)
@@ -545,7 +545,7 @@ First, using the `GET /v2/analytics/instance/{instance_id}/results` endpoints, w
 ```python
 import requests
 auth = ("john.doe@aedifion.com", "s3cr3tp4ssw0rd")
-r = requests.get("https://api.aedifion.io//v2/analytics/instance/318/results",
+r = requests.get("https://api.aedifion.io/v2/analytics/instance/318/results",
                  params={'project_id': 1} 
                  auth=john)
 print(r.text)
@@ -585,7 +585,7 @@ To get the details of a single result, we supply the unique result\_id to the `G
 ```python
 import requests
 auth = ("john.doe@aedifion.com", "s3cr3tp4ssw0rd")
-r = requests.get("https://api.aedifion.io//v2/analytics/instance/318/result/"\
+r = requests.get("https://api.aedifion.io/v2/analytics/instance/318/result/"\
                  "dfd3a3e7-c17f-4ac9-9a8b-f93c2f56cee4",
                  params={'project_id': 1, 'result_language': 'en'} 
                  auth=john)
