@@ -361,8 +361,6 @@ print(r.text)
 
 The response contains a list of mapped components each with a unique id, a name and abbreviation, as well as the id of the abstract component from which it was instantiated.
 
-### Mapped pins and attributes
-
 ```javascript
 [
   {
@@ -393,6 +391,8 @@ The response contains a list of mapped components each with a unique id, a name 
 ```
 
 Among others, we find mapped components for thermal control loops \(a virtual component that has no direct physical pendant\), a weather station \(corresponding to an actual physical weather station\), and a fan schedule \(a virtual component, again\).
+
+### Mapped pins and attributes
 
 Using id = 179 of the mapped _weather station_ component, we can query the details of the component using the `GET /v2/project/{project_id}/componentInProject/{componentinproject_id}` endpoint. The answer, among other information, contains the mapped datapoints and filled-in attributes. In this example, we have mapped only a single datapoint \(the ambient air temperature\) and filled in geo-position as attributes. Note that the answer model also contains the definition of the base component from which this mapped component was instantiated.
 
@@ -532,13 +532,31 @@ The answer contains the configuration of the queried analysis instance. We can s
 }
 ```
 
+### Running an analysis
+
+To run the analysis instance id = 318, we would invoke the `POST /v2/analytics/instance/{instance_id}/run` endpoint and provide a time range using the `start` and `end` parameters for which we want to run the analysis. For the sake of brevity, we omit a full example here and continue with examining already computed results.
+
 ## Analysis results
 
-To run the analysis instace id = 318 that we have examined in the previous section, we would invoke the `POST /v2/analytics/instance/{instance_id}/run` endpoint and provide a time range using the `start` and `end` parameters for which we want to run the analysis. For the sake of brevity, we omit a full example here and continue with examining already computed results.
+There are two ways of listing analysis results, [per component](analytics.md#listing-components-with-results) or [per instance](analytics.md#listing-results-per-instance).
 
-### Listing all results
+### Listing results per component
 
-First, using the `GET /v2/analytics/instance/{instance_id}/results` endpoints, we can list all available results for an analysis instance. We continue with analysis instance id = 318, and query all available results.
+In a usual scenario, we have configured multiple analysis instances for one mapped component where each instance analyzes different aspects of the component's operation. In most cases, we are interested in the performance of the component as a whole, i.e., we want to list results grouped by components.
+
+The `GET /v2/analytics/results` endpoints returns a list of the latest result for each analysis instance grouped by component \(component without analysis instances and analysis instances without results are left out\). 
+
+{% hint style="danger" %}
+**TODO**
+
+The `GET /v2/analytics/results` endpoint will be released by January 31, 2020.
+{% endhint %}
+
+### Listing results per instance
+
+In the previous section, we queried results grouped by component. However, we only got the most recent results. If we want to take a deeper look and also investigate past results, we need to use the `GET /v2/analytics/instance/{instance_id}/results` endpoint which lists _all available_ results for a specific analysis instance \(as opposed to the previous `GET /v2/analytics/results endpoint` which listed only the most recent result per instance but for all instances and grouped by component\). 
+
+In the next example, we list all available results for analysis instance id = 318.
 
 {% tabs %}
 {% tab title="Python" %}
@@ -553,7 +571,7 @@ print(r.text)
 {% endtab %}
 {% endtabs %}
 
-The response contains a list of results \(two in this example\). For each result, we get a unique reference, the time range over which the analysis was conducted, and a status indicating success or failure.
+The response contains a list of results. In this example, two results are shown for the same five day period in 2018 and 2019. For each result, we get a unique reference, the time range over which the analysis was conducted, and a status indicating success or failure.
 
 ```javascript
 [
