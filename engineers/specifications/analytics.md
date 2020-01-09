@@ -368,6 +368,88 @@ Documentation currently under construction 🚧
 
 ## **Room Air Quality Analysis**
 
+## Outdoor Temperature Sensor Analysis
+
+This Analysis detects if a sensor is influenced by sun radiation or if the sensor has an offset to reference weather data from a different source.
+
+{% tabs %}
+{% tab title="Quick Start" %}
+## Value
+
+* Lower operating costs
+* Make sure your building automation systems can work with reliable information about outside conditions
+* Make sure your sensor readings are not influenced by sun radiation
+* Make sure your sensor is working correctly
+
+## Recommended for component types
+
+* Weather Station
+{% endtab %}
+
+{% tab title="Description" %}
+HVAC and heating systems of buildings are controlled with the help of sensors. The controller of these systems can't verify the correctness of the measured values and will control in accordance with the measured values.
+
+Sensors are calibrated by the manufacturer or installation technician and will deliver a reading that is accurate to the required accuracy class. With an increasing operating time of the sensor, readings will shift and errors will increase compared to the moment of installation. Additionally to these sensor inherent errors, there can also be errors introduced that originate from the surrounding area the sensor is placed. Latter errors can be significantly higher than the sensor inherent errors because there is no accurate measure for them.
+
+Therefore the placement of sensors should be well-considered. An important measurement for HVAC and heating systems is the outside air temperature, which helps the controller decide how much heating or cooling is required to deliver a comfortable indoor climate. Errors during the measurement of the outside air temperature directly correspond to an over or undersupply of the building and can lead to poor user comfort and a waste of energy.
+
+To measure the outside air temperature the sensor must be placed outside of the building and often enough the placement is sub-optimal and sunlight can reach the sensor housing which results in a temperature reading that is higher than the actual outside air temperature.
+
+This Analysis will compare the outside air temperature measurement of the sensor to measurement data from a different source \(f.e. weather service\) for each observation to determine if the sensor shows any discrepancies.
+{% endtab %}
+
+{% tab title="Results" %}
+## KPIs
+
+| KPI Identifier | Value Range | Unit |
+| :--- | :--- | :--- |
+| radiation influenced.relative | 0 to 100 | % |
+| radiation influenced.total | 0 - inf | days |
+
+#### radiation influenced.total
+
+radiation influenced.total is equal to the number of days that show one or more hours of radiation influence.
+
+#### radiation influenced.relative
+
+radiation influenced.relative is a ratio between radiation influenced.total and the observed period expressed in percent.
+{% endtab %}
+
+{% tab title="Example" %}
+_In general you can expect a short demonstration on how we applied the analysis during our development and which results we got from our test bench._
+{% endtab %}
+
+{% tab title="Components" %}
+## Pins
+
+* temperature
+
+## **Attributes**
+
+* **latitude**
+  * latitude position \[deg\] of the examined component
+* **longitude**
+  * longitude position \[deg\] of the examined component
+
+## Components
+
+* [Weather Station](component-data-models.md#weather-station)
+{% endtab %}
+
+{% tab title="Application" %}
+## Recommended Time Span
+
+* Try to find an assessment period of several weeks or month to get a good chance of detecting influenced days
+* time spans around summertime are more likely to have days with a lot of sunshine and thus increase the chance of detecting these days
+
+## **Recommended Repetition**
+
+#### every 3 months
+
+#### quaterly
+{% endtab %}
+{% endtabs %}
+
 {% hint style="warning" %}
 Documentation currently under construction 🚧
 {% endhint %}

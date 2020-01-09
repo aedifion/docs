@@ -12,7 +12,7 @@ The edge device connects to a [plant's](../glossary.md#plant) automation network
 
 The edge device operates fully plug-and-play from a customers perspective. Once connected to the internet, the edge device connects to the aedifion.io platform where aedifion's staff take care of its configuration.
 
-![aedifion edge device](../.gitbook/assets/grafik%20%289%29.png)
+![aedifion edge device](../.gitbook/assets/grafik%20%2810%29.png)
 
 The edge device offers very high security since its communication is unidirectional only. Clients do not need to open up their firewall for incoming connections. For outgoing connections only a few standard ports are necessary, such as 22 \(SSH\), 123 \(NTP\), 443 \(HTTPS\) and 8884 \(MQTT\).  In special cases, this can even be limited to HTTPS only. Installation guide.
 
