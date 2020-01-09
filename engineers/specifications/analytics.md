@@ -386,9 +386,72 @@ Documentation currently under construction 🚧
 
 ## **Temperature Spread Analysis**
 
-{% hint style="warning" %}
-Documentation currently under construction 🚧
-{% endhint %}
+{% tabs %}
+{% tab title="Quick Start" %}
+## Value
+
+* energy-efficient operation of thermal control loops
+* energy savings that lead to reduced costs
+
+## Recommended for component types
+
+* **thermal control loop**
+{% endtab %}
+
+{% tab title="Description" %}
+The Temperature Spread Analysis assesses the difference between two temperature pins while an operating message is active.
+
+A thermal control loop is a typical case where outlet and return temperature are different and a temperature spread that is higher indicates a good utilization of this loop. A lower temperature spread suggests a reduced energy demand of the connected consumers and thus should lead to a reduction of volume flow caused by a reduced pump speed that saves electricity.
+{% endtab %}
+
+{% tab title="Results" %}
+## KPIs
+
+| KPI Identifier | Value Range | Unit |
+| :--- | :--- | :--- |
+| temperature spread.average | - | °C |
+| temperature spread.minimum | - | °C |
+| temperature spread.maximum | - | °C |
+
+**temperature spread.average**
+
+This corresponds to the average temperature spread across the period of the analysis.
+
+**temperature spread.minimum**
+
+This corresponds to the smallest temperature spread across the period of the analysis.
+
+**temperature spread.maximum**
+
+This corresponds to the largest temperature spread across the period of the analysis.
+{% endtab %}
+
+{% tab title="Example" %}
+_In general you can expect a short demonstration on how we applied the analysis during our development and which results we got from our test bench._
+{% endtab %}
+
+{% tab title="Components" %}
+## Pins
+
+* outlet temperature
+* return temperature
+* operating message
+
+## Components
+
+### Thermal Control Loop
+{% endtab %}
+
+{% tab title="Application" %}
+## Recommended Time Span
+
+### 1 day - several weeks
+
+## **Recommended Repetition**
+
+### every 3 months
+{% endtab %}
+{% endtabs %}
 
 ## Information
 
