@@ -71,11 +71,11 @@ Please install the aedifion edge device as follows.
 
 Depending on the requirements of your project, aedifion ships different industrial PCs as hardware for the aedifion edge device. Every package of an aedifion edge device comes with an individual installation manual. The picture below shows how we label ethernet ports:
 
-![](../.gitbook/assets/grafik%20%2810%29.png)
+![](../.gitbook/assets/grafik%20%289%29.png)
 
 To install your aedifion edge device, please execute the installation in the order of the flow chart:
 
-![Installation workflow](../.gitbook/assets/grafik%20%287%29.png)
+![Installation workflow](../.gitbook/assets/grafik%20%286%29.png)
 
 {% hint style="info" %}
 **Trouble shooting**

@@ -454,8 +454,6 @@ The unit used in this datapoint needs to be specified in order for the analysis 
 {% endtab %}
 {% endtabs %}
 
-
-
 ## **Heating Curve Analysis**
 
 {% hint style="warning" %}
@@ -658,14 +656,6 @@ Results are limited to KPIs.
 {% endtab %}
 {% endtabs %}
 
-## **Outside Air Temperature Sensor Analysis**
-
-{% hint style="warning" %}
-Documentation currently under construction 🚧
-{% endhint %}
-
-## **Room Air Quality Analysis**
-
 ## Outdoor Temperature Sensor Analysis
 
 This Analysis detects if a sensor is influenced by sun radiation or if the sensor has an offset to reference weather data from a different source.
@@ -753,12 +743,6 @@ Documentation currently under construction 🚧
 {% endhint %}
 
 ## Schedule Analysis
-
-{% hint style="warning" %}
-Documentation currently under construction 🚧
-{% endhint %}
-
-## **Setpoint Deviation Analysis**
 
 {% hint style="warning" %}
 Documentation currently under construction 🚧
