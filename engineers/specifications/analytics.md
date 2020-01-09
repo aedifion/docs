@@ -4,18 +4,6 @@ description: Detailed specification of available analytics functions and their a
 
 # Analytics
 
-## Available analysis functions
-
-* \*\*\*\*[**Control Loop Oscillation Analysis**](analytics.md#control-loop-oscillation-analysis)\*\*\*\*
-* \*\*\*\*[**Heat Flux Analysis**](analytics.md#heat-flux-analysis)\*\*\*\*
-* \*\*\*\*[**Heating Curve Analysis**](analytics.md#heating-curve-analysis)\*\*\*\*
-* \*\*\*\*[**Operating Cycle Analysis**](analytics.md#operating-cycle-analysis)\*\*\*\*
-* \*\*\*\*[**Outside Air Temperature Sensor Analysis**](analytics.md#outside-air-temperature-sensor-analysis)\*\*\*\*
-* \*\*\*\*[**Room Air Quality Analysis**](analytics.md#room-air-quality-analysis)\*\*\*\*
-* \*\*\*\*[**Schedule Analysis**](analytics.md#schedule-analysis)\*\*\*\*
-* \*\*\*\*[**Setpoint Deviation Analysis**](analytics.md#setpoint-deviation-analysis)\*\*\*\*
-* \*\*\*\*[**Temperature Spread Analysis**](analytics.md#temperature-spread-analysis)\*\*\*\*
-
 ## Application notes
 
 * **Unit sensitivity:** To this state, our algorithms are unit sensitive. Every [pin ](../../glossary.md#pin)and [attribute ](../../glossary.md#attribute)is specified with an unit. Mind the specifications.
@@ -159,6 +147,315 @@ Documentation currently under construction 🚧
 Documentation currently under construction 🚧
 {% endhint %}
 
+## Setpoint Deviation Analysis
+
+{% tabs %}
+{% tab title="Quick Start" %}
+## Value
+
+The Setpoint Deviation Analysis helps to identify problems with a control loop, such as
+
+* Technical defects
+* Component malfunctions
+* Faulty control loop parameter settings
+
+## Recommended for component types
+
+Control loops, such as
+
+* Heating systems
+* Ventilation systems
+* Air-conditioning systems
+{% endtab %}
+
+{% tab title="Description" %}
+The Setpoint Deviation Analysis aims to identify issues regarding the deviations between the desired value and the actual value within a building’s many control systems. Deviations can occur based on a whole host of reasons. Maybe the system is not supplied with a high enough temperature during certain hours to begin with, or there might be an issue with the controlling software. Maybe a blocked valve is to blame. The Setpoint Deviation Analysis’ key performance indicators \(KPIs\) can help pin down the root cause of the problem, or it might just confirm that everything is working as it should.
+{% endtab %}
+
+{% tab title="Results" %}
+## **Qualitative warning level**
+
+Enum representations of traffic light colours providing a quick overview over the general setpoint compliance within the analysed period.
+
+| Enum | Color |
+| :--- | :--- |
+| 0 | green |
+| 1 | yellow |
+| 2 | red |
+
+## Interpretations
+
+Interpretation of the setpoint compliance of the component in the analysed period.
+
+## Recommendations
+
+Recommendation texts on what actions to take, in case of sub-optimal setpoint compliance as well as recommendations on how to further investigate the root causes for such behaviour
+
+## KPIs
+
+Providing deeper insights to the cycle behavior. KPIs support human reasoning.
+
+## Traffic light KPIs
+
+How long was the setpoint deviation in a green, yellow or red area?
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| setpoint deviation.largerX.relative | Duration with setpoint deviation larger than X | 0 to 100 | % |
+| setpoint deviation.largerYsmallerX.relative | Duration with setpoint deviation larger than Y and smaller than X | 0 to 100 | % |
+| setpoint deviation.smallerY.relative | Duration with setpoint deviation smaller than Y | 0 to 100 | % |
+| setpoint deviation.largerX | Duration with setpoint deviation larger than X | 0 to inf | h |
+| setpoint deviation.largerYsmallerX | Duration with setpoint deviation larger than Y and smaller than X | 0 to inf | h |
+| setpoint deviation.smallerY | Duration with setpoint deviation smaller than Y | 0 to inf | h |
+
+## Operating time KPIs
+
+Operating times KPIs provide information on the total time of operation of the analysed component during the analysed timeframe.
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| operating time | Total operating time | 0 to inf | h |
+| operating time.relative | Relative operating time | 0 to 100 | % |
+
+## Miscellaneous KPIs
+
+General information KPIs to give further insight into the setpoint compliance over the analysed timeframe.
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| setpoint deviation.maximum | Largest setpoint deviation | 0 to inf | - |
+| setpoint deviation.minimum | Smallest setpoint deviation | 0 to inf | - |
+| setpoint deviation.mean | Average setpoint deviation | 0 to inf | - |
+| setpoint deviation.median | Median setpoint deviation | 0 to inf | - |
+{% endtab %}
+
+{% tab title="Components" %}
+## Components
+
+### **thermal\_control\_loop**
+
+#### Pins
+
+* outlet temperature
+* inlet temperature
+* operating message
+
+### **room**
+
+#### Pins
+
+* temperature
+* temperature setpoint
+* operating message
+{% endtab %}
+
+{% tab title="Application" %}
+## Recommended Time Span
+
+* &gt;1 days
+* Mind weekends
+
+## **Recommended Repetition** <a id="recommended-repetition-1"></a>
+
+* Every few months in order to ensure efficient control
+* If an issue is suspected
+{% endtab %}
+
+{% tab title="Example" %}
+The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a thermal control loop component model was instanced and the respective datapoints mapped to this component.
+
+![](../../.gitbook/assets/sda%20%281%29.svg)
+
+In this scenario, Figure 1 shows the time series recorded for an exemplary period of 36 hours on a november workday. The temperature setpoint and the actual measured value started to drift apart around 12 am on the 19th. Since then, the control loop was not comply with the setpoint temperatures.
+
+The automated interpretation confirms our visual analysis of the time series shown in figure 1, summed up by the qualitative warning level "red". The recommendations provide further instruction on how to isolate and fix the cause for the inadequate setpoint compliance. Further, the result offers an advanced set of KPIs, providing additional insights into the control loop behaviour. They support human reasoning for a case-by-case analysis.
+
+For example, the drop in temperatures is peculiar and could point to a technical defect or malfunction, such as a blocked valve. Another cause might be a sudden drop in the temperatures supplied to the distrubution system, such as an heat-pump or boiler issue. Further investigation of the root cause is possible via data visualization at the aedifion frontend.
+{% endtab %}
+{% endtabs %}
+
+## Room Air Quality Analysis
+
+{% tabs %}
+{% tab title="Quick Start" %}
+## Value
+
+The Room Air Quality Analysis helps to evaluate the air quality in a room, based on its carbon dioxide content, and helps to detect badly calibrated CO2 sensors.
+
+## Recommended for component types
+
+* Room
+{% endtab %}
+
+{% tab title="Description" %}
+The Room Air Quality Analysis examines and interprets the carbon dioxide content in the air of a room during the analysis period. In addition to an assessment of the general air quality, recommendations for further measures are given. In addition, calibration problems, to which carbon dioxide sensors are susceptible, are identified.
+{% endtab %}
+
+{% tab title="Results" %}
+## **Qualitative warning level**
+
+Enum representations of traffic light colors providing a quick overview over the air quality over the analysed period.
+
+| Enum | Color |
+| :--- | :--- |
+| 0 | green |
+| 1 | yellow |
+| 2 | red |
+
+## Interpretations
+
+Evaluations of the general air quality over the analysed period.
+
+## Recommendations
+
+Recommendation texts on what actions to take, in case of mediocre or poor air quality.
+
+## KPIS
+
+## Air quality classification KPIs
+
+How long was the air quality in the room \(based on carbon dioxide concentrations\) considered “good”, “medium”, “moderate” or “poor”? Assessments are based on EU regulation classifications of Indoor Air Quality \(IDA\) classes 1 \(“good”\) to 4 \(“poor”\).
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| co2 duration.IDA1.relative | Duration with “good“ indoor air quality | 0 to 100 | % |
+| co2 duration.IDA2.relative | Duration with “medium “ indoor air quality | 0 to 100 | % |
+| co2 duration.IDA3.relative | Duration with “moderate “ indoor air quality | 0 to 100 | % |
+| co2 duration.IDA4.relative | Duration with “poor “ indoor air quality | 0 to 100 | % |
+| co2 duration.IDA1.absolute | Duration with “good“ indoor air quality | 0 to inf | h |
+| co2 duration.IDA2.absolute | Duration with “medium “ indoor air quality | 0 to inf | h |
+| co2  duration.IDA3.absolute | Duration with “moderate “ indoor air quality | 0 to inf | h |
+| co2 duration.IDA4.absolute | Duration with “poor “ indoor air quality | 0 to inf | h |
+
+## Miscellaneous KPIs
+
+Providing deeper insights to the carbon dioxide concentrations over the analysed timeframe.
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| co2.maximum | Largest CO2 concentrations | 0 to inf | ppm |
+| co2dee.minimum | Smallest CO2 concentrations | 0 to inf | ppm |
+| co2.mean | Average CO2 concentrations | 0 to inf | ppm |
+| co2.median | Median CO2 concentrations | 0 to inf | ppm |
+{% endtab %}
+
+{% tab title="Components" %}
+## Components
+
+### **room**
+
+#### Pins
+
+* co2
+{% endtab %}
+
+{% tab title="Application" %}
+##  Recommended Time Span
+
+* &gt;1 days
+* Mind weekends
+
+## **Recommended Repetition** <a id="recommended-repetition-1-1"></a>
+
+* Every few months in order to ensure sensors don't require recalbiration
+* If an issue is suspected
+{% endtab %}
+{% endtabs %}
+
+## Virtual Heat Meter
+
+{% tabs %}
+{% tab title="Quick Start" %}
+## Value
+
+The Virtual Heat Meter helps to
+
+* quantify the heat delivered by various heating circuits
+* identify inaccurate heat flow data
+
+## Recommended for component types
+
+Heating systems, such as
+
+* Heat pumps
+* Boilers
+* Heat meters
+{% endtab %}
+
+{% tab title="Description" %}
+The Virtual Heat Meter estimates the heat that is delivered by components such as heat pumps and boilers, based on temperature and volume flow measurements
+{% endtab %}
+
+{% tab title="Results" %}
+## Miscellaneous KPIs
+
+Providing deeper insights to the setpoint compliance. KPIs support human reasoning.
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| Q\_dot.maximum | Largest heat flux | 0 to inf | kW |
+| Q\_dot.minimum | Smallest heat flux | 0 to inf | kW |
+| Q\_dot.mean | Average heat flux | 0 to inf | kW |
+| Q\_dot.medium | Median heat flux | 0 to inf | kW |
+
+## Timeseries KPIs
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| Q\_dot.timeseries | The complete timeseries of transferred heat | 0 to inf | kW |
+| Q\_dot.timeseries\_cumulated | The complete timeseries of cumulated transferred heat | 0 to inf | kWh |
+{% endtab %}
+
+{% tab title="Components" %}
+## Components
+
+### **heat \_meter**
+
+#### Pins
+
+* outlet temperature
+* inlet temperature
+* volume flow
+
+### boiler
+
+#### Pins
+
+* outlet temperature
+* inlet temperature
+* operating message
+* volume flow
+
+### **heat\_pump**
+
+#### Pins
+
+* condensator outlet temperature
+* condensator inlet temperature
+* evaporator outlet temperature
+* evaporator inlet temperature
+* operating message
+* volume flow
+
+## **Attributes**
+
+#### volume\_flow\_unit:
+
+The unit used in this datapoint needs to be specified in order for the analysis to yield correct result. If unspecified, the default unit assumed for this measurement is _cubic meters per second_. Acceptable inputs for this attribute include: 
+
+* _cubicMetersPerSecond_
+* _cubicMetersPerMinute_
+* _cubicMetersPerHour_
+* _litersPerSecond_
+* _litersPerMinute_
+* _litersPerHour_
+
+\_\_
+{% endtab %}
+{% endtabs %}
+
+
+
 ## **Heating Curve Analysis**
 
 {% hint style="warning" %}
@@ -167,7 +464,7 @@ Documentation currently under construction 🚧
 
 ## Operating Cycle Analysis
 
-The **Operating Cycle Analysis** investigates and interprets the cycle behavior of components. Besides identifying sub-optimal cycle behavior, the algorithm provides recommendations on how to improve cycle rates, and KPIs for deeper insides.
+The **Operating Cycle Analysis** investigates and interprets the cycle behavior of components. Besides identifying sub-optimal cycle behavior, the algorithm provides recommendations on how to improve cycle rates, and KPIs for deeper insights.
 
 {% tabs %}
 {% tab title="Quick Start" %}
@@ -210,11 +507,12 @@ Interpretation text of the cycle rates of the analysed component in regard to it
 
 ## Recommendations
 
-Recommendation texts on how to improve cycle rates of the analysed component including adjustment of control parameter as well as recommendations on how to investigate the deeper cause for unpleasant cycle behavior.
+Recommendation texts on how to improve cycle rates of the analysed component including adjustment of control parameter as well as recommendations on how to investigate the root cause for unpleasant cycle behavior.
 
 ## KPIs
 
-Providing deeper insights to the cycle behavior. KPIs support human reasoning.
+  
+Providing deeper insights to the setpoint compliance. KPIs support human reasoning.
 
 ### Operating time
 
@@ -353,7 +651,7 @@ Results are limited to KPIs.
 
 ## **Recommended Repetition**
 
-### Every months
+### Every month
 
 * Cycle rates have a strong seasonal effect
 * Frequent repetition allows to identify operational bad points
