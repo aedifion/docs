@@ -135,18 +135,6 @@ _\*\*\*\*_
 {% endtab %}
 {% endtabs %}
 
-## **Control Loop Oscillation Analysis**
-
-{% hint style="warning" %}
-Documentation currently under construction 🚧
-{% endhint %}
-
-## **Heat Flux Analysis**
-
-{% hint style="warning" %}
-Documentation currently under construction 🚧
-{% endhint %}
-
 ## Setpoint Deviation Analysis
 
 {% tabs %}
@@ -454,12 +442,6 @@ The unit used in this datapoint needs to be specified in order for the analysis 
 {% endtab %}
 {% endtabs %}
 
-## **Heating Curve Analysis**
-
-{% hint style="warning" %}
-Documentation currently under construction 🚧
-{% endhint %}
-
 ## Operating Cycle Analysis
 
 The **Operating Cycle Analysis** investigates and interprets the cycle behavior of components. Besides identifying sub-optimal cycle behavior, the algorithm provides recommendations on how to improve cycle rates, and KPIs for deeper insights.
@@ -738,16 +720,6 @@ _In general you can expect a short demonstration on how we applied the analysis 
 {% endtab %}
 {% endtabs %}
 
-{% hint style="warning" %}
-Documentation currently under construction 🚧
-{% endhint %}
-
-## Schedule Analysis
-
-{% hint style="warning" %}
-Documentation currently under construction 🚧
-{% endhint %}
-
 ## **Temperature Spread Analysis**
 
 {% tabs %}
@@ -816,6 +788,30 @@ _In general you can expect a short demonstration on how we applied the analysis 
 ### every 3 months
 {% endtab %}
 {% endtabs %}
+
+## **Heating Curve Analysis**
+
+{% hint style="warning" %}
+Documentation currently under construction 🚧
+{% endhint %}
+
+## Schedule Analysis
+
+{% hint style="warning" %}
+Documentation currently under construction 🚧
+{% endhint %}
+
+## **Control Loop Oscillation Analysis**
+
+{% hint style="warning" %}
+Documentation currently under construction 🚧
+{% endhint %}
+
+## **Heat Flux Analysis**
+
+{% hint style="warning" %}
+Documentation currently under construction 🚧
+{% endhint %}
 
 ## Information
 
