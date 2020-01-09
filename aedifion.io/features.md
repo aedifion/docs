@@ -6,7 +6,7 @@ description: This page introduces important key features of aedifion.io
 
 ## Overview
 
-This page offers a brief and high-level description of all important features of the aedifion.io platform roughly sorted by the different steps of a typical data processing pipeline: We start with with the different ways of ingressing data, continue with the functional aspects of the storage, processing, and management of data, then move on to the egress of data as well as the generation of higher level insights from the data and, finally, conclude with non-functional features such as security, privacy, and the legal framework.
+This page offers a brief and high-level description of all important features of the aedifion.io platform roughly sorted by the different steps of a typical data processing pipeline: We start with the different ways of ingressing data, continue with the functional aspects of the storage, processing, and management of data, then move on to the egress of data as well as the generation of higher level insights from the data and, finally, conclude with non-functional features such as security, privacy, and the legal framework.
 
 ## Data ingress
 
