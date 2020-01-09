@@ -940,12 +940,14 @@ print(r.status_code, r.json())
 {% tab title="Curl" %}
 1. Copy-paste the JSON into a file, e.g., named new_tag.json._
 
+   {% code title="newtag.json" %}
    ```javascript
    {
        "key": "location",
        "value": "Office A113"
    }
    ```
+   {% endcode %}
 
 2. Open a commandline.
 3. Execute the following command.
@@ -1194,12 +1196,14 @@ print(r.status_code, r.json())
 {% tab title="Curl" %}
 1. Copy-paste the JSON into a file, e.g., named update_tag.json._
 
+   {% code title="updatetag.json" %}
    ```javascript
    {
        "key": "location",
        "value": "Office B113"
    }
    ```
+   {% endcode %}
 
 2. Open a commandline.
 3. Execute the following command.
@@ -1341,11 +1345,13 @@ print(r.status_code, r.json())
 {% tab title="CURL" %}
 1. Copy-paste the JSON into a file, e.g., named _confirmedtag.json._
 
+   {% code title="confirmedtag.json" %}
    ```javascript
    {
        "confirmed": "true"
    }
    ```
+   {% endcode %}
 
 2. Open a commandline.
 3. Execute the following command.

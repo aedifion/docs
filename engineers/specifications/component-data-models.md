@@ -949,6 +949,10 @@ The **Thermal Control Loop** component data model is representative for thermal 
 ### thermal\_control\_loop
 {% endtab %}
 
+{% tab title="Description" %}
+
+{% endtab %}
+
 {% tab title="Pins" %}
 {% hint style="danger" %}
 Mind the units.
@@ -1066,33 +1070,11 @@ Do not map the attribute **Cooling activation limit** and **Heating activation l
 Mind the units.
 {% endhint %}
 
-## Cooling activation limit
-
-In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: Cooling is activated for outside air temperature above the threshold mapped to the attribute **Cooling activation limit**. Mapping this attribute implicitly defines the component as _Cooling Loop._ Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../../glossary.md#instanced-component).
-
-| Key | Type | Default Value | Unit |
-| :--- | :--- | :--- | :--- |
-| cooling\_activation\_limit | float or integer | 26.0 | °C |
-
-## Heating activation limit
-
-In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: Heating is activated for outside air temperature below this threshold. Mapping this attribute implicitly defines the component as _Heating Loop._ Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../../glossary.md#instanced-component).
-
-| Key | Type | Default Value | Unit |
-| :--- | :--- | :--- | :--- |
-| heating\_activation\_limit | float or integer | 18.0 | °C |
-
-## Lower deviation tolerance
-
-The **Lower deviation tolerance** is an **optional** parameter to override the default values for tolerable undercuts of the actual outlet temperature below its setpoint. The default value is 2.0 °C.
-
-| Key | Type | Default Value | Unit |
-| :--- | :--- | :--- | :--- |
-| lower\_deviation\_tolerance | float or integer | 5.0 | °C |
-
 ## Reference curve
 
 In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: The **Reference curve** represents the dependency of outlet temperature setpoint on outside air temperature. It can be used for cooling as well as heating. In case the _Thermal Control Loop_ is used for heating, the reference curve is also referred to as **heat curve**.
+
+![Definition Reference Curve](../../.gitbook/assets/thermal_control_loop_reference_curve.png)
 
 The _Reference curve_ is created from two points. It is a linear curve. Copy-past the example json and fill in the numbers to specify the _Reference curve_ for the instanced _Thermal Control Loop._
 
@@ -1123,6 +1105,28 @@ The _Reference curve_ is created from two points. It is a linear curve. Copy-pas
 The json values are float formatted strings.
 {% endhint %}
 
+## Cooling activation limit
+
+In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: Cooling is activated for outside air temperature above the threshold mapped to the attribute **Cooling activation limit**. Mapping this attribute implicitly defines the component as _Cooling Loop._ Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../../glossary.md#instanced-component).
+
+| Key | Type | Default Value | Unit |
+| :--- | :--- | :--- | :--- |
+| cooling\_activation\_limit | float or integer | 26.0 | °C |
+
+## Heating activation limit
+
+In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: Heating is activated for outside air temperature below this threshold. Mapping this attribute implicitly defines the component as _Heating Loop._ Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../../glossary.md#instanced-component).
+
+![Definition Heating activation limit](../../.gitbook/assets/thermal_control_loop_heating_act_lim.png)
+
+| Key | Type | Default Value | Unit |
+| :--- | :--- | :--- | :--- |
+| heating\_activation\_limit | float or integer | 18.0 | °C |
+
+### Upper/Lower deviation tolerance
+
+![Definition Upper/Lower deviation tolerance](../../.gitbook/assets/thermal_control_loop_deviation_lim.png)
+
 ## Upper deviation tolerance
 
 The **Upper deviation tolerance** is an **optional** parameter to override the default values for tolerable overshoots of the actual outlet temperature above its setpoint. The default value is 2.0 °C.
@@ -1130,6 +1134,14 @@ The **Upper deviation tolerance** is an **optional** parameter to override the d
 | Key | Type | Default Value | Unit |
 | :--- | :--- | :--- | :--- |
 | upper\_deviation\_tolerance | float or integer | 5.0 | °C |
+
+## Lower deviation tolerance
+
+The **Lower deviation tolerance** is an **optional** parameter to override the default values for tolerable undercuts of the actual outlet temperature below its setpoint. The default value is 2.0 °C.
+
+| Key | Type | Default Value | Unit |
+| :--- | :--- | :--- | :--- |
+| lower\_deviation\_tolerance | float or integer | 5.0 | °C |
 {% endtab %}
 
 {% tab title="Available Functions" %}
