@@ -141,11 +141,17 @@ _\*\*\*\*_
 {% tab title="Quick Start" %}
 ## Value
 
-The Setpoint Deviation Analysis helps to identify problems with a control loop, such as
+Setpoint deviation is a strong symptom for faulty control loop operation, e.g. caused by
 
-* Technical defects
-* Component malfunctions
-* Faulty control loop parameter settings
+* Technical defects in the control loop supply,
+* Control loop malfunctions, and
+* Faulty control loop parameter settings.
+
+Benefits of improving insufficient setpoint value attainment are:
+
+* Higher occupants comfort
+* Lower operating costs
+* Higher energy efficiency
 
 ## Recommended for component types
 
@@ -177,15 +183,15 @@ Interpretation of the setpoint compliance of the component in the analysed perio
 
 ## Recommendations
 
-Recommendation texts on what actions to take, in case of sub-optimal setpoint compliance as well as recommendations on how to further investigate the root causes for such behaviour
+Recommendation texts on what actions to take, in case of sub-optimal setpoint compliance as well as recommendations on how to further investigate the root causes for such behavior.
 
 ## KPIs
 
-Providing deeper insights to the cycle behavior. KPIs support human reasoning.
+Providing deeper insights to the cycle behavior. KPIs support human reasoning and provide full transparency of the algorithms reasoning.
 
-## Traffic light KPIs
+### Incidence of setpoint deviation
 
-How long was the setpoint deviation in a green, yellow or red area?
+Duration of the setpoint deviations, bundled by threshold value ranges.
 
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
@@ -196,18 +202,18 @@ How long was the setpoint deviation in a green, yellow or red area?
 | setpoint deviation.largerYsmallerX | Duration with setpoint deviation larger than Y and smaller than X | 0 to inf | h |
 | setpoint deviation.smallerY | Duration with setpoint deviation smaller than Y | 0 to inf | h |
 
-## Operating time KPIs
+### Operating time
 
-Operating times KPIs provide information on the total time of operation of the analysed component during the analysed timeframe.
+Operating time KPIs provide information on the total time of operation of the analysed component during the analysed time frame.
 
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
 | operating time | Total operating time | 0 to inf | h |
 | operating time.relative | Relative operating time | 0 to 100 | % |
 
-## Miscellaneous KPIs
+### Statistics of setpoint deviation
 
-General information KPIs to give further insight into the setpoint compliance over the analysed timeframe.
+General information KPIs to give further insight into the setpoint compliance over the analysed time frame.
 
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
@@ -215,6 +221,18 @@ General information KPIs to give further insight into the setpoint compliance ov
 | setpoint deviation.minimum | Smallest setpoint deviation | 0 to inf | - |
 | setpoint deviation.mean | Average setpoint deviation | 0 to inf | - |
 | setpoint deviation.median | Median setpoint deviation | 0 to inf | - |
+{% endtab %}
+
+{% tab title="Example" %}
+The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a thermal control loop component model was instanced and the respective datapoints mapped to this component.
+
+![](../../.gitbook/assets/sda%20%281%29.svg)
+
+In this scenario, the figure above shows the time series recorded for an exemplary period of 36 hours on a November workday. The temperature setpoint and the actual measured value started to drift apart around 12 am on the 19th. Since then, the control loop did not comply with the setpoint temperatures although the control loop was operating.
+
+The automated interpretation confirms our visual analysis of the time series shown in the figure, summed up by the qualitative warning level "red". The recommendations provide further instruction on how to isolate and fix the cause for the inadequate setpoint compliance. Further, the result offers an advanced set of KPIs, providing additional insights into the control loop behaviour. They support human reasoning for a case-by-case analysis.
+
+For example, the drop in temperatures is peculiar and could point to a technical defect or malfunction, such as a blocked valve. Another cause might be a sudden drop in the temperatures supplied to the distribution system, such as an heat-pump or boiler issue. Further investigation of the root cause is possible via data visualization on the aedifion front-end.
 {% endtab %}
 
 {% tab title="Components" %}
@@ -240,25 +258,14 @@ General information KPIs to give further insight into the setpoint compliance ov
 {% tab title="Application" %}
 ## Recommended Time Span
 
-* &gt;1 days
-* Mind weekends
+* 1 to 7 days for significant deviation
+* hourly scale for in detail analysis
 
 ## **Recommended Repetition** <a id="recommended-repetition-1"></a>
 
-* Every few months in order to ensure efficient control
-* If an issue is suspected
-{% endtab %}
-
-{% tab title="Example" %}
-The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a thermal control loop component model was instanced and the respective datapoints mapped to this component.
-
-![](../../.gitbook/assets/sda%20%281%29.svg)
-
-In this scenario, Figure 1 shows the time series recorded for an exemplary period of 36 hours on a november workday. The temperature setpoint and the actual measured value started to drift apart around 12 am on the 19th. Since then, the control loop was not comply with the setpoint temperatures.
-
-The automated interpretation confirms our visual analysis of the time series shown in figure 1, summed up by the qualitative warning level "red". The recommendations provide further instruction on how to isolate and fix the cause for the inadequate setpoint compliance. Further, the result offers an advanced set of KPIs, providing additional insights into the control loop behaviour. They support human reasoning for a case-by-case analysis.
-
-For example, the drop in temperatures is peculiar and could point to a technical defect or malfunction, such as a blocked valve. Another cause might be a sudden drop in the temperatures supplied to the distrubution system, such as an heat-pump or boiler issue. Further investigation of the root cause is possible via data visualization at the aedifion frontend.
+* Every few weeks, since control loops are very sensitive to operational conditions.
+* After the start of the heating or cooling period.
+* If an issue is suspected.
 {% endtab %}
 {% endtabs %}
 
