@@ -275,7 +275,8 @@ For example, the drop in temperatures is peculiar and could point to a technical
 {% tab title="Quick Start" %}
 ## Value
 
-The Room Air Quality Analysis helps to evaluate the air quality in a room, based on its carbon dioxide content, and helps to detect badly calibrated CO2 sensors.
+* Occupant comfort
+* Occupant health
 
 ## Recommended for component types
 
@@ -283,7 +284,7 @@ The Room Air Quality Analysis helps to evaluate the air quality in a room, based
 {% endtab %}
 
 {% tab title="Description" %}
-The Room Air Quality Analysis examines and interprets the carbon dioxide content in the air of a room during the analysis period. In addition to an assessment of the general air quality, recommendations for further measures are given. In addition, calibration problems, to which carbon dioxide sensors are susceptible, are identified.
+The Room Air Quality Analysis checks and interprets the compliance of carbon dioxide concentration in the air to the recommendations of DIN EN 13776: 2007-09. In case of poor air quality, measures for improvement are recommended. In addition, the algorithms identifies calibration errors by physical plausibility checks.
 {% endtab %}
 
 {% tab title="Results" %}
@@ -305,9 +306,9 @@ Evaluations of the general air quality over the analysed period.
 
 Recommendation texts on what actions to take, in case of mediocre or poor air quality.
 
-## KPIS
+## KPIs
 
-## Air quality classification KPIs
+### Air quality classification
 
 How long was the air quality in the room \(based on carbon dioxide concentrations\) considered “good”, “medium”, “moderate” or “poor”? Assessments are based on EU regulation classifications of Indoor Air Quality \(IDA\) classes 1 \(“good”\) to 4 \(“poor”\).
 
@@ -322,14 +323,14 @@ How long was the air quality in the room \(based on carbon dioxide concentration
 | co2  duration.IDA3.absolute | Duration with “moderate “ indoor air quality | 0 to inf | h |
 | co2 duration.IDA4.absolute | Duration with “poor “ indoor air quality | 0 to inf | h |
 
-## Miscellaneous KPIs
+### Statistics of CO2 concentration
 
-Providing deeper insights to the carbon dioxide concentrations over the analysed timeframe.
+Providing deeper insights to the carbon dioxide concentrations over the analysed period.
 
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
 | co2.maximum | Largest CO2 concentrations | 0 to inf | ppm |
-| co2dee.minimum | Smallest CO2 concentrations | 0 to inf | ppm |
+| co2.minimum | Smallest CO2 concentrations | 0 to inf | ppm |
 | co2.mean | Average CO2 concentrations | 0 to inf | ppm |
 | co2.median | Median CO2 concentrations | 0 to inf | ppm |
 {% endtab %}
@@ -348,11 +349,12 @@ Providing deeper insights to the carbon dioxide concentrations over the analysed
 ##  Recommended Time Span
 
 * &gt;1 days
-* Mind weekends
+* Utilize on days with room occupation
 
 ## **Recommended Repetition** <a id="recommended-repetition-1-1"></a>
 
-* Every few months in order to ensure sensors don't require recalbiration
+* On changes of room occupation or usage
+* Every few months in order to check sensor calibration
 * If an issue is suspected
 {% endtab %}
 {% endtabs %}
@@ -446,6 +448,18 @@ The unit used in this datapoint needs to be specified in order for the analysis 
 * _litersPerHour_
 
 \_\_
+{% endtab %}
+
+{% tab title="Application" %}
+
+
+## Recommended Time Span
+
+* 1 - 3 days
+
+## **Recommended Repetition**
+
+### Every month
 {% endtab %}
 {% endtabs %}
 
