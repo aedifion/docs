@@ -473,22 +473,23 @@ The **Operating Cycle Analysis** investigates and interprets the cycle behavior 
 
 * Lower operating costs
 * Higher energy efficiency
+* Peak energy consumption reduction
 * Longer equipment and component life times
 * Smoother system integration
 
 ## Recommended for component types
 
 * Energy conversion plants
-* Components with high start-up expenses
+* Components with high start-up energy consumption
 * Heat pumps
 * Combined heat and power
 * etc.
 {% endtab %}
 
 {% tab title="Description" %}
-The **Operating Cycle Analysis** aims towards a more constant operation of components and thereby towards a reduction of operational costs. Frequent start and stop processes lead to energy losses and higher wear and tear of the component compared to a constant operation. Further, a frequently alternating operation of a component, e.g. a heat pump, has negative effects on adjacent components, which are enforced to alternate as well. At the same time, too low cycle rates are an indication of a possible under-supply.
+The **Operating Cycle Analysis** identifies excessive start and stop processes which lead to energy losses, energy consumption peaks due to higher energy consumption on plant start and higher wear and tear of the component compared to a constant operation. Further, a frequently alternating operation of a component, e.g. a heat pump, has negative effects on adjacent components, which are enforced to alternate as well.
 
-The analysis function identifies excessive as well as too low cycle rates on the basis of the datapoint _operating message_ of the analysed component. It provides interpretations of the current cycle behavior and recommendations on how to improve it. The recommended measures include adaptions of control parameter, simple structural measures, as well as instructions for diagnosis and adjustment of the cause of sub-optimal cycle behavior. Additionally to the automated generation of interpretations and recommendations, the algorithm offers a set of KPIs. They provide deeper insides in the cycle behavior of the analysed component.
+Further, the algorithm takes low cycle rates as an indication of a possible under-supply of the adjacent systems.
 {% endtab %}
 
 {% tab title="Results" %}
@@ -577,46 +578,11 @@ Switch-off time KPIs evaluate the shutdown times of the closed cycles observed d
 {% tab title="Example" %}
 The **Operating Cycle Analysis** was applied to a real test bench, the heat pump of the E.ON Energy Research Center, RWTH Aachen University. Thus, a [heat pump component model ](component-data-models.md#heat-pump)was instanced and the respective datapoint mapped to the pin _operating message_. __Figure 1 shows the time series recorded for an exemplary period of 6 hours on a winter day.
 
-![Figure 1: Plot of operating message time series from 12:00 am till 6:00 pm](../../.gitbook/assets/operating_cycle_analysis.png)
+![Plot of operating message time series from 12:00 am till 6:00 pm](../../.gitbook/assets/operating_cycle_analysis.png)
 
-The short shut-down times between periods of duty are conspicuous. This is a hint for unnecessary frequent start and stop processes of the heat pump, leading not only to energy losses but also to high wear and tear of the heat pumps scroll compressor.
+Short shut-down times between periods of duty indicate excessive start and stop processes of the heat pump, leading not only to energy losses and electricity consumption peaks but also to increased wear and tear of the heat pumps compressor. 
 
-In order to apply the **Operating Cycle Analysis** for the instanced and mapped heat pump, we defined an analysis config via the aedifion API. Executing the **Operating Cycle Analysis** for the same period of time as figure 1 returns following results:
-
-**Qualitative warning level:** red \(as in traffic light signal color\)
-
-**Interpretation:** Highly increased number of start procedures/operation cycles. A reduction of the starting procedures or a more continuous operation is recommended.
-
-**Recommendations:**
-
-* Check whether the system flow temperature runs into the safety limiter and causes safety shutdowns.
-* Check whether the heat requirement is covered too quickly by the producer. If yes, check the modulation operation of the system and, if available, the integration of the buffer tank and the interconnected operation of several generation systems.
-* Check the installation of a power choke. By reducing the electrical power consumed, the amount of heat provided can be reduced and thus the effects of an oversized plant. Pay attention to the manufacturer's specifications as to whether the installation of a choke is technically possible.
-
-**KPIs:**
-
-| KPI | Value | Unit |
-| :--- | :--- | :--- |
-| operating time | 4.31 | h |
-| operating time.relative | 71.8 | % |
-| starts | 16 | count |
-| closed operating cycles | 15 | count |
-| cycle times.median | 0.36 | h |
-| cycle times.average | 0.369 | h |
-| cycle times.maximum | 0.41 | h |
-| cycle times.minimum | 0.34 | h |
-| duty times.median | 0.254 | h |
-| duty times.average | 0.264 | h |
-| duty times.maximum | 0.304 | h |
-| duty times.minimum | 0.234 | h |
-| switch-off times.median | 0.105 | h |
-| switch-off times.average | 0.106 | h |
-| switch-off times.maximum | 0.106 | h |
-| switch-off times.minimum | 0.105 | h |
-
-The automated interpretation confirms our visual analysis of the time series shown in figure 1, summed up by the qualitative warning level "red". The recommendations provide further instruction on how to isolate and fix the cause for the increased number of start and stop processes.
-
-Further, the result offers an advanced set of KPIs, providing additional insights into the cycle behavior of the heat pump. They support human reasoning for case-by-case analysis. For example, the similarity of switch-off times per cycle are peculiar. Since a coincidence would be surprising for such a dynamically operated plant, one could reason, that the heat pump is permanently requested by the higher level controller, but runs into a condition causing a component shutdown for a predefined period of time. Deeper human investigation of the condition is possible via data visualization of aedifion.io and the combination to insights of other analysis functions.
+The automated interpretation confirms our visual analysis of the time series shown in the figure, summed up by the qualitative warning level "red". The recommendations provide further instruction on how to isolate and fix the cause for the increased number of start and stop processes. Further, the result offers an advanced set of KPIs, providing additional insights into the cycle behavior of the heat pump.
 {% endtab %}
 
 {% tab title="Components" %}
