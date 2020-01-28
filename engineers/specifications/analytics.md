@@ -236,9 +236,7 @@ For example, the drop in temperatures is peculiar and could point to a technical
 {% endtab %}
 
 {% tab title="Components" %}
-## Components
-
-### **thermal\_control\_loop**
+## \*\*\*\*[**thermal\_control\_loop**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#thermal-control-loop)\*\*\*\*
 
 #### Pins
 
@@ -246,7 +244,7 @@ For example, the drop in temperatures is peculiar and could point to a technical
 * inlet temperature
 * operating message
 
-### **room**
+## \*\*\*\*[**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
 
 #### Pins
 
@@ -336,9 +334,7 @@ Providing deeper insights to the carbon dioxide concentrations over the analysed
 {% endtab %}
 
 {% tab title="Components" %}
-## Components
-
-### **room**
+## \*\*\*\*[**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
 
 #### Pins
 
@@ -367,46 +363,58 @@ Providing deeper insights to the carbon dioxide concentrations over the analysed
 
 The Virtual Heat Meter helps to
 
-* quantify the heat delivered by various heating circuits
-* identify inaccurate heat flow data
+* virtual heat meter, quantifies heat fluxes
+* health check of heat meters
 
 ## Recommended for component types
 
 Heating systems, such as
 
+* Thermal control loops
 * Heat pumps
 * Boilers
 * Heat meters
 {% endtab %}
 
 {% tab title="Description" %}
-The Virtual Heat Meter estimates the heat that is delivered by components such as heat pumps and boilers, based on temperature and volume flow measurements
+The Virtual Heat Meter determines the heat flux and energy delivered in heating/cooling piping networks such as thermal control loops or energy conversion plants. The determination is based on the temperature difference and volume flow over measurement point.
 {% endtab %}
 
 {% tab title="Results" %}
-## Miscellaneous KPIs
+## KPIs
 
-Providing deeper insights to the setpoint compliance. KPIs support human reasoning.
+#### Statistics of heat flux
+
+Providing insights into value range of the heat flux.
+
+{% hint style="danger" %}
+Negative values indicate cooling, while positive indicate heating.
+{% endhint %}
+
+{% hint style="info" %}
+**Heat pump:** The KPI identifiers are extended by the prefix _condenser_ or _evaporator_ to specify the side of the heat pump the virtual heat meter is applied on. E.g.:
+
+heat flux.maximum will be evaporator
+{% endhint %}
 
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
-| Q\_dot.maximum | Largest heat flux | 0 to inf | kW |
-| Q\_dot.minimum | Smallest heat flux | 0 to inf | kW |
-| Q\_dot.mean | Average heat flux | 0 to inf | kW |
-| Q\_dot.medium | Median heat flux | 0 to inf | kW |
+| heat flux.maximum | Largest heat flux | -inf to inf | kW |
+| heat flux.minimum | Smallest heat flux | -inf to inf | kW |
+| heat flux.mean | Average heat flux | -inf to inf | kW |
+| heat flux.medium | Median heat flux | -inf to inf | kW |
+| heat | Total heat transferred | -inf to inf | kWh |
 
-## Timeseries KPIs
+## Timeserieses
 
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
-| Q\_dot.timeseries | The complete timeseries of transferred heat | 0 to inf | kW |
-| Q\_dot.timeseries\_cumulated | The complete timeseries of cumulated transferred heat | 0 to inf | kWh |
+| heat flux.timeseries | The complete timeseries of transferred heat | -inf to inf | kW |
+| heat flux.cumulated | The complete timeseries of cumulated transferred heat | -inf to inf | kWh |
 {% endtab %}
 
 {% tab title="Components" %}
-## Components
-
-### **heat \_meter**
+## [**heat\_meter**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-meter)\*\*\*\*
 
 #### Pins
 
@@ -414,7 +422,11 @@ Providing deeper insights to the setpoint compliance. KPIs support human reasoni
 * inlet temperature
 * volume flow
 
-### boiler
+#### Attributes
+
+* volume\_flow\_unit
+
+## [boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#boiler), [condensing\_boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#condensing-boiler), [low-temperature\_boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#low-temperature-boiler)
 
 #### Pins
 
@@ -423,18 +435,31 @@ Providing deeper insights to the setpoint compliance. KPIs support human reasoni
 * operating message
 * volume flow
 
-### **heat\_pump**
+**Attributes**
+
+* volume\_flow\_unit
+
+## \*\*\*\*[**heat\_pump**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)\*\*\*\*
+
+{% hint style="warning" %}
+The Virtual Heat Meter is determined on the condenser and evaporator side depending on the mapped datapoints. 
+{% endhint %}
 
 #### Pins
 
-* condensator outlet temperature
-* condensator inlet temperature
-* evaporator outlet temperature
+* condenser inlet temperature
+* condenser outlet temperature
+* condenser volume flow
 * evaporator inlet temperature
+* evaporator outlet temperature
+* evaporator volume flow
 * operating message
-* volume flow
 
-## **Attributes**
+#### Attributes
+
+* volume\_flow\_unit \(same for evaporator and condenser
+
+## Attributes
 
 #### volume\_flow\_unit:
 
@@ -446,8 +471,6 @@ The unit used in this datapoint needs to be specified in order for the analysis 
 * _litersPerSecond_
 * _litersPerMinute_
 * _litersPerHour_
-
-\_\_
 {% endtab %}
 
 {% tab title="Application" %}
@@ -462,6 +485,8 @@ The unit used in this datapoint needs to be specified in order for the analysis 
 ### Every month
 {% endtab %}
 {% endtabs %}
+
+
 
 ## Operating Cycle Analysis
 
