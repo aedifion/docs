@@ -110,7 +110,7 @@ Setpoint deviation is a strong symptom for faulty control loop operation, e.g. c
 
 Benefits of improving insufficient setpoint value attainment are:
 
-* Higher occupants comfort
+* Higher occupant comfort, health and performance
 * Lower operating costs
 * Higher energy efficiency
 
@@ -214,12 +214,12 @@ General information KPIs to give further insight into the setpoint compliance ov
 {% tab title="Quick Start" %}
 ## Value
 
-* Occupant comfort
-* Occupant health
+* Higher occupant comfort, health and performance
 
 ## Recommended for component types
 
-* Room
+* Rooms
+* Occupied indoor areas
 {% endtab %}
 
 {% tab title="Description" %}
@@ -284,14 +284,15 @@ Providing deeper insights to the carbon dioxide concentrations over the analysed
 {% tab title="Quick Start" %}
 ## Value
 
-The Virtual Heat Meter helps to
+Quantifies heat fluxes and heat for
 
-* virtual heat meter, quantifies heat fluxes
-* health check of heat meters
+* Trace energy fluxes
+* Enable other analytics functions
+* Enables comparison to hardware heat meters
 
 ## Recommended for component types
 
-Heating systems, such as
+Heat and cold conversion or distribution systems, such as
 
 * Thermal control loops
 * Heat pumps
@@ -579,14 +580,14 @@ This Analysis detects if a sensor is influenced by sun radiation or if the senso
 {% tab title="Quick Start" %}
 ## Value
 
+* Higher operational performance due to reliable information about outside air conditions
+* Higher occupant comfort, health and performance
 * Lower operating costs
-* Make sure your building automation systems can work with reliable information about outside conditions
-* Make sure your sensor readings are not influenced by sun radiation
-* Make sure your sensor is working correctly
+* Better system coordination in systems with redundant sensors
 
 ## Recommended for component types
 
-* Weather Station
+* Weather station
 {% endtab %}
 
 {% tab title="Description" %}
@@ -649,12 +650,15 @@ _In general you can expect a short demonstration on how we applied the analysis 
 {% tab title="Quick Start" %}
 ## Value
 
-* energy-efficient operation of thermal control loops
-* energy savings that lead to reduced costs
+* Higher occupant comfort, health and performance
+* Higher energy efficiency
+* Lower operating costs
 
 ## Recommended for component types
 
-* **thermal control loop**
+Heat and cold distribution systems, such as
+
+* Thermal control loop
 {% endtab %}
 
 {% tab title="Description" %}
