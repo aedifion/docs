@@ -578,7 +578,7 @@ Switch-off time KPIs evaluate the shutdown times of the closed cycles observed d
 
 ## Outdoor Temperature Sensor Analysis
 
-This Analysis detects if a sensor is influenced by sun radiation or if the sensor has an offset to reference weather data from a different source.
+This analysis detects, if a sensor is influenced by sun radiation, surrounding components, or if the sensor shows an offset.
 
 {% tabs %}
 {% tab title="Quick Start" %}
@@ -595,15 +595,9 @@ This Analysis detects if a sensor is influenced by sun radiation or if the senso
 {% endtab %}
 
 {% tab title="Description" %}
-HVAC and heating systems of buildings are controlled with the help of sensors. The controller of these systems can't verify the correctness of the measured values and will control in accordance with the measured values.
+The outdoor air temperature sensor is one of the most important sensors for HVAC system control, since many control decisions, e.g. which amount of heat provided or switching between heating and cooling mode, are made based on the measured outdoor air temperature. Outdoor air temperature sensors wear out over the life time of the building. Further, the sensor is often influenced by sun radiation or heat emitting components in its surrounding. Wrongly measured outside air temperature directly corresponds to a thermal over or under supply of the building, often leads to poor user comfort and an exaggerated energy consumption.
 
-Sensors are calibrated by the manufacturer or installation technician and will deliver a reading that is accurate to the required accuracy class. With an increasing operating time of the sensor, readings will shift and errors will increase compared to the moment of installation. Additionally to these sensor inherent errors, there can also be errors introduced that originate from the surrounding area the sensor is placed. Latter errors can be significantly higher than the sensor inherent errors because there is no accurate measure for them.
-
-Therefore the placement of sensors should be well-considered. An important measurement for HVAC and heating systems is the outside air temperature, which helps the controller decide how much heating or cooling is required to deliver a comfortable indoor climate. Errors during the measurement of the outside air temperature directly correspond to an over or undersupply of the building and can lead to poor user comfort and a waste of energy.
-
-To measure the outside air temperature the sensor must be placed outside of the building and often enough the placement is sub-optimal and sunlight can reach the sensor housing which results in a temperature reading that is higher than the actual outside air temperature.
-
-This Analysis will compare the outside air temperature measurement of the sensor to measurement data from a different source \(f.e. weather service\) for each observation to determine if the sensor shows any discrepancies.
+The _Outdoor Temperature Sensor Analysis_ identifies installation errors and measurement offsets of the outdoor air temperature sensor and derives optimization measures for better outdoor air temperature measuring.
 {% endtab %}
 
 {% tab title="Results" %}
