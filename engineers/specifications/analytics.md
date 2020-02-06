@@ -349,7 +349,11 @@ _heat flux.maximum_ will be _evaporator heat flux.maximum_
 
 * volume\_flow\_unit
 
-## [boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#boiler), [condensing\_boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#condensing-boiler), [low-temperature\_boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#low-temperature-boiler)
+## [boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#boiler)
+
+### [condensing\_boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#condensing-boiler)
+
+### [low-temperature\_boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#low-temperature-boiler)
 
 #### Pins
 
@@ -361,6 +365,15 @@ _heat flux.maximum_ will be _evaporator heat flux.maximum_
 **Attributes**
 
 * volume\_flow\_unit
+
+## [combined\_heat\_and\_power](component-data-models.md#combined-heat-and-power)
+
+#### Pins
+
+* outlet temperature
+* inlet temperature
+* operating message
+* volume flow
 
 ## \*\*\*\*[**heat\_pump**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)\*\*\*\*
 
@@ -513,27 +526,33 @@ Switch-off time KPIs evaluate the shutdown times of the closed cycles observed d
 {% endtab %}
 
 {% tab title="Components" %}
-## Pins
+## [boiler](component-data-models.md#boiler)
+
+### [condensing\_boiler](component-data-models.md#condensing-boiler)
+
+### [low-temperature\_boiler](component-data-models.md#low-temperature-boiler)
+
+#### Pins
 
 * operating message
 
-## Components
+## [combined\_heat\_and\_power](component-data-models.md#combined-heat-and-power)
 
-### [Boiler](component-data-models.md#boiler)
+#### Pins
 
-#### [Condensing Boiler](component-data-models.md#condensing-boiler)
+* operating message
 
-#### [Low-Temperature Boiler](component-data-models.md#low-temperature-boiler)
+## [fan](component-data-models.md#heat-pump)
 
-### [Combined Heat and Power](component-data-models.md#combined-heat-and-power)
+#### Pins
 
-### [Fan](component-data-models.md#heat-pump)
+* operating message
 
-Results are limited to KPIs.
+### [heat\_pump](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)
 
-### [Heat Pump](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)
+#### Pins
 
-### 
+* operating message
 {% endtab %}
 
 {% tab title="Application" %}
@@ -598,20 +617,16 @@ _In general you can expect a short demonstration on how we applied the analysis 
 {% endtab %}
 
 {% tab title="Components" %}
-## Pins
+## [weather\_station](component-data-models.md#weather-station)
+
+#### Pins
 
 * temperature
 
-## **Attributes**
+#### **Attributes**
 
-* **latitude**
-  * latitude position \[deg\] of the examined component
-* **longitude**
-  * longitude position \[deg\] of the examined component
-
-## Components
-
-* [Weather Station](component-data-models.md#weather-station)
+* latitude
+* longitude
 {% endtab %}
 
 {% tab title="Application" %}
@@ -666,15 +681,13 @@ _In general you can expect a short demonstration on how we applied the analysis 
 {% endtab %}
 
 {% tab title="Components" %}
-## Pins
+## [thermal\_control\_loop](component-data-models.md#thermal-control-loop)
+
+#### Pins
 
 * outlet temperature
 * return temperature
 * operating message
-
-## Components
-
-### Thermal Control Loop
 {% endtab %}
 
 {% tab title="Application" %}
@@ -706,11 +719,7 @@ Documentation currently under construction 🚧
 Documentation currently under construction 🚧
 {% endhint %}
 
-## **Heat Flux Analysis**
-
-{% hint style="warning" %}
-Documentation currently under construction 🚧
-{% endhint %}
+\*\*\*\*
 
 ## Information
 
