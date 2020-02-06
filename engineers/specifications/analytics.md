@@ -127,28 +127,20 @@ Control loops, such as
 The Setpoint Deviation Analysis aims to identify issues regarding the deviations between the desired value and the actual value within a building’s many control systems. Deviations can occur based on a whole host of reasons. Maybe the system is not supplied with a high enough temperature during certain hours to begin with, or there might be an issue with the controlling software. Maybe a blocked valve is to blame. The Setpoint Deviation Analysis’ key performance indicators \(KPIs\) can help pin down the root cause of the problem, or it might just confirm that everything is working as it should.
 {% endtab %}
 
+{% tab title="Example" %}
+The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a thermal control loop component model was instanced and the respective datapoints mapped to this component.
+
+![](../../.gitbook/assets/sda%20%281%29.svg)
+
+In this scenario, the figure above shows the time series recorded for an exemplary period of 36 hours on a November workday. The temperature setpoint and the actual measured value started to drift apart around 12 am on the 19th. Since then, the control loop did not comply with the setpoint temperatures although the control loop was operating.
+
+The automated interpretation confirms our visual analysis of the time series shown in the figure, summed up by the qualitative warning level "red". The recommendations provide further instruction on how to isolate and fix the cause for the inadequate setpoint compliance. Further, the result offers an advanced set of KPIs, providing additional insights into the control loop behaviour. They support human reasoning for a case-by-case analysis.
+
+For example, the drop in temperatures is peculiar and could point to a technical defect or malfunction, such as a blocked valve. Another cause might be a sudden drop in the temperatures supplied to the distribution system, such as an heat-pump or boiler issue. Further investigation of the root cause is possible via data visualization on the aedifion front-end.
+{% endtab %}
+
 {% tab title="Results" %}
-## **Qualitative warning level**
-
-Enum representations of traffic light colours providing a quick overview over the general setpoint compliance within the analysed period.
-
-| Enum | Color |
-| :--- | :--- |
-| 0 | green |
-| 1 | yellow |
-| 2 | red |
-
-## Interpretations
-
-Interpretation of the setpoint compliance of the component in the analysed period.
-
-## Recommendations
-
-Recommendation texts on what actions to take, in case of sub-optimal setpoint compliance as well as recommendations on how to further investigate the root causes for such behavior.
-
 ## KPIs
-
-Providing deeper insights to the cycle behavior. KPIs support human reasoning and provide full transparency of the algorithms reasoning.
 
 ### Incidence of setpoint deviation
 
@@ -182,18 +174,6 @@ General information KPIs to give further insight into the setpoint compliance ov
 | setpoint deviation.minimum | Smallest setpoint deviation | 0 to inf | - |
 | setpoint deviation.mean | Average setpoint deviation | 0 to inf | - |
 | setpoint deviation.median | Median setpoint deviation | 0 to inf | - |
-{% endtab %}
-
-{% tab title="Example" %}
-The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a thermal control loop component model was instanced and the respective datapoints mapped to this component.
-
-![](../../.gitbook/assets/sda%20%281%29.svg)
-
-In this scenario, the figure above shows the time series recorded for an exemplary period of 36 hours on a November workday. The temperature setpoint and the actual measured value started to drift apart around 12 am on the 19th. Since then, the control loop did not comply with the setpoint temperatures although the control loop was operating.
-
-The automated interpretation confirms our visual analysis of the time series shown in the figure, summed up by the qualitative warning level "red". The recommendations provide further instruction on how to isolate and fix the cause for the inadequate setpoint compliance. Further, the result offers an advanced set of KPIs, providing additional insights into the control loop behaviour. They support human reasoning for a case-by-case analysis.
-
-For example, the drop in temperatures is peculiar and could point to a technical defect or malfunction, such as a blocked valve. Another cause might be a sudden drop in the temperatures supplied to the distribution system, such as an heat-pump or boiler issue. Further investigation of the root cause is possible via data visualization on the aedifion front-end.
 {% endtab %}
 
 {% tab title="Components" %}
@@ -326,11 +306,11 @@ The Virtual Heat Meter determines the heat flux and energy delivered in heating/
 {% tab title="Results" %}
 ## KPIs
 
-#### Statistics of heat flux
+### Statistics of heat flux
 
 Providing insights into value range of the heat flux.
 
-{% hint style="danger" %}
+{% hint style="warning" %}
 Negative values indicate cooling, while positive indicate heating.
 {% endhint %}
 
@@ -344,9 +324,9 @@ _heat flux.maximum_ will be _evaporator heat flux.maximum_
 | :--- | :--- | :--- | :--- |
 | heat flux.maximum | Largest heat flux | -inf to inf | kW |
 | heat flux.minimum | Smallest heat flux | -inf to inf | kW |
-| heat flux.mean | Average heat flux | -inf to inf | kW |
-| heat flux.medium | Median heat flux | -inf to inf | kW |
-| heat | Total heat transferred | -inf to inf | kWh |
+| heat flux.average | Average heat flux | -inf to inf | kW |
+| heat flux.median | Median heat flux | -inf to inf | kW |
+| heat | Aggregated heat transferred | -inf to inf | kWh |
 
 ## Timeserieses
 
@@ -460,31 +440,20 @@ The **Operating Cycle Analysis** identifies excessive start and stop processes w
 Further, the algorithm takes low cycle rates as an indication of a possible under-supply of the adjacent systems.
 {% endtab %}
 
+{% tab title="Example" %}
+The **Operating Cycle Analysis** was applied to a real test bench, the heat pump of the E.ON Energy Research Center, RWTH Aachen University. Thus, a [heat pump component model ](component-data-models.md#heat-pump)was instanced and the respective datapoint mapped to the pin _operating message_. __Figure 1 shows the time series recorded for an exemplary period of 6 hours on a winter day.
+
+![Plot of operating message time series from 12:00 am till 6:00 pm](../../.gitbook/assets/operating_cycle_analysis.png)
+
+Short shut-down times between periods of duty indicate excessive start and stop processes of the heat pump, leading not only to energy losses and electricity consumption peaks but also to increased wear and tear of the heat pumps compressor. 
+
+The automated interpretation confirms our visual analysis of the time series shown in the figure, summed up by the qualitative warning level "red". The recommendations provide further instruction on how to isolate and fix the cause for the increased number of start and stop processes. Further, the result offers an advanced set of KPIs, providing additional insights into the cycle behavior of the heat pump.
+{% endtab %}
+
 {% tab title="Results" %}
-## **Qualitative warning level**
-
-Enum representations of traffic light colors providing a quick overview over the operation quality regarding cycle rates.
-
-| Enum | Color |
-| :--- | :--- |
-| 0 | green |
-| 1 | yellow |
-| 2 | red |
-
-## Interpretations
-
-Interpretation text of the cycle rates of the analysed component in regard to its overall operation time.
-
-## Recommendations
-
-Recommendation texts on how to improve cycle rates of the analysed component including adjustment of control parameter as well as recommendations on how to investigate the root cause for unpleasant cycle behavior.
-
 ## KPIs
 
-  
-Providing deeper insights to the setpoint compliance. KPIs support human reasoning.
-
-### Operating time
+### Operating time
 
 Operating times KPIs provide information on the total time of operation of the analysed component during the analysed time span.
 
@@ -541,16 +510,6 @@ Switch-off time KPIs evaluate the shutdown times of the closed cycles observed d
 | switch-off times.average | Time-weighted average of switch-off periods | 0 to inf | h |
 | switch-off times.maximum | Longest switch-off period | 0 to inf | h |
 | switch-off times.minimum | Shortest switch-off period | 0 to inf | h |
-{% endtab %}
-
-{% tab title="Example" %}
-The **Operating Cycle Analysis** was applied to a real test bench, the heat pump of the E.ON Energy Research Center, RWTH Aachen University. Thus, a [heat pump component model ](component-data-models.md#heat-pump)was instanced and the respective datapoint mapped to the pin _operating message_. __Figure 1 shows the time series recorded for an exemplary period of 6 hours on a winter day.
-
-![Plot of operating message time series from 12:00 am till 6:00 pm](../../.gitbook/assets/operating_cycle_analysis.png)
-
-Short shut-down times between periods of duty indicate excessive start and stop processes of the heat pump, leading not only to energy losses and electricity consumption peaks but also to increased wear and tear of the heat pumps compressor. 
-
-The automated interpretation confirms our visual analysis of the time series shown in the figure, summed up by the qualitative warning level "red". The recommendations provide further instruction on how to isolate and fix the cause for the increased number of start and stop processes. Further, the result offers an advanced set of KPIs, providing additional insights into the cycle behavior of the heat pump.
 {% endtab %}
 
 {% tab title="Components" %}
@@ -626,18 +585,12 @@ This Analysis will compare the outside air temperature measurement of the sensor
 {% tab title="Results" %}
 ## KPIs
 
-| KPI Identifier | Value Range | Unit |
-| :--- | :--- | :--- |
-| radiation influenced.relative | 0 to 100 | % |
-| radiation influenced.total | 0 - inf | days |
+### Sun radiation influence
 
-#### radiation influenced.total
-
-radiation influenced.total is equal to the number of days that show one or more hours of radiation influence.
-
-#### radiation influenced.relative
-
-radiation influenced.relative is a ratio between radiation influenced.total and the observed period expressed in percent.
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| radiation influenced.relative | Ratio of days with more than one hour of sun radiation influence to days analyzed | 0 to 100 | % |
+| radiation influenced.total | Days with more than one hour of sun radiation influence | 0 - inf | days |
 {% endtab %}
 
 {% tab title="Example" %}
@@ -695,30 +648,21 @@ The Temperature Spread Analysis assesses the difference between two temperature 
 A thermal control loop is a typical case where outlet and return temperature are different and a temperature spread that is higher indicates a good utilization of this loop. A lower temperature spread suggests a reduced energy demand of the connected consumers and thus should lead to a reduction of volume flow caused by a reduced pump speed that saves electricity.
 {% endtab %}
 
+{% tab title="Example" %}
+_In general you can expect a short demonstration on how we applied the analysis during our development and which results we got from our test bench._
+{% endtab %}
+
 {% tab title="Results" %}
 ## KPIs
 
-| KPI Identifier | Value Range | Unit |
-| :--- | :--- | :--- |
-| temperature spread.average | - | °C |
-| temperature spread.minimum | - | °C |
-| temperature spread.maximum | - | °C |
+### Statistics of temperature spread
 
-**temperature spread.average**
-
-This corresponds to the average temperature spread across the period of the analysis.
-
-**temperature spread.minimum**
-
-This corresponds to the smallest temperature spread across the period of the analysis.
-
-**temperature spread.maximum**
-
-This corresponds to the largest temperature spread across the period of the analysis.
-{% endtab %}
-
-{% tab title="Example" %}
-_In general you can expect a short demonstration on how we applied the analysis during our development and which results we got from our test bench._
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| temperature spread.median | Median of temperature spread | -inf to inf | °C |
+| temperature spread.average | Time-weighted average of temperature spread | -inf to inf | °C |
+| temperature spread.minimum | Minimum of temperature spread | -inf to inf | °C |
+| temperature spread.maximum | Maximum of temperature spread | -inf to inf | °C |
 {% endtab %}
 
 {% tab title="Components" %}
