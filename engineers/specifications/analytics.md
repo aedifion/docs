@@ -1,139 +1,100 @@
 ---
-description: Detailed specification of available analytics functions and their application.
+description: >-
+  Detailed specification of analytics functions, their benefits, and
+  application.
 ---
 
 # Analytics
 
-## Application notes
+## Introduction
 
-* **Unit sensitivity:** To this state, our algorithms are unit sensitive. Every [pin ](../../glossary.md#pin)and [attribute ](../../glossary.md#attribute)is specified with an unit. Mind the specifications.
+Analytics peruses only one goal: Guide technicians and building users to improve operational performance of buildings and energy systems, while the benefits of improved operational performance are multilateral:
+
+* Higher **comfort**, **well being** and therefore **performance** of people in buildings.
+* Higher **energy efficiency** providing comfort and energy services.
+* Lower effort **maintaining** and **servicing** complex technical facilities.
+
+This section provides general information on how to use analytics functions and how to read their specification. Every specification contains the tabs
+
+* Quick Start,
+* Description,
+* Example,
+* Results,
+* Components, and
+* Application.
+
+### Quick Start
+
+This tab summarizes the value offered by the analysis function and for which components it is recommended. If the analysis function catches your attention, brows the other tabs and find further applications.
+
+### Description
+
+In general the description provides a summary of the concepts of the analysis function, its use-case scenario, and value. 
+
+### Example
+
+In general you can expect a short case study on how the analysis function was applied during development or a test bench.
+
+### Results
+
+Results of analytics functions are structured to deliver simple to navigate insights and fast to apply measures on how to improve operational performance. 
+
+Therefor, each result regardless of the analytics function includes
+
+* one qualitative **warning level**, ****aka. traffic light color,
+* one **interpretation,**
+* zero to n **recommendations,**
+* zero to n **KPIs, and**
+* zero to n **timeserieses.**
+
+These categories are explained below. While the warning level, interpretation, and recommendation are specified for all analysis functions equally, KPIs and timeserieses differ between each analysis function. Thus, they are specified individually in the _Results_ tab of each function specification.
+
+#### Warning level
+
+The warning level represents the urgency of looking into the analyzed condition and taking action to improve it. It can have one of these traffic light states:
 
 {% hint style="danger" %}
-If unit conventions are disregarded, this can lead to errors and even misleading results of algorithms.
+**Red:** Suboptimal performance identified. It can be expected that either improving the identified condition will have a strong effect on the performance or the effort to realize the optimization is moderate compared to its benefit.
 {% endhint %}
 
-* **Improving results:** We continuously improve our analyses functions, interpretations and recommendations. Thus, performing exactly the same analysis at a later point in time can lead to different results.
+{% hint style="warning" %}
+**Yellow:** Suboptimal performance identified. The effort to optimize might consume its benefit. To reduce the effort, implement the measure with the maintenance work that is required anyway. Observation of the analyzed condition is recommended.
+{% endhint %}
 
-## Example Analysis
+{% hint style="success" %}
+**Green:** Performance is satisfactory. No action recommended.
+{% endhint %}
 
-This example leads through our description of [analytics functions](../../glossary.md#analysis-function) by providing exemplary values and descriptions. The first paragraph of an analysis function provides a short introduction to the analysis.
+#### **Interpretation**
 
-{% tabs %}
-{% tab title="Quick Start" %}
-## Value
+The interpretation delivers a summary over the observed performance and state of the condition analyzed. In general it describes either a symptom of a suboptimal operation or condition could be found or not.
 
-_In other words: Why should I spend time to dig deeper into this analysis._
+In the engineering vocabulary of Fault Detection and Diagnosis, the interpretation represents the Fault Detection.
 
-* Quick entry into analytics function specifications
-* Exemplary template for analysis function specifications and documentation structure
+#### Recommendation
 
-## Recommended for component types
+Actually, it is a list of recommendations to amend the detected symptom for suboptimal operation. Either by providing recommendations on how to correct the source of the symptom itself or on how to narrow down its cause.
 
-* All components in need for an example
-{% endtab %}
+In the engineering vocabulary of Fault Detection and Diagnosis, the recommendations represent the Fault Diagnosis respectively guidance on how to further proceed the diagnosis.
 
-{% tab title="Description" %}
-The _****_**Example Analysis** is an example on how we structure the documentation of our analysis functions. The goal is to show you where to expect which kind of information to make your work as effective as possible.
+#### KPIs and timeserieses
 
-In general the description provides information about the concepts of the analysis function, its use-case scenario, and value. 
-{% endtab %}
+KPIs and timeserieses offer insights and transparency. They enable reporting and manual investigation of the operational behavior the component or system analyzed. KPIs and timeserieses are highly individual for each function and are explained in the respective specification of each analysis function in _Results_. 
 
-{% tab title="Results" %}
-## **Qualitative warning level**
+### Components
 
-Enum representations of traffic light colors providing a quick overview over the __analysis result.
+The _Components_ tab contains the API identifier of
 
-| Enum | Color |
-| :--- | :--- |
-| 0 | green |
-| 1 | yellow |
-| 2 | red |
+* the components the analysis function is available for,
+* the pins of the components which need to be mapped, and
+* the attributes of the component required.
 
-## Interpretations
+### Application
 
-Interpretation text of the condition analysed.
+The _Application_ tab provides information on the application of the analysis function.
 
-## Recommendations
-
-Recommendation texts on how to improve the operation of the analysed component.
-
-## KPIs
-
-Providing deeper insights to the cycle behavior. KPIs support human reasoning.
-
-#### Example KPI
-
-Brief description of the example KPI, its determination, application, and value.
-
-| KPI Identifier | Value Range | Unit |
-| :--- | :--- | :--- |
-| example.kpi | 0 to 1 | kW |
-
-
-
-#### Another Example KPI
-
-...
-{% endtab %}
-
-{% tab title="Example" %}
-_The **Example** tab provides a hands-on example for each analysis function._
-
-The example building is equipped with an [Example Component](component-data-models.md#example-component). This setup is used as a real test bench for the Example Analysis function...
-
-_In general you can expect a short demonstration on how we applied the analysis during our development and which results we got from our test bench._
-{% endtab %}
-
-{% tab title="Components" %}
-## Pins
-
-* example pin
-* ...
-
-_Most of the analysis functions require a mapping for the same pins regardless of the component data model. These pins are listed here. Component-related variations, exceptions, and deeper insights are provided component-wise further down this chapter._
-
-## **Attributes**
-
-* example attribute
-* ...
-
-_Some of the analysis functions require attributes regardless of the component data model. These attributes are listed here. Component-related variations, exceptions, and deeper insights are provided component-wise further down this chapter._
-
-## Components
-
-### [Example Component](component-data-models.md)
-
-The short text snippets below a component provide information about how to utilize the analysis function for this component. In case you are new to [component data models](../../glossary.md#component-data-model), we recommend to read the [high-level introduction to components](../../aedifion.io/data/semantic-data-model.md) and check out the [component data models](component-data-models.md) for deeper insights.
-
-
-
-### [Another Example Component](component-data-models.md#example-component)
-
-...
-{% endtab %}
-
-{% tab title="Application" %}
-_The **Application** tab offers further information for real application of the analysis._
-
-## Recommended Time Span
-
-### 4 weeks
-
-_The **Recommended Time Span** gives the recommended time span for  which the analysis function is intended. The time span is oriented to the time constant of the phenomenon investigated, e.g. in order to analyse weekly accruing patterns, a time span of 4 weeks is recommended. In shorter periods of time, the analysed phenomenon might not occur, while longer periods might lead to superposition of other effects such as seasonal influences and thus blurring of the analysis results. **Of course, analysis functions can be used over flexible periods of time at your personal discretion.**_
-
-## **Recommended Repetition**
-
-### every 3 months
-
-_The Recommended Repetition provides a recommendation when the analysis should be repeated. The recommendation refers to a continuous operation of the analysed system. In the case of changes to the system, both physical and operational, a repetition of the analysis is generally recommended. **Of course, analysis can be repeated at your personal discretion.**_
-
-_\*\*\*\*_
-
-## Another recommendation
-
-...
-{% endtab %}
-{% endtabs %}
+* **Recommended time span:** Most of the analysis functions have a sweet spot for the amount of historical data required to derive accurate results.
+* **Recommended repetition:** Components of building energy systems are subject to seasonal effects and wear out. Follow the recommended repetition to limit the amount of analysis to the required ones without risking blind spots in the continuous monitoring.
 
 ## Setpoint Deviation Analysis
 
@@ -286,24 +247,6 @@ For example, the drop in temperatures is peculiar and could point to a technical
 {% endtab %}
 
 {% tab title="Results" %}
-## **Qualitative warning level**
-
-Enum representations of traffic light colors providing a quick overview over the air quality over the analysed period.
-
-| Enum | Color |
-| :--- | :--- |
-| 0 | green |
-| 1 | yellow |
-| 2 | red |
-
-## Interpretations
-
-Evaluations of the general air quality over the analysed period.
-
-## Recommendations
-
-Recommendation texts on what actions to take, in case of mediocre or poor air quality.
-
 ## KPIs
 
 ### Air quality classification
@@ -394,7 +337,7 @@ Negative values indicate cooling, while positive indicate heating.
 {% hint style="info" %}
 **Heat pump:** The KPI identifiers are extended by the prefix _condenser_ or _evaporator_ to specify the side of the heat pump the virtual heat meter is applied on. E.g.:
 
-heat flux.maximum will be evaporator
+_heat flux.maximum_ will be _evaporator heat flux.maximum_
 {% endhint %}
 
 | KPI Identifier | Description | Value Range | Unit |
