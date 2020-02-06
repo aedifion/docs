@@ -124,7 +124,7 @@ Control loops, such as
 {% endtab %}
 
 {% tab title="Description" %}
-The Setpoint Deviation Analysis aims to identify issues regarding the deviations between the desired value and the actual value within a building’s many control systems. Deviations can occur based on a whole host of reasons. Maybe the system is not supplied with a high enough temperature during certain hours to begin with, or there might be an issue with the controlling software. Maybe a blocked valve is to blame. The Setpoint Deviation Analysis’ key performance indicators \(KPIs\) can help pin down the root cause of the problem, or it might just confirm that everything is working as it should.
+The _Setpoint Deviation Analysis_ identifies insufficient setpoint attainment by comparing the actual value of a controlled system to its setpoint value. Insufficient setpoint attainment is a symptom which can be traced back to plenty of different causes. E.g., insufficient supply of a controlled system with the required temperature level, suboptimal controller software and parameters, or a blocked valve. The _Setpoint Deviation Analysis_ supports narrowing down the root cause of insufficient setpoint attainment and is specially recommended in complex energy systems.
 {% endtab %}
 
 {% tab title="Example" %}
@@ -223,7 +223,9 @@ General information KPIs to give further insight into the setpoint compliance ov
 {% endtab %}
 
 {% tab title="Description" %}
-The Room Air Quality Analysis checks and interprets the compliance of carbon dioxide concentration in the air to the recommendations of DIN EN 13776: 2007-09. In case of poor air quality, measures for improvement are recommended. In addition, the algorithms identifies calibration errors by physical plausibility checks.
+The _Room Air Quality Analysis_ checks and interprets the compliance of carbon dioxide concentration in the air to the recommendations of DIN EN 13776: 2007-09. In case of poor air quality, measures for improvement are recommended. Human performance is significantly influenced by air quality.
+
+In addition, the algorithms identifies calibration errors by physical plausibility checks.
 {% endtab %}
 
 {% tab title="Results" %}
@@ -301,7 +303,9 @@ Heat and cold conversion or distribution systems, such as
 {% endtab %}
 
 {% tab title="Description" %}
-The Virtual Heat Meter determines the heat flux and energy delivered in heating/cooling piping networks such as thermal control loops or energy conversion plants. The determination is based on the temperature difference and volume flow over measurement point.
+The _Virtual Heat Meter_ determines the heat flux and energy delivered in heating/cooling piping networks such as thermal control loops or energy conversion plants. The determination is based on the temperature difference and volume flow over measurement point.
+
+It substitutes physical heat meters and enables energy flux tracing.
 {% endtab %}
 
 {% tab title="Results" %}
@@ -449,7 +453,7 @@ The **Operating Cycle Analysis** investigates and interprets the cycle behavior 
 {% endtab %}
 
 {% tab title="Description" %}
-The **Operating Cycle Analysis** identifies excessive start and stop processes which lead to energy losses, energy consumption peaks due to higher energy consumption on plant start and higher wear and tear of the component compared to a constant operation. Further, a frequently alternating operation of a component, e.g. a heat pump, has negative effects on adjacent components, which are enforced to alternate as well.
+The _Operating Cycle Analysis_ ****identifies excessive start and stop processes which lead to energy losses, energy consumption peaks due to higher energy consumption on plant start and higher wear and tear of the component compared to a constant operation. Further, a frequently alternating operation of a component, e.g. a heat pump, has negative effects on adjacent components, which are enforced to alternate as well.
 
 Further, the algorithm takes low cycle rates as an indication of a possible under-supply of the adjacent systems.
 {% endtab %}
@@ -662,9 +666,7 @@ Heat and cold distribution systems, such as
 {% endtab %}
 
 {% tab title="Description" %}
-The Temperature Spread Analysis assesses the difference between two temperature pins while an operating message is active.
-
-A thermal control loop is a typical case where outlet and return temperature are different and a temperature spread that is higher indicates a good utilization of this loop. A lower temperature spread suggests a reduced energy demand of the connected consumers and thus should lead to a reduction of volume flow caused by a reduced pump speed that saves electricity.
+The _Temperature Spread Analysis_ assesses the temperature difference between a supply and return temperature sensor of a heat or cold distribution system during the systems operation. While a small temperature spread indicates the potential for volume flow and therefor pump power consumption reduction, a huge spread indicates thermal under supply of the downstream systems and consumers.
 {% endtab %}
 
 {% tab title="Example" %}
@@ -722,8 +724,6 @@ Documentation currently under construction 🚧
 {% hint style="warning" %}
 Documentation currently under construction 🚧
 {% endhint %}
-
-\*\*\*\*
 
 ## Information
 
