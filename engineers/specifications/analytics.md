@@ -14,7 +14,9 @@ Analytics peruses only one goal: Guide technicians and building users to improve
 * Higher **energy efficiency** providing comfort and energy services.
 * Lower effort **maintaining** and **servicing** complex technical facilities.
 
-This section provides general information on how to use analytics functions and how to read their specification. Every specification contains the tabs
+## Tabs explained
+
+Each analysis function has unique specifications. For a target-oriented browsing, the specifications are ordered in tabs
 
 * Quick Start,
 * Description,
