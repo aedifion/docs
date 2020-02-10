@@ -1,12 +1,36 @@
 ---
-description: Secure access to aedifion.io with a second factor
+description: Secure access to aedifion.io
 ---
 
-# Two factor authentication
+# Authentication via SSO
+
+## Authentication via Single Sign On
+
+After your company administrator created your personal user account at the aedifion platform, please use the Login via **Single Sign On** **\(SSO\)** or rather **OAuth2.0** to access the aedifion services.
+
+### Initial Login
+
+At your initial attempt to access the services, please use the `Forgot Password?`-functionality below the login information:
+
+![](../../.gitbook/assets/bildschirmfoto-2020-02-10-um-09.23.39.png)
+
+You will get forwarded to a page, where you have to provide your mail address. After that you will receive an email to update your personal password.
+
+### Change Password
+
+There are two ways to change your password if you know your credentials: Either do it in the security-section of your user details in the frontend: 
+
+![](../../.gitbook/assets/bildschirmfoto-2020-02-10-um-13.22.32.png)
+
+or via login to the authentication server: [https://auth.aedifion.io/auth/realms/aedifion/account](https://auth.aedifion.io/auth/realms/aedifion/account). 
+
+If you don't know your credentials please use the `Forgot Password?`-functionality, as described [above](two-factor-authentication.md#initial-login).
+
+### Two factor authentication
 
 To increase security many services offer or even require a second factor for authentication \(called 2FA or TFA\), e.g. a mobile phone or a specialized USB key. The reasoning behind it is, that if your computer is compromised due to malware, or that somehow an attacker has acquired your login credentials, he still cannot access the service, because he does not have your second factor.
 
-The aedifion.io services allow access via Keycloak, which allows an easy setup of a second factor via a mobile phone. Recommended mobile applications to use are FreeOTP+ or Google Authenticator. This tutorial will show you how to setup two-factor authentication with FreeOTP.
+aedifion's authentication method allows an easy setup of a second factor via a mobile phone. Recommended mobile applications to use are FreeOTP+ or Google Authenticator. This tutorial will show you how to setup two-factor authentication with FreeOTP.
 
 #### **Login**
 
