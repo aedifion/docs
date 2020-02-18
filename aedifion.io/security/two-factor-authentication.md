@@ -12,11 +12,11 @@ After your company administrator created your personal user account at the aedif
 
 At your initial attempt to access the services, please use the `Forgot Password?`-functionality below the login information:
 
-![](../../.gitbook/assets/bildschirmfoto-2020-02-10-um-09.23.39.png)
+![](../../.gitbook/assets/image%20%2825%29.png)
 
 You will get forwarded to a page, where you have to provide your mail address. 
 
-![](../../.gitbook/assets/image%20%2830%29.png)
+![](../../.gitbook/assets/image%20%2831%29.png)
 
 ![](../../.gitbook/assets/image%20%285%29.png)
 
@@ -60,7 +60,7 @@ Open _"Scan this QR Code"_ with your application and point your phone's camera a
 
 Enter this number in the form-field and click save. The code refreshes every 30 seconds. If the time ran out, just generate a new code by clicking on the account in the mobile application.
 
-![](../../.gitbook/assets/image%20%2833%29.png)
+![](../../.gitbook/assets/image%20%2834%29.png)
 
 #### Done
 

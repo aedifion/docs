@@ -182,7 +182,7 @@ The [Swagger UI](https://api.aedifion.io/ui/) is an interactive UI for the aedif
 
 ![Click the top &quot;Authorize&quot; button for OIDC-based authentication. Ignore username and password.](../../../.gitbook/assets/image%20%2813%29.png)
 
-![Log in form presented by the Identity Provider.](../../../.gitbook/assets/image%20%2832%29.png)
+![Log in form presented by the Identity Provider.](../../../.gitbook/assets/image%20%2833%29.png)
 {% endtab %}
 
 {% tab title="Python" %}
