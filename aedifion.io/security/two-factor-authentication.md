@@ -14,7 +14,13 @@ At your initial attempt to access the services, please use the `Forgot Password?
 
 ![](../../.gitbook/assets/bildschirmfoto-2020-02-10-um-09.23.39.png)
 
-You will get forwarded to a page, where you have to provide your mail address. After that you will receive an email to update your personal password.
+You will get forwarded to a page, where you have to provide your mail address. 
+
+![](../../.gitbook/assets/image%20%2830%29.png)
+
+![](../../.gitbook/assets/image%20%285%29.png)
+
+After that you will receive an email to update your personal password. Please check your Spam Folder in case the mail is not in your inbox. The email is only valid for five minutes. 
 
 ### Change Password
 
@@ -36,29 +42,29 @@ aedifion's authentication method allows an easy setup of a second factor via a m
 
 Login to the authentication server: [https://auth.aedifion.io/auth/realms/aedifion/account](https://auth.aedifion.io/auth/realms/aedifion/account) with your known credentials.
 
-![](../../.gitbook/assets/image%20%2818%29.png)
+![](../../.gitbook/assets/image%20%2821%29.png)
 
 #### Navigate to Authenticator
 
 Click on the left bar on _Authenticator._ The new page will show a QR code.
 
-![](../../.gitbook/assets/image%20%2812%29.png)
+![](../../.gitbook/assets/image%20%2814%29.png)
 
 #### Scan the QR Code
 
 Open _"Scan this QR Code"_ with your application and point your phone's camera at the screen. A new account will be shown in the account list with the name _Aedifion_. When you click on the account, it will generate a six-digit number.
 
-![](../../.gitbook/assets/image%20%2815%29.png)
+![](../../.gitbook/assets/image%20%2818%29.png)
 
 #### Enter this number
 
 Enter this number in the form-field and click save. The code refreshes every 30 seconds. If the time ran out, just generate a new code by clicking on the account in the mobile application.
 
-![](../../.gitbook/assets/image%20%2827%29.png)
+![](../../.gitbook/assets/image%20%2833%29.png)
 
 #### Done
 
 Congratulations, you now have enabled two-factor authentication for your account. Every time you log in, you will be requested to enter the current six-digit code from your mobile application.
 
-![](../../.gitbook/assets/image%20%2813%29.png)
+![](../../.gitbook/assets/image%20%2816%29.png)
 

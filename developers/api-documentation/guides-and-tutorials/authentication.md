@@ -80,7 +80,7 @@ Note that you can also define this individually per request if you do not want t
 
 By redefining `baseurl`, `email` and `password` variables in different environments, you can quickly switch APIs and users just by switching the environment from the dropdown on the top right.
 
-![Switching the environment from the dropdown.](../../../.gitbook/assets/image%20%285%29.png)
+![Switching the environment from the dropdown.](../../../.gitbook/assets/image%20%287%29.png)
 {% endtab %}
 
 {% tab title="Swagger UI" %}
@@ -92,7 +92,7 @@ The [Swagger UI](https://api.aedifion.io/ui/) is an interactive UI for the aedif
 4. Click the bottom "Authorize" button. Note that the Swagger UI does not actively check the validity of your credentials at this point. You will only notice on your first request if you entered wrong credentials.
 5. Drop down the "User" section and choose the GET /v2/user endpoint. Click "Try it out!"
 
-![Click the bottom &quot;Authorize&quot; Button for HTTP Basic Auth authentication](../../../.gitbook/assets/image%20%2816%29.png)
+![Click the bottom &quot;Authorize&quot; Button for HTTP Basic Auth authentication](../../../.gitbook/assets/image%20%2819%29.png)
 {% endtab %}
 
 {% tab title="Python" %}
@@ -149,7 +149,7 @@ There are several ways to set OIDC-based authentication in [Postman](https://www
 
 On your collection \(left pane\), click the three dots and choose _Edit_ from the drop-down __and navigate to the _Authorization_ tab. Choose _OAuth 2.0._ 
 
-![Choose OAuth 2.0 as authorization type for your collection of requests.](../../../.gitbook/assets/image%20%2820%29.png)
+![Choose OAuth 2.0 as authorization type for your collection of requests.](../../../.gitbook/assets/image%20%2823%29.png)
 
 Now click "_Get New Access Token"_  and fill in the following settings \(the full Auth URL is [https://auth.aedifion.io/auth/realms/aedifion/protocol/openid-connect/auth](https://auth.aedifion.io/auth/realms/aedifion/protocol/openid-connect/auth)\):
 
@@ -160,7 +160,7 @@ Now click "_Get New Access Token"_  and fill in the following settings \(the ful
 * Client ID: postman
 * Client Authentication: Send as Basic Auth header
 
-![Settings for OAuth 2.0 - based authentication.](../../../.gitbook/assets/image%20%288%29.png)
+![Settings for OAuth 2.0 - based authentication.](../../../.gitbook/assets/image%20%2810%29.png)
 
 Click "_Request Token_". This will kick-off an OAuth 2.0 "Implicit Grant" which redirects you to login form of the aedifion Identity Provider within a browser-like window directly within Postman. Enter your credentials and login. You will be redirected back to Postman.
 
@@ -180,9 +180,9 @@ The [Swagger UI](https://api.aedifion.io/ui/) is an interactive UI for the aedif
 4. On the log in form, fill in your email/username and password. Click "Log in". You will be redirected back to the application \(i.e., the Swagger UI\).
 5. Drop down the "User" section and choose the GET /v2/user endpoint. Click "Try it out!"
 
-![Click the top &quot;Authorize&quot; button for OIDC-based authentication. Ignore username and password.](../../../.gitbook/assets/image%20%2811%29.png)
+![Click the top &quot;Authorize&quot; button for OIDC-based authentication. Ignore username and password.](../../../.gitbook/assets/image%20%2813%29.png)
 
-![Log in form presented by the Identity Provider.](../../../.gitbook/assets/image%20%2826%29.png)
+![Log in form presented by the Identity Provider.](../../../.gitbook/assets/image%20%2832%29.png)
 {% endtab %}
 
 {% tab title="Python" %}
