@@ -10,7 +10,7 @@ description: >-
 
 The [aedifion edge device](../aedifion.io/gateway.md) is an industrial PC which covers functionality such as being an automation network gateway \(therefore it has two ethernet ports\) and providing computing power for those aedifion services, which are sensitive to internet connection losses.
 
-For plug and play installation of the device, aedifion preconfigures its network interfaces before shipping it to you. Therefore please provide the [required shipping information](it-admins.md#required-shipping-information). 
+For plug and play installation of the device, aedifion preconfigures its network interfaces before shipping it to you. Therefore please provide the [required shipping information](it-admins.md#preconfigurations). 
 
 About firewall security: Only outgoing connections from the device to the aedifion servers are needed. Set the firewall settings to these [minimum requirements](it-admins.md#firewall-settings) to enable the aedifion services. 
 
@@ -20,7 +20,7 @@ For any support, please do not hesitate to [contact us](../contact.md)!
 
 ## Preconfigurations
 
-Before shipping, aedifion's staff need to set some preconfigurations to account for seamless and plug-and-play plant integration. This section describes the information we need.
+Before shipping, aedifion's staff needs to set some preconfigurations to account for seamless and plug-and-play plant integration. This section describes the information we need.
 
 Please provide the name of a contact person and a post address that aedifion can ship the edge device to. 
 
@@ -53,11 +53,11 @@ The following information is needed to preconfigure the aedifion edge device:
 **Minimum firewall requirements**
 
 * Outgoing connections on the following ports need to be allowed:
-  * Port 443 \(HTTPS\)
-  * Port 22 \(SSH\)
-  * Port 8884 \(MQTT over TLS\)
+  * Port 443 \(HTTPS\): discovery2.aedifion.io, discovery3.aedifion.io
+  * Port 22 \(SSH\): ssh2.aedifion.io, ssh3.aedifion.io
+  * Port 8884 \(MQTT over TLS\): mqtt.aedifion.io, mqtt2.aedifion.io
   * Port 123 \(NTP to Ubuntu standard timeservers - not necessary if NTP servers are locally available\)
-* Outgoing connections can be limited to our server IPs.
+* Outgoing connections can be limited from the edge device to the mentioned server addresses.
 
 {% hint style="info" %}
 Operating the edge device only requires outgoing connections! It does not run any kind of service that exposes your network to the Internet. Thus, any incoming connection requests can be blocked by your firewall.
@@ -67,11 +67,7 @@ Operating the edge device only requires outgoing connections! It does not run an
 
 ## Installation guide
 
-Please install the aedifion edge device as follows.
-
-Depending on the requirements of your project, aedifion ships different industrial PCs as hardware for the aedifion edge device. Every package of an aedifion edge device comes with an individual installation manual. The picture below shows how we label ethernet ports:
-
-![](../.gitbook/assets/grafik%20%2810%29.png)
+![](../.gitbook/assets/edgedevicebild%20%281%29.png)
 
 To install your aedifion edge device, please execute the installation in the order of the flow chart:
 
