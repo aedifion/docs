@@ -632,7 +632,17 @@ The _Outdoor Temperature Sensor Analysis_ identifies installation errors and mea
 {% endtab %}
 
 {% tab title="Example" %}
-_In general you can expect a short demonstration on how we applied the analysis during our development and which results we got from our test bench._
+For this Outdoor Temperature Sensor Analysis we instanciated a "[weather station](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#weather-station)" component and analyzed a week of weather data. The following plot shows the measured temperature of a sensor located at a building facade. During the reviewed period in the summer the sensor is influenced in the afternoon.
+
+![](../../.gitbook/assets/example_outdoortemperaturesensoranalysis.png)
+
+In the plot you can see a significant difference between sensor and weather reference. This is also reflected in the value of the calculated KPIs. During the analysis period all 7 days are recognized by the KPI "radiation influenced days". Additionaly the offset at night is elevated and thus a larger "sensor offset squared error" is present.
+
+| KPI | Value | Unit |
+| :--- | :--- | :--- |
+| radiation influenced.relative | 100 | % |
+| radiation influenced days | 7 | count |
+| sensor offset squared error | 17.3 | K^2/h |
 {% endtab %}
 
 {% tab title="Components" %}
