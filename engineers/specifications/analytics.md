@@ -731,13 +731,74 @@ A analysis for one week in the beginning of September 2018 is shown in the plot 
 {% endtab %}
 {% endtabs %}
 
-## **Heating Curve Analysis**
-
-{% hint style="warning" %}
-Documentation currently under construction 🚧
-{% endhint %}
-
 ## Schedule Analysis
+
+{% tabs %}
+{% tab title="Quick Start" %}
+## Value
+
+* Reduce usage times of HVAC machines for a longer service life
+* Reduce energy cost
+
+## Recommended for component types
+
+* fan
+{% endtab %}
+
+{% tab title="Description" %}
+The schedule analysis is used to compare the actual occured switch on/switch off times of the component with a schedule/timetable stored inside analytics. This analysis aims at identifying the amount of hours the component is active outside of the scheduled times.
+{% endtab %}
+
+{% tab title="Results" %}
+## KPIs
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| operating time | The amount of time component is active | inf | h |
+| operating time.reducible | Amount of time component could be switched off \(outside of schedule\) | inf | h |
+| operating time.reducible.relative | Percentage of time reducible relative to the total operating time | 0 to 100 | % |
+| operating time.scheduled | Amount of time the component is active during schedule | inf | h |
+{% endtab %}
+
+{% tab title="Example" %}
+This example shows a **schedule analysis** for a component "[fan](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#fan)" connected to a supply fan operating message of a HVAC machine. The switch on/off times of the machine are shown as a blue line in the plot below, blue regions in the background correspond to the anticipated schedule.
+
+![](../../.gitbook/assets/example_scheduleanalysis.png)
+
+The following KPIs show that a reduction of ~9% of the total operating time is possible. With the help of the plot we can also see, that the times were we can reduce the operating time are distributed over the workdays of the week.
+
+| KPI | Value | Unit |
+| :--- | :--- | :--- |
+| operating time | 74 | h |
+| operating time.reducible | 6.94 | h |
+| operating time.reducible.relative | 9.38 | % |
+| operating time.scheduled | 67.1 | h |
+{% endtab %}
+
+{% tab title="Components" %}
+## [fan](component-data-models.md#thermal-control-loop)
+
+#### Pins
+
+* operating message
+
+#### **Attributes**
+
+* schedule
+{% endtab %}
+
+{% tab title="Application" %}
+## Recommended Time Span
+
+* 1 week
+
+## **Recommended Repetition** <a id="recommended-repetition-1-1"></a>
+
+* every week
+{% endtab %}
+{% endtabs %}
+
+## **Heating Curve Analysis**
 
 {% hint style="warning" %}
 Documentation currently under construction 🚧
