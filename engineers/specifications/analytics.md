@@ -741,6 +741,95 @@ A analysis for one week in the beginning of September 2018 is shown in the plot 
 {% endtab %}
 {% endtabs %}
 
+## Reduced Load Analysis
+
+{% tabs %}
+{% tab title="Quick Start" %}
+## Value
+
+* Lower operating costs
+
+## Recommended for component types
+
+Heat and cold distribution systems, such as
+
+* thermal control loop
+
+Energy conversion plants
+
+* Boiler
+* Low-Temperature Boiler
+* Condensing Boiler
+
+Indoor areas, such as
+
+* Rooms
+{% endtab %}
+
+{% tab title="Description" %}
+The _Reduced Load Analysis_ identifies the presence of a reduced load mode based on measures temperatures or temperature setpoints of the system under consideration. Additionally the temperature spread of the system is determined. A reduced load mode offers the possibility of operational cost reductions.
+{% endtab %}
+
+{% tab title="Results" %}
+## KPIs
+
+### Identification of reduced load mode
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| reduced load operation | Summary of whether a reduced load mode is detected | True/False | - |
+| reduced load operating message | Time step exact breakdown of the analysis | True/False | - |
+
+### Statistics of temperature spread
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| temperature spread | Difference between maximum and minimum temperature | 0 - inf | °C |
+{% endtab %}
+
+{% tab title="Example" %}
+_In general you can expect a short demonstration on how we applied the analysis during our development and which results we got from our test bench._
+{% endtab %}
+
+{% tab title="Components" %}
+## [thermal\_control\_loop](component-data-models.md#thermal-control-loop)
+
+#### Pins
+
+* outlet temperature
+* outlet temperature setpoint
+
+## [boiler](component-data-models.md#boiler)
+
+#### [condensing\_boiler](component-data-models.md#condensing-boiler)
+
+#### [low-temperature\_boiler](component-data-models.md#low-temperature-boiler)
+
+#### Pins
+
+* outlet temperature
+
+## [room](component-data-models.md#room)
+
+#### Pins
+
+* temperature
+* temperature setpoint
+{% endtab %}
+
+{% tab title="Application" %}
+## Recommended Time Span
+
+* 1 day - several weeks
+
+## Recommended Repetition
+
+* every 3 months
+{% endtab %}
+{% endtabs %}
+
+
+
 ## Schedule Analysis
 
 {% tabs %}
