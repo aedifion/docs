@@ -666,7 +666,17 @@ The _Temperature Spread Analysis_ assesses the temperature difference between a 
 {% endtab %}
 
 {% tab title="Example" %}
-_In general you can expect a short demonstration on how we applied the analysis during our development and which results we got from our test bench._
+The **temperature spread analysis** was applied to a heating circuit instanciated as a [thermal control loop](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#thermal-control-loop).
+
+![](../../.gitbook/assets/example_temperaturespreadanalysis.png)
+
+A analysis for one week in the beginning of September 2018 is shown in the plot above. A small temperature spread is detected through the KPI "**temperature spread.average**" of 1.56 K.
+
+| KPI | Value | Unit |
+| :--- | :--- | :--- |
+| temperature spread.average | 1.56 | Kelvin |
+| temperature spread.minimum | -0.716 | Kelvin |
+| temperature spread.maximum | 22.8 | Kelvin |
 {% endtab %}
 
 {% tab title="Results" %}
