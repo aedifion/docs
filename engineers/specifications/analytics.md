@@ -227,7 +227,17 @@ General information KPIs to give further insight into the setpoint compliance ov
 {% tab title="Description" %}
 The _Room Air Quality Analysis_ checks and interprets the compliance of carbon dioxide concentration in the air to the recommendations of DIN EN 13776: 2007-09. In case of poor air quality, measures for improvement are recommended. Human performance is significantly influenced by air quality.
 
-In addition, the algorithms identifies calibration errors by physical plausibility checks.
+In addition, the algorithms identifies calibration errors by physical plausibility checks
+{% endtab %}
+
+{% tab title="Example" %}
+
+
+The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a room component model was instanced and the respective datapoints mapped to this component.
+
+![](../../.gitbook/assets/image%20%2819%29.png)
+
+In this scenario, the figure above shows the timeseries recorded for an exemplary period of 12 hours on a working day in August. The CO2 concentration in the air remained between what is considered "good" and "medium" for most of the day. However, for about 7 percent of the period, air quality was poor, with a maximum CO2 concentration of 1463 ppm, so that a complete evaluation on that day indicates poor air quality. The results provide an advanced set of KPIs that provide quantitative insights into the air quality of the rooms and support the human reasoning for analysis. A number of suggestions for possible countermeasures are given, and further investigation of the root cause of air quality problems is possible through the aedifion front-end data visualization.
 {% endtab %}
 
 {% tab title="Results" %}
@@ -308,6 +318,14 @@ Heat and cold conversion or distribution systems, such as
 The _Virtual Heat Meter_ determines the heat flux and energy delivered in heating/cooling piping networks such as thermal control loops or energy conversion plants. The determination is based on the temperature difference and volume flow over measurement point.
 
 It substitutes physical heat meters and enables energy flux tracing.
+{% endtab %}
+
+{% tab title="Example" %}
+
+
+The **Virtual Heat Meter** was tested in the field, on a boilder at the E.ON Energy Research Center, RWTH Aachen University. Thus, a [boiler ](component-data-models.md#heat-pump)was instanced and the respective datapoints pinned to it. __The figure below shows the inlet- and outlet timeseries recorded for an exemplary period, along with the heat flow calculated. The volume flow during the observed period was constant.
+
+![](../../.gitbook/assets/image%20%2821%29.png)
 {% endtab %}
 
 {% tab title="Results" %}

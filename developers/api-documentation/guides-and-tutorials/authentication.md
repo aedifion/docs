@@ -92,7 +92,7 @@ The [Swagger UI](https://api.aedifion.io/ui/) is an interactive UI for the aedif
 4. Click the bottom "Authorize" button. Note that the Swagger UI does not actively check the validity of your credentials at this point. You will only notice on your first request if you entered wrong credentials.
 5. Drop down the "User" section and choose the GET /v2/user endpoint. Click "Try it out!"
 
-![Click the bottom &quot;Authorize&quot; Button for HTTP Basic Auth authentication](../../../.gitbook/assets/image%20%2819%29.png)
+![Click the bottom &quot;Authorize&quot; Button for HTTP Basic Auth authentication](../../../.gitbook/assets/image%20%2820%29.png)
 {% endtab %}
 
 {% tab title="Python" %}
@@ -149,7 +149,7 @@ There are several ways to set OIDC-based authentication in [Postman](https://www
 
 On your collection \(left pane\), click the three dots and choose _Edit_ from the drop-down __and navigate to the _Authorization_ tab. Choose _OAuth 2.0._ 
 
-![Choose OAuth 2.0 as authorization type for your collection of requests.](../../../.gitbook/assets/image%20%2823%29.png)
+![Choose OAuth 2.0 as authorization type for your collection of requests.](../../../.gitbook/assets/image%20%2825%29.png)
 
 Now click "_Get New Access Token"_  and fill in the following settings \(the full Auth URL is [https://auth.aedifion.io/auth/realms/aedifion/protocol/openid-connect/auth](https://auth.aedifion.io/auth/realms/aedifion/protocol/openid-connect/auth)\):
 
@@ -182,7 +182,7 @@ The [Swagger UI](https://api.aedifion.io/ui/) is an interactive UI for the aedif
 
 ![Click the top &quot;Authorize&quot; button for OIDC-based authentication. Ignore username and password.](../../../.gitbook/assets/image%20%2813%29.png)
 
-![Log in form presented by the Identity Provider.](../../../.gitbook/assets/image%20%2833%29.png)
+![Log in form presented by the Identity Provider.](../../../.gitbook/assets/image%20%2835%29.png)
 {% endtab %}
 
 {% tab title="Python" %}

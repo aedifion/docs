@@ -12,11 +12,11 @@ After your company administrator created your personal user account at the aedif
 
 At your initial attempt to access the services, please use the `Forgot Password?`-functionality below the login information:
 
-![](../../.gitbook/assets/image%20%2825%29.png)
+![](../../.gitbook/assets/image%20%2827%29.png)
 
 You will get forwarded to a page, where you have to provide your mail address. 
 
-![](../../.gitbook/assets/image%20%2831%29.png)
+![](../../.gitbook/assets/image%20%2833%29.png)
 
 ![](../../.gitbook/assets/image%20%285%29.png)
 
@@ -42,7 +42,7 @@ aedifion's authentication method allows an easy setup of a second factor via a m
 
 Login to the authentication server: [https://auth.aedifion.io/auth/realms/aedifion/account](https://auth.aedifion.io/auth/realms/aedifion/account) with your known credentials.
 
-![](../../.gitbook/assets/image%20%2821%29.png)
+![](../../.gitbook/assets/image%20%2823%29.png)
 
 #### Navigate to Authenticator
 
@@ -60,7 +60,7 @@ Open _"Scan this QR Code"_ with your application and point your phone's camera a
 
 Enter this number in the form-field and click save. The code refreshes every 30 seconds. If the time ran out, just generate a new code by clicking on the account in the mobile application.
 
-![](../../.gitbook/assets/image%20%2834%29.png)
+![](../../.gitbook/assets/image%20%2836%29.png)
 
 #### Done
 
