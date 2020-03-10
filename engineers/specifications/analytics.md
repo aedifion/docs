@@ -14,16 +14,16 @@ Analytics peruses only one goal: Guide technicians and building users to improve
 * Higher **energy efficiency** providing comfort and energy services.
 * Lower effort **maintaining** and **servicing** complex technical facilities.
 
-## Tabs explained
+## How to read the docs?
 
 Each analysis function has unique specifications. For a target-oriented browsing, the specifications are ordered in tabs
 
-* Quick Start,
-* Description,
-* Example,
-* Results,
-* Components, and
-* Application.
+* [Quick Start](analytics.md#quick-start),
+* [Description](analytics.md#description),
+* [Example](analytics.md#example),
+* [Results](analytics.md#results),
+* [Components](analytics.md#components), and
+* [Application](analytics.md#application).
 
 ### Quick Start
 
@@ -172,14 +172,14 @@ General information KPIs to give further insight into the setpoint compliance ov
 
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
-| setpoint deviation.maximum | Largest setpoint deviation | 0 to inf | - |
-| setpoint deviation.minimum | Smallest setpoint deviation | 0 to inf | - |
-| setpoint deviation.mean | Average setpoint deviation | 0 to inf | - |
-| setpoint deviation.median | Median setpoint deviation | 0 to inf | - |
+| setpoint deviation.maximum | Largest setpoint deviation | -inf to inf | - |
+| setpoint deviation.minimum | Smallest setpoint deviation | -inf to inf | - |
+| setpoint deviation.mean | Average setpoint deviation | -inf to inf | - |
+| setpoint deviation.median | Median setpoint deviation | -inf to inf | - |
 {% endtab %}
 
 {% tab title="Components" %}
-## \*\*\*\*[**thermal\_control\_loop**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#thermal-control-loop)\*\*\*\*
+## \*\*\*\*[**thermal control loop**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#thermal-control-loop)\*\*\*\*
 
 #### Pins
 
@@ -276,6 +276,7 @@ Providing deeper insights to the carbon dioxide concentrations over the analysed
 #### Pins
 
 * co2
+* operating message
 {% endtab %}
 
 {% tab title="Application" %}
@@ -357,12 +358,12 @@ _heat flux.maximum_ will be _evaporator heat flux.maximum_
 
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
-| heat flux.timeseries | The complete timeseries of transferred heat | -inf to inf | kW |
-| heat flux.cumulated | The complete timeseries of cumulated transferred heat | -inf to inf | kWh |
+| heat flux.timeseries | Timeseries of transferred heat | -inf to inf | kW |
+| heat flux.cumulated | Timeseries of cumulated transferred heat | -inf to inf | kWh |
 {% endtab %}
 
 {% tab title="Components" %}
-## [**heat\_meter**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-meter)\*\*\*\*
+## [**heat meter**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-meter)\*\*\*\*
 
 #### Pins
 
@@ -376,10 +377,6 @@ _heat flux.maximum_ will be _evaporator heat flux.maximum_
 
 ## [boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#boiler)
 
-### [condensing\_boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#condensing-boiler)
-
-### [low-temperature\_boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#low-temperature-boiler)
-
 #### Pins
 
 * outlet temperature
@@ -391,7 +388,7 @@ _heat flux.maximum_ will be _evaporator heat flux.maximum_
 
 * volume\_flow\_unit
 
-## [combined\_heat\_and\_power](component-data-models.md#combined-heat-and-power)
+## [combined heat and power](component-data-models.md#combined-heat-and-power)
 
 #### Pins
 
@@ -400,7 +397,7 @@ _heat flux.maximum_ will be _evaporator heat flux.maximum_
 * operating message
 * volume flow
 
-## \*\*\*\*[**heat\_pump**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)\*\*\*\*
+## \*\*\*\*[**heat pump**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)\*\*\*\*
 
 {% hint style="warning" %}
 The Virtual Heat Meter is determined on the condenser and evaporator side depending on the mapped datapoints. 
@@ -553,15 +550,11 @@ Switch-off time KPIs evaluate the shutdown times of the closed cycles observed d
 {% tab title="Components" %}
 ## [boiler](component-data-models.md#boiler)
 
-### [condensing\_boiler](component-data-models.md#condensing-boiler)
-
-### [low-temperature\_boiler](component-data-models.md#low-temperature-boiler)
-
 #### Pins
 
 * operating message
 
-## [combined\_heat\_and\_power](component-data-models.md#combined-heat-and-power)
+## [combined heat and power](component-data-models.md#combined-heat-and-power)
 
 #### Pins
 
@@ -573,7 +566,7 @@ Switch-off time KPIs evaluate the shutdown times of the closed cycles observed d
 
 * operating message
 
-### [heat\_pump](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)
+### [heat pump](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)
 
 #### Pins
 
@@ -646,7 +639,7 @@ In the plot you can see a significant difference between sensor and weather refe
 {% endtab %}
 
 {% tab title="Components" %}
-## [weather\_station](component-data-models.md#weather-station)
+## [weather station](component-data-models.md#weather-station)
 
 #### Pins
 
@@ -721,7 +714,7 @@ A analysis for one week in the beginning of September 2018 is shown in the plot 
 {% endtab %}
 
 {% tab title="Components" %}
-## [thermal\_control\_loop](component-data-models.md#thermal-control-loop)
+## [thermal control loop](component-data-models.md#thermal-control-loop)
 
 #### Pins
 
@@ -748,26 +741,21 @@ A analysis for one week in the beginning of September 2018 is shown in the plot 
 ## Value
 
 * Lower operating costs
+* Lower energy consumption
 
 ## Recommended for component types
 
-Heat and cold distribution systems, such as
+Heat and cold distribution systems, energy conversion plants and indoor areas, such as
 
-* thermal control loop
-
-Energy conversion plants
-
-* Boiler
-* Low-Temperature Boiler
-* Condensing Boiler
-
-Indoor areas, such as
-
-* Rooms
+* Heating loops
+* Cooling loops
+* Boilers
+* Office rooms
+* Schooling rooms
 {% endtab %}
 
 {% tab title="Description" %}
-The _Reduced Load Analysis_ identifies the presence of a reduced load mode based on measures temperatures or temperature setpoints of the system under consideration. Additionally the temperature spread of the system is determined. A reduced load mode offers the possibility of operational cost reductions.
+The _Reduced Load Analysis_ identifies the presence of a reduced load mode based on measures temperatures or temperature setpoints of the system under consideration. Additionally the temperature spread of the system is determined. A reduced load mode offers the possibility of operational cost and energy reductions.
 {% endtab %}
 
 {% tab title="Results" %}
@@ -775,16 +763,57 @@ The _Reduced Load Analysis_ identifies the presence of a reduced load mode based
 
 ### Identification of reduced load mode
 
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">KPI Identifier</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Value Range</th>
+      <th style="text-align:left">Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">reduced load operation</td>
+      <td style="text-align:left">
+        <p>Whether a reduced load mode was detected</p>
+        <p>0 = no reduced load identified</p>
+        <p>1 = reduced load identified</p>
+      </td>
+      <td style="text-align:left">0 or 1</td>
+      <td style="text-align:left">binary</td>
+    </tr>
+  </tbody>
+</table>### Statistics of temperature spread
+
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
-| reduced load operation | Summary of whether a reduced load mode is detected | True/False | - |
-| reduced load operating message | Time step exact breakdown of the analysis | True/False | - |
+| temperature level shift | Difference between temperature levels during full load operation and reduced load operation | -inf to inf | °C |
 
-### Statistics of temperature spread
+## Timeserieses
 
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| temperature spread | Difference between maximum and minimum temperature | 0 - inf | °C |
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">KPI Identifier</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Value Range</th>
+      <th style="text-align:left">Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">reduced load operating message.timeseries</td>
+      <td style="text-align:left">
+        <p>Timeseries of reduced operating mode</p>
+        <p>0 = no load reduction</p>
+        <p>1 = load reduction</p>
+      </td>
+      <td style="text-align:left">0 or 1</td>
+      <td style="text-align:left">binary</td>
+    </tr>
+  </tbody>
+</table>
 {% endtab %}
 
 {% tab title="Example" %}
@@ -792,7 +821,7 @@ _In general you can expect a short demonstration on how we applied the analysis 
 {% endtab %}
 
 {% tab title="Components" %}
-## [thermal\_control\_loop](component-data-models.md#thermal-control-loop)
+## [thermal control loop](component-data-models.md#thermal-control-loop)
 
 #### Pins
 
@@ -801,13 +830,10 @@ _In general you can expect a short demonstration on how we applied the analysis 
 
 ## [boiler](component-data-models.md#boiler)
 
-#### [condensing\_boiler](component-data-models.md#condensing-boiler)
-
-#### [low-temperature\_boiler](component-data-models.md#low-temperature-boiler)
-
 #### Pins
 
 * outlet temperature
+* outlet temperature setpoint
 
 ## [room](component-data-models.md#room)
 
@@ -853,7 +879,7 @@ _In general you can expect a short demonstration on how we applied the analysis 
 
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
-| operating time | The amount of time component is active | inf | h |
+| operating time | Amount of time component is active | inf | h |
 | operating time.reducible | Amount of time component could be switched off \(outside of schedule\) | inf | h |
 | operating time.reducible.relative | Percentage of time reducible relative to the total operating time | 0 to 100 | % |
 | operating time.scheduled | Amount of time the component is active during schedule | inf | h |
@@ -896,12 +922,6 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
 * every week
 {% endtab %}
 {% endtabs %}
-
-## **Heating Curve Analysis**
-
-{% hint style="warning" %}
-Documentation currently under construction 🚧
-{% endhint %}
 
 ## **Control Loop Oscillation Analysis**
 
