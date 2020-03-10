@@ -906,6 +906,38 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
 {% endtab %}
 
 {% tab title="Components" %}
+## [boiler](component-data-models.md#boiler)
+
+#### Pins
+
+* operating message
+
+**Attributes**
+
+* schedule
+* regional\_holiday\_key
+* schedule\_timezone
+* custom\_day\_schedules
+* custom\_holiday
+* pre\_conditioning\_periode
+* shutdown\_flexibility
+
+## [combined heat and power](component-data-models.md#combined-heat-and-power)
+
+#### Pins
+
+* operating message
+
+#### **Attributes**
+
+* schedule
+* regional\_holiday\_key
+* schedule\_timezone
+* custom\_day\_schedules
+* custom\_holiday
+* pre\_conditioning\_periode
+* shutdown\_flexibility
+
 ## [fan](component-data-models.md#thermal-control-loop)
 
 #### Pins
@@ -915,6 +947,44 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
 #### **Attributes**
 
 * schedule
+* regional\_holiday\_key
+* schedule\_timezone
+* custom\_day\_schedules
+* custom\_holiday
+* pre\_conditioning\_periode
+* shutdown\_flexibility
+
+## [heat pump](component-data-models.md#heat-pump)
+
+#### Pins
+
+* operating message
+
+#### **Attributes**
+
+* schedule
+* regional\_holiday\_key
+* schedule\_timezone
+* custom\_day\_schedules
+* custom\_holiday
+* pre\_conditioning\_periode
+* shutdown\_flexibility
+
+## [thermal control loop](component-data-models.md#thermal-control-loop)
+
+#### Pins
+
+* operating message
+
+#### **Attributes**
+
+* schedule
+* regional\_holiday\_key
+* schedule\_timezone
+* custom\_day\_schedules
+* custom\_holiday
+* pre\_conditioning\_periode
+* shutdown\_flexibility
 {% endtab %}
 
 {% tab title="Application" %}
@@ -929,6 +999,8 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
 * after adjustments of the automation system
 {% endtab %}
 {% endtabs %}
+
+
 
 ## **Control Loop Oscillation Analysis**
 
