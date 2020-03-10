@@ -444,8 +444,6 @@ The unit used in this datapoint needs to be specified in order for the analysis 
 {% endtab %}
 {% endtabs %}
 
-
-
 ## Operating Cycle Analysis
 
 The **Operating Cycle Analysis** investigates and interprets the cycle behavior of components. Besides identifying sub-optimal cycle behavior, the algorithm provides recommendations on how to improve cycle rates, and KPIs for deeper insights.
@@ -462,11 +460,12 @@ The **Operating Cycle Analysis** investigates and interprets the cycle behavior 
 
 ## Recommended for component types
 
-* Energy conversion plants
-* Components with high start-up energy consumption
-* Heat pumps
+Energy conversion plants and components with high start-up energy consumption or wear, such as
+
+* Heat pump
 * Combined heat and power
-* etc.
+* Boiler
+* Fan
 {% endtab %}
 
 {% tab title="Description" %}
@@ -862,16 +861,22 @@ _In general you can expect a short demonstration on how we applied the analysis 
 {% tab title="Quick Start" %}
 ## Value
 
-* Reduce usage times of HVAC machines for a longer service life
-* Reduce energy cost
+* Lower operating times of HVAC components
+* Lower energy consumption
+* Lower maintenance costs
 
 ## Recommended for component types
 
-* fan
+Any HVAC component or room whose usage follows a recurrent schedule, such as
+
+* Fans
+* Thermal control loops
+* Office rooms
+* Sales rooms
 {% endtab %}
 
 {% tab title="Description" %}
-The schedule analysis is used to compare the actual occured switch on/switch off times of the component with a schedule/timetable stored inside analytics. This analysis aims at identifying the amount of hours the component is active outside of the scheduled times.
+The schedule analysis is used to compare the actual occured switch on/switch off times of the component with a schedule/timetable stored inside analytics. This analysis aims at identifying the amount of hours the component is active outside of the scheduled times. In addition to a one-time check, the analysis is suitable for permanent checks, e.g. to identify manual overwriting of the operating schedule. The analysis allows to respect holidays and exceptional day schedules.
 {% endtab %}
 
 {% tab title="Results" %}
@@ -879,10 +884,10 @@ _In general you can expect a short demonstration on how we applied the analysis 
 
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
-| operating time | Amount of time component is active | inf | h |
-| operating time.reducible | Amount of time component could be switched off \(outside of schedule\) | inf | h |
-| operating time.reducible.relative | Percentage of time reducible relative to the total operating time | 0 to 100 | % |
-| operating time.scheduled | Amount of time the component is active during schedule | inf | h |
+| operating time | Total time of operation | 0 to inf | h |
+| operating time.reducible | Total time component was operated outside the reviewed schedule and therefor could be saved | 0 to inf | h |
+| operating time.reducible.relative | Percentage of reducible time relative to the total operating time | 0 to 100 | % |
+| operating time.scheduled | Total time of operation during schedule | 0 to inf | h |
 {% endtab %}
 
 {% tab title="Example" %}
@@ -920,6 +925,8 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
 ## **Recommended Repetition** <a id="recommended-repetition-1-1"></a>
 
 * every week
+* after adjustment of usage times of the analyzed component
+* after adjustments of the automation system
 {% endtab %}
 {% endtabs %}
 
