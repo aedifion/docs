@@ -100,6 +100,8 @@ The _Application_ tab provides information on the application of the analysis fu
 
 ## Setpoint Deviation Analysis
 
+The _Setpoint Deviation Analysis_ identifies insufficient setpoint attainment by comparing the actual value of a controlled system to its setpoint value. Insufficient setpoint attainment is a symptom which can be traced back to plenty of different causes. E.g., insufficient supply of a controlled system with the required temperature level, suboptimal controller software and parameters, or a blocked valve. The Setpoint Deviation Analysis supports narrowing down the root cause of insufficient setpoint attainment and is specially recommended in complex energy systems.
+
 {% tabs %}
 {% tab title="Quick Start" %}
 ## Value
@@ -123,10 +125,6 @@ Control loops, such as
 * Heating systems
 * Ventilation systems
 * Air-conditioning systems
-{% endtab %}
-
-{% tab title="Description" %}
-The _Setpoint Deviation Analysis_ identifies insufficient setpoint attainment by comparing the actual value of a controlled system to its setpoint value. Insufficient setpoint attainment is a symptom which can be traced back to plenty of different causes. E.g., insufficient supply of a controlled system with the required temperature level, suboptimal controller software and parameters, or a blocked valve. The _Setpoint Deviation Analysis_ supports narrowing down the root cause of insufficient setpoint attainment and is specially recommended in complex energy systems.
 {% endtab %}
 
 {% tab title="Example" %}
@@ -181,45 +179,176 @@ General information KPIs to give further insight into the setpoint compliance ov
 {% tab title="Components" %}
 ## [boiler](component-data-models.md#boiler)
 
-**Pins**
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature setpoint</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>## [combined heat and power](component-data-models.md#combined-heat-and-power)
 
-* outlet temperature
-* outlet temperature setpoint
-* operating message
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature setpoint</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>## [heat pump](component-data-models.md#heat-pump)
 
-## [combined heat and power](component-data-models.md#combined-heat-and-power)
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">condenser outlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if condenser shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p></p>
+        <p>condenser outlet temperature setpoint</p>
+      </td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if condenser shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator outlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator outlet temperature setpoint</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+  </tbody>
+</table>## [**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
 
-**Pins**
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature setpoint</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>## \*\*\*\*[**thermal control loop**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#thermal-control-loop)\*\*\*\*
 
-* outlet temperature
-* outlet temperature setpoint
-* operating message
-
-## [heat pump](component-data-models.md#heat-pump)
-
-**Pins**
-
-* condenser outlet temperature
-* condenser outlet temperature setpoint
-* evaporator outlet temperature
-* evaporator outlet temperature setpoint
-* operating message
-
-## [**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
-
-#### Pins
-
-* temperature
-* temperature setpoint
-* operating message
-
-## \*\*\*\*[**thermal control loop**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#thermal-control-loop)\*\*\*\*
-
-#### Pins
-
-* outlet temperature
-* inlet temperature
-* operating message \(substitute: pump operating message\)
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">inlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended. If operating message and pump operating
+          message are mapped, operating message will be used</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">pump operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Mapping recommended in case no operating message is available. If operating
+        message and pump operating message are mapped, operating message will be
+        used</td>
+    </tr>
+  </tbody>
+</table>
 {% endtab %}
 
 {% tab title="Application" %}
@@ -238,6 +367,8 @@ General information KPIs to give further insight into the setpoint compliance ov
 
 ## Room Air Quality Analysis
 
+The _Room Air Quality Analysis_ checks and interprets the compliance of carbon dioxide concentration in the air to the recommendations of DIN EN 13776: 2007-09. In case of poor air quality, measures for improvement are recommended. Human performance is significantly influenced by air quality. In addition, the algorithms identifies calibration errors by physical plausibility checks.
+
 {% tabs %}
 {% tab title="Quick Start" %}
 ## Value
@@ -248,12 +379,6 @@ General information KPIs to give further insight into the setpoint compliance ov
 
 * Rooms
 * Occupied indoor areas
-{% endtab %}
-
-{% tab title="Description" %}
-The _Room Air Quality Analysis_ checks and interprets the compliance of carbon dioxide concentration in the air to the recommendations of DIN EN 13776: 2007-09. In case of poor air quality, measures for improvement are recommended. Human performance is significantly influenced by air quality.
-
-In addition, the algorithms identifies calibration errors by physical plausibility checks
 {% endtab %}
 
 {% tab title="Example" %}
@@ -299,10 +424,30 @@ Providing deeper insights to the carbon dioxide concentrations over the analysed
 {% tab title="Components" %}
 ## \*\*\*\*[**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
 
-#### Pins
-
-* co2
-* operating message
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">co2</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
 {% endtab %}
 
 {% tab title="Application" %}
@@ -320,6 +465,8 @@ Providing deeper insights to the carbon dioxide concentrations over the analysed
 {% endtabs %}
 
 ## Virtual Heat Meter
+
+The _Virtual Heat Meter_ determines the heat flux and energy delivered in heating/cooling piping networks such as thermal control loops or energy conversion plants. The determination is based on the temperature difference and volume flow over measurement point. It substitutes physical heat meters and enables energy flux tracing.
 
 {% tabs %}
 {% tab title="Quick Start" %}
@@ -339,12 +486,6 @@ Heat and cold conversion or distribution systems, such as
 * Heat pumps
 * Boilers
 * Heat meters
-{% endtab %}
-
-{% tab title="Description" %}
-The _Virtual Heat Meter_ determines the heat flux and energy delivered in heating/cooling piping networks such as thermal control loops or energy conversion plants. The determination is based on the temperature difference and volume flow over measurement point.
-
-It substitutes physical heat meters and enables energy flux tracing.
 {% endtab %}
 
 {% tab title="Example" %}
@@ -391,57 +532,154 @@ _heat flux.maximum_ will be _evaporator heat flux.maximum_
 {% tab title="Components" %}
 ## [boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#boiler)
 
-#### Pins
-
-* outlet temperature
-* inlet temperature
-* operating message
-* volume flow
-
-**Attributes**
-
-* volume\_flow\_unit
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">inlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">volume flow</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>| **Attribute** | Required | Mapping info |
+| :--- | :--- | :--- |
+| volume\_flow\_unit | no | Default: l/s |
 
 ## [combined heat and power](component-data-models.md#combined-heat-and-power)
 
-#### Pins
-
-* outlet temperature
-* inlet temperature
-* operating message
-* volume flow
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">inlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">volume flow</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>| **Attribute** | Required | Mapping info |
+| :--- | :--- | :--- |
+| volume\_flow\_unit | no | Default: l/s |
 
 ## [**heat meter**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-meter)\*\*\*\*
 
-#### Pins
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| inlet temperature | yes |  |
+| outlet temperature | yes |  |
+| volume flow | yes |  |
 
-* outlet temperature
-* inlet temperature
-* volume flow
-
-#### Attributes
-
-* volume\_flow\_unit
+| **Attribute** | Required | Mapping info |
+| :--- | :--- | :--- |
+| volume\_flow\_unit | no | Default: l/s |
 
 ## \*\*\*\*[**heat pump**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)\*\*\*\*
 
 {% hint style="warning" %}
-The Virtual Heat Meter is determined on the condenser and evaporator side depending on the mapped datapoints. 
+The Virtual Heat Meter is determined on the condenser and evaporator side depending on the mapped datapoints.
 {% endhint %}
 
-#### Pins
-
-* condenser inlet temperature
-* condenser outlet temperature
-* condenser volume flow
-* evaporator inlet temperature
-* evaporator outlet temperature
-* evaporator volume flow
-* operating message
-
-#### Attributes
-
-* volume\_flow\_unit \(same for evaporator and condenser
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">condenser inlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if condenser shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">condenser outlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if condenser shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p></p>
+        <p>condenser volume flow</p>
+      </td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if condenser shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator inlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator outlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator volume flow</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+  </tbody>
+</table>| **Attribute** | Required | Mapping info |
+| :--- | :--- | :--- |
+| volume\_flow\_unit | no | Default: l/s |
 
 ## Attributes
 
@@ -472,7 +710,7 @@ The unit used in this datapoint needs to be specified in order for the analysis 
 
 ## Operating Cycle Analysis
 
-The **Operating Cycle Analysis** investigates and interprets the cycle behavior of components. Besides identifying sub-optimal cycle behavior, the algorithm provides recommendations on how to improve cycle rates, and KPIs for deeper insights.
+The _Operating Cycle Analysis_ identifies excessive start and stop processes which lead to energy losses, energy consumption peaks due to higher energy consumption on plant start and higher wear and tear of the component compared to a constant operation. Further, a frequently alternating operation of a component, e.g. a heat pump, has negative effects on adjacent components, which are enforced to alternate as well. Further, the algorithm takes low cycle rates as an indication of a possible under-supply of the adjacent systems.
 
 {% tabs %}
 {% tab title="Quick Start" %}
@@ -492,12 +730,6 @@ Energy conversion plants and components with high start-up energy consumption or
 * Combined heat and power
 * Boiler
 * Fan
-{% endtab %}
-
-{% tab title="Description" %}
-The _Operating Cycle Analysis_ ****identifies excessive start and stop processes which lead to energy losses, energy consumption peaks due to higher energy consumption on plant start and higher wear and tear of the component compared to a constant operation. Further, a frequently alternating operation of a component, e.g. a heat pump, has negative effects on adjacent components, which are enforced to alternate as well.
-
-Further, the algorithm takes low cycle rates as an indication of a possible under-supply of the adjacent systems.
 {% endtab %}
 
 {% tab title="Example" %}
@@ -575,27 +807,27 @@ Switch-off time KPIs evaluate the shutdown times of the closed cycles observed d
 {% tab title="Components" %}
 ## [boiler](component-data-models.md#boiler)
 
-#### Pins
-
-* operating message
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | yes |  |
 
 ## [combined heat and power](component-data-models.md#combined-heat-and-power)
 
-#### Pins
-
-* operating message
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | yes |  |
 
 ## [fan](component-data-models.md#heat-pump)
 
-#### Pins
-
-* operating message
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | yes |  |
 
 ### [heat pump](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)
 
-#### Pins
-
-* operating message
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | yes |  |
 {% endtab %}
 
 {% tab title="Application" %}
@@ -616,7 +848,9 @@ Switch-off time KPIs evaluate the shutdown times of the closed cycles observed d
 
 ## Outdoor Air Temperature Sensor Analysis
 
-This analysis detects, if a sensor is influenced by sun radiation, surrounding components, or if the sensor shows an offset.
+The outdoor air temperature sensor is one of the most important sensors for HVAC system control, since many control decisions, e.g. which amount of heat provided or switching between heating and cooling mode, are made based on the measured outdoor air temperature. Outdoor air temperature sensors wear out over the life time of the building. Further, the sensor is often influenced by sun radiation or heat emitting components in its surrounding. Wrongly measured outside air temperature directly corresponds to a thermal over or under supply of the building, often leads to poor user comfort and an exaggerated energy consumption. 
+
+The _Outdoor Air Temperature Sensor Analysis_ identifies installation errors and measurement offsets of the outdoor air temperature sensor and derives optimization measures for better outdoor air temperature measuring.
 
 {% tabs %}
 {% tab title="Quick Start" %}
@@ -630,12 +864,6 @@ This analysis detects, if a sensor is influenced by sun radiation, surrounding c
 ## Recommended for component types
 
 * Weather station
-{% endtab %}
-
-{% tab title="Description" %}
-The outdoor air temperature sensor is one of the most important sensors for HVAC system control, since many control decisions, e.g. which amount of heat provided or switching between heating and cooling mode, are made based on the measured outdoor air temperature. Outdoor air temperature sensors wear out over the life time of the building. Further, the sensor is often influenced by sun radiation or heat emitting components in its surrounding. Wrongly measured outside air temperature directly corresponds to a thermal over or under supply of the building, often leads to poor user comfort and an exaggerated energy consumption.
-
-The _Outdoor  Air Temperature Sensor Analysis_ identifies installation errors and measurement offsets of the outdoor air temperature sensor and derives optimization measures for better outdoor air temperature measuring.
 {% endtab %}
 
 {% tab title="Results" %}
@@ -668,14 +896,14 @@ In the plot you can see a significant difference between sensor and weather refe
 {% tab title="Components" %}
 ## [weather station](component-data-models.md#weather-station)
 
-#### Pins
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| temperature | yes |  |
 
-* temperature
-
-#### **Attributes**
-
-* latitude
-* longitude
+| Attribute | Required | Mapping info |
+| :--- | :--- | :--- |
+| latitude | yes |  |
+| longitude | yes |  |
 {% endtab %}
 
 {% tab title="Application" %}
@@ -694,6 +922,8 @@ In the plot you can see a significant difference between sensor and weather refe
 
 ## **Temperature Spread Analysis**
 
+The _Temperature Spread Analysis_ assesses the temperature difference between a supply and return temperature sensor of a heat or cold distribution system during the systems operation. While a small temperature spread indicates the potential for volume flow and therefor pump power consumption reduction, a huge spread indicates thermal under supply of the downstream systems and consumers.
+
 {% tabs %}
 {% tab title="Quick Start" %}
 ## Value
@@ -707,10 +937,6 @@ In the plot you can see a significant difference between sensor and weather refe
 Heat and cold distribution systems, such as
 
 * Thermal control loop
-{% endtab %}
-
-{% tab title="Description" %}
-The _Temperature Spread Analysis_ assesses the temperature difference between a supply and return temperature sensor of a heat or cold distribution system during the systems operation. While a small temperature spread indicates the potential for volume flow and therefor pump power consumption reduction, a huge spread indicates thermal under supply of the downstream systems and consumers.
 {% endtab %}
 
 {% tab title="Example" %}
@@ -743,37 +969,138 @@ A analysis for one week in the beginning of September 2018 is shown in the plot 
 {% tab title="Components" %}
 ## [boiler](component-data-models.md#boiler)
 
-**Pins**
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">inlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Strongly recommended</p>
+        <p>Default: Always on</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>## [combined heat and power](component-data-models.md#combined-heat-and-power)
 
-* inlet temperature
-* outlet temperature
-* operating message
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">inlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Strongly recommended</p>
+        <p>Default: Always on</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>## [heat pump](component-data-models.md#heat-pump)
 
-## [combined heat and power](component-data-models.md#combined-heat-and-power)
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">condenser inlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if condenser shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p></p>
+        <p>condenser outlet temperature</p>
+      </td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if condenser shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator inlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator outlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+  </tbody>
+</table>## [thermal control loop](component-data-models.md#thermal-control-loop)
 
-**Pins**
-
-* inlet temperature
-* outlet temperature
-* operating message
-
-## [heat pump](component-data-models.md#heat-pump)
-
-**Pins**
-
-* condenser inlet temperature
-* condenser outlet temperature
-* evaporator inlet temperature
-* evaporator outlet temperature
-* operating message
-
-## [thermal control loop](component-data-models.md#thermal-control-loop)
-
-#### Pins
-
-* outlet temperature
-* return temperature
-* operating message
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Strongly recommended</p>
+        <p>Default: Always on</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">return temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
 {% endtab %}
 
 {% tab title="Application" %}
@@ -788,6 +1115,8 @@ A analysis for one week in the beginning of September 2018 is shown in the plot 
 {% endtabs %}
 
 ## Reduced Load Analysis
+
+The _Reduced Load Analysis_ identifies the presence of a reduced load mode based on measures temperatures or temperature setpoints of the system under consideration. Additionally the temperature spread of the system is determined. A reduced load mode offers the possibility of operational cost and energy reductions.
 
 {% tabs %}
 {% tab title="Quick Start" %}
@@ -805,10 +1134,6 @@ Heat and cold distribution systems, energy conversion plants and indoor areas, s
 * Boilers
 * Office rooms
 * Schooling rooms
-{% endtab %}
-
-{% tab title="Description" %}
-The _Reduced Load Analysis_ identifies the presence of a reduced load mode based on measures temperatures or temperature setpoints of the system under consideration. Additionally the temperature spread of the system is determined. A reduced load mode offers the possibility of operational cost and energy reductions.
 {% endtab %}
 
 {% tab title="Results" %}
@@ -837,13 +1162,31 @@ The _Reduced Load Analysis_ identifies the presence of a reduced load mode based
       <td style="text-align:left">binary</td>
     </tr>
   </tbody>
-</table>### Statistics of temperature spread
+</table>### Statistics of temperature level shift
 
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| temperature level shift | Difference between temperature levels during full load operation and reduced load operation | -inf to inf | °C |
-
-## Timeserieses
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">KPI Identifier</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Value Range</th>
+      <th style="text-align:left">Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">temperature level shift</td>
+      <td style="text-align:left">
+        <p>Difference between temperature levels during full load operation and reduced
+          load operation</p>
+        <p>negative values = reduced temperature level for heating load reduction</p>
+        <p>positive values = raised temperature level for cooling load reduction</p>
+      </td>
+      <td style="text-align:left">-inf to inf</td>
+      <td style="text-align:left">&#xB0;C</td>
+    </tr>
+  </tbody>
+</table>## Timeserieses
 
 <table>
   <thead>
@@ -883,24 +1226,23 @@ This example shows the results of a R_educed Load Analysis_ performed on a heati
 {% tab title="Components" %}
 ## [boiler](component-data-models.md#boiler)
 
-#### Pins
-
-* outlet temperature
-* outlet temperature setpoint
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| outlet temperature  | no | Mapping of either **outlet temperature** or **outlet temperature setpoint \(preferred\)** is **mandatory**. If both pins are mapped, outlet temperature setpoint is used |
+| outlet temperature setpoint | no | Mapping of either **outlet temperature** or **outlet temperature setpoint \(preferred\)** is **mandatory**. If both pins are mapped, outlet temperature setpoint is used |
 
 ## [room](component-data-models.md#room)
 
-#### Pins
-
-* temperature
-* temperature setpoint
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| temperature setpoint | yes |  |
 
 ## [thermal control loop](component-data-models.md#thermal-control-loop)
 
-#### Pins
-
-* outlet temperature
-* outlet temperature setpoint
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| outlet temperature  | no | Mapping of either **outlet temperature** or **outlet temperature setpoint \(preferred\)** is **mandatory**. If both pins are mapped, outlet temperature setpoint is used |
+| outlet temperature setpoint | no | Mapping of either **outlet temperature** or **outlet temperature setpoint \(preferred\)** is **mandatory**. If both pins are mapped, outlet temperature setpoint is used |
 {% endtab %}
 
 {% tab title="Application" %}
@@ -916,13 +1258,15 @@ This example shows the results of a R_educed Load Analysis_ performed on a heati
 
 ## Schedule Analysis
 
+The _Schedule Analysis_ is used to compare the actual occurred switch on/switch off times of the component with a schedule/timetable stored inside analytics. This analysis aims at identifying the amount of hours the component is active outside of the scheduled times. In addition to a one-time check, the analysis is suitable for permanent checks, e.g. to identify manual overwriting of the operating schedule. The analysis allows to respect holidays and exceptional day schedules.
+
 {% tabs %}
 {% tab title="Quick Start" %}
 ## Value
 
 * Lower operating times of HVAC components
 * Lower energy consumption
-* Lower maintenance costs
+* Lower maintenance costs due to less component operating time
 
 ## Recommended for component types
 
@@ -932,10 +1276,6 @@ Any HVAC component or room whose usage follows a recurrent schedule, such as
 * Thermal control loops
 * Office rooms
 * Sales rooms
-{% endtab %}
-
-{% tab title="Description" %}
-The schedule analysis is used to compare the actual occured switch on/switch off times of the component with a schedule/timetable stored inside analytics. This analysis aims at identifying the amount of hours the component is active outside of the scheduled times. In addition to a one-time check, the analysis is suitable for permanent checks, e.g. to identify manual overwriting of the operating schedule. The analysis allows to respect holidays and exceptional day schedules.
 {% endtab %}
 
 {% tab title="Results" %}
@@ -967,99 +1307,432 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
 {% tab title="Components" %}
 ## [boiler](component-data-models.md#boiler)
 
-#### Pins
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | yes |  |
 
-* operating message
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Attribute</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">custom_day_schedules</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Overwrites basic schedule for specific days with an individual for this
+        day</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">custom_holiday</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Overwrites basic schedule for specific days. The component is considered
+        to be disengageable during local holidays</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p></p>
+        <p>preconditioning</p>
+      </td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>If basic schedule is inherited from building usage times and shall be
+          individualized for this component:</p>
+        <p>Adds a preconditioning period to the start time of the basic schedule,
+          perceiving operation prior to the start time as intended to the extend
+          of the preconditioning time</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">regional_key</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">If regional_key is mapped, local holidays overwrite the basic schedule.
+        The component is considered to be disengageable during local holidays</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left">Weekly repeated basic schedule the analysis tests against</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule_timezone</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Timezone of the schedule provided</p>
+        <p>Default: UTC</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">shutdown_flexibility</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>If basic schedule is inherited from building usage times and shall be
+          individualized for this component:</p>
+        <p>Pulls the end time of the basic schedule forward by the duration of the
+          shutdown flexibility</p>
+      </td>
+    </tr>
+  </tbody>
+</table>## [combined heat and power](component-data-models.md#combined-heat-and-power)
 
-**Attributes**
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | yes |  |
 
-* schedule
-* regional\_holiday\_key
-* schedule\_timezone
-* custom\_day\_schedules
-* custom\_holiday
-* pre\_conditioning\_periode
-* shutdown\_flexibility
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Attribute</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">custom_day_schedules</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Overwrites basic schedule for specific days with an individual for this
+        day</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">custom_holiday</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Overwrites basic schedule for specific days. The component is considered
+        to be disengageable during local holidays</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p></p>
+        <p>preconditioning</p>
+      </td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>If basic schedule is inherited from building usage times and shall be
+          individualized for this component:</p>
+        <p>Adds a preconditioning period to the start time of the basic schedule,
+          perceiving operation prior to the start time as intended to the extend
+          of the preconditioning time</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">regional_key</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">If regional_key is mapped, local holidays overwrite the basic schedule.
+        The component is considered to be disengageable during local holidays</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left">Weekly repeated basic schedule the analysis tests against</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule_timezone</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Timezone of the schedule provided</p>
+        <p>Default: UTC</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">shutdown_flexibility</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>If basic schedule is inherited from building usage times and shall be
+          individualized for this component:</p>
+        <p>Pulls the end time of the basic schedule forward by the duration of the
+          shutdown flexibility</p>
+      </td>
+    </tr>
+  </tbody>
+</table>## [fan](component-data-models.md#thermal-control-loop)
 
-## [combined heat and power](component-data-models.md#combined-heat-and-power)
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | yes |  |
 
-#### Pins
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Attribute</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">custom_day_schedules</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Overwrites basic schedule for specific days with an individual for this
+        day</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">custom_holiday</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Overwrites basic schedule for specific days. The component is considered
+        to be disengageable during local holidays</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p></p>
+        <p>preconditioning</p>
+      </td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>If basic schedule is inherited from building usage times and shall be
+          individualized for this component:</p>
+        <p>Adds a preconditioning period to the start time of the basic schedule,
+          perceiving operation prior to the start time as intended to the extend
+          of the preconditioning time</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">regional_key</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">If regional_key is mapped, local holidays overwrite the basic schedule.
+        The component is considered to be disengageable during local holidays</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left">Weekly repeated basic schedule the analysis tests against</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule_timezone</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Timezone of the schedule provided</p>
+        <p>Default: UTC</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">shutdown_flexibility</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>If basic schedule is inherited from building usage times and shall be
+          individualized for this component:</p>
+        <p>Pulls the end time of the basic schedule forward by the duration of the
+          shutdown flexibility</p>
+      </td>
+    </tr>
+  </tbody>
+</table>## [heat pump](component-data-models.md#heat-pump)
 
-* operating message
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | yes |  |
 
-#### **Attributes**
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Attribute</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">custom_day_schedules</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Overwrites basic schedule for specific days with an individual for this
+        day</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">custom_holiday</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Overwrites basic schedule for specific days. The component is considered
+        to be disengageable during local holidays</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p></p>
+        <p>preconditioning</p>
+      </td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>If basic schedule is inherited from building usage times and shall be
+          individualized for this component:</p>
+        <p>Adds a preconditioning period to the start time of the basic schedule,
+          perceiving operation prior to the start time as intended to the extend
+          of the preconditioning time</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">regional_key</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">If regional_key is mapped, local holidays overwrite the basic schedule.
+        The component is considered to be disengageable during local holidays</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left">Weekly repeated basic schedule the analysis tests against</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule_timezone</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Timezone of the schedule provided</p>
+        <p>Default: UTC</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">shutdown_flexibility</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>If basic schedule is inherited from building usage times and shall be
+          individualized for this component:</p>
+        <p>Pulls the end time of the basic schedule forward by the duration of the
+          shutdown flexibility</p>
+      </td>
+    </tr>
+  </tbody>
+</table>## [thermal control loop](component-data-models.md#thermal-control-loop)
 
-* schedule
-* regional\_holiday\_key
-* schedule\_timezone
-* custom\_day\_schedules
-* custom\_holiday
-* pre\_conditioning\_periode
-* shutdown\_flexibility
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | yes |  |
 
-## [fan](component-data-models.md#thermal-control-loop)
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Attribute</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">custom_day_schedules</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Overwrites basic schedule for specific days with an individual for this
+        day</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">custom_holiday</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Overwrites basic schedule for specific days. The component is considered
+        to be disengageable during local holidays</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p></p>
+        <p>preconditioning</p>
+      </td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>If basic schedule is inherited from building usage times and shall be
+          individualized for this component:</p>
+        <p>Adds a preconditioning period to the start time of the basic schedule,
+          perceiving operation prior to the start time as intended to the extend
+          of the preconditioning time</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">regional_key</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">If regional_key is mapped, local holidays overwrite the basic schedule.
+        The component is considered to be disengageable during local holidays</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left">Weekly repeated basic schedule the analysis tests against</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule_timezone</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Timezone of the schedule provided</p>
+        <p>Default: UTC</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">shutdown_flexibility</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>If basic schedule is inherited from building usage times and shall be
+          individualized for this component:</p>
+        <p>Pulls the end time of the basic schedule forward by the duration of the
+          shutdown flexibility</p>
+      </td>
+    </tr>
+  </tbody>
+</table>## [room](component-data-models.md#room)
 
-#### Pins
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | yes |  |
 
-* operating message
-
-#### **Attributes**
-
-* schedule
-* regional\_holiday\_key
-* schedule\_timezone
-* custom\_day\_schedules
-* custom\_holiday
-* pre\_conditioning\_periode
-* shutdown\_flexibility
-
-## [heat pump](component-data-models.md#heat-pump)
-
-#### Pins
-
-* operating message
-
-#### **Attributes**
-
-* schedule
-* regional\_holiday\_key
-* schedule\_timezone
-* custom\_day\_schedules
-* custom\_holiday
-* pre\_conditioning\_periode
-* shutdown\_flexibility
-
-## [thermal control loop](component-data-models.md#thermal-control-loop)
-
-#### Pins
-
-* operating message
-
-#### **Attributes**
-
-* schedule
-* regional\_holiday\_key
-* schedule\_timezone
-* custom\_day\_schedules
-* custom\_holiday
-* pre\_conditioning\_periode
-* shutdown\_flexibility
-
-## [room](component-data-models.md#room)
-
-#### Pins
-
-* operating message
-
-#### **Attributes**
-
-* schedule
-* regional\_holiday\_key
-* schedule\_timezone
-* custom\_day\_schedules
-* custom\_holiday
-* pre\_conditioning\_periode
-* shutdown\_flexibility
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left"><b>Attribute</b>
+      </th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">custom_day_schedules</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Overwrites basic schedule for specific days with an individual for this
+        day</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">custom_holiday</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Overwrites basic schedule for specific days. The component is considered
+        to be disengageable during local holidays</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p></p>
+        <p>preconditioning</p>
+      </td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>If basic schedule is inherited from building usage times and shall be
+          individualized for this component:</p>
+        <p>Adds a preconditioning period to the start time of the basic schedule,
+          perceiving operation prior to the start time as intended to the extend
+          of the preconditioning time</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">regional_key</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">If regional_key is mapped, local holidays overwrite the basic schedule.
+        The component is considered to be disengageable during local holidays</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left">Weekly repeated basic schedule the analysis tests against</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule_timezone</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Timezone of the schedule provided</p>
+        <p>Default: UTC</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">shutdown_flexibility</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>If basic schedule is inherited from building usage times and shall be
+          individualized for this component:</p>
+        <p>Pulls the end time of the basic schedule forward by the duration of the
+          shutdown flexibility</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 {% endtab %}
 
 {% tab title="Application" %}
@@ -1077,6 +1750,8 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
 
 ## Valve Pump Synchronization Analysis
 
+The _Valve Pump Synchronization Analysis_ detects whether the pump is operating while the 2-way valve is closed or rather almost closed. If pumps continue to be operated with the valve closed, this leads to unnecessary power consumption and higher wear of the pump due to the additional running time. A valve opening of 10 % or less is considered as closed.
+
 {% tabs %}
 {% tab title="Quick Start" %}
 ## Value
@@ -1089,14 +1764,6 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
 Any liquid media supply system, such as
 
 * thermal control loop with 2-way valve and pump
-{% endtab %}
-
-{% tab title="Description" %}
-The V_alve Pump Synchronization Analysis_ detects whether the pump is operating while the 2-way valve is closed or rather almost closed. If pumps continue to be operated with the valve closed, this leads to unnecessary power consumption and higher wear of the pump due to the additional running time. A valve opening of 10 % or less is considered as closed.
-{% endtab %}
-
-{% tab title="" %}
-
 {% endtab %}
 
 {% tab title="Results" %}
@@ -1131,10 +1798,10 @@ The plot shows the operating message and valve position of a thermal control loo
 Apply only for 2-way valve systems
 {% endhint %}
 
-#### Pins
-
-* valve position
-* pump operating message
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| pump operating message | yes |  |
+| valve position | yes |  |
 {% endtab %}
 
 {% tab title="Application" %}
@@ -1153,7 +1820,77 @@ Apply only for 2-way valve systems
 
 ## **Control Loop Oscillation Analysis**
 
+The _Control Loop Oscillation Analysis_ checks the process value of a control loop for oscillation. Oscillating process values are an indicator for suboptimal parameterization or structural dimensioning of the control loop.
 
+{% tabs %}
+{% tab title="Quick Start" %}
+## Value
+
+* Increase lifetime of valve, dampers and adjacent components
+* Avoid spontaneous failures
+* Reduce energy consumption
+* Reduce noise pollution
+
+## Recommended for component types
+
+Any liquid media supply system, such as
+
+* thermal control loop with 2-way valve and pump
+{% endtab %}
+
+{% tab title="Results" %}
+Signal colors, interpretation and recommendations only.
+{% endtab %}
+
+{% tab title="Example" %}
+
+
+![](../../.gitbook/assets/valvepumprelationanalysis_example.png)
+{% endtab %}
+
+{% tab title="Components" %}
+## [thermal control loop](component-data-models.md#thermal-control-loop)
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Strongly recommended</p>
+        <p>Default: Always on</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
+{% endtab %}
+
+{% tab title="Application" %}
+## Recommended Time Span
+
+* 1 day
+* 1 week
+
+## **Recommended Repetition** <a id="recommended-repetition-1-1"></a>
+
+* weekly
+* after changes of operational modes, e.g. transfers to heating mode
+* after changes in the control system
+* after maintenance or replacements
+{% endtab %}
+{% endtabs %}
 
 ## Information
 
