@@ -1005,7 +1005,81 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
 {% endtab %}
 {% endtabs %}
 
+## Valve Pump Synchronization Analysis
 
+{% tabs %}
+{% tab title="Quick Start" %}
+## Value
+
+* Reduce energy cost
+* Increase lifespan of pumps in heating and cooling circuits
+
+## Recommended for component types
+
+Any liquid media supply system, such as
+
+* thermal control loop with 2-way valve and pump
+{% endtab %}
+
+{% tab title="Description" %}
+The V_alve Pump Synchronization Analysis_ detects whether the pump is operating while the 2-way valve is closed or rather almost closed. If pumps continue to be operated with the valve closed, this leads to unnecessary power consumption and higher wear of the pump due to the additional running time. A valve opening of 10 % or less is considered as closed.
+{% endtab %}
+
+{% tab title="" %}
+
+{% endtab %}
+
+{% tab title="Results" %}
+## KPIs
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| pump operating time.valve closed.relative | Percentage of time the pump is active while the 2-way valve is nearly closed based on total operating time | 0 to 100 | % |
+| pump operating time.valve closed | The amount of time the pump is active while the 2-way valve is nearly closed | 0 to inf | h |
+| pump operating time.relative | Percentage of time the pump is active based on the whole analysis period | 0 to 100 | % |
+| pump operating time | Time the pump is active based on the whole analysis period | 0 to inf | h |
+{% endtab %}
+
+{% tab title="Example" %}
+For this example we use a heating circuit with a 2-way-valve. 
+
+The plot shows the operating message and valve position of a thermal control loop. During the analysis period the valve position lies between 0 and 20 %. With the KPI "pump operating time.valve closed.relative" we can estimate that the valve is nearly closed for ~40 % of the operating time.
+
+![](../../.gitbook/assets/valvepumprelationanalysis_example.png)
+
+|  KPI | Value | Unit |
+| :--- | :--- | :--- |
+| pump operating time.valve closed.relative | 39.7 | % |
+| pump operating time.valve closed | 76.2 | h |
+| pump operating time.relative | 100 | % |
+{% endtab %}
+
+{% tab title="Components" %}
+## [thermal control loop](component-data-models.md#thermal-control-loop)
+
+{% hint style="danger" %}
+Apply only for 2-way valve systems
+{% endhint %}
+
+#### Pins
+
+* valve position
+* pump operating message
+{% endtab %}
+
+{% tab title="Application" %}
+## Recommended Time Span
+
+* 1 week - several weeks
+
+## **Recommended Repetition** <a id="recommended-repetition-1-1"></a>
+
+* every 3 months
+* after changes of operational modes, e.g. transfers to heating mode
+* after changes in the control system
+* after maintenance or replacements
+{% endtab %}
+{% endtabs %}
 
 ## **Control Loop Oscillation Analysis**
 
