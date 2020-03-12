@@ -588,7 +588,7 @@ Switch-off time KPIs evaluate the shutdown times of the closed cycles observed d
 {% endtab %}
 {% endtabs %}
 
-## Outdoor Temperature Sensor Analysis
+## Outdoor Air Temperature Sensor Analysis
 
 This analysis detects, if a sensor is influenced by sun radiation, surrounding components, or if the sensor shows an offset.
 
@@ -609,7 +609,7 @@ This analysis detects, if a sensor is influenced by sun radiation, surrounding c
 {% tab title="Description" %}
 The outdoor air temperature sensor is one of the most important sensors for HVAC system control, since many control decisions, e.g. which amount of heat provided or switching between heating and cooling mode, are made based on the measured outdoor air temperature. Outdoor air temperature sensors wear out over the life time of the building. Further, the sensor is often influenced by sun radiation or heat emitting components in its surrounding. Wrongly measured outside air temperature directly corresponds to a thermal over or under supply of the building, often leads to poor user comfort and an exaggerated energy consumption.
 
-The _Outdoor Temperature Sensor Analysis_ identifies installation errors and measurement offsets of the outdoor air temperature sensor and derives optimization measures for better outdoor air temperature measuring.
+The _Outdoor  Air Temperature Sensor Analysis_ identifies installation errors and measurement offsets of the outdoor air temperature sensor and derives optimization measures for better outdoor air temperature measuring.
 {% endtab %}
 
 {% tab title="Results" %}
@@ -619,8 +619,10 @@ The _Outdoor Temperature Sensor Analysis_ identifies installation errors and mea
 
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
-| radiation influenced.relative | Ratio of days with more than one hour of sun radiation influence to days analyzed | 0 to 100 | % |
-| radiation influenced.total | Days with more than one hour of sun radiation influence | 0 - inf | days |
+| radiation influenced days.relative | Ratio of days with more than one hour of sun radiation influence to days analyzed | 0 to 100 | % |
+| radiation influenced days | Days with more than one hour of sun radiation influence | 0 - inf | days |
+| offset RMSE | Root mean square error of the offset between measured outdoor air temperature and the reference data set. | 0 to inf | K |
+|  offset ME | Mean error of the offset between measured outdoor air temperature and the reference data set. | -inf to inf | K |
 {% endtab %}
 
 {% tab title="Example" %}
