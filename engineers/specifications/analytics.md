@@ -179,21 +179,47 @@ General information KPIs to give further insight into the setpoint compliance ov
 {% endtab %}
 
 {% tab title="Components" %}
-## \*\*\*\*[**thermal control loop**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#thermal-control-loop)\*\*\*\*
+## [boiler](component-data-models.md#boiler)
 
-#### Pins
+**Pins**
 
 * outlet temperature
-* inlet temperature
+* outlet temperature setpoint
 * operating message
 
-## \*\*\*\*[**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
+## [combined heat and power](component-data-models.md#combined-heat-and-power)
+
+**Pins**
+
+* outlet temperature
+* outlet temperature setpoint
+* operating message
+
+## [heat pump](component-data-models.md#heat-pump)
+
+**Pins**
+
+* condenser outlet temperature
+* condenser outlet temperature setpoint
+* evaporator outlet temperature
+* evaporator outlet temperature setpoint
+* operating message
+
+## [**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
 
 #### Pins
 
 * temperature
 * temperature setpoint
 * operating message
+
+## \*\*\*\*[**thermal control loop**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#thermal-control-loop)\*\*\*\*
+
+#### Pins
+
+* outlet temperature
+* inlet temperature
+* operating message \(substitute: pump operating message\)
 {% endtab %}
 
 {% tab title="Application" %}
@@ -363,18 +389,6 @@ _heat flux.maximum_ will be _evaporator heat flux.maximum_
 {% endtab %}
 
 {% tab title="Components" %}
-## [**heat meter**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-meter)\*\*\*\*
-
-#### Pins
-
-* outlet temperature
-* inlet temperature
-* volume flow
-
-#### Attributes
-
-* volume\_flow\_unit
-
 ## [boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#boiler)
 
 #### Pins
@@ -396,6 +410,18 @@ _heat flux.maximum_ will be _evaporator heat flux.maximum_
 * inlet temperature
 * operating message
 * volume flow
+
+## [**heat meter**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-meter)\*\*\*\*
+
+#### Pins
+
+* outlet temperature
+* inlet temperature
+* volume flow
+
+#### Attributes
+
+* volume\_flow\_unit
 
 ## \*\*\*\*[**heat pump**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)\*\*\*\*
 
@@ -715,6 +741,32 @@ A analysis for one week in the beginning of September 2018 is shown in the plot 
 {% endtab %}
 
 {% tab title="Components" %}
+## [boiler](component-data-models.md#boiler)
+
+**Pins**
+
+* inlet temperature
+* outlet temperature
+* operating message
+
+## [combined heat and power](component-data-models.md#combined-heat-and-power)
+
+**Pins**
+
+* inlet temperature
+* outlet temperature
+* operating message
+
+## [heat pump](component-data-models.md#heat-pump)
+
+**Pins**
+
+* condenser inlet temperature
+* condenser outlet temperature
+* evaporator inlet temperature
+* evaporator outlet temperature
+* operating message
+
 ## [thermal control loop](component-data-models.md#thermal-control-loop)
 
 #### Pins
@@ -829,13 +881,6 @@ This example shows the results of a R_educed Load Analysis_ performed on a heati
 {% endtab %}
 
 {% tab title="Components" %}
-## [thermal control loop](component-data-models.md#thermal-control-loop)
-
-#### Pins
-
-* outlet temperature
-* outlet temperature setpoint
-
 ## [boiler](component-data-models.md#boiler)
 
 #### Pins
@@ -849,6 +894,13 @@ This example shows the results of a R_educed Load Analysis_ performed on a heati
 
 * temperature
 * temperature setpoint
+
+## [thermal control loop](component-data-models.md#thermal-control-loop)
+
+#### Pins
+
+* outlet temperature
+* outlet temperature setpoint
 {% endtab %}
 
 {% tab title="Application" %}
@@ -992,6 +1044,22 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
 * custom\_holiday
 * pre\_conditioning\_periode
 * shutdown\_flexibility
+
+## [room](component-data-models.md#room)
+
+#### Pins
+
+* operating message
+
+#### **Attributes**
+
+* schedule
+* regional\_holiday\_key
+* schedule\_timezone
+* custom\_day\_schedules
+* custom\_holiday
+* pre\_conditioning\_periode
+* shutdown\_flexibility
 {% endtab %}
 
 {% tab title="Application" %}
@@ -1085,9 +1153,7 @@ Apply only for 2-way valve systems
 
 ## **Control Loop Oscillation Analysis**
 
-{% hint style="warning" %}
-Documentation currently under construction 🚧
-{% endhint %}
+
 
 ## Information
 
