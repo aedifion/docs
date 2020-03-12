@@ -816,7 +816,14 @@ The _Reduced Load Analysis_ identifies the presence of a reduced load mode based
 {% endtab %}
 
 {% tab title="Example" %}
-_In general you can expect a short demonstration on how we applied the analysis during our development and which results we got from our test bench._
+This example shows the results of a R_educed Load Analysis_ performed on a heating circuit. The picture below shows the measured temperature. One can see a strong increese in temperature around 4 am and a reduction of temperature around 5 pm.
+
+![Measured temperature over a one day periode](../../.gitbook/assets/picture_reduced_load_analysis.png)
+
+| KPI | Value | Unit |
+| :--- | :--- | :--- |
+| reduced load operation | 1 | binary |
+| temperature level shift | -9.31 | °C |
 {% endtab %}
 
 {% tab title="Components" %}
@@ -852,8 +859,6 @@ _In general you can expect a short demonstration on how we applied the analysis 
 * every 3 months
 {% endtab %}
 {% endtabs %}
-
-
 
 ## Schedule Analysis
 
