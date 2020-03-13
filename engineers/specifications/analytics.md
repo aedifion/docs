@@ -16,22 +16,17 @@ Analytics peruses only one goal: Guide technicians and building users to improve
 
 ## How to read the docs?
 
-Each analysis function has unique specifications. For a target-oriented browsing, the specifications are ordered in tabs
+Each analysis function documentation starts with a short description. Specifications for the application of the analysis are ordered in tabs
 
-* [Quick Start](analytics.md#quick-start),
-* [Description](analytics.md#description),
+* [Summary](analytics.md#summary),
 * [Example](analytics.md#example),
 * [Results](analytics.md#results),
 * [Components](analytics.md#components), and
 * [Application](analytics.md#application).
 
-### Quick Start
+### Summary
 
-This tab summarizes the value offered by the analysis function and for which components it is recommended. If the analysis function catches your attention, brows the other tabs and find further applications.
-
-### Description
-
-In general the description provides a summary of the concepts of the analysis function, its use-case scenario, and value. 
+This tab summarizes the **value** offered by the analysis function, the **component types** the analysis is recommended for, and the **conditions checked** by the analysis.
 
 ### Example
 
@@ -49,11 +44,11 @@ Therefor, each result regardless of the analytics function includes
 * zero to n **KPIs, and**
 * zero to n **timeserieses.**
 
-These categories are explained below. While the warning level, interpretation, and recommendation are specified for all analysis functions equally, KPIs and timeserieses differ between each analysis function. Thus, they are specified individually in the _Results_ tab of each function specification.
+These categories are explained below. While the warning level, interpretation, and recommendation are specified for all analysis functions equally, KPIs and timeserieses differ between each analysis function. 
 
 #### Warning level
 
-The warning level represents the urgency of looking into the analyzed condition and taking action to improve it. It can have one of these traffic light states:
+The warning level represents the urgency of looking into the analyzed condition and taking action to improve it. It can have one of these traffic light states, but not every analysis makes use of the full spectrum:
 
 {% hint style="danger" %}
 **Red:** Suboptimal performance identified. It can be expected that either improving the identified condition will have a strong effect on the performance or the effort to realize the optimization is moderate compared to its benefit.
@@ -71,13 +66,11 @@ The warning level represents the urgency of looking into the analyzed condition 
 
 The interpretation delivers a summary over the observed performance and state of the condition analyzed. In general it describes either a symptom of a suboptimal operation or condition could be found or not.
 
-In the engineering vocabulary of Fault Detection and Diagnosis, the interpretation represents the Fault Detection.
+In the engineering vocabulary of Fault Detection and Diagnosis \(FDD\), the interpretation represents the Fault Detection.
 
 #### Recommendation
 
-Actually, it is a list of recommendations to amend the detected symptom for suboptimal operation. Either by providing recommendations on how to correct the source of the symptom itself or on how to narrow down its cause.
-
-In the engineering vocabulary of Fault Detection and Diagnosis, the recommendations represent the Fault Diagnosis respectively guidance on how to further proceed the diagnosis.
+Recommendations is a list of 0 \(for sufficient operational performance\) to n measurements on how to correct the reason for the detected symptom for suboptimal operation. Either by providing recommendations on how to correct the source of the symptom itself or on how to narrow down its cause.
 
 #### KPIs and timeserieses
 
@@ -85,7 +78,7 @@ KPIs and timeserieses offer insights and transparency. They enable reporting and
 
 ### Components
 
-The _Components_ tab contains the API identifier of
+The _Components_ tab contains the API identifier and information of
 
 * the components the analysis function is available for,
 * the pins of the components which need to be mapped, and
@@ -103,7 +96,7 @@ The _Application_ tab provides information on the application of the analysis fu
 The _Setpoint Deviation Analysis_ identifies insufficient setpoint attainment by comparing the actual value of a controlled system to its setpoint value. Insufficient setpoint attainment is a symptom which can be traced back to plenty of different causes. E.g., insufficient supply of a controlled system with the required temperature level, suboptimal controller software and parameters, or a blocked valve. The Setpoint Deviation Analysis supports narrowing down the root cause of insufficient setpoint attainment and is specially recommended in complex energy systems.
 
 {% tabs %}
-{% tab title="Quick Start" %}
+{% tab title="Summary" %}
 ## Value
 
 Setpoint deviation is a strong symptom for faulty control loop operation, e.g. caused by
@@ -118,13 +111,20 @@ Benefits of improving insufficient setpoint value attainment are:
 * Lower operating costs
 * Higher energy efficiency
 
-## Recommended for component types
+## Recommended for components
 
 Control loops, such as
 
 * Heating systems
 * Ventilation systems
 * Air-conditioning systems
+
+## Checked conditions
+
+* Process value value overshooting its setpoint, evaluated component specific
+* Process value value undershooting its setpoint, evaluated component specific
+* Process value value sufficiently achieving its setpoint, evaluated component specific
+* Condition checks on times of components operation
 {% endtab %}
 
 {% tab title="Example" %}
@@ -390,15 +390,22 @@ General information KPIs to give further insight into the setpoint compliance ov
 The _Room Air Quality Analysis_ checks and interprets the compliance of carbon dioxide concentration in the air to the recommendations of DIN EN 13776: 2007-09. In case of poor air quality, measures for improvement are recommended. Human performance is significantly influenced by air quality. In addition, the algorithms identifies calibration errors by physical plausibility checks.
 
 {% tabs %}
-{% tab title="Quick Start" %}
+{% tab title="Summary" %}
 ## Value
 
 * Higher occupant comfort, health and performance
 
-## Recommended for component types
+## Recommended for components
 
 * Rooms
 * Occupied indoor areas
+
+## **Checked conditions**
+
+* Indoor CO2 concentration evaluation based on DIN EN 13776: 2007-09
+* Identification of higher room ventilation needs
+* Sensor calibration check by plausibility of minimal measured concentration levels
+* Condition checks on times of components operation
 {% endtab %}
 
 {% tab title="Example" %}
@@ -509,7 +516,7 @@ Providing deeper insights to the carbon dioxide concentrations over the analysed
 The _Virtual Heat Meter_ determines the heat flux and energy delivered in heating/cooling piping networks such as thermal control loops or energy conversion plants. The determination is based on the temperature difference and volume flow over measurement point. It substitutes physical heat meters and enables energy flux tracing.
 
 {% tabs %}
-{% tab title="Quick Start" %}
+{% tab title="Summary" %}
 ## Value
 
 Quantifies heat fluxes and heat for
@@ -518,7 +525,7 @@ Quantifies heat fluxes and heat for
 * Enable other analytics functions
 * Enables comparison to hardware heat meters
 
-## Recommended for component types
+## Recommended for components
 
 Heat and cold conversion or distribution systems, such as
 
@@ -526,6 +533,11 @@ Heat and cold conversion or distribution systems, such as
 * Heat pumps
 * Boilers
 * Heat meters
+
+## Checked conditions
+
+* Determines heat flux from temperature difference and volume flow for several components
+* Condition checks on times of components operation
 {% endtab %}
 
 {% tab title="Example" %}
@@ -773,7 +785,7 @@ The unit used in this datapoint needs to be specified in order for the analysis 
 The _Operating Cycle Analysis_ identifies excessive start and stop processes which lead to energy losses, energy consumption peaks due to higher energy consumption on plant start and higher wear and tear of the component compared to a constant operation. Further, a frequently alternating operation of a component, e.g. a heat pump, has negative effects on adjacent components, which are enforced to alternate as well. Further, the algorithm takes low cycle rates as an indication of a possible under-supply of the adjacent systems.
 
 {% tabs %}
-{% tab title="Quick Start" %}
+{% tab title="Summary" %}
 ## **Value**
 
 * Lower operating costs
@@ -782,7 +794,7 @@ The _Operating Cycle Analysis_ identifies excessive start and stop processes whi
 * Longer equipment and component life times
 * Smoother system integration
 
-## Recommended for component types
+## Recommended for components
 
 Energy conversion plants and components with high start-up energy consumption or wear, such as
 
@@ -790,6 +802,13 @@ Energy conversion plants and components with high start-up energy consumption or
 * Combined heat and power
 * Boiler
 * Fan
+
+## Checked conditions
+
+* Short cycling of component operation, evaluated component specific
+* Long cycling of component operation, evaluated component specific
+* Expected cycling of component operation, evaluated component specific
+* Condition checks on times of components operation
 {% endtab %}
 
 {% tab title="Example" %}
@@ -926,14 +945,14 @@ Switch-off time KPIs evaluate the shutdown times of the closed cycles observed d
 {% endtab %}
 {% endtabs %}
 
-## Outdoor Air Temperature Sensor Analysis
+## Weather Station Analysis
 
 The outdoor air temperature sensor is one of the most important sensors for HVAC system control, since many control decisions, e.g. which amount of heat provided or switching between heating and cooling mode, are made based on the measured outdoor air temperature. Outdoor air temperature sensors wear out over the life time of the building. Further, the sensor is often influenced by sun radiation or heat emitting components in its surrounding. Wrongly measured outside air temperature directly corresponds to a thermal over or under supply of the building, often leads to poor user comfort and an exaggerated energy consumption. 
 
-The _Outdoor Air Temperature Sensor Analysis_ identifies installation errors and measurement offsets of the outdoor air temperature sensor and derives optimization measures for better outdoor air temperature measuring.
+The _Weather Station Analysis_ identifies installation errors and measurement offsets of the outdoor air temperature sensor and derives optimization measures for better outdoor air temperature measuring.
 
 {% tabs %}
-{% tab title="Quick Start" %}
+{% tab title="Summary" %}
 ## Value
 
 * Higher operational performance due to reliable information about outside air conditions
@@ -941,17 +960,24 @@ The _Outdoor Air Temperature Sensor Analysis_ identifies installation errors and
 * Lower operating costs
 * Better system coordination in systems with redundant sensors
 
-## Recommended for component types
+## Recommended for components
 
 * Weather station
+
+## Checked conditions
+
+* Offset between measured outdoor air temperature and weather service reference data
+* Outdoor air temperature sensor is mistakenly influenced by solar radiation
+* Outdoor air temperature sensor is mistakenly influenced by it's surrounding, e.g. exhaust gases
+* Outdoor air temperature measures are compliant to weather service reference data
 {% endtab %}
 
 {% tab title="Example" %}
-For this Outdoor Temperature Sensor Analysis we instanciated a "[weather station](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#weather-station)" component and analyzed a week of weather data. The following plot shows the measured temperature of a sensor located at a building facade. During the reviewed period in the summer the sensor is influenced in the afternoon.
+For this _Weather Station Analysis_ we instantiated a "[weather station](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#weather-station)" component and analyzed a week of weather data. The following plot shows the measured temperature of a sensor located at a building facade. During the reviewed period in the summer the sensor is influenced in the afternoon.
 
 ![](../../.gitbook/assets/example_outdoortemperaturesensoranalysis.png)
 
-In the plot you can see a significant difference between sensor and weather reference. This is also reflected in the value of the calculated KPIs. During the analysis period all 7 days are recognized by the KPI "radiation influenced days". Additionaly the offset at night is elevated and thus a larger "sensor offset squared error" is present.
+In the plot you can see a significant difference between sensor and weather reference. This is also reflected in the value of the calculated KPIs. During the analysis period all 7 days are recognized by the KPI "radiation influenced days". Additionally the offset at night is elevated and thus a larger "sensor offset squared error" is present.
 
 | KPI | Value | Unit |
 | :--- | :--- | :--- |
@@ -1014,9 +1040,8 @@ In the plot you can see a significant difference between sensor and weather refe
 
 ## **Recommended Repetition**
 
-#### every 3 months
-
-#### quaterly
+* every month
+* after modification or maintenance of the weather station or control system
 {% endtab %}
 {% endtabs %}
 
@@ -1025,18 +1050,25 @@ In the plot you can see a significant difference between sensor and weather refe
 The _Temperature Spread Analysis_ assesses the temperature difference between a supply and return temperature sensor of a heat or cold distribution system during the systems operation. While a small temperature spread indicates the potential for volume flow and therefor pump power consumption reduction, a huge spread indicates thermal under supply of the downstream systems and consumers.
 
 {% tabs %}
-{% tab title="Quick Start" %}
+{% tab title="Summary" %}
 ## Value
 
 * Higher occupant comfort, health and performance
 * Higher energy efficiency
 * Lower operating costs
 
-## Recommended for component types
+## Recommended for components
 
 Heat and cold distribution systems, such as
 
 * Thermal control loop
+
+## Checked conditions
+
+* Temperature spread is too small causing too high volume flows, evaluated component specific
+* Temperature spread is too large and risk sufficient energy supply, evaluated component specific
+* Temperature spread is as expected, evaluated component specific
+* Condition checks on times of components operation
 {% endtab %}
 
 {% tab title="Example" %}
@@ -1239,13 +1271,13 @@ A analysis for one week in the beginning of September 2018 is shown in the plot 
 The _Reduced Load Analysis_ identifies the presence of a reduced load mode based on measures temperatures or temperature setpoints of the system under consideration. Additionally the temperature spread of the system is determined. A reduced load mode offers the possibility of operational cost and energy reductions.
 
 {% tabs %}
-{% tab title="Quick Start" %}
+{% tab title="Summary" %}
 ## Value
 
 * Lower operating costs
 * Lower energy consumption
 
-## Recommended for component types
+## Recommended for components
 
 Heat and cold distribution systems, energy conversion plants and indoor areas, such as
 
@@ -1254,6 +1286,11 @@ Heat and cold distribution systems, energy conversion plants and indoor areas, s
 * Boilers
 * Office rooms
 * Schooling rooms
+
+## Checked conditions
+
+* Existence of a load reduction period, e.g. night-time temperature reduction for heating
+* Condition checks on times of components operation
 {% endtab %}
 
 {% tab title="Example" %}
@@ -1401,14 +1438,14 @@ This example shows the results of a R_educed Load Analysis_ performed on a heati
 The _Schedule Analysis_ is used to compare the actual occurred switch on/switch off times of the component with a schedule/timetable stored inside analytics. This analysis aims at identifying the amount of hours the component is active outside of the scheduled times. In addition to a one-time check, the analysis is suitable for permanent checks, e.g. to identify manual overwriting of the operating schedule. The analysis allows to respect holidays and exceptional day schedules.
 
 {% tabs %}
-{% tab title="Quick Start" %}
+{% tab title="Summary" %}
 ## Value
 
 * Lower operating times of HVAC components
 * Lower energy consumption
 * Lower maintenance costs due to less component operating time
 
-## Recommended for component types
+## Recommended for components
 
 Any HVAC component or room whose usage follows a recurrent schedule, such as
 
@@ -1416,6 +1453,12 @@ Any HVAC component or room whose usage follows a recurrent schedule, such as
 * Thermal control loops
 * Office rooms
 * Sales rooms
+
+## Checked conditions
+
+* Component operation outside a user defined schedule
+* Component operation during a user defined schedule
+* Condition checks on times of components operation
 {% endtab %}
 
 {% tab title="Example" %}
@@ -1913,17 +1956,23 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
 The _Synchronized Operatio_n _Analysis_ detects whether the operation of the analyzed components is synchronized correctly. E.g., the pump of a thermal control loop is operating while the 2-way valve is closed or rather almost closed. If pumps continue to be operated with the valve closed, this leads to unnecessary power consumption and higher wear of the pump due to the additional running time. A valve opening of 10 % or less is considered as closed.
 
 {% tabs %}
-{% tab title="Quick Start" %}
+{% tab title="Summary" %}
 ## Value
 
 * Reduce energy cost
 * Increase lifespan of pumps in heating and cooling circuits
 
-## Recommended for component types
+## Recommended for components
 
 Any liquid media supply system, such as
 
 * thermal control loop with 2-way valve and pump
+
+## Checked conditions
+
+* Pump is shutdown, if two-way valve is closed
+* Pump is still operation although the two-way valve is closed
+* Condition checks on times of components operation
 {% endtab %}
 
 {% tab title="Example" %}
@@ -2003,7 +2052,7 @@ Apply only for 2-way valve systems
 The _Control Loop Oscillation Analysis_ checks the process value of a control loop for oscillation. Oscillating process values are an indicator for suboptimal parameterization or structural dimensioning of the control loop.
 
 {% tabs %}
-{% tab title="Quick Start" %}
+{% tab title="Summary" %}
 ## Value
 
 * Increase lifetime of valve, dampers and adjacent components
@@ -2011,17 +2060,29 @@ The _Control Loop Oscillation Analysis_ checks the process value of a control lo
 * Reduce energy consumption
 * Reduce noise pollution
 
-## Recommended for component types
+## Recommended for components
 
 Any liquid media supply system, such as
 
 * thermal control loop with 2-way valve and pump
+
+## Checked conditions
+
+* Process value is oscillating
+* Process value is not or to a negligible degree oscillating
+* Condition checks on times of components operation
 {% endtab %}
 
 {% tab title="Example" %}
+For this example we analyzed the temperature control loop of a supply air volume flow, which provides fresh air and heating to a large sales room. Figure 1 shows a plot of the process value of the control loop, the outlet temperature. The plot shows a oscillation of the outlet temperature during periods of operation.
 
+![Figure 1: Oscillating processes value during operation](../../.gitbook/assets/oscillating_control_loop.png)
 
-![](../../.gitbook/assets/valvepumprelationanalysis_example.png)
+Figure 2 is a zoom of figure 1 to analyze the oscillation more into detail. The trajectory of the process value is common for control loops oscillating at medium frequency.
+
+![Figure 2: Oscillating process value during operation in detail](../../.gitbook/assets/oscillating_control_lopp_zoom.png)
+
+The _Control Loop Analysis_ evaluated this oscillation as significant, signal color _yellow_, and derived recommendation on how to adjust controller parameters for a smoother operation.
 {% endtab %}
 
 {% tab title="Results" %}
