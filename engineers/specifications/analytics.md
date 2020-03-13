@@ -91,52 +91,42 @@ The _Application_ tab provides information on the application of the analysis fu
 * **Recommended time span:** Most of the analysis functions have a sweet spot for the amount of historical data required to derive accurate results.
 * **Recommended repetition:** Components of building energy systems are subject to seasonal effects and wear out. Follow the recommended repetition to limit the amount of analysis to the required ones without risking blind spots in the continuous monitoring.
 
-## Setpoint Deviation Analysis
+## **Control Loop Oscillation Analysis**
 
-The _Setpoint Deviation Analysis_ identifies insufficient setpoint attainment by comparing the actual value of a controlled system to its setpoint value. Insufficient setpoint attainment is a symptom which can be traced back to plenty of different causes. E.g., insufficient supply of a controlled system with the required temperature level, suboptimal controller software and parameters, or a blocked valve. The Setpoint Deviation Analysis supports narrowing down the root cause of insufficient setpoint attainment and is specially recommended in complex energy systems.
+The _Control Loop Oscillation Analysis_ checks the process value of a control loop for oscillation. Oscillating process values are an indicator for suboptimal parameterization or structural dimensioning of the control loop.
 
 {% tabs %}
 {% tab title="Summary" %}
 ## Value
 
-Setpoint deviation is a strong symptom for faulty control loop operation, e.g. caused by
-
-* Technical defects in the control loop supply,
-* Control loop malfunctions, and
-* Faulty control loop parameter settings.
-
-Benefits of improving insufficient setpoint value attainment are:
-
-* Higher occupant comfort, health and performance
-* Lower operating costs
-* Higher energy efficiency
+* Increase lifetime of valve, dampers and adjacent components
+* Avoid spontaneous failures
+* Reduce energy consumption
+* Reduce noise pollution
 
 ## Recommended for components
 
-Control loops, such as
+Any liquid media supply system, such as
 
-* Heating systems
-* Ventilation systems
-* Air-conditioning systems
+* thermal control loop with 2-way valve and pump
 
 ## Checked conditions
 
-* Process value value overshooting its setpoint, evaluated component specific
-* Process value value undershooting its setpoint, evaluated component specific
-* Process value value sufficiently achieving its setpoint, evaluated component specific
+* Process value is oscillating
+* Process value is not or to a negligible degree oscillating
 * Condition checks on times of components operation
 {% endtab %}
 
 {% tab title="Example" %}
-The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a thermal control loop component model was instanced and the respective datapoints mapped to this component.
+For this example we analyzed the temperature control loop of a supply air volume flow, which provides fresh air and heating to a large sales room. Figure 1 shows a plot of the process value of the control loop, the outlet temperature. The plot shows a oscillation of the outlet temperature during periods of operation.
 
-![](../../.gitbook/assets/sda%20%281%29.svg)
+![Figure 1: Oscillating processes value during operation](../../.gitbook/assets/oscillating_control_loop.png)
 
-In this scenario, the figure above shows the time series recorded for an exemplary period of 36 hours on a November workday. The temperature setpoint and the actual measured value started to drift apart around 12 am on the 19th. Since then, the control loop did not comply with the setpoint temperatures although the control loop was operating.
+Figure 2 is a zoom of figure 1 to analyze the oscillation more into detail. The trajectory of the process value is common for control loops oscillating at medium frequency.
 
-The automated interpretation confirms our visual analysis of the time series shown in the figure, summed up by the qualitative warning level "red". The recommendations provide further instruction on how to isolate and fix the cause for the inadequate setpoint compliance. Further, the result offers an advanced set of KPIs, providing additional insights into the control loop behaviour. They support human reasoning for a case-by-case analysis.
+![Figure 2: Oscillating process value during operation in detail](../../.gitbook/assets/oscillating_control_lopp_zoom.png)
 
-For example, the drop in temperatures is peculiar and could point to a technical defect or malfunction, such as a blocked valve. Another cause might be a sudden drop in the temperatures supplied to the distribution system, such as an heat-pump or boiler issue. Further investigation of the root cause is possible via data visualization on the aedifion front-end.
+The _Control Loop Analysis_ evaluated this oscillation as significant, signal color _yellow_, and derived recommendation on how to adjust controller parameters for a smoother operation.
 {% endtab %}
 
 {% tab title="Results" %}
@@ -144,9 +134,9 @@ For example, the drop in temperatures is peculiar and could point to a technical
 
 | Signal color | Available | Info |
 | :--- | :--- | :--- |
-| red | No | The analysis identifies the symptom and recommends measures to investigate the root cause of the setpoint deviation. _Red_ as a signal for a low cost measure with high impact on the building operation will not be provided. |
-| yellow | Yes | Setpoint deviation is a strong symptom for suboptimal control and system performance. Investing the extra effort to identify the root cause and fixing it is strongly recommended. |
-| green | Yes | Sufficient setpoint compliance in respect to usual tolerances in buildings |
+| red | No | _Red_ as a signal for a low cost measure with high impact on the building operation will not be provided. |
+| yellow | Yes | An oscillating control loop is a symptom for suboptimal control parameters or component design. Investing the extra effort to identify the root cause and fixing it is strongly recommended. |
+| green | Yes | No or only slight, in respect to usual tolerances in buildings, negligible oscillation |
 
 ## Interpretations
 
@@ -158,46 +148,11 @@ For example, the drop in temperatures is peculiar and could point to a technical
 
 | Available | Info |
 | :--- | :--- |
-| Yes | Recommendations on how to investigate the root cause of a setpoint deviation. No recommendation, if setpoint compliance is sufficient |
-
-## KPIs
-
-### Incidence of setpoint deviation
-
-Duration of the setpoint deviations, bundled by threshold value ranges.
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| setpoint deviation.largerX.relative | Duration with setpoint deviation larger than X | 0 to 100 | % |
-| setpoint deviation.largerYsmallerX.relative | Duration with setpoint deviation larger than Y and smaller than X | 0 to 100 | % |
-| setpoint deviation.smallerY.relative | Duration with setpoint deviation smaller than Y | 0 to 100 | % |
-| setpoint deviation.largerX | Duration with setpoint deviation larger than X | 0 to inf | h |
-| setpoint deviation.largerYsmallerX | Duration with setpoint deviation larger than Y and smaller than X | 0 to inf | h |
-| setpoint deviation.smallerY | Duration with setpoint deviation smaller than Y | 0 to inf | h |
-
-### Operating time
-
-Operating time KPIs provide information on the total time of operation of the analysed component during the analysed time frame.
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| operating time | Total operating time | 0 to inf | h |
-| operating time.relative | Relative operating time | 0 to 100 | % |
-
-### Statistics of setpoint deviation
-
-General information KPIs to give further insight into the setpoint compliance over the analysed time frame.
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| setpoint deviation.maximum | Largest setpoint deviation | -inf to inf | - |
-| setpoint deviation.minimum | Smallest setpoint deviation | -inf to inf | - |
-| setpoint deviation.mean | Average setpoint deviation | -inf to inf | - |
-| setpoint deviation.median | Median setpoint deviation | -inf to inf | - |
+| Yes | Recommendations on how to smooth the control loop oscillation. No recommendation, if oscillation is negligible |
 {% endtab %}
 
 {% tab title="Components" %}
-## [boiler](component-data-models.md#boiler)
+## [thermal control loop](component-data-models.md#thermal-control-loop)
 
 <table>
   <thead>
@@ -212,284 +167,12 @@ General information KPIs to give further insight into the setpoint compliance ov
       <td style="text-align:left">operating message</td>
       <td style="text-align:left">no</td>
       <td style="text-align:left">
-        <p>Mapping strongly recommended</p>
-        <p>Default: Always operating</p>
+        <p>Strongly recommended</p>
+        <p>Default: Always on</p>
       </td>
     </tr>
     <tr>
       <td style="text-align:left">outlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature setpoint</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>## [combined heat and power](component-data-models.md#combined-heat-and-power)
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping strongly recommended</p>
-        <p>Default: Always operating</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature setpoint</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>## [heat pump](component-data-models.md#heat-pump)
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">condenser outlet temperature</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if condenser shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">
-        <p></p>
-        <p>condenser outlet temperature setpoint</p>
-      </td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if condenser shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">evaporator outlet temperature</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if evaporator shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">evaporator outlet temperature setpoint</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if evaporator shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping strongly recommended</p>
-        <p>Default: Always operating</p>
-      </td>
-    </tr>
-  </tbody>
-</table>## [**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping strongly recommended</p>
-        <p>Default: Always operating</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature setpoint</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>## \*\*\*\*[**thermal control loop**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#thermal-control-loop)\*\*\*\*
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">inlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping strongly recommended. If operating message and pump operating
-          message are mapped, operating message will be used</p>
-        <p>Default: Always operating</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">pump operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Mapping recommended in case no operating message is available. If operating
-        message and pump operating message are mapped, operating message will be
-        used</td>
-    </tr>
-  </tbody>
-</table>
-{% endtab %}
-
-{% tab title="Application" %}
-## Recommended Time Span
-
-* 1 to 7 days for significant deviation
-* hourly scale for in detail analysis
-
-## **Recommended Repetition** <a id="recommended-repetition-1"></a>
-
-* Every few weeks, since control loops are very sensitive to operational conditions.
-* After the start of the heating or cooling period.
-* If an issue is suspected.
-{% endtab %}
-{% endtabs %}
-
-## Room Air Quality Analysis
-
-The _Room Air Quality Analysis_ checks and interprets the compliance of carbon dioxide concentration in the air to the recommendations of DIN EN 13776: 2007-09. In case of poor air quality, measures for improvement are recommended. Human performance is significantly influenced by air quality. In addition, the algorithms identifies calibration errors by physical plausibility checks.
-
-{% tabs %}
-{% tab title="Summary" %}
-## Value
-
-* Higher occupant comfort, health and performance
-
-## Recommended for components
-
-* Rooms
-* Occupied indoor areas
-
-## **Checked conditions**
-
-* Indoor CO2 concentration evaluation based on DIN EN 13776: 2007-09
-* Identification of higher room ventilation needs
-* Sensor calibration check by plausibility of minimal measured concentration levels
-* Condition checks on times of components operation
-{% endtab %}
-
-{% tab title="Example" %}
-
-
-The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a room component model was instanced and the respective datapoints mapped to this component.
-
-![](../../.gitbook/assets/image%20%2819%29.png)
-
-In this scenario, the figure above shows the timeseries recorded for an exemplary period of 12 hours on a working day in August. The CO2 concentration in the air remained between what is considered "good" and "medium" for most of the day. However, for about 7 percent of the period, air quality was poor, with a maximum CO2 concentration of 1463 ppm, so that a complete evaluation on that day indicates poor air quality. The results provide an advanced set of KPIs that provide quantitative insights into the air quality of the rooms and support the human reasoning for analysis. A number of suggestions for possible countermeasures are given, and further investigation of the root cause of air quality problems is possible through the aedifion front-end data visualization.
-{% endtab %}
-
-{% tab title="Results" %}
-## Signal colors
-
-| Signal color | Available | Info |
-| :--- | :--- | :--- |
-| red | Yes | CO2 concentrations critical for human health |
-| yellow | Yes | CO2 concentrations reducing human comfort, decisiveness, and performance or wrongly calibrated CO2 sensors |
-| green | Yes | CO2 concentrations sufficient for high comfort |
-
-## Interpretations
-
-| Available | Info |
-| :--- | :--- |
-| Yes | Either the operational rule checks of the analysis were tested positive or not |
-
-## Recommendations
-
-| Available | Info |
-| :--- | :--- |
-| Yes | Recommendations to improve fresh air supply, if necessary or re-calibrate the sensor, if physically implausible measures are observed. No recommendation, in case of sufficient air quality |
-
-## KPIs
-
-### Air quality classification
-
-How long was the air quality in the room \(based on carbon dioxide concentrations\) considered “good”, “medium”, “moderate” or “poor”? Assessments are based on EU regulation classifications of Indoor Air Quality \(IDA\) classes 1 \(“good”\) to 4 \(“poor”\).
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| co2 duration.IDA1.relative | Duration with “good“ indoor air quality | 0 to 100 | % |
-| co2 duration.IDA2.relative | Duration with “medium “ indoor air quality | 0 to 100 | % |
-| co2 duration.IDA3.relative | Duration with “moderate “ indoor air quality | 0 to 100 | % |
-| co2 duration.IDA4.relative | Duration with “poor “ indoor air quality | 0 to 100 | % |
-| co2 duration.IDA1.absolute | Duration with “good“ indoor air quality | 0 to inf | h |
-| co2 duration.IDA2.absolute | Duration with “medium “ indoor air quality | 0 to inf | h |
-| co2  duration.IDA3.absolute | Duration with “moderate “ indoor air quality | 0 to inf | h |
-| co2 duration.IDA4.absolute | Duration with “poor “ indoor air quality | 0 to inf | h |
-
-### Statistics of CO2 concentration
-
-Providing deeper insights to the carbon dioxide concentrations over the analysed period.
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| co2.maximum | Largest CO2 concentrations | 0 to inf | ppm |
-| co2.minimum | Smallest CO2 concentrations | 0 to inf | ppm |
-| co2.mean | Average CO2 concentrations | 0 to inf | ppm |
-| co2.median | Median CO2 concentrations | 0 to inf | ppm |
-{% endtab %}
-
-{% tab title="Components" %}
-## \*\*\*\*[**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping strongly recommended</p>
-        <p>Default: Always operating</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">co2</td>
       <td style="text-align:left">yes</td>
       <td style="text-align:left"></td>
     </tr>
@@ -498,285 +181,17 @@ Providing deeper insights to the carbon dioxide concentrations over the analysed
 {% endtab %}
 
 {% tab title="Application" %}
-##  Recommended Time Span
+## Recommended Time Span
 
-* &gt;1 days
-* Utilize on days with room occupation
+### 1 day to 1 week
 
 ## **Recommended Repetition** <a id="recommended-repetition-1-1"></a>
 
-* On changes of room occupation or usage
-* Every few months in order to check sensor calibration
-* If an issue is suspected
-{% endtab %}
-{% endtabs %}
+### Weekly
 
-## Virtual Heat Meter
-
-The _Virtual Heat Meter_ determines the heat flux and energy delivered in heating/cooling piping networks such as thermal control loops or energy conversion plants. The determination is based on the temperature difference and volume flow over measurement point. It substitutes physical heat meters and enables energy flux tracing.
-
-{% tabs %}
-{% tab title="Summary" %}
-## Value
-
-Quantifies heat fluxes and heat for
-
-* Trace energy fluxes
-* Enable other analytics functions
-* Enables comparison to hardware heat meters
-
-## Recommended for components
-
-Heat and cold conversion or distribution systems, such as
-
-* Thermal control loops
-* Heat pumps
-* Boilers
-* Heat meters
-
-## Checked conditions
-
-* Determines heat flux from temperature difference and volume flow for several components
-* Condition checks on times of components operation
-{% endtab %}
-
-{% tab title="Example" %}
-
-
-The **Virtual Heat Meter** was tested in the field, on a boilder at the E.ON Energy Research Center, RWTH Aachen University. Thus, a [boiler ](component-data-models.md#heat-pump)was instanced and the respective datapoints pinned to it. __The figure below shows the inlet- and outlet timeseries recorded for an exemplary period, along with the heat flow calculated. The volume flow during the observed period was constant.
-
-![](../../.gitbook/assets/image%20%2821%29.png)
-{% endtab %}
-
-{% tab title="Results" %}
-## Signal colors
-
-| Signal color | Available | Info |
-| :--- | :--- | :--- |
-| red | No |  |
-| yellow | No |  |
-| green | Yes | Heat flux is determined |
-
-## Interpretations
-
-| Available | Info |
-| :--- | :--- |
-| No |  This analysis function provides only KPIs and timeserieses |
-
-## Recommendations
-
-| Available | Info |
-| :--- | :--- |
-| No |  This analysis function provides only KPIs and timeserieses |
-
-## KPIs
-
-### Statistics of heat flux
-
-Providing insights into value range of the heat flux.
-
-{% hint style="warning" %}
-Negative values indicate cooling, while positive indicate heating.
-{% endhint %}
-
-{% hint style="info" %}
-**Heat pump:** The KPI identifiers are extended by the prefix _condenser_ or _evaporator_ to specify the side of the heat pump the virtual heat meter is applied on. E.g.:
-
-_heat flux.maximum_ will be _evaporator heat flux.maximum_
-{% endhint %}
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| heat flux.maximum | Largest heat flux | -inf to inf | kW |
-| heat flux.minimum | Smallest heat flux | -inf to inf | kW |
-| heat flux.average | Average heat flux | -inf to inf | kW |
-| heat flux.median | Median heat flux | -inf to inf | kW |
-| heat | Aggregated heat transferred | -inf to inf | kWh |
-
-## Timeserieses
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| heat flux.timeseries | Timeseries of transferred heat | -inf to inf | kW |
-| heat flux.cumulated | Timeseries of cumulated transferred heat | -inf to inf | kWh |
-{% endtab %}
-
-{% tab title="Components" %}
-## [boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#boiler)
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">inlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping strongly recommended</p>
-        <p>Default: Always operating</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">volume flow</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>| **Attribute** | Required | Mapping info |
-| :--- | :--- | :--- |
-| volume\_flow\_unit | no | Default: l/s |
-
-## [combined heat and power](component-data-models.md#combined-heat-and-power)
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">inlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping strongly recommended</p>
-        <p>Default: Always operating</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">volume flow</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>| **Attribute** | Required | Mapping info |
-| :--- | :--- | :--- |
-| volume\_flow\_unit | no | Default: l/s |
-
-## [**heat meter**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-meter)\*\*\*\*
-
-| Pin | Required | Mapping info |
-| :--- | :--- | :--- |
-| inlet temperature | yes |  |
-| outlet temperature | yes |  |
-| volume flow | yes |  |
-
-| **Attribute** | Required | Mapping info |
-| :--- | :--- | :--- |
-| volume\_flow\_unit | no | Default: l/s |
-
-## \*\*\*\*[**heat pump**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)\*\*\*\*
-
-{% hint style="warning" %}
-The Virtual Heat Meter is determined on the condenser and evaporator side depending on the mapped datapoints.
-{% endhint %}
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">condenser inlet temperature</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if condenser shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">condenser outlet temperature</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if condenser shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">
-        <p></p>
-        <p>condenser volume flow</p>
-      </td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if condenser shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">evaporator inlet temperature</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if evaporator shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">evaporator outlet temperature</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if evaporator shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">evaporator volume flow</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if evaporator shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping strongly recommended</p>
-        <p>Default: Always operating</p>
-      </td>
-    </tr>
-  </tbody>
-</table>| **Attribute** | Required | Mapping info |
-| :--- | :--- | :--- |
-| volume\_flow\_unit | no | Default: l/s |
-
-## Attributes
-
-#### volume\_flow\_unit:
-
-The unit used in this datapoint needs to be specified in order for the analysis to yield correct result. If unspecified, the default unit assumed for this measurement is _cubic meters per second_. Acceptable inputs for this attribute include: 
-
-* _cubicMetersPerSecond_
-* _cubicMetersPerMinute_
-* _cubicMetersPerHour_
-* _litersPerSecond_
-* _litersPerMinute_
-* _litersPerHour_
-{% endtab %}
-
-{% tab title="Application" %}
-
-
-## Recommended Time Span
-
-* 1 - 3 days
-
-## **Recommended Repetition**
-
-### Every month
+* After changes of operational modes, e.g. transfers to heating mode
+* After changes in the control system
+* After maintenance or replacements
 {% endtab %}
 {% endtabs %}
 
@@ -814,7 +229,7 @@ Energy conversion plants and components with high start-up energy consumption or
 {% tab title="Example" %}
 The **Operating Cycle Analysis** was applied to a real test bench, the heat pump of the E.ON Energy Research Center, RWTH Aachen University. Thus, a [heat pump component model ](component-data-models.md#heat-pump)was instanced and the respective datapoint mapped to the pin _operating message_. __Figure 1 shows the time series recorded for an exemplary period of 6 hours on a winter day.
 
-![Plot of operating message time series from 12:00 am till 6:00 pm](../../.gitbook/assets/operating_cycle_analysis.png)
+![Figure 1: Operating message and cycle behavior of heat pump](../../.gitbook/assets/operating_cycle_analysis.png)
 
 Short shut-down times between periods of duty indicate excessive start and stop processes of the heat pump, leading not only to energy losses and electricity consumption peaks but also to increased wear and tear of the heat pumps compressor. 
 
@@ -932,9 +347,7 @@ Switch-off time KPIs evaluate the shutdown times of the closed cycles observed d
 {% tab title="Application" %}
 ## Recommended Time Span
 
-### 1 - 3 days
-
-* Mind weekends
+### 1 day to 1 week
 
 ## **Recommended Repetition**
 
@@ -942,327 +355,9 @@ Switch-off time KPIs evaluate the shutdown times of the closed cycles observed d
 
 * Cycle rates have a strong seasonal effect
 * Frequent repetition allows to identify operational bad points
-{% endtab %}
-{% endtabs %}
-
-## Weather Station Analysis
-
-The outdoor air temperature sensor is one of the most important sensors for HVAC system control, since many control decisions, e.g. which amount of heat provided or switching between heating and cooling mode, are made based on the measured outdoor air temperature. Outdoor air temperature sensors wear out over the life time of the building. Further, the sensor is often influenced by sun radiation or heat emitting components in its surrounding. Wrongly measured outside air temperature directly corresponds to a thermal over or under supply of the building, often leads to poor user comfort and an exaggerated energy consumption. 
-
-The _Weather Station Analysis_ identifies installation errors and measurement offsets of the outdoor air temperature sensor and derives optimization measures for better outdoor air temperature measuring.
-
-{% tabs %}
-{% tab title="Summary" %}
-## Value
-
-* Higher operational performance due to reliable information about outside air conditions
-* Higher occupant comfort, health and performance
-* Lower operating costs
-* Better system coordination in systems with redundant sensors
-
-## Recommended for components
-
-* Weather station
-
-## Checked conditions
-
-* Offset between measured outdoor air temperature and weather service reference data
-* Outdoor air temperature sensor is mistakenly influenced by solar radiation
-* Outdoor air temperature sensor is mistakenly influenced by it's surrounding, e.g. exhaust gases
-* Outdoor air temperature measures are compliant to weather service reference data
-{% endtab %}
-
-{% tab title="Example" %}
-For this _Weather Station Analysis_ we instantiated a "[weather station](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#weather-station)" component and analyzed a week of weather data. The following plot shows the measured temperature of a sensor located at a building facade. During the reviewed period in the summer the sensor is influenced in the afternoon.
-
-![](../../.gitbook/assets/example_outdoortemperaturesensoranalysis.png)
-
-In the plot you can see a significant difference between sensor and weather reference. This is also reflected in the value of the calculated KPIs. During the analysis period all 7 days are recognized by the KPI "radiation influenced days". Additionally the offset at night is elevated and thus a larger "sensor offset squared error" is present.
-
-| KPI | Value | Unit |
-| :--- | :--- | :--- |
-| radiation influenced.relative | 100 | % |
-| radiation influenced days | 7 | count |
-| sensor offset squared error | 17.3 | K^2/h |
-{% endtab %}
-
-{% tab title="Results" %}
-## Signal colors
-
-| Signal color | Available | Info |
-| :--- | :--- | :--- |
-| red | Yes | Significant solar radiation influence and/or offset identified |
-| yellow | Yes | Partial solar radiation influence and/or moderate offset identified |
-| green | Yes | Sufficient accuracy of outdoor air temperature measurements |
-
-## Interpretations
-
-| Available | Info |
-| :--- | :--- |
-| Yes | Either the operational rule checks of the analysis were tested positive or not |
-
-## Recommendations
-
-| Available | Info |
-| :--- | :--- |
-| Yes | Recommendations to improve outdoor air temperature measurement, if necessary or re-calibrate the sensor, if physically implausible measures are observed. No recommendation, in case of sufficient measurement quality |
-
-## KPIs
-
-### Sun radiation influence
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| radiation influenced days.relative | Ratio of days with more than one hour of sun radiation influence to days analyzed | 0 to 100 | % |
-| radiation influenced days | Days with more than one hour of sun radiation influence | 0 - inf | days |
-| offset RMSE | Root mean square error of the offset between measured outdoor air temperature and the reference data set. | 0 to inf | K |
-|  offset ME | Mean error of the offset between measured outdoor air temperature and the reference data set. | -inf to inf | K |
-{% endtab %}
-
-{% tab title="Components" %}
-## [weather station](component-data-models.md#weather-station)
-
-| Pin | Required | Mapping info |
-| :--- | :--- | :--- |
-| temperature | yes |  |
-
-| Attribute | Required | Mapping info |
-| :--- | :--- | :--- |
-| latitude | yes |  |
-| longitude | yes |  |
-{% endtab %}
-
-{% tab title="Application" %}
-## Recommended Time Span
-
-* Try to find an assessment period of several weeks or month to get a good chance of detecting influenced days
-* time spans around summertime are more likely to have days with a lot of sunshine and thus increase the chance of detecting these days
-
-## **Recommended Repetition**
-
-* every month
-* after modification or maintenance of the weather station or control system
-{% endtab %}
-{% endtabs %}
-
-## **Temperature Spread Analysis**
-
-The _Temperature Spread Analysis_ assesses the temperature difference between a supply and return temperature sensor of a heat or cold distribution system during the systems operation. While a small temperature spread indicates the potential for volume flow and therefor pump power consumption reduction, a huge spread indicates thermal under supply of the downstream systems and consumers.
-
-{% tabs %}
-{% tab title="Summary" %}
-## Value
-
-* Higher occupant comfort, health and performance
-* Higher energy efficiency
-* Lower operating costs
-
-## Recommended for components
-
-Heat and cold distribution systems, such as
-
-* Thermal control loop
-
-## Checked conditions
-
-* Temperature spread is too small causing too high volume flows, evaluated component specific
-* Temperature spread is too large and risk sufficient energy supply, evaluated component specific
-* Temperature spread is as expected, evaluated component specific
-* Condition checks on times of components operation
-{% endtab %}
-
-{% tab title="Example" %}
-The **temperature spread analysis** was applied to a heating circuit instanciated as a [thermal control loop](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#thermal-control-loop).
-
-![](../../.gitbook/assets/example_temperaturespreadanalysis.png)
-
-A analysis for one week in the beginning of September 2018 is shown in the plot above. A small temperature spread is detected through the KPI "**temperature spread.average**" of 1.56 K.
-
-| KPI | Value | Unit |
-| :--- | :--- | :--- |
-| temperature spread.average | 1.56 | Kelvin |
-| temperature spread.minimum | -0.716 | Kelvin |
-| temperature spread.maximum | 22.8 | Kelvin |
-{% endtab %}
-
-{% tab title="Results" %}
-## Signal colors
-
-| Signal color | Available | Info |
-| :--- | :--- | :--- |
-| red | No | _Red_ as a signal for a low cost measure with high impact on the building operation will not be provided. |
-| yellow | Yes | Temperature spreads usually can be optimized by volume flow adjustments. Savings allow for medium-term amortization |
-| green | Yes | Sufficient temperature spread in respect to usual tolerances in buildings |
-
-## Interpretations
-
-| Available | Info |
-| :--- | :--- |
-| Yes | Either the operational rule checks of the analysis were tested positive or not |
-
-## Recommendations
-
-| Available | Info |
-| :--- | :--- |
-| Yes | Recommendations on how to adjust volume flows for a higher energy efficiency or better energy provision. No recommendation, if temperature spread is sufficient |
-
-## KPIs
-
-### Statistics of temperature spread
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| temperature spread.median | Median of temperature spread | -inf to inf | °C |
-| temperature spread.average | Time-weighted average of temperature spread | -inf to inf | °C |
-| temperature spread.minimum | Minimum of temperature spread | -inf to inf | °C |
-| temperature spread.maximum | Maximum of temperature spread | -inf to inf | °C |
-{% endtab %}
-
-{% tab title="Components" %}
-## [boiler](component-data-models.md#boiler)
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">inlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Strongly recommended</p>
-        <p>Default: Always on</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>## [combined heat and power](component-data-models.md#combined-heat-and-power)
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">inlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Strongly recommended</p>
-        <p>Default: Always on</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>## [heat pump](component-data-models.md#heat-pump)
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">condenser inlet temperature</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if condenser shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">
-        <p></p>
-        <p>condenser outlet temperature</p>
-      </td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if condenser shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">evaporator inlet temperature</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if evaporator shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">evaporator outlet temperature</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if evaporator shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping strongly recommended</p>
-        <p>Default: Always operating</p>
-      </td>
-    </tr>
-  </tbody>
-</table>## [thermal control loop](component-data-models.md#thermal-control-loop)
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Strongly recommended</p>
-        <p>Default: Always on</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">return temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>
-{% endtab %}
-
-{% tab title="Application" %}
-## Recommended Time Span
-
-### 1 day - several weeks
-
-## **Recommended Repetition**
-
-### every 3 months
+* After changes of operational modes, e.g. transfers to heating mode
+* After changes in the control system
+* After maintenance or replacements
 {% endtab %}
 {% endtabs %}
 
@@ -1294,9 +389,9 @@ Heat and cold distribution systems, energy conversion plants and indoor areas, s
 {% endtab %}
 
 {% tab title="Example" %}
-This example shows the results of a R_educed Load Analysis_ performed on a heating circuit. The picture below shows the measured temperature. One can see a strong increese in temperature around 4 am and a reduction of temperature around 5 pm.
+This example shows the results of a R_educed Load Analysis_ performed on a heating circuit. Figure 1 shows the measured temperature. One can see a strong increase in temperature around 4 am and a reduction of temperature around 5 pm.
 
-![Measured temperature over a one day periode](../../.gitbook/assets/picture_reduced_load_analysis.png)
+![Figure 1: Measured temperature over a one day period](../../.gitbook/assets/picture_reduced_load_analysis.png)
 
 | KPI | Value | Unit |
 | :--- | :--- | :--- |
@@ -1425,11 +520,145 @@ This example shows the results of a R_educed Load Analysis_ performed on a heati
 {% tab title="Application" %}
 ## Recommended Time Span
 
-* 1 day - several weeks
+### 1 day to 1 week
 
 ## Recommended Repetition
 
-* every 3 months
+### Every 3 months
+
+* After changes of operational modes, e.g. transfers to heating mode
+* After changes in the control system
+* After maintenance or replacements
+{% endtab %}
+{% endtabs %}
+
+## Room Air Quality Analysis
+
+The _Room Air Quality Analysis_ checks and interprets the compliance of carbon dioxide concentration in the air to the recommendations of DIN EN 13776: 2007-09. In case of poor air quality, measures for improvement are recommended. Human performance is significantly influenced by air quality. In addition, the algorithms identifies calibration errors by physical plausibility checks.
+
+{% tabs %}
+{% tab title="Summary" %}
+## Value
+
+* Higher occupant comfort, health and performance
+
+## Recommended for components
+
+* Rooms
+* Occupied indoor areas
+
+## **Checked conditions**
+
+* Indoor CO2 concentration evaluation based on DIN EN 13776: 2007-09
+* Identification of higher room ventilation needs
+* Sensor calibration check by plausibility of minimal measured concentration levels
+* Condition checks on times of components operation
+{% endtab %}
+
+{% tab title="Example" %}
+
+
+The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a room component model was instanced and the respective datapoints mapped to this component.
+
+![Figure 1: CO2 concentration trajectory for an average office day](../../.gitbook/assets/image%20%2819%29.png)
+
+In this scenario, figure 1 shows the timeseries recorded for an exemplary period of 12 hours on a working day in August. The CO2 concentration in the air remained between what is considered "good" and "medium" for most of the day. However, for about 7 percent of the period, air quality was poor, with a maximum CO2 concentration of 1463 ppm, so that a complete evaluation on that day indicates poor air quality. The results provide an advanced set of KPIs that provide quantitative insights into the air quality of the rooms and support the human reasoning for analysis. A number of suggestions for possible countermeasures are given, and further investigation of the root cause of air quality problems is possible through the aedifion front-end data visualization.
+{% endtab %}
+
+{% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | Yes | CO2 concentrations critical for human health |
+| yellow | Yes | CO2 concentrations reducing human comfort, decisiveness, and performance or wrongly calibrated CO2 sensors |
+| green | Yes | CO2 concentrations sufficient for high comfort |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Either the operational rule checks of the analysis were tested positive or not |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Recommendations to improve fresh air supply, if necessary or re-calibrate the sensor, if physically implausible measures are observed. No recommendation, in case of sufficient air quality |
+
+## KPIs
+
+### Air quality classification
+
+How long was the air quality in the room \(based on carbon dioxide concentrations\) considered “good”, “medium”, “moderate” or “poor”? Assessments are based on EU regulation classifications of Indoor Air Quality \(IDA\) classes 1 \(“good”\) to 4 \(“poor”\).
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| co2 duration.IDA1.relative | Duration with “good“ indoor air quality | 0 to 100 | % |
+| co2 duration.IDA2.relative | Duration with “medium “ indoor air quality | 0 to 100 | % |
+| co2 duration.IDA3.relative | Duration with “moderate “ indoor air quality | 0 to 100 | % |
+| co2 duration.IDA4.relative | Duration with “poor “ indoor air quality | 0 to 100 | % |
+| co2 duration.IDA1.absolute | Duration with “good“ indoor air quality | 0 to inf | h |
+| co2 duration.IDA2.absolute | Duration with “medium “ indoor air quality | 0 to inf | h |
+| co2  duration.IDA3.absolute | Duration with “moderate “ indoor air quality | 0 to inf | h |
+| co2 duration.IDA4.absolute | Duration with “poor “ indoor air quality | 0 to inf | h |
+
+### Statistics of CO2 concentration
+
+Providing deeper insights to the carbon dioxide concentrations over the analysed period.
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| co2.maximum | Largest CO2 concentrations | 0 to inf | ppm |
+| co2.minimum | Smallest CO2 concentrations | 0 to inf | ppm |
+| co2.mean | Average CO2 concentrations | 0 to inf | ppm |
+| co2.median | Median CO2 concentrations | 0 to inf | ppm |
+{% endtab %}
+
+{% tab title="Components" %}
+## \*\*\*\*[**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">co2</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
+{% endtab %}
+
+{% tab title="Application" %}
+##  Recommended Time Span
+
+### 1 days to 1 week
+
+* Utilize on days with room occupation
+
+## **Recommended Repetition** <a id="recommended-repetition-1-1"></a>
+
+### Every month
+
+* After changes of room occupation or usage
+* After changes of operational modes, e.g. transfers to heating mode
+* After changes in the control system of the ventilation systems
+* After maintenance or replacements in ventilation systems
 {% endtab %}
 {% endtabs %}
 
@@ -1462,9 +691,9 @@ Any HVAC component or room whose usage follows a recurrent schedule, such as
 {% endtab %}
 
 {% tab title="Example" %}
-This example shows a **schedule analysis** for a component "[fan](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#fan)" connected to a supply fan operating message of a HVAC machine. The switch on/off times of the machine are shown as a blue line in the plot below, blue regions in the background correspond to the anticipated schedule.
+This example shows a **schedule analysis** for a component "[fan](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#fan)" connected to a supply fan operating message of a HVAC machine. The switch on/off times of the machine are shown as a blue line in figure 1, blue regions in the background correspond to the anticipated schedule.
 
-![](../../.gitbook/assets/example_scheduleanalysis.png)
+![Figure 1: Operating times of component and reference schedule](../../.gitbook/assets/example_scheduleanalysis.png)
 
 The following KPIs show that a reduction of ~9% of the total operating time is possible. With the help of the plot we can also see, that the times were we can reduce the operating time are distributed over the workdays of the week.
 
@@ -1941,13 +1170,311 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
 {% tab title="Application" %}
 ## Recommended Time Span
 
-* 1 week
+### 1 week
 
 ## **Recommended Repetition** <a id="recommended-repetition-1-1"></a>
 
-* every week
-* after adjustment of usage times of the analyzed component
-* after adjustments of the automation system
+### Every week
+
+* After adjustment of usage times of the analyzed component
+* After changes of operational modes, e.g. transfers to heating mode
+* After changes in the control system
+* After maintenance or replacements
+{% endtab %}
+{% endtabs %}
+
+## Setpoint Deviation Analysis
+
+The _Setpoint Deviation Analysis_ identifies insufficient setpoint attainment by comparing the actual value of a controlled system to its setpoint value. Insufficient setpoint attainment is a symptom which can be traced back to plenty of different causes. E.g., insufficient supply of a controlled system with the required temperature level, suboptimal controller software and parameters, or a blocked valve. The Setpoint Deviation Analysis supports narrowing down the root cause of insufficient setpoint attainment and is specially recommended in complex energy systems.
+
+{% tabs %}
+{% tab title="Summary" %}
+## Value
+
+Setpoint deviation is a strong symptom for faulty control loop operation, e.g. caused by
+
+* Technical defects in the control loop supply,
+* Control loop malfunctions, and
+* Faulty control loop parameter settings.
+
+Benefits of improving insufficient setpoint value attainment are:
+
+* Higher occupant comfort, health and performance
+* Lower operating costs
+* Higher energy efficiency
+
+## Recommended for components
+
+Control loops, such as
+
+* Heating systems
+* Ventilation systems
+* Air-conditioning systems
+
+## Checked conditions
+
+* Process value value overshooting its setpoint, evaluated component specific
+* Process value value undershooting its setpoint, evaluated component specific
+* Process value value sufficiently achieving its setpoint, evaluated component specific
+* Condition checks on times of components operation
+{% endtab %}
+
+{% tab title="Example" %}
+The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a thermal control loop component model was instanced and the respective datapoints mapped to this component.
+
+![Figure 1: Example of a process value \(actual value\) undershooting its setpoint](../../.gitbook/assets/sda%20%281%29.svg)
+
+In this scenario,  figure 1 shows the time series recorded for an exemplary period of 36 hours on a November workday. The temperature setpoint and the actual measured value started to drift apart around 12 am on the 19th. Since then, the control loop did not comply with the setpoint temperatures although the control loop was operating.
+
+The automated interpretation confirms our visual analysis of the time series shown in the figure, summed up by the qualitative warning level "red". The recommendations provide further instruction on how to isolate and fix the cause for the inadequate setpoint compliance. Further, the result offers an advanced set of KPIs, providing additional insights into the control loop behaviour. They support human reasoning for a case-by-case analysis.
+
+For example, the drop in temperatures is peculiar and could point to a technical defect or malfunction, such as a blocked valve. Another cause might be a sudden drop in the temperatures supplied to the distribution system, such as an heat-pump or boiler issue. Further investigation of the root cause is possible via data visualization on the aedifion front-end.
+{% endtab %}
+
+{% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | No | The analysis identifies the symptom and recommends measures to investigate the root cause of the setpoint deviation. _Red_ as a signal for a low cost measure with high impact on the building operation will not be provided. |
+| yellow | Yes | Setpoint deviation is a strong symptom for suboptimal control and system performance. Investing the extra effort to identify the root cause and fixing it is strongly recommended. |
+| green | Yes | Sufficient setpoint compliance in respect to usual tolerances in buildings |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Either the operational rule checks of the analysis were tested positive or not |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Recommendations on how to investigate the root cause of a setpoint deviation. No recommendation, if setpoint compliance is sufficient |
+
+## KPIs
+
+### Incidence of setpoint deviation
+
+Duration of the setpoint deviations, bundled by threshold value ranges.
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| setpoint deviation.largerX.relative | Duration with setpoint deviation larger than X | 0 to 100 | % |
+| setpoint deviation.largerYsmallerX.relative | Duration with setpoint deviation larger than Y and smaller than X | 0 to 100 | % |
+| setpoint deviation.smallerY.relative | Duration with setpoint deviation smaller than Y | 0 to 100 | % |
+| setpoint deviation.largerX | Duration with setpoint deviation larger than X | 0 to inf | h |
+| setpoint deviation.largerYsmallerX | Duration with setpoint deviation larger than Y and smaller than X | 0 to inf | h |
+| setpoint deviation.smallerY | Duration with setpoint deviation smaller than Y | 0 to inf | h |
+
+### Operating time
+
+Operating time KPIs provide information on the total time of operation of the analysed component during the analysed time frame.
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| operating time | Total operating time | 0 to inf | h |
+| operating time.relative | Relative operating time | 0 to 100 | % |
+
+### Statistics of setpoint deviation
+
+General information KPIs to give further insight into the setpoint compliance over the analysed time frame.
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| setpoint deviation.maximum | Largest setpoint deviation | -inf to inf | - |
+| setpoint deviation.minimum | Smallest setpoint deviation | -inf to inf | - |
+| setpoint deviation.mean | Average setpoint deviation | -inf to inf | - |
+| setpoint deviation.median | Median setpoint deviation | -inf to inf | - |
+{% endtab %}
+
+{% tab title="Components" %}
+## [boiler](component-data-models.md#boiler)
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature setpoint</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>## [combined heat and power](component-data-models.md#combined-heat-and-power)
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature setpoint</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>## [heat pump](component-data-models.md#heat-pump)
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">condenser outlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if condenser shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p></p>
+        <p>condenser outlet temperature setpoint</p>
+      </td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if condenser shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator outlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator outlet temperature setpoint</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+  </tbody>
+</table>## [**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature setpoint</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>## \*\*\*\*[**thermal control loop**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#thermal-control-loop)\*\*\*\*
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">inlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended. If operating message and pump operating
+          message are mapped, operating message will be used</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">pump operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Mapping recommended in case no operating message is available. If operating
+        message and pump operating message are mapped, operating message will be
+        used</td>
+    </tr>
+  </tbody>
+</table>
+{% endtab %}
+
+{% tab title="Application" %}
+## Recommended Time Span
+
+### 1 day to 1 week
+
+## **Recommended Repetition** <a id="recommended-repetition-1"></a>
+
+### Every week
+
+* After changes of operational modes, e.g. transfers to heating mode
+* After changes in the control system
+* After maintenance or replacements
 {% endtab %}
 {% endtabs %}
 
@@ -1978,9 +1505,9 @@ Any liquid media supply system, such as
 {% tab title="Example" %}
 For this example we use a heating circuit with a 2-way-valve. 
 
-The plot shows the operating message and valve position of a thermal control loop. During the analysis period the valve position lies between 0 and 20 %. With the KPI "pump operating time.valve closed.relative" we can estimate that the valve is nearly closed for ~40 % of the operating time.
+Figure 1 shows the pump operating message and valve position of a thermal control loop. During the analysis period the valve position lies between 0 and 20 %. With the KPI _pump operating time.valve closed.relative_ we can estimate that the valve is nearly closed for ~40 % of the operating time.
 
-![](../../.gitbook/assets/valvepumprelationanalysis_example.png)
+![Figure 1: Valve position and pump operating message](../../.gitbook/assets/valvepumprelationanalysis_example.png)
 
 |  KPI | Value | Unit |
 | :--- | :--- | :--- |
@@ -2036,53 +1563,56 @@ Apply only for 2-way valve systems
 {% tab title="Application" %}
 ## Recommended Time Span
 
-* 1 week - several weeks
+### 1 week
 
 ## **Recommended Repetition** <a id="recommended-repetition-1-1"></a>
 
-* every 3 months
+### Every 3 months
+
 * after changes of operational modes, e.g. transfers to heating mode
 * after changes in the control system
 * after maintenance or replacements
 {% endtab %}
 {% endtabs %}
 
-## **Control Loop Oscillation Analysis**
+## **Temperature Spread Analysis**
 
-The _Control Loop Oscillation Analysis_ checks the process value of a control loop for oscillation. Oscillating process values are an indicator for suboptimal parameterization or structural dimensioning of the control loop.
+The _Temperature Spread Analysis_ assesses the temperature difference between a supply and return temperature sensor of a heat or cold distribution system during the systems operation. While a small temperature spread indicates the potential for volume flow and therefor pump power consumption reduction, a huge spread indicates thermal under supply of the downstream systems and consumers.
 
 {% tabs %}
 {% tab title="Summary" %}
 ## Value
 
-* Increase lifetime of valve, dampers and adjacent components
-* Avoid spontaneous failures
-* Reduce energy consumption
-* Reduce noise pollution
+* Higher occupant comfort, health and performance
+* Higher energy efficiency
+* Lower operating costs
 
 ## Recommended for components
 
-Any liquid media supply system, such as
+Heat and cold distribution systems, such as
 
-* thermal control loop with 2-way valve and pump
+* Thermal control loop
 
 ## Checked conditions
 
-* Process value is oscillating
-* Process value is not or to a negligible degree oscillating
+* Temperature spread is too small causing too high volume flows, evaluated component specific
+* Temperature spread is too large and risk sufficient energy supply, evaluated component specific
+* Temperature spread is as expected, evaluated component specific
 * Condition checks on times of components operation
 {% endtab %}
 
 {% tab title="Example" %}
-For this example we analyzed the temperature control loop of a supply air volume flow, which provides fresh air and heating to a large sales room. Figure 1 shows a plot of the process value of the control loop, the outlet temperature. The plot shows a oscillation of the outlet temperature during periods of operation.
+The **temperature spread analysis** was applied to a heating circuit instanciated as a [thermal control loop](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#thermal-control-loop).
 
-![Figure 1: Oscillating processes value during operation](../../.gitbook/assets/oscillating_control_loop.png)
+![Figure 1: Outlet temperature and return temperature of the thermal control loop](../../.gitbook/assets/example_temperaturespreadanalysis.png)
 
-Figure 2 is a zoom of figure 1 to analyze the oscillation more into detail. The trajectory of the process value is common for control loops oscillating at medium frequency.
+A analysis for one week in the beginning of September 2018 is shown in figure 1. A small temperature spread is detected through the KPI "**temperature spread.average**" of 1.56 K.
 
-![Figure 2: Oscillating process value during operation in detail](../../.gitbook/assets/oscillating_control_lopp_zoom.png)
-
-The _Control Loop Analysis_ evaluated this oscillation as significant, signal color _yellow_, and derived recommendation on how to adjust controller parameters for a smoother operation.
+| KPI | Value | Unit |
+| :--- | :--- | :--- |
+| temperature spread.average | 1.56 | Kelvin |
+| temperature spread.minimum | -0.716 | Kelvin |
+| temperature spread.maximum | 22.8 | Kelvin |
 {% endtab %}
 
 {% tab title="Results" %}
@@ -2091,8 +1621,8 @@ The _Control Loop Analysis_ evaluated this oscillation as significant, signal co
 | Signal color | Available | Info |
 | :--- | :--- | :--- |
 | red | No | _Red_ as a signal for a low cost measure with high impact on the building operation will not be provided. |
-| yellow | Yes | An oscillating control loop is a symptom for suboptimal control parameters or component design. Investing the extra effort to identify the root cause and fixing it is strongly recommended. |
-| green | Yes | No or only slight, in respect to usual tolerances in buildings, negligible oscillation |
+| yellow | Yes | Temperature spreads usually can be optimized by volume flow adjustments. Savings allow for medium-term amortization |
+| green | Yes | Sufficient temperature spread in respect to usual tolerances in buildings |
 
 ## Interpretations
 
@@ -2104,11 +1634,125 @@ The _Control Loop Analysis_ evaluated this oscillation as significant, signal co
 
 | Available | Info |
 | :--- | :--- |
-| Yes | Recommendations on how to smooth the control loop oscillation. No recommendation, if oscillation is negligible |
+| Yes | Recommendations on how to adjust volume flows for a higher energy efficiency or better energy provision. No recommendation, if temperature spread is sufficient |
+
+## KPIs
+
+### Statistics of temperature spread
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| temperature spread.median | Median of temperature spread | -inf to inf | °C |
+| temperature spread.average | Time-weighted average of temperature spread | -inf to inf | °C |
+| temperature spread.minimum | Minimum of temperature spread | -inf to inf | °C |
+| temperature spread.maximum | Maximum of temperature spread | -inf to inf | °C |
 {% endtab %}
 
 {% tab title="Components" %}
-## [thermal control loop](component-data-models.md#thermal-control-loop)
+## [boiler](component-data-models.md#boiler)
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">inlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Strongly recommended</p>
+        <p>Default: Always on</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>## [combined heat and power](component-data-models.md#combined-heat-and-power)
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">inlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Strongly recommended</p>
+        <p>Default: Always on</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>## [heat pump](component-data-models.md#heat-pump)
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">condenser inlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if condenser shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p></p>
+        <p>condenser outlet temperature</p>
+      </td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if condenser shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator inlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator outlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+  </tbody>
+</table>## [thermal control loop](component-data-models.md#thermal-control-loop)
 
 <table>
   <thead>
@@ -2132,22 +1776,397 @@ The _Control Loop Analysis_ evaluated this oscillation as significant, signal co
       <td style="text-align:left">yes</td>
       <td style="text-align:left"></td>
     </tr>
+    <tr>
+      <td style="text-align:left">return temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
   </tbody>
 </table>
 {% endtab %}
 
 {% tab title="Application" %}
-## Recommended Time Span
+## Recommended Time Span
 
-* 1 day
-* 1 week
+### 1 day to 1 week
 
-## **Recommended Repetition** <a id="recommended-repetition-1-1"></a>
+## **Recommended Repetition**
 
-* weekly
-* after changes of operational modes, e.g. transfers to heating mode
-* after changes in the control system
-* after maintenance or replacements
+### Every month
+
+* After changes of operational modes, e.g. transfers to heating mode
+* After changes in the control system
+* After maintenance or replacements
+{% endtab %}
+{% endtabs %}
+
+## Virtual Heat Meter
+
+The _Virtual Heat Meter_ determines the heat flux and energy delivered in heating/cooling piping networks such as thermal control loops or energy conversion plants. The determination is based on the temperature difference and volume flow over measurement point. It substitutes physical heat meters and enables energy flux tracing.
+
+{% tabs %}
+{% tab title="Summary" %}
+## Value
+
+Quantifies heat fluxes and heat for
+
+* Trace energy fluxes
+* Enable other analytics functions
+* Enables comparison to hardware heat meters
+
+## Recommended for components
+
+Heat and cold conversion or distribution systems, such as
+
+* Thermal control loops
+* Heat pumps
+* Boilers
+* Heat meters
+
+## Checked conditions
+
+* Determines heat flux from temperature difference and volume flow for several components
+* Condition checks on times of components operation
+{% endtab %}
+
+{% tab title="Example" %}
+
+
+The _Virtual Heat Meter_ ****was tested in the field, on a boilder at the E.ON Energy Research Center, RWTH Aachen University. Thus, a [boiler ](component-data-models.md#heat-pump)was instanced and the respective datapoints pinned to it. __Figure 1 shows the inlet- and outlet timeseries recorded for an exemplary period, along with the heat flow calculated. The volume flow during the observed period was constant.
+
+![Figure 1: Heat flow determined by the virtual heat meter](../../.gitbook/assets/image%20%2821%29.png)
+{% endtab %}
+
+{% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | No |  |
+| yellow | No |  |
+| green | Yes | Heat flux is determined |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| No |  This analysis function provides only KPIs and timeserieses |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| No |  This analysis function provides only KPIs and timeserieses |
+
+## KPIs
+
+### Statistics of heat flux
+
+Providing insights into value range of the heat flux.
+
+{% hint style="warning" %}
+Negative values indicate cooling, while positive indicate heating.
+{% endhint %}
+
+{% hint style="info" %}
+**Heat pump:** The KPI identifiers are extended by the prefix _condenser_ or _evaporator_ to specify the side of the heat pump the virtual heat meter is applied on. E.g.:
+
+_heat flux.maximum_ will be _evaporator heat flux.maximum_
+{% endhint %}
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| heat flux.maximum | Largest heat flux | -inf to inf | kW |
+| heat flux.minimum | Smallest heat flux | -inf to inf | kW |
+| heat flux.average | Average heat flux | -inf to inf | kW |
+| heat flux.median | Median heat flux | -inf to inf | kW |
+| heat | Aggregated heat transferred | -inf to inf | kWh |
+
+## Timeserieses
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| heat flux.timeseries | Timeseries of transferred heat | -inf to inf | kW |
+| heat flux.cumulated | Timeseries of cumulated transferred heat | -inf to inf | kWh |
+{% endtab %}
+
+{% tab title="Components" %}
+## [boiler](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#boiler)
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">inlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">volume flow</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>| **Attribute** | Required | Mapping info |
+| :--- | :--- | :--- |
+| volume\_flow\_unit | no | Default: l/s |
+
+## [combined heat and power](component-data-models.md#combined-heat-and-power)
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">inlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">volume flow</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>| **Attribute** | Required | Mapping info |
+| :--- | :--- | :--- |
+| volume\_flow\_unit | no | Default: l/s |
+
+## [**heat meter**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-meter)\*\*\*\*
+
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| inlet temperature | yes |  |
+| outlet temperature | yes |  |
+| volume flow | yes |  |
+
+| **Attribute** | Required | Mapping info |
+| :--- | :--- | :--- |
+| volume\_flow\_unit | no | Default: l/s |
+
+## \*\*\*\*[**heat pump**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)\*\*\*\*
+
+{% hint style="warning" %}
+The Virtual Heat Meter is determined on the condenser and evaporator side depending on the mapped datapoints.
+{% endhint %}
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">condenser inlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if condenser shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">condenser outlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if condenser shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p></p>
+        <p>condenser volume flow</p>
+      </td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if condenser shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator inlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator outlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator volume flow</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+  </tbody>
+</table>| **Attribute** | Required | Mapping info |
+| :--- | :--- | :--- |
+| volume\_flow\_unit | no | Default: l/s |
+
+## Attributes
+
+#### volume\_flow\_unit:
+
+The unit used in this datapoint needs to be specified in order for the analysis to yield correct result. If unspecified, the default unit assumed for this measurement is _cubic meters per second_. Acceptable inputs for this attribute include: 
+
+* _cubicMetersPerSecond_
+* _cubicMetersPerMinute_
+* _cubicMetersPerHour_
+* _litersPerSecond_
+* _litersPerMinute_
+* _litersPerHour_
+{% endtab %}
+
+{% tab title="Application" %}
+## Recommended Time Span
+
+### 1 day to 1 month
+
+## **Recommended Repetition**
+
+### Every month
+{% endtab %}
+{% endtabs %}
+
+## Weather Station Analysis
+
+The outdoor air temperature sensor is one of the most important sensors for HVAC system control, since many control decisions, e.g. which amount of heat provided or switching between heating and cooling mode, are made based on the measured outdoor air temperature. Outdoor air temperature sensors wear out over the life time of the building. Further, the sensor is often influenced by sun radiation or heat emitting components in its surrounding. Wrongly measured outside air temperature directly corresponds to a thermal over or under supply of the building, often leads to poor user comfort and an exaggerated energy consumption. 
+
+The _Weather Station Analysis_ identifies installation errors and measurement offsets of the outdoor air temperature sensor and derives optimization measures for better outdoor air temperature measuring.
+
+{% tabs %}
+{% tab title="Summary" %}
+## Value
+
+* Higher operational performance due to reliable information about outside air conditions
+* Higher occupant comfort, health and performance
+* Lower operating costs
+* Better system coordination in systems with redundant sensors
+
+## Recommended for components
+
+* Weather station
+
+## Checked conditions
+
+* Offset between measured outdoor air temperature and weather service reference data
+* Outdoor air temperature sensor is mistakenly influenced by solar radiation
+* Outdoor air temperature sensor is mistakenly influenced by it's surrounding, e.g. exhaust gases
+* Outdoor air temperature measures are compliant to weather service reference data
+{% endtab %}
+
+{% tab title="Example" %}
+For this _Weather Station Analysis_ we instantiated a "[weather station](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#weather-station)" component and analyzed a week of weather data. The following plot shows the measured temperature of a sensor located at a building facade. During the reviewed period in the summer the sensor is influenced in the afternoon.
+
+![Figure 1: Measured data outdoor air temperature and reference outdoor air temperature](../../.gitbook/assets/example_outdoortemperaturesensoranalysis.png)
+
+In figure 1 you can see a significant difference between sensor and weather reference. This is also reflected in the value of the calculated KPIs. During the analysis period all 7 days are recognized by the KPI "radiation influenced days". Additionally the offset at night is elevated and thus a larger "sensor offset squared error" is present.
+
+| KPI | Value | Unit |
+| :--- | :--- | :--- |
+| radiation influenced.relative | 100 | % |
+| radiation influenced days | 7 | count |
+| offset RMSE | 7.3 | K |
+| offset ME | 6.4 | K |
+{% endtab %}
+
+{% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | Yes | Significant solar radiation influence and/or offset identified |
+| yellow | Yes | Partial solar radiation influence and/or moderate offset identified |
+| green | Yes | Sufficient accuracy of outdoor air temperature measurements |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Either the operational rule checks of the analysis were tested positive or not |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Recommendations to improve outdoor air temperature measurement, if necessary or re-calibrate the sensor, if physically implausible measures are observed. No recommendation, in case of sufficient measurement quality |
+
+## KPIs
+
+### Sun radiation influence
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| radiation influenced days.relative | Ratio of days with more than one hour of sun radiation influence to days analyzed | 0 to 100 | % |
+| radiation influenced days | Days with more than one hour of sun radiation influence | 0 - inf | days |
+| offset RMSE | Root mean square error of the offset between measured outdoor air temperature and the reference data set. | 0 to inf | K |
+|  offset ME | Mean error of the offset between measured outdoor air temperature and the reference data set. | -inf to inf | K |
+{% endtab %}
+
+{% tab title="Components" %}
+## [weather station](component-data-models.md#weather-station)
+
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| temperature | yes |  |
+
+| Attribute | Required | Mapping info |
+| :--- | :--- | :--- |
+| latitude | yes |  |
+| longitude | yes |  |
+{% endtab %}
+
+{% tab title="Application" %}
+## Recommended Time Span
+
+### 1 month
+
+## **Recommended Repetition**
+
+### Every month
+
+* After changes of operational modes, e.g. transfers to heating mode
+* After changes in the control system
+* After maintenance or replacements
 {% endtab %}
 {% endtabs %}
 
