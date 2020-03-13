@@ -48,7 +48,7 @@ Detailed technical specifications of our MQTT streaming API and related develope
 
 This group of pages provides resources for engineers that use aedifion.io. 
 
-#### [Specifications](engineers/specifications/)
+#### [Specifications]()
 
 Detailed technical specifications of the features of the aedifion platform.
 

@@ -21,20 +21,20 @@ description: >-
 
 ## Application notes
 
-Hints for a smooth application of [component data models](../../glossary.md#component-data-model) and their mapping.
+Hints for a smooth application of [component data models](../glossary.md#component-data-model) and their mapping.
 
-* **1-to-n mapping:** One [datapoint](../../glossary.md#datapoint) can be mapped to several [instantiated components](../../glossary.md#instanced-component) to allow data models of different granularity.
-* **Unit sensitivity:** To this state, our algorithms are unit sensitive. Every [pin ](../../glossary.md#pin)and [attribute ](../../glossary.md#attribute)is specified with an unit. Mind the specifications.
+* **1-to-n mapping:** One [datapoint](../glossary.md#datapoint) can be mapped to several [instantiated components](../glossary.md#instanced-component) to allow data models of different granularity.
+* **Unit sensitivity:** To this state, our algorithms are unit sensitive. Every [pin ](../glossary.md#pin)and [attribute ](../glossary.md#attribute)is specified with an unit. Mind the specifications.
 
 {% hint style="danger" %}
 If unit conventions are disregarded, this can lead to errors and even misleading results of algorithms.
 {% endhint %}
 
-* **Incomplete mapping:** [Pins ](../../glossary.md#pin)and [attributes](../../glossary.md#attribute), are placeholders which might or might not be [mapped ](../../glossary.md#mapping)to data. Algorithms will work on incomplete mapped components, they require mapping for specific placeholders though. Check the [algorithm documentation](analytics.md) for required mappings.
+* **Incomplete mapping:** [Pins ](../glossary.md#pin)and [attributes](../glossary.md#attribute), are placeholders which might or might not be [mapped ](../glossary.md#mapping)to data. Algorithms will work on incomplete mapped components, they require mapping for specific placeholders though. Check the [algorithm documentation](analytics.md) for required mappings.
 
 ## Example Component
 
-This example leads through our description of [component data models](../../glossary.md#component-data-model) by providing exemplary values and descriptions. The first paragraph of a component data model provides information regarding the component and the data model itself, special features, exceptions and so forth.
+This example leads through our description of [component data models](../glossary.md#component-data-model) by providing exemplary values and descriptions. The first paragraph of a component data model provides information regarding the component and the data model itself, special features, exceptions and so forth.
 
 {% tabs %}
 {% tab title="Component Identifier" %}
@@ -1063,7 +1063,7 @@ Mind the units.
 
 {% tab title="Attributes" %}
 {% hint style="danger" %}
-Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../../glossary.md#instanced-component).
+Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../glossary.md#instanced-component).
 {% endhint %}
 
 {% hint style="danger" %}
@@ -1074,7 +1074,7 @@ Mind the units.
 
 In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: The **Reference curve** represents the dependency of outlet temperature setpoint on outside air temperature. It can be used for cooling as well as heating. In case the _Thermal Control Loop_ is used for heating, the reference curve is also referred to as **heat curve**.
 
-![Definition Reference Curve](../../.gitbook/assets/thermal_control_loop_reference_curve.png)
+![Definition Reference Curve](../.gitbook/assets/thermal_control_loop_reference_curve.png)
 
 The _Reference curve_ is created from two points. It is a linear curve. Copy-past the example json and fill in the numbers to specify the _Reference curve_ for the instanced _Thermal Control Loop._
 
@@ -1107,7 +1107,7 @@ The json values are float formatted strings.
 
 ## Cooling activation limit
 
-In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: Cooling is activated for outside air temperature above the threshold mapped to the attribute **Cooling activation limit**. Mapping this attribute implicitly defines the component as _Cooling Loop._ Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../../glossary.md#instanced-component).
+In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: Cooling is activated for outside air temperature above the threshold mapped to the attribute **Cooling activation limit**. Mapping this attribute implicitly defines the component as _Cooling Loop._ Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../glossary.md#instanced-component).
 
 | Key | Type | Default Value | Unit |
 | :--- | :--- | :--- | :--- |
@@ -1115,9 +1115,9 @@ In case the _Thermal Control Loop_ is controlled in respect to the outside air t
 
 ## Heating activation limit
 
-In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: Heating is activated for outside air temperature below this threshold. Mapping this attribute implicitly defines the component as _Heating Loop._ Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../../glossary.md#instanced-component).
+In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: Heating is activated for outside air temperature below this threshold. Mapping this attribute implicitly defines the component as _Heating Loop._ Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../glossary.md#instanced-component).
 
-![Definition Heating activation limit](../../.gitbook/assets/thermal_control_loop_heating_act_lim.png)
+![Definition Heating activation limit](../.gitbook/assets/thermal_control_loop_heating_act_lim.png)
 
 | Key | Type | Default Value | Unit |
 | :--- | :--- | :--- | :--- |
@@ -1125,7 +1125,7 @@ In case the _Thermal Control Loop_ is controlled in respect to the outside air t
 
 ### Upper/Lower deviation tolerance
 
-![Definition Upper/Lower deviation tolerance](../../.gitbook/assets/thermal_control_loop_deviation_lim.png)
+![Definition Upper/Lower deviation tolerance](../.gitbook/assets/thermal_control_loop_deviation_lim.png)
 
 ## Upper deviation tolerance
 
@@ -1211,5 +1211,5 @@ Outside air sensor checkup is under construction.
 
 ## Information
 
-The library of component data models is constantly expanded. If you are missing a component data model, or want us to implement it for you, feel free to [contact us](../../contact.md#support).
+The library of component data models is constantly expanded. If you are missing a component data model, or want us to implement it for you, feel free to [contact us](../contact.md#support).
 

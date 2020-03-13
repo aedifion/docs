@@ -109,7 +109,7 @@ This list provides the meteorological conditions which can be integrated by defa
       <td style="text-align:left">Horizontal wind speed.</td>
     </tr>
   </tbody>
-</table>We store every meteorological condition as a separate datapoint on the aedifion.io platform to historicize its state. More on this in the subchapter [Datapoint and observation convention](../../aedifion.io/integrations.md#datapoint-and-observation-convention).
+</table>We store every meteorological condition as a separate datapoint on the aedifion.io platform to historicize its state. More on this in the subchapter [Datapoint and observation convention](../aedifion.io/integrations.md#datapoint-and-observation-convention).
 
 
 
@@ -117,7 +117,7 @@ This list provides the meteorological conditions which can be integrated by defa
 
 Besides the current state of a meteorological condition some use-cases require prediction data. We offer hourly predictions up to 168 hours \(7 days\) in the future and update them every hour. On ordering you can flexibly choose which horizons you need. The predicted states are aligned to the top of the prediction’s timestamp.
 
-We combine every prediction horizon with the meteorological state monitored to create unique datapoints. You can use the unique datapoints to address the historicized meteorological conditions and their predications on the platform. More on this in the subchapter [Datapoint and observation convention](../../aedifion.io/integrations.md#datapoint-and-observation-convention).
+We combine every prediction horizon with the meteorological state monitored to create unique datapoints. You can use the unique datapoints to address the historicized meteorological conditions and their predications on the platform. More on this in the subchapter [Datapoint and observation convention](../aedifion.io/integrations.md#datapoint-and-observation-convention).
 
 ## Datapoint and observation convention
 

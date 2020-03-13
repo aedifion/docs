@@ -12,7 +12,7 @@ In future, the user can choose control algorithms from the aedifion control libr
 
 For now, aedifion staff sets up the control algorithms from the aedifion control library according to the users need.
 
-In the following we introduce control functionalities and algorithms in more detail. Visit [control specifications](engineers/specifications/controls.md) on in-depth information on the offered control algorithms.
+In the following we introduce control functionalities and algorithms in more detail. Visit [control specifications](engineers/controls.md) on in-depth information on the offered control algorithms.
 
 ## Control algorithms with feedback usage.
 
@@ -22,7 +22,7 @@ In the meaning of the classic control theory, control algorithms are defined as 
 
 ![closed loop control system to explain concept of control algorithms](.gitbook/assets/bildschirmfoto-2019-03-05-um-10.21.10.png)
 
-Find the detailed descriptions of our currently available control algorithms [here](engineers/specifications/controls.md).
+Find the detailed descriptions of our currently available control algorithms [here](engineers/controls.md).
 
 ## Place of implementation
 
@@ -38,7 +38,7 @@ Using the remote control functionalities, you can directly operate local plants 
 
 #### Cloud control
 
-aedifion.controls features various control algorithms that we operate within the aedifion.io platform. See section[ control algorithms](engineers/specifications/controls.md) for an introduction of available control algorithms.
+aedifion.controls features various control algorithms that we operate within the aedifion.io platform. See section[ control algorithms](engineers/controls.md) for an introduction of available control algorithms.
 
 As custom service, aedifion deploys and hosts your proprietary control algorithms as cloud control algorithm. It is now possible to easily manage your estate and buildings in order realize an overall demand side management. Please do not hesitate to [contact us](contact.md) to discuss your needs. 
 

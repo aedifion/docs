@@ -44,7 +44,7 @@ _Short summary on terminology:_
 
 All contemporary available component ****data models are collected in the aedifion component data model library. The component data models needed for a specific project can be chosen from this library. As soon as a component gets [instanced](aedifion.analytics.md#instance-components) to a specific project, it can be [mapped](aedifion.analytics.md#mapping) to specify it for that project. [Configuring ](aedifion.analytics.md#configuring-analysis)an instanced component with [analysis functions ](aedifion.analytics.md#analysis-functions)enables its analysis.
 
-_Learn more? Explore the_ [_available components_](engineers/specifications/analytics.md)_._
+_Learn more? Explore the_ [_available components_](engineers/analytics.md)_._
 
 ### Analysis functions
 
@@ -52,7 +52,7 @@ Analysis functions are granular and generic functions to analyse the operation o
 
 Analysis functions are available per component data model and get executed on [mapped ](glossary.md#mapping)[pins ](glossary.md#pin)and meta data of [instanced components](glossary.md#instanced-component). E.g., an analysis of plant cycles is available for several instanced components like heat pumps, air handling units, boilers and so forth. This analysis requires a [mapping ](aedifion.analytics.md#mapping)of the pin _operating message_ of the analyzed instanced component.
 
-_Learn more? Explore the_ [_available analysis functions_](engineers/specifications/analytics.md)_._
+_Learn more? Explore the_ [_available analysis functions_](engineers/analytics.md)_._
 
 ### Analysis runtime
 
@@ -122,7 +122,7 @@ Depending on the utilized analysis functions, the result type differentiates. A 
 
 **Recommendation:** This is the recommendation of optimization measures given by the decision engine. E.g., "Reduce component pulsing by throttling the output heat power. Throttling can be realized by partial-load operation of the component or installation of an input power choke."
 
-Learn more? _Explore the_ [_available analysis functions_](engineers/specifications/analytics.md)_._
+Learn more? _Explore the_ [_available analysis functions_](engineers/analytics.md)_._
 
 ## Example
 

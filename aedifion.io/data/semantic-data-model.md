@@ -17,7 +17,7 @@ In this article, we first provide information on [semantic modelling of energy s
 
 In the context of plants, buildings, districts, and energy systems, a granular approach of semantic modelling allows to master the individuality of such systems. For example a heating circuit can thus be composed of semantic component models of boiler\(s\), pump\(s\), valve\(s\), pipe\(s\), and heat consumer\(s\). Since those semantic models are describing [components](../../glossary.md#component), we named the data structures to store semantic data [component data models](../../glossary.md#component-data-model). Component data models provide generic placeholders describing a certain semantic to assign data to. [Pins](../../glossary.md#pin) are the placeholders for [datapoints ](../../glossary.md#datapoint)and their [time series ](../../glossary.md#time-series)data. [Attributes ](../../glossary.md#attribute)are the placeholders for meta data. To utilize a component data model for a specific [project](../../glossary.md#project), a component data model is instanced for this project. The [instanced component](../../glossary.md#instanced-component) is individualized for the project by [mapping](../../glossary.md#mapping) specific datapoints and meta data to their placeholders.
 
-For more information view the list of [available component data models](../../engineers/specifications/component-data-models.md).
+For more information view the list of [available component data models](../../engineers/component-data-models.md).
 
 {% hint style="info" %}
 To put it in a nutshell: Plants, buildings, districts, and energy systems are semantically modeled by individual sets of component data models. Mapping datapoints and attributes to those components structures time series and meta data for the modeled system.
@@ -37,5 +37,5 @@ As soon as an instanced component is mapped with datapoints and/or attributes, g
 
 The semantic structure of time series and meta data is the glue which connects data of a specific project and algorithms. To make this statement more tangible: If a datapoint of a specific project is semantically described to be the sensor of the supply temperature of a boiler in a specific project, any algorithm executing determinations on time series data from a supply temperature sensor of a boiler can use this information to address the specific datapoint. This means, algorithms use the component data model pins and attributes as input variables and the mapping information of instantiated components as the input variable values.
 
-For more information on the availability of algorithms for a specific component data model, refer to [analysis functions](../../engineers/specifications/analytics.md).
+For more information on the availability of algorithms for a specific component data model, refer to [analysis functions](../../engineers/analytics.md).
 

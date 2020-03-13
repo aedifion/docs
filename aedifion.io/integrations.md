@@ -56,7 +56,7 @@ We integrate different free third-party data sources with the aedifon.io platfor
 
 We integrate localized weather data from the [DarkSky weather service](https://darksky.net).  Weather data is accessible and visualizable on the platform like any other datapoint on the platform. It includes measured data as well as predictions with different horizons of several meteorological conditions such as temperature or dew point.
 
-_Learn more? Explore the_[ _current weather conditions at the aedifion office_](https://darksky.net/forecast/50.789,6.051/us12/en) _or check out the_[ _integration specifications_](../engineers/specifications/weather-data.md)_._
+_Learn more? Explore the_[ _current weather conditions at the aedifion office_](https://darksky.net/forecast/50.789,6.051/us12/en) _or check out the_[ _integration specifications_](../engineers/weather-data.md)_._
 
 ### **Microsoft Exchange**
 

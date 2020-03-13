@@ -29,7 +29,7 @@ We briefly revise the basic terminology used in this tutorial. Make sure to chec
 
 ## Abstract components
 
-Let's first explore the available abstract component models. We provide information about [the details of these models in the engineering part of this documentation](../../../engineers/specifications/component-data-models.md). In this article, we focus on developers' needs and use the HTTP API's `GET /v2/components` endpoint to query the most basic information about them.
+Let's first explore the available abstract component models. We provide information about [the details of these models in the engineering part of this documentation](../../../engineers/component-data-models.md). In this article, we focus on developers' needs and use the HTTP API's `GET /v2/components` endpoint to query the most basic information about them.
 
 {% tabs %}
 {% tab title="Python" %}
@@ -439,7 +439,7 @@ Using id = 179 of the mapped _weather station_ component, we can query the detai
 
 We have explored the available components and seen how they filled with life by mapping them. Mapped components are useful for a lot of use cases beyond analytics, e.g., creating pre-defined monitoring dashboards. Here, however, we focus on how we can analyze performance of these components. 
 
-We detail [all available analysis functions in the engineering part of this docs](../../../engineers/specifications/analytics.md) and just list the most basic information about them using the API endpoint `GET /v2/analytics/functions`. This endpoints requires a single query parameter `component` which should be the english name of the component for which you want to list available analyses. In the next example, we query analyses for the _thermal control loop_ component with id = 182. 
+We detail [all available analysis functions in the engineering part of this docs](../../../engineers/analytics.md) and just list the most basic information about them using the API endpoint `GET /v2/analytics/functions`. This endpoints requires a single query parameter `component` which should be the english name of the component for which you want to list available analyses. In the next example, we query analyses for the _thermal control loop_ component with id = 182. 
 
 {% tabs %}
 {% tab title="Python" %}

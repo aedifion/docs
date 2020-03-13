@@ -120,11 +120,11 @@ Any liquid media supply system, such as
 {% tab title="Example" %}
 For this example we analyzed the temperature control loop of a supply air volume flow, which provides fresh air and heating to a large sales room. Figure 1 shows a plot of the process value of the control loop, the outlet temperature. The plot shows a oscillation of the outlet temperature during periods of operation.
 
-![Figure 1: Oscillating processes value during operation](../../.gitbook/assets/oscillating_control_loop.png)
+![Figure 1: Oscillating processes value during operation](../.gitbook/assets/oscillating_control_loop.png)
 
 Figure 2 is a zoom of figure 1 to analyze the oscillation more into detail. The trajectory of the process value is common for control loops oscillating at medium frequency.
 
-![Figure 2: Oscillating process value during operation in detail](../../.gitbook/assets/oscillating_control_lopp_zoom.png)
+![Figure 2: Oscillating process value during operation in detail](../.gitbook/assets/oscillating_control_lopp_zoom.png)
 
 The _Control Loop Analysis_ evaluated this oscillation as significant, signal color _yellow_, and derived recommendation on how to adjust controller parameters for a smoother operation.
 {% endtab %}
@@ -229,7 +229,7 @@ Energy conversion plants and components with high start-up energy consumption or
 {% tab title="Example" %}
 The **Operating Cycle Analysis** was applied to a real test bench, the heat pump of the E.ON Energy Research Center, RWTH Aachen University. Thus, a [heat pump component model ](component-data-models.md#heat-pump)was instanced and the respective datapoint mapped to the pin _operating message_. __Figure 1 shows the time series recorded for an exemplary period of 6 hours on a winter day.
 
-![Figure 1: Operating message and cycle behavior of heat pump](../../.gitbook/assets/operating_cycle_analysis.png)
+![Figure 1: Operating message and cycle behavior of heat pump](../.gitbook/assets/operating_cycle_analysis.png)
 
 Short shut-down times between periods of duty indicate excessive start and stop processes of the heat pump, leading not only to energy losses and electricity consumption peaks but also to increased wear and tear of the heat pumps compressor. 
 
@@ -391,7 +391,7 @@ Heat and cold distribution systems, energy conversion plants and indoor areas, s
 {% tab title="Example" %}
 This example shows the results of a R_educed Load Analysis_ performed on a heating circuit. Figure 1 shows the measured temperature. One can see a strong increase in temperature around 4 am and a reduction of temperature around 5 pm.
 
-![Figure 1: Measured temperature over a one day period](../../.gitbook/assets/picture_reduced_load_analysis.png)
+![Figure 1: Measured temperature over a one day period](../.gitbook/assets/picture_reduced_load_analysis.png)
 
 | KPI | Value | Unit |
 | :--- | :--- | :--- |
@@ -560,7 +560,7 @@ The _Room Air Quality Analysis_ checks and interprets the compliance of carbon d
 
 The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a room component model was instanced and the respective datapoints mapped to this component.
 
-![Figure 1: CO2 concentration trajectory for an average office day](../../.gitbook/assets/image%20%2819%29.png)
+![Figure 1: CO2 concentration trajectory for an average office day](../.gitbook/assets/image%20%2819%29.png)
 
 In this scenario, figure 1 shows the timeseries recorded for an exemplary period of 12 hours on a working day in August. The CO2 concentration in the air remained between what is considered "good" and "medium" for most of the day. However, for about 7 percent of the period, air quality was poor, with a maximum CO2 concentration of 1463 ppm, so that a complete evaluation on that day indicates poor air quality. The results provide an advanced set of KPIs that provide quantitative insights into the air quality of the rooms and support the human reasoning for analysis. A number of suggestions for possible countermeasures are given, and further investigation of the root cause of air quality problems is possible through the aedifion front-end data visualization.
 {% endtab %}
@@ -693,7 +693,7 @@ Any HVAC component or room whose usage follows a recurrent schedule, such as
 {% tab title="Example" %}
 This example shows a **schedule analysis** for a component "[fan](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#fan)" connected to a supply fan operating message of a HVAC machine. The switch on/off times of the machine are shown as a blue line in figure 1, blue regions in the background correspond to the anticipated schedule.
 
-![Figure 1: Operating times of component and reference schedule](../../.gitbook/assets/example_scheduleanalysis.png)
+![Figure 1: Operating times of component and reference schedule](../.gitbook/assets/example_scheduleanalysis.png)
 
 The following KPIs show that a reduction of ~9% of the total operating time is possible. With the help of the plot we can also see, that the times were we can reduce the operating time are distributed over the workdays of the week.
 
@@ -1222,7 +1222,7 @@ Control loops, such as
 {% tab title="Example" %}
 The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a thermal control loop component model was instanced and the respective datapoints mapped to this component.
 
-![Figure 1: Example of a process value \(actual value\) undershooting its setpoint](../../.gitbook/assets/sda%20%281%29.svg)
+![Figure 1: Example of a process value \(actual value\) undershooting its setpoint](../.gitbook/assets/sda%20%281%29.svg)
 
 In this scenario,  figure 1 shows the time series recorded for an exemplary period of 36 hours on a November workday. The temperature setpoint and the actual measured value started to drift apart around 12 am on the 19th. Since then, the control loop did not comply with the setpoint temperatures although the control loop was operating.
 
@@ -1507,7 +1507,7 @@ For this example we use a heating circuit with a 2-way-valve.
 
 Figure 1 shows the pump operating message and valve position of a thermal control loop. During the analysis period the valve position lies between 0 and 20 %. With the KPI _pump operating time.valve closed.relative_ we can estimate that the valve is nearly closed for ~40 % of the operating time.
 
-![Figure 1: Valve position and pump operating message](../../.gitbook/assets/valvepumprelationanalysis_example.png)
+![Figure 1: Valve position and pump operating message](../.gitbook/assets/valvepumprelationanalysis_example.png)
 
 |  KPI | Value | Unit |
 | :--- | :--- | :--- |
@@ -1604,7 +1604,7 @@ Heat and cold distribution systems, such as
 {% tab title="Example" %}
 The **temperature spread analysis** was applied to a heating circuit instanciated as a [thermal control loop](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#thermal-control-loop).
 
-![Figure 1: Outlet temperature and return temperature of the thermal control loop](../../.gitbook/assets/example_temperaturespreadanalysis.png)
+![Figure 1: Outlet temperature and return temperature of the thermal control loop](../.gitbook/assets/example_temperaturespreadanalysis.png)
 
 A analysis for one week in the beginning of September 2018 is shown in figure 1. A small temperature spread is detected through the KPI "**temperature spread.average**" of 1.56 K.
 
@@ -1834,7 +1834,7 @@ Heat and cold conversion or distribution systems, such as
 
 The _Virtual Heat Meter_ ****was tested in the field, on a boilder at the E.ON Energy Research Center, RWTH Aachen University. Thus, a [boiler ](component-data-models.md#heat-pump)was instanced and the respective datapoints pinned to it. __Figure 1 shows the inlet- and outlet timeseries recorded for an exemplary period, along with the heat flow calculated. The volume flow during the observed period was constant.
 
-![Figure 1: Heat flow determined by the virtual heat meter](../../.gitbook/assets/image%20%2821%29.png)
+![Figure 1: Heat flow determined by the virtual heat meter](../.gitbook/assets/image%20%2821%29.png)
 {% endtab %}
 
 {% tab title="Results" %}
@@ -2097,7 +2097,7 @@ The _Weather Station Analysis_ identifies installation errors and measurement of
 {% tab title="Example" %}
 For this _Weather Station Analysis_ we instantiated a "[weather station](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#weather-station)" component and analyzed a week of weather data. The following plot shows the measured temperature of a sensor located at a building facade. During the reviewed period in the summer the sensor is influenced in the afternoon.
 
-![Figure 1: Measured data outdoor air temperature and reference outdoor air temperature](../../.gitbook/assets/example_outdoortemperaturesensoranalysis.png)
+![Figure 1: Measured data outdoor air temperature and reference outdoor air temperature](../.gitbook/assets/example_outdoortemperaturesensoranalysis.png)
 
 In figure 1 you can see a significant difference between sensor and weather reference. This is also reflected in the value of the calculated KPIs. During the analysis period all 7 days are recognized by the KPI "radiation influenced days". Additionally the offset at night is elevated and thus a larger "sensor offset squared error" is present.
 
@@ -2172,5 +2172,5 @@ In figure 1 you can see a significant difference between sensor and weather refe
 
 ## Information
 
-The library of analytics functions is constantly expanded. If you are missing an analytics function, wish to implement your own functions, or want us to implement it for you, feel free to [contact us](../../contact.md#support).
+The library of analytics functions is constantly expanded. If you are missing an analytics function, wish to implement your own functions, or want us to implement it for you, feel free to [contact us](../contact.md#support).
 

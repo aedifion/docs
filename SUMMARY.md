@@ -40,12 +40,11 @@
 
 ## Engineers
 
-* [Specifications](engineers/specifications/README.md)
-  * [Analytics](engineers/specifications/analytics.md)
-  * [Artificial intelligence](engineers/specifications/artificial-intelligence.md)
-  * [Component data models](engineers/specifications/component-data-models.md)
-  * [Controls](engineers/specifications/controls.md)
-  * [Weather data](engineers/specifications/weather-data.md)
+* [Analytics](engineers/analytics.md)
+* [Artificial intelligence](engineers/artificial-intelligence.md)
+* [Controls](engineers/controls.md)
+* [Component data models](engineers/component-data-models.md)
+* [Weather data](engineers/weather-data.md)
 
 ## System integrators and IT admins
 

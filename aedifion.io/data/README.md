@@ -186,7 +186,7 @@ On request, data from Microsoft Exchange can be integrated into the aedifion.io 
 
 aedifion.io uses the data services of [the Dark Sky Company, LLC](https://darksky.net/) for weather data integration. Therefore, both current and predicted weather conditions localized by geocoordinates are available on aedifion.io.
 
-_Learn more? Explore the_ [_weather data specifications_](../../engineers/specifications/weather-data.md)_._
+_Learn more? Explore the_ [_weather data specifications_](../../engineers/weather-data.md)_._
 
 
 
