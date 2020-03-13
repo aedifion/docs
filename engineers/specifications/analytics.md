@@ -140,6 +140,26 @@ For example, the drop in temperatures is peculiar and could point to a technical
 {% endtab %}
 
 {% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | No | The analysis identifies the symptom and recommends measures to investigate the root cause of the setpoint deviation. _Red_ as a signal for a low cost measure with high impact on the building operation will not be provided. |
+| yellow | Yes | Setpoint deviation is a strong symptom for suboptimal control and system performance. Investing the extra effort to identify the root cause and fixing it is strongly recommended. |
+| green | Yes | Sufficient setpoint compliance in respect to usual tolerances in buildings |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Either the operational rule checks of the analysis were tested positive or not |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Recommendations on how to investigate the root cause of a setpoint deviation. No recommendation, if setpoint compliance is sufficient |
+
 ## KPIs
 
 ### Incidence of setpoint deviation
@@ -392,6 +412,26 @@ In this scenario, the figure above shows the timeseries recorded for an exemplar
 {% endtab %}
 
 {% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | Yes | CO2 concentrations critical for human health |
+| yellow | Yes | CO2 concentrations reducing human comfort, decisiveness, and performance or wrongly calibrated CO2 sensors |
+| green | Yes | CO2 concentrations sufficient for high comfort |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Either the operational rule checks of the analysis were tested positive or not |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Recommendations to improve fresh air supply, if necessary or re-calibrate the sensor, if physically implausible measures are observed. No recommendation, in case of sufficient air quality |
+
 ## KPIs
 
 ### Air quality classification
@@ -497,6 +537,26 @@ The **Virtual Heat Meter** was tested in the field, on a boilder at the E.ON Ene
 {% endtab %}
 
 {% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | No |  |
+| yellow | No |  |
+| green | Yes | Heat flux is determined |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| No |  This analysis function provides only KPIs and timeserieses |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| No |  This analysis function provides only KPIs and timeserieses |
+
 ## KPIs
 
 ### Statistics of heat flux
@@ -743,6 +803,26 @@ The automated interpretation confirms our visual analysis of the time series sho
 {% endtab %}
 
 {% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | No | The analysis identifies the symptom and recommends measures to investigate the root cause of short cycling respectively long cycling. _Red_ as a signal for a low cost measure with high impact on the building operation will not be provided. |
+| yellow | Yes | Unwanted cycling rates are a strong symptom for suboptimal control and system performance. Investing the extra effort to identify the root cause and fixing it is strongly recommended. |
+| green | Yes | Sufficient cycle rates in respect to usual operation in buildings |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Either the operational rule checks of the analysis were tested positive or not |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Recommendations on how to investigate the root cause of an unwanted cycle rate. No recommendation, if cycle rate is sufficient |
+
 ## KPIs
 
 ### Operating time
@@ -866,19 +946,6 @@ The _Outdoor Air Temperature Sensor Analysis_ identifies installation errors and
 * Weather station
 {% endtab %}
 
-{% tab title="Results" %}
-## KPIs
-
-### Sun radiation influence
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| radiation influenced days.relative | Ratio of days with more than one hour of sun radiation influence to days analyzed | 0 to 100 | % |
-| radiation influenced days | Days with more than one hour of sun radiation influence | 0 - inf | days |
-| offset RMSE | Root mean square error of the offset between measured outdoor air temperature and the reference data set. | 0 to inf | K |
-|  offset ME | Mean error of the offset between measured outdoor air temperature and the reference data set. | -inf to inf | K |
-{% endtab %}
-
 {% tab title="Example" %}
 For this Outdoor Temperature Sensor Analysis we instanciated a "[weather station](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#weather-station)" component and analyzed a week of weather data. The following plot shows the measured temperature of a sensor located at a building facade. During the reviewed period in the summer the sensor is influenced in the afternoon.
 
@@ -891,6 +958,39 @@ In the plot you can see a significant difference between sensor and weather refe
 | radiation influenced.relative | 100 | % |
 | radiation influenced days | 7 | count |
 | sensor offset squared error | 17.3 | K^2/h |
+{% endtab %}
+
+{% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | Yes | Significant solar radiation influence and/or offset identified |
+| yellow | Yes | Partial solar radiation influence and/or moderate offset identified |
+| green | Yes | Sufficient accuracy of outdoor air temperature measurements |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Either the operational rule checks of the analysis were tested positive or not |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Recommendations to improve outdoor air temperature measurement, if necessary or re-calibrate the sensor, if physically implausible measures are observed. No recommendation, in case of sufficient measurement quality |
+
+## KPIs
+
+### Sun radiation influence
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| radiation influenced days.relative | Ratio of days with more than one hour of sun radiation influence to days analyzed | 0 to 100 | % |
+| radiation influenced days | Days with more than one hour of sun radiation influence | 0 - inf | days |
+| offset RMSE | Root mean square error of the offset between measured outdoor air temperature and the reference data set. | 0 to inf | K |
+|  offset ME | Mean error of the offset between measured outdoor air temperature and the reference data set. | -inf to inf | K |
 {% endtab %}
 
 {% tab title="Components" %}
@@ -954,6 +1054,26 @@ A analysis for one week in the beginning of September 2018 is shown in the plot 
 {% endtab %}
 
 {% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | No | _Red_ as a signal for a low cost measure with high impact on the building operation will not be provided. |
+| yellow | Yes | Temperature spreads usually can be optimized by volume flow adjustments. Savings allow for medium-term amortization |
+| green | Yes | Sufficient temperature spread in respect to usual tolerances in buildings |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Either the operational rule checks of the analysis were tested positive or not |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Recommendations on how to adjust volume flows for a higher energy efficiency or better energy provision. No recommendation, if temperature spread is sufficient |
+
 ## KPIs
 
 ### Statistics of temperature spread
@@ -1136,7 +1256,38 @@ Heat and cold distribution systems, energy conversion plants and indoor areas, s
 * Schooling rooms
 {% endtab %}
 
+{% tab title="Example" %}
+This example shows the results of a R_educed Load Analysis_ performed on a heating circuit. The picture below shows the measured temperature. One can see a strong increese in temperature around 4 am and a reduction of temperature around 5 pm.
+
+![Measured temperature over a one day periode](../../.gitbook/assets/picture_reduced_load_analysis.png)
+
+| KPI | Value | Unit |
+| :--- | :--- | :--- |
+| reduced load operation | 1 | binary |
+| temperature level shift | -9.31 | °C |
+{% endtab %}
+
 {% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | Yes | No load reduction identified \(applied for thermal control loop\) |
+| yellow | Yes | No load reduction identified \(applied for any other component than thermal control loop\) |
+| green | Yes | Load reduction identified |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Either the operational rule checks of the analysis were tested positive or not |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Implementation hints for load reduction. No recommendation, in case of sufficient measurement quality |
+
 ## KPIs
 
 ### Identification of reduced load mode
@@ -1212,17 +1363,6 @@ Heat and cold distribution systems, energy conversion plants and indoor areas, s
 </table>
 {% endtab %}
 
-{% tab title="Example" %}
-This example shows the results of a R_educed Load Analysis_ performed on a heating circuit. The picture below shows the measured temperature. One can see a strong increese in temperature around 4 am and a reduction of temperature around 5 pm.
-
-![Measured temperature over a one day periode](../../.gitbook/assets/picture_reduced_load_analysis.png)
-
-| KPI | Value | Unit |
-| :--- | :--- | :--- |
-| reduced load operation | 1 | binary |
-| temperature level shift | -9.31 | °C |
-{% endtab %}
-
 {% tab title="Components" %}
 ## [boiler](component-data-models.md#boiler)
 
@@ -1278,17 +1418,6 @@ Any HVAC component or room whose usage follows a recurrent schedule, such as
 * Sales rooms
 {% endtab %}
 
-{% tab title="Results" %}
-## KPIs
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| operating time | Total time of operation | 0 to inf | h |
-| operating time.reducible | Total time component was operated outside the reviewed schedule and therefor could be saved | 0 to inf | h |
-| operating time.reducible.relative | Percentage of reducible time relative to the total operating time | 0 to 100 | % |
-| operating time.scheduled | Total time of operation during schedule | 0 to inf | h |
-{% endtab %}
-
 {% tab title="Example" %}
 This example shows a **schedule analysis** for a component "[fan](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#fan)" connected to a supply fan operating message of a HVAC machine. The switch on/off times of the machine are shown as a blue line in the plot below, blue regions in the background correspond to the anticipated schedule.
 
@@ -1302,6 +1431,37 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
 | operating time.reducible | 6.94 | h |
 | operating time.reducible.relative | 9.38 | % |
 | operating time.scheduled | 67.1 | h |
+{% endtab %}
+
+{% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | Yes | Significant operation times outside of the parameterized schedule identified |
+| yellow | Yes | Partial operation times outside of the parameterized schedule identified |
+| green | Yes | Sufficient operation according to the parameterized schedule |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Either the operational rule checks of the analysis were tested positive or not |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Recommendations to improve scheduled operation of the component. No recommendation, in case of sufficient measurement quality |
+
+## KPIs
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| operating time | Total time of operation | 0 to inf | h |
+| operating time.reducible | Total time component was operated outside the reviewed schedule and therefor could be saved | 0 to inf | h |
+| operating time.reducible.relative | Percentage of reducible time relative to the total operating time | 0 to 100 | % |
+| operating time.scheduled | Total time of operation during schedule | 0 to inf | h |
 {% endtab %}
 
 {% tab title="Components" %}
@@ -1748,9 +1908,9 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
 {% endtab %}
 {% endtabs %}
 
-## Valve Pump Synchronization Analysis
+## Synchronized Operation Analysis
 
-The _Valve Pump Synchronization Analysis_ detects whether the pump is operating while the 2-way valve is closed or rather almost closed. If pumps continue to be operated with the valve closed, this leads to unnecessary power consumption and higher wear of the pump due to the additional running time. A valve opening of 10 % or less is considered as closed.
+The _Synchronized Operatio_n _Analysis_ detects whether the operation of the analyzed components is synchronized correctly. E.g., the pump of a thermal control loop is operating while the 2-way valve is closed or rather almost closed. If pumps continue to be operated with the valve closed, this leads to unnecessary power consumption and higher wear of the pump due to the additional running time. A valve opening of 10 % or less is considered as closed.
 
 {% tabs %}
 {% tab title="Quick Start" %}
@@ -1766,17 +1926,6 @@ Any liquid media supply system, such as
 * thermal control loop with 2-way valve and pump
 {% endtab %}
 
-{% tab title="Results" %}
-## KPIs
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| pump operating time.valve closed.relative | Percentage of time the pump is active while the 2-way valve is nearly closed based on total operating time | 0 to 100 | % |
-| pump operating time.valve closed | The amount of time the pump is active while the 2-way valve is nearly closed | 0 to inf | h |
-| pump operating time.relative | Percentage of time the pump is active based on the whole analysis period | 0 to 100 | % |
-| pump operating time | Time the pump is active based on the whole analysis period | 0 to inf | h |
-{% endtab %}
-
 {% tab title="Example" %}
 For this example we use a heating circuit with a 2-way-valve. 
 
@@ -1789,6 +1938,37 @@ The plot shows the operating message and valve position of a thermal control loo
 | pump operating time.valve closed.relative | 39.7 | % |
 | pump operating time.valve closed | 76.2 | h |
 | pump operating time.relative | 100 | % |
+{% endtab %}
+
+{% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | Yes | Significant pump operation times although two-way valve was closed identified |
+| yellow | Yes | Partial operation times outside of the parameterized schedule identified |
+| green | Yes | Sufficient operation according to the parameterized schedule |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Either the operational rule checks of the analysis were tested positive or not |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Recommendations to improve synchronized operation of components. No recommendation, in case of sufficient measurement quality |
+
+## KPIs
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| pump operating time.valve closed.relative | Percentage of time the pump is active while the 2-way valve is nearly closed based on total operating time | 0 to 100 | % |
+| pump operating time.valve closed | The amount of time the pump is active while the 2-way valve is nearly closed | 0 to inf | h |
+| pump operating time.relative | Percentage of time the pump is active based on the whole analysis period | 0 to 100 | % |
+| pump operating time | Time the pump is active based on the whole analysis period | 0 to inf | h |
 {% endtab %}
 
 {% tab title="Components" %}
@@ -1838,14 +2018,32 @@ Any liquid media supply system, such as
 * thermal control loop with 2-way valve and pump
 {% endtab %}
 
-{% tab title="Results" %}
-Signal colors, interpretation and recommendations only.
-{% endtab %}
-
 {% tab title="Example" %}
 
 
 ![](../../.gitbook/assets/valvepumprelationanalysis_example.png)
+{% endtab %}
+
+{% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | No | _Red_ as a signal for a low cost measure with high impact on the building operation will not be provided. |
+| yellow | Yes | An oscillating control loop is a symptom for suboptimal control parameters or component design. Investing the extra effort to identify the root cause and fixing it is strongly recommended. |
+| green | Yes | No or only slight, in respect to usual tolerances in buildings, negligible oscillation |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Either the operational rule checks of the analysis were tested positive or not |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Recommendations on how to smooth the control loop oscillation. No recommendation, if oscillation is negligible |
 {% endtab %}
 
 {% tab title="Components" %}
