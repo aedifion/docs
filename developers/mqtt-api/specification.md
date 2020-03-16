@@ -293,9 +293,9 @@ As you can see, the expiry date of the MQTT user account was extended by 7200 se
 
 ### Client Identifiers
 
-Clients are identified by their `client_id`. There can only be one connection per `client_id` and older connections are terminated in favor of newer connections.
+Clients are identified by their `client_id`. There can only be one connection per `client_id` per Broker and older connections are terminated in favor of newer connections. While you can just open multiple connections using the same login credentials, you must use a different `client_id` for each parallel connection. 
 
-On connect, clients also have to provide a `client_id`. A prefix for the `client_id` will be assigned by aedifion and you are free to choose any prefix you like. It is, however, important to note that a new connection with an existing `client_id` will disconnect the older connection on the same `client_id`. While you can just open multiple connections using the same login credentials, you must use a different `client_id` for each parallel connection. It is good practice to append a random integer to your `client_id` as part of your individual postfix.
+The `client_id` usually consist of the companyname and the projectname, for example `NewCo_simu01`. It is good practice to append a random integer to your `client_id` as part of your individual postfix.
 
 ### **Authorization**
 
