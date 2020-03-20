@@ -352,10 +352,10 @@ It is important to note two things about publishing your own data via MQTT:
 All messages you publish to or receive from the MQTT broker must adhere to strictly to the following format:
 
 ```text
-RoomTemperature,location=office20.32,unit=C value=20.3 1465839830100400200
-    |          ---------------------------- ---------- -------------------
-    |                             |             |           |
-    |                             |             |           |
+RoomTemperature,outOfOrder=true,label=deviceRestart value=20.3 1465839830100400200
+    |          ------------------------------------ ---------- -------------------
+    |                             |                 |           |
+    |                             |                 |           |
 +---------+----------------------------+-+-----------+-+---------+
 |datapoint|,tag_set....................| |observation| |timestamp|
 +---------+----------------------------+-+-----------+-+---------+
@@ -373,7 +373,8 @@ This is known as _Influx Line Protocol_ and specified in detail at \[1\]. We hig
 
 * `tag_set` is separated by a `,` from the `datapoint id`.
 
-  It is itself a comma-separted list of `key=value` pairs that are attached to this reported measurement. The `tag_set` can be empty.
+  It is itself a comma-separted list of `key=value` pairs that are attached to this reported measurement at this certain timestamp. The `tag_set` can be empty. It is stored in the timeseries database but is not available via API right now.   
+  To define time-consistent tags like location, units etc. use the HTTP API [endpoints](https://docs.aedifion.io/docs/developers/api-documentation/guides-and-tutorials/tagging#adding-tags) or [contact us](https://docs.aedifion.io/docs/contact#support) for information on how to send it via MQTT.
 
 * `observation` is the reported measurement and must have the form of `value=<float>` where `<float>` is parsable as a floating point number. `observation` must be separated from the \(potentially empty\) `tag_set` by a single blank character.
 * `timestamp` is the timestamp of your reported observation in nanosecond-precision Unix time, i.e., the number of nanoseconds since January 1st, 1970, 00:00:00 UTC.
