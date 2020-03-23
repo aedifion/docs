@@ -2046,7 +2046,7 @@ The Virtual Heat Meter is determined on the condenser and evaporator side depend
 
 #### volume\_flow\_unit:
 
-The unit used in this datapoint needs to be specified in order for the analysis to yield correct result. If unspecified, the default unit assumed for this measurement is _cubic meters per second_. Acceptable inputs for this attribute include: 
+The unit used in this datapoint needs to be specified in order for the analysis to yield correct result. If unspecified, the default unit assumed for this measurement is _litersPerSecond_. Acceptable inputs for this attribute include: 
 
 * _cubicMetersPerSecond_
 * _cubicMetersPerMinute_
