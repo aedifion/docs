@@ -13,6 +13,7 @@
   * [Basic control functionalities](aedifion.io/basic-control-functionalities.md)
   * [Security](aedifion.io/security/README.md)
     * [Authentication via SSO](aedifion.io/security/two-factor-authentication.md)
+  * [Release](aedifion.io/release.md)
 * [aedifion.analytics](aedifion.analytics.md)
 * [aedifion.controls](aedifion.controls.md)
 * [aedifion.custom](aedifion.custom.md)
