@@ -112,8 +112,8 @@ Any liquid media supply system, such as
 
 ## Checked conditions
 
-* Process value is oscillating
-* Process value is not or to a negligible degree oscillating
+* Process value of control loop is oscillating
+* Process value of control loop is not or to a negligible degree oscillating
 * Condition checks on times of components operation
 {% endtab %}
 
@@ -174,7 +174,7 @@ The _Control Loop Analysis_ evaluated this oscillation as significant, signal co
     <tr>
       <td style="text-align:left">outlet temperature</td>
       <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
+      <td style="text-align:left">The outlet temperature is the process value of a thermal control loop</td>
     </tr>
   </tbody>
 </table>
@@ -507,7 +507,8 @@ This example shows the results of a R_educed Load Analysis_ performed on a heati
 
 | Pin | Required | Mapping info |
 | :--- | :--- | :--- |
-| temperature setpoint | yes |  |
+| temperature setpoint | no | Mapping of either **temperature setpoint \(preferred\)** or **temperature** is **mandatory**. If both pins are mapped, temperature setpoint is used |
+| temperature | no | Mapping of either **temperature setpoint \(preferred\)** or **temperature** is **mandatory**. If both pins are mapped, temperature setpoint is used |
 
 ## [thermal control loop](component-data-models.md#thermal-control-loop)
 
@@ -628,17 +629,27 @@ Providing deeper insights to the carbon dioxide concentrations over the analysed
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping strongly recommended</p>
-        <p>Default: Always operating</p>
-      </td>
-    </tr>
-    <tr>
       <td style="text-align:left">co2</td>
       <td style="text-align:left">yes</td>
       <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping of either <b>presence (preferred)</b> or <b>operating message</b> is
+          strongly recommended. If both pins are mapped, pressence is used</p>
+        <p>Default: Always presence</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">presence</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping of either <b>presence (preferred)</b> or <b>operating message</b> is
+          strongly recommended. If both pins are mapped, pressence is used</p>
+        <p>Default: Always presence</p>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -1025,7 +1036,8 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
 
 | Pin | Required | Mapping info |
 | :--- | :--- | :--- |
-| operating message | yes |  |
+| operating message | no | Mapping of either **operating message \(preferred\)** or **pump operating message** is **mandatory**. If both pins are mapped, operating message is used |
+| pump operating message | no | Mapping of either **operating message \(preferred\)** or **pump operating message** is **mandatory**. If both pins are mapped, operating message is used |
 
 <table>
   <thead>
@@ -1260,8 +1272,8 @@ Duration of the setpoint deviations, bundled by threshold value ranges.
 
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
-| setpoint deviation.lower threshold | Lower threshold for evaluation of the extent of the setpoint deviation | 0 to inf | unit of setpoint |
-| setpoint deviation.upper threshold | Upper threshold for evaluation of the extent of the setpoint deviation | 0 to inf | unit of setpoint |
+| setpoint deviation.lower threshold | Component specific lower threshold for evaluation of the extent of the setpoint deviation | 0 to inf | unit of setpoint |
+| setpoint deviation.upper threshold | Component specific upper threshold for evaluation of the extent of the setpoint deviation | 0 to inf | unit of setpoint |
 | setpoint deviation.above lower threshold and below upper threshold | Duration with absolute value of setpoint deviation between lower and upper threshold | 0 to inf | h |
 | setpoint deviation.above lower threshold and below upper threshold.relative | Duration with absolute value of setpoint deviation between lower and upper threshold relative to total time of analysis | 0 to 100 | % |
 | setpoint deviation.above upper threshold | Duration with absolute value of setpoint higher than upper threshold | 0 to inf | h |
@@ -1285,7 +1297,6 @@ General information KPIs to give further insight into the setpoint compliance ov
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
 | setpoint deviation.maximum | Largest setpoint deviation | -inf to inf | unit of setpoint |
-| setpoint deviation.minimum | Smallest setpoint deviation | -inf to inf | unit of setpoint |
 | setpoint deviation.mean | Average setpoint deviation | -inf to inf | unit of setpoint |
 | setpoint deviation.median | Median setpoint deviation | -inf to inf | unit of setpoint |
 {% endtab %}
@@ -1558,8 +1569,10 @@ Apply only for 2-way valve systems
 
 | Pin | Required | Mapping info |
 | :--- | :--- | :--- |
-| pump operating message | yes |  |
-| valve position | yes |  |
+| operating message | no | Mapping of either **pump operating message \(preferred\)** or **operating message** is **mandatory**. If both pins are mapped, pump operating message is used |
+| pump operating message | no | Mapping of either **pump operating message \(preferred\)** or **operating message** is **mandatory**. If both pins are mapped, pump operating message is used |
+| valve position | no | Mapping of either **valve position \(preferred\)** or **valve position setpoint** is **mandatory**. If both pins are mapped, valve position is used |
+| valve position setpoint | no | Mapping of either **valve position \(preferred\)** or **valve position setpoint** is **mandatory**. If both pins are mapped, valve position is used |
 {% endtab %}
 
 {% tab title="Application" %}
@@ -1639,6 +1652,12 @@ A analysis for one week in the beginning of September 2018 is shown in figure 1.
 | Yes | Recommendations on how to adjust volume flows for a higher energy efficiency or better energy provision. No recommendation, if temperature spread is sufficient |
 
 ## KPIs
+
+{% hint style="info" %}
+**Heat pump:** The KPI identifiers are extended by the prefix _condenser_ or _evaporator_ to specify the side of the heat pump the _temperature spread analysis_ is applied on. E.g.:
+
+_temperature spread.minimum_ will be _evaporator temperature spread.minimum_
+{% endhint %}
 
 ### Statistics of temperature spread
 
@@ -1769,7 +1788,8 @@ A analysis for one week in the beginning of September 2018 is shown in figure 1.
       <td style="text-align:left">operating message</td>
       <td style="text-align:left">no</td>
       <td style="text-align:left">
-        <p>Strongly recommended</p>
+        <p>Mapping of either <b>pump operating message (preferred)</b> or <b>operating message </b>is <b>strongly recommended</b>.
+          If both pins are mapped, pump operating message is used</p>
         <p>Default: Always on</p>
       </td>
     </tr>
@@ -1777,6 +1797,15 @@ A analysis for one week in the beginning of September 2018 is shown in figure 1.
       <td style="text-align:left">outlet temperature</td>
       <td style="text-align:left">yes</td>
       <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">pump operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping of either <b>pump operating message (preferred)</b> or <b>operating message </b>is <b>strongly recommended</b>.
+          If both pins are mapped, pump operating message is used</p>
+        <p>Default: Always on</p>
+      </td>
     </tr>
     <tr>
       <td style="text-align:left">return temperature</td>
