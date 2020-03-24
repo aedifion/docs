@@ -291,7 +291,7 @@ Cycle time KPIs evaluate the cycle times of the closed cycles observed during th
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
 | cycle times.median | Median of cycle periods | 0 to inf | h |
-| cycle times.average | Time-weighted average of cycle periods | 0 to inf | h |
+| cycle times.mean | Time-weighted average of cycle periods | 0 to inf | h |
 | cycle times.maximum | Longest cycle period | 0 to inf | h |
 | cycle times.minimum | Shortest cycle period | 0 to inf | h |
 
@@ -302,7 +302,7 @@ Duty time KPIs evaluate the duty times of the closed cycles observed during the 
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
 | duty times.median | Median of duty periods | 0 to inf | h |
-| duty times.average | Time-weighted average of duty periods | 0 to inf | h |
+| duty times.mean | Time-weighted average of duty periods | 0 to inf | h |
 | duty times.maximum | Longest duty period | 0 to inf | h |
 | duty times.minimum | Shortest duty period | 0 to inf | h |
 
@@ -313,7 +313,7 @@ Switch-off time KPIs evaluate the shutdown times of the closed cycles observed d
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
 | switch-off times.median | Median of switch-off periods | 0 to inf | h |
-| switch-off times.average | Time-weighted average of switch-off periods | 0 to inf | h |
+| switch-off times.mean | Time-weighted average of switch-off periods | 0 to inf | h |
 | switch-off times.maximum | Longest switch-off period | 0 to inf | h |
 | switch-off times.minimum | Shortest switch-off period | 0 to inf | h |
 {% endtab %}
@@ -1643,7 +1643,7 @@ A analysis for one week in the beginning of September 2018 is shown in figure 1.
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
 | temperature spread.median | Median of temperature spread | -inf to inf | °C |
-| temperature spread.average | Time-weighted average of temperature spread | -inf to inf | °C |
+| temperature spread.median | Time-weighted average of temperature spread | -inf to inf | °C |
 | temperature spread.minimum | Minimum of temperature spread | -inf to inf | °C |
 | temperature spread.maximum | Maximum of temperature spread | -inf to inf | °C |
 {% endtab %}
@@ -1878,7 +1878,7 @@ _heat flux.maximum_ will be _evaporator heat flux.maximum_
 | :--- | :--- | :--- | :--- |
 | heat flux.maximum | Largest heat flux | -inf to inf | kW |
 | heat flux.minimum | Smallest heat flux | -inf to inf | kW |
-| heat flux.average | Average heat flux | -inf to inf | kW |
+| heat flux.mean | Average heat flux | -inf to inf | kW |
 | heat flux.median | Median heat flux | -inf to inf | kW |
 | heat | Aggregated heat transferred | -inf to inf | kWh |
 
