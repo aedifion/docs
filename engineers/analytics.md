@@ -598,10 +598,10 @@ How long was the air quality in the room \(based on carbon dioxide concentration
 | co2 duration.IDA2.relative | Duration with “medium “ indoor air quality | 0 to 100 | % |
 | co2 duration.IDA3.relative | Duration with “moderate “ indoor air quality | 0 to 100 | % |
 | co2 duration.IDA4.relative | Duration with “poor “ indoor air quality | 0 to 100 | % |
-| co2 duration.IDA1.absolute | Duration with “good“ indoor air quality | 0 to inf | h |
-| co2 duration.IDA2.absolute | Duration with “medium “ indoor air quality | 0 to inf | h |
-| co2  duration.IDA3.absolute | Duration with “moderate “ indoor air quality | 0 to inf | h |
-| co2 duration.IDA4.absolute | Duration with “poor “ indoor air quality | 0 to inf | h |
+| co2 duration.IDA1 | Duration with “good“ indoor air quality | 0 to inf | h |
+| co2 duration.IDA2 | Duration with “medium “ indoor air quality | 0 to inf | h |
+| co2  duration.IDA3 | Duration with “moderate “ indoor air quality | 0 to inf | h |
+| co2 duration.IDA4 | Duration with “poor “ indoor air quality | 0 to inf | h |
 
 ### Statistics of CO2 concentration
 
@@ -1260,12 +1260,12 @@ Duration of the setpoint deviations, bundled by threshold value ranges.
 
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
-| setpoint deviation.largerX.relative | Duration with setpoint deviation larger than X | 0 to 100 | % |
-| setpoint deviation.largerYsmallerX.relative | Duration with setpoint deviation larger than Y and smaller than X | 0 to 100 | % |
-| setpoint deviation.smallerY.relative | Duration with setpoint deviation smaller than Y | 0 to 100 | % |
-| setpoint deviation.largerX | Duration with setpoint deviation larger than X | 0 to inf | h |
-| setpoint deviation.largerYsmallerX | Duration with setpoint deviation larger than Y and smaller than X | 0 to inf | h |
-| setpoint deviation.smallerY | Duration with setpoint deviation smaller than Y | 0 to inf | h |
+| setpoint deviation.above lower threshold and below upper threshold | Duration with absolute value of setpoint deviation between lower and upper threshold | 0 to inf | h |
+| setpoint deviation.above lower threshold and below upper threshold.relative | Duration with absolute value of setpoint deviation between lower and upper threshold relative to total time of analysis | 0 to 100 | % |
+| setpoint deviation.above upper threshold | Duration with absolute value of setpoint higher than upper threshold | 0 to inf | h |
+| setpoint deviation.above upper threshold.relative | Duration with absolute value of setpoint higher than upper threshold relative to total time of analysis | 0 to 100 | % |
+| setpoint deviation.below lower threshold | Duration with absolute value of setpoint smaller than lower threshold | 0 to inf | h |
+| setpoint deviation.below lower threshold.relative | Duration with absolute value of setpoint smaller than lower threshold relative to total time of analysis | 0 to 100 | % |
 
 ### Operating time
 
@@ -1282,10 +1282,10 @@ General information KPIs to give further insight into the setpoint compliance ov
 
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
-| setpoint deviation.maximum | Largest setpoint deviation | -inf to inf | - |
-| setpoint deviation.minimum | Smallest setpoint deviation | -inf to inf | - |
-| setpoint deviation.mean | Average setpoint deviation | -inf to inf | - |
-| setpoint deviation.median | Median setpoint deviation | -inf to inf | - |
+| setpoint deviation.maximum | Largest setpoint deviation | -inf to inf | unit of setpoint |
+| setpoint deviation.minimum | Smallest setpoint deviation | -inf to inf | unit of setpoint |
+| setpoint deviation.mean | Average setpoint deviation | -inf to inf | unit of setpoint |
+| setpoint deviation.median | Median setpoint deviation | -inf to inf | unit of setpoint |
 {% endtab %}
 
 {% tab title="Components" %}
