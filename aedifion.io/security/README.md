@@ -65,7 +65,7 @@ In most deployment scenarios, local networks with Internet access are placed beh
 * **8884/TCP Message Queuing Telemetry Transport Secure \(MQTTS\)**  MQTT is an increasingly popular [standardized protocol](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html) for Internet of Things and is used by aedifion to stream measurement data collected from the building network to aedifion.io's message broker in near real time. All MQTT messages are transported exclusively over TLS. As an alternative to MQTTS, measurement data can be collected and uploaded in batches through HTTPS. This option, however, sacrifices the near real-time availability of the collected data.
 
 {% hint style="info" %}
-For deployments with critical security requirements, e.g., hospitals or banks, the listed requirements can be reduced down to opening only port 443/TCP for HTTPS traffic and additional security measures such as VPN tunnels can be employed.
+For deployments with critical security requirements, e.g., hospitals or banks, the listed requirements can be reduced down to opening only port 443/TCP for HTTPS traffic and additional security measures such as VPN tunnels can be employed. However, using only the Port 443/TCP is inevitably leading to limitations in platform functionality, such as live data integration.
 {% endhint %}
 
 Communication on the above listed ports only has to be opened towards a fixed set of aedifion's servers, i.e., all other than the following destinations can be blocked by the firewall.
