@@ -1260,6 +1260,8 @@ Duration of the setpoint deviations, bundled by threshold value ranges.
 
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
+| setpoint deviation.lower threshold | Lower threshold for evaluation of the extent of the setpoint deviation | 0 to inf | unit of setpoint |
+| setpoint deviation.upper threshold | Upper threshold for evaluation of the extent of the setpoint deviation | 0 to inf | unit of setpoint |
 | setpoint deviation.above lower threshold and below upper threshold | Duration with absolute value of setpoint deviation between lower and upper threshold | 0 to inf | h |
 | setpoint deviation.above lower threshold and below upper threshold.relative | Duration with absolute value of setpoint deviation between lower and upper threshold relative to total time of analysis | 0 to 100 | % |
 | setpoint deviation.above upper threshold | Duration with absolute value of setpoint higher than upper threshold | 0 to inf | h |
