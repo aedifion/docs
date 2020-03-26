@@ -30,71 +30,34 @@ If unit conventions are disregarded, this can lead to errors and even misleading
 
 * **Incomplete mapping:** [Pins ](../glossary.md#pin)and [attributes](../glossary.md#attribute), are placeholders which might or might not be [mapped ](../glossary.md#mapping)to data. Algorithms will work on incomplete mapped components, they require mapping for specific placeholders though. Check the [algorithm documentation](analytics.md) for required mappings.
 
-## Example Component
+## How to read the docs?
 
-This example leads through our description of [component data models](../glossary.md#component-data-model) by providing exemplary values and descriptions. The first paragraph of a component data model provides information regarding the component and the data model itself, special features, exceptions and so forth.
+Component data model documentation is ordered in tabs, consisting of
 
-{% tabs %}
-{% tab title="Component Identifier" %}
-### example\_component
+* [Component Identifier](component-data-models.md#component-identifier),
+* [Pins](component-data-models.md#pins),
+* [Attributes](component-data-models.md#attributes), and
+* [Analysis](component-data-models.md#analysis)
 
-_The **Component Identifier** is the string identifier of the component. It is used as input parameter for some endpoints \(_[_example endpoint_](https://api.aedifion.io/ui/#!/Analytics/get_component_analysisfunctions)_\)._
-{% endtab %}
+### Component Identifier
 
-{% tab title="Pins" %}
-_The **Pins** table lists basic information on each pin of the component._
+The component identifier is the string identifier for the component data model, used to identify the component via the aedifion API.
 
-{% hint style="danger" %}
- **Mind the units.**
-{% endhint %}
+### Pins
 
-| Name | Info | Unit |
-| :--- | :--- | :--- |
-| example pin | Placeholder for any information on the requested datapoint. | kW |
-| ... | ... | ... |
-{% endtab %}
+A pin is a generic placeholder for a [datapoint ](../glossary.md#datapoint)within a [component data model](../glossary.md#component-data-model). A pin is used to [map ](../glossary.md#mapping)a [datapoint ](../glossary.md#datapoint)and its [time series](../glossary.md#time-series) to an [instanced component ](../glossary.md#instanced-component)within a specific [project](../glossary.md#project).
 
-{% tab title="Attributes" %}
-_The **Attributes** table lists basic information on each attribute of the component._
+The tab lists all available pins for the specific component data model. Mind the expected unit of the pin.
 
-_The **Key** parameter is the string identifier of the attribute used for our API._
+### Attributes
 
-_The **Type** parameter is the value type expected, e.g. float, string, json, etc._
+An attribute is a generic placeholder for meta data[ ](../glossary.md#datapoint)of a [component data model](../glossary.md#component-data-model). An attribute is used to [map](../glossary.md#mapping) a meta data value to an [instanced component ](../glossary.md#instanced-component)within a specific [project](../glossary.md#project). Attributes are designed in analogy to [tags](../glossary.md#tag).
 
-_The **Unit** parameter is the unit of the value expected._
+The tab lists all available attributes for the specific component data model. Map attributs in respect to the analysis, which shall be run on an instanced component.
 
-{% hint style="danger" %}
-Mind the units.
-{% endhint %}
+### Analysis
 
-## Example Attribute
-
-_Default Values are implemented within the analytics function themselves, they do not appear on API calls._
-
-Attributes are starting with a short description.
-
-| Key | Type | Default Value | Unit |
-| :--- | :--- | :--- | :--- |
-| example\_attribute | float or integer | 42.0 | kW |
-| ... | ... |  | ... |
-
-## Another Example Attribute
-
-...
-{% endtab %}
-
-{% tab title="Available Functions" %}
-_The **Available Functions** tab provide a list of functions available for the component data model. For more information click the regarding function._
-
-## [Example Function](analytics.md#example-analysis)
-
-Exemplary specification of the function, if applied to this component.
-
-## [Another Example Function](analytics.md#example-analysis)
-
-Exemplary specification of the function, if applied to this component.
-{% endtab %}
-{% endtabs %}
+Lists the available analysis functions for the component data model and links to their corresponding documentation.
 
 ## Boiler
 
@@ -241,7 +204,7 @@ This attribute allows to adapt the unit of the volume flow pin.
 </table>
 {% endtab %}
 
-{% tab title="Available Functions" %}
+{% tab title="Analysis" %}
 ### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 ### [Reduced Load Analysis](analytics.md#reduced-load-analysis)
@@ -399,7 +362,7 @@ This attribute allows to adapt the unit of the volume flow pin.
 </table>
 {% endtab %}
 
-{% tab title="Available Functions" %}
+{% tab title="Analysis" %}
 ### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 ### [Setpoint Deviation Analysis](analytics.md#setpoint-deviation-analysis)
@@ -507,7 +470,7 @@ If the basic schedule is inherited from building usage times or opening hours, a
 | shutdown\_flexibility | float \(int is tolerated\) | 30.0 | min |
 {% endtab %}
 
-{% tab title="Available Functions" %}
+{% tab title="Analysis" %}
 ### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 ### [Schedule Analysis](analytics.md#schedule-analysis)
@@ -593,7 +556,7 @@ This attribute allows to adapt the unit of the volume flow pin.
 </table>
 {% endtab %}
 
-{% tab title="Available Functions" %}
+{% tab title="Analysis" %}
 ### [ Virtual Heat Meter Analysis](analytics.md#virtual-heat-meter)
 {% endtab %}
 {% endtabs %}
@@ -767,7 +730,7 @@ The attribute adjusts the volume flow pin unit on the condenser as well as the e
 </table>
 {% endtab %}
 
-{% tab title="Available Functions" %}
+{% tab title="Analysis" %}
 ### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 ### [Setpoint Deviation Analysis](analytics.md#setpoint-deviation-analysis)
@@ -899,7 +862,7 @@ If the basic schedule is inherited from building usage times or opening hours, a
 | shutdown\_flexibility | float \(int is tolerated\) | 30.0 | min |
 {% endtab %}
 
-{% tab title="Available Functions" %}
+{% tab title="Analysis" %}
 ### [Reduced Load Analysis](analytics.md#reduced-load-analysis)
 
 ### [Room Air Quality Analysis](analytics.md#room-air-quality-analysis)
@@ -915,10 +878,6 @@ The **Thermal Control Loop** component data model is representative for thermal 
 {% tabs %}
 {% tab title="Component Identifier" %}
 ### thermal control loop
-{% endtab %}
-
-{% tab title="Description" %}
-
 {% endtab %}
 
 {% tab title="Pins" %}
@@ -1062,7 +1021,7 @@ If the basic schedule is inherited from building usage times or opening hours, a
 | shutdown\_flexibility | float \(int is tolerated\) | 30.0 | min |
 {% endtab %}
 
-{% tab title="Available Functions" %}
+{% tab title="Analysis" %}
 ### [Control Loop Oscillation Analysis](analytics.md#control-loop-oscillation-analysis)
 
 ### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
@@ -1117,7 +1076,7 @@ Geographical longitude of weather station.
 | longitude | float | 50.9407 | ° |
 {% endtab %}
 
-{% tab title="Available Functions" %}
+{% tab title="Analysis" %}
 ### [Weather Station Analysis](analytics.md#weather-station-analysis)
 {% endtab %}
 {% endtabs %}
