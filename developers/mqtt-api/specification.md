@@ -424,7 +424,7 @@ Let's consider this example of a metadata message on the topic `META/lbg1/buildi
 
 ```javascript
 {
-  "name": "PXSite1'AS03-2098179_C'Geb1952'Mtr03'TRCUMVL-trendLog18",
+  "name": "PXSite1'AS11-239291_C'Btr06'TRCUMVL-trendLog18",
   "notifyType": "event", 
   "logInterval": "6000", 
   "recordCount": "5000", 
