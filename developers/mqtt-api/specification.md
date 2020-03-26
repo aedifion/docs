@@ -295,7 +295,7 @@ As you can see, the expiry date of the MQTT user account was extended by 7200 se
 
 Clients are identified by a unique `client_id`.  
 
-As per [MQTT 3.1.1 specification](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html) \(Section 3.1.3.1\), client identifiers are between 1 and 23 alphanumeric characters \(0-9, a-z, A-Z\). Most MQTT brokers support longer client identifiers from the the full range of UTF-8 characters except characters `/`, `+`, and `#` which have a special meaning in MQTT.
+As per [MQTT 3.1.1 specification](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html) \(Section 3.1.3.1\), client identifiers are between 1 and 23 alphanumeric characters \(0-9, a-z, A-Z\). Most MQTT brokers support longer client identifiers from the the full range of UTF-8 characters except characters `/`, `+`, and `#` which have a special meaning in MQTT and are disallowed for security reasons.
 
 There can only be _one_ connection per `client_id` per Broker. If two clients connect with the same `client_id`the older connection is terminated in favor of the newer. This restriction does not extend to your login credentials. You can open multiple connections using the same login credentials as long as you use a different `client_id` for each concurrent connection. 
 
