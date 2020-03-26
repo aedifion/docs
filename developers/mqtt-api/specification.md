@@ -355,7 +355,15 @@ It is important to note two things about publishing your own data via MQTT:
 
 ## Payload format 
 
-All messages you publish to or receive from the MQTT broker must adhere to strictly to the following format:
+The payload format depends on type of the topic published to or subscribed from. There are three types of topics on the aedifion.io platform:
+
+* Timeseries data topics: These topics are used to send and receive timeseries data from buildings. They are usually in the form `<load balance group>/<project handle>`
+* Meta data topics: These topics are used to send and receive meta data from buildings. They are usually in the form `META/<load balance group>/<project handle>`
+* Controls topics: These topics are used to send setpoints and schedules to buildings. They are usually in the form `CONTROLS/<load balance group>/<project handle>`
+
+### Timeseries data
+
+All messages containing timeseries data you publish to or receive from the MQTT broker must strictly adhere to [Influx Line Protocol](https://docs.influxdata.com/influxdb/v1.7/write_protocols/line_protocol_tutorial/) format:
 
 ```text
 RoomTemperature,outOfOrder=true,label=deviceRestart value=20.3 1465839830100400200
@@ -367,9 +375,7 @@ RoomTemperature,outOfOrder=true,label=deviceRestart value=20.3 14658398301004002
 +---------+----------------------------+-+-----------+-+---------+
 ```
 
-
-
-This is known as _Influx Line Protocol_ and specified in detail at \[1\]. We highlight only the most important points in the following:
+We highlight only the most important points in the following:
 
 * `datapoint` is an arbitrary non-empty UTF-8 string that identifies your datapoint.
 
@@ -379,7 +385,7 @@ This is known as _Influx Line Protocol_ and specified in detail at \[1\]. We hig
 
 * `tag_set` is separated by a `,` from the `datapoint id`.
 
-  It is itself a comma-separted list of `key=value` pairs that are attached to this reported measurement at this certain timestamp. The `tag_set` can be empty. It is stored in the timeseries database but is not available via API right now.   
+  It is itself a comma-separated list of `key=value` pairs that are attached to this reported measurement at this certain timestamp. The `tag_set` can be empty. It is stored in the timeseries database but is not available via API right now.   
   To define time-consistent tags like location, units etc. use the HTTP API [endpoints](https://docs.aedifion.io/docs/developers/api-documentation/guides-and-tutorials/tagging#adding-tags) or [contact us](https://docs.aedifion.io/docs/contact#support) for information on how to send it via MQTT.
 
 * `observation` is the reported measurement and must have the form of `value=<float>` where `<float>` is parsable as a floating point number. `observation` must be separated from the \(potentially empty\) `tag_set` by a single blank character.
@@ -399,10 +405,68 @@ ExtTemperature,location=office22.34,unit=C value=14.9 1465839830100400200
 
 The outcome of this is a small performance gain, the disadvantage is that it is not possible to publish each datapoint to its own topic, as described above.
 
-**Note:** Observations from messages that do not strictly adhere to this format will still be received from the MQTT broker but will not be stored in the aedifion.io platform.
+{% hint style="warning" %}
+Timeseries data in messages that do not strictly adhere to this format will be received but will not be stored in the aedifion.io platform.
+{% endhint %}
 
-**Sources and further resources:**  
-\[1\] [https://docs.influxdata.com/influxdb/v1.6/write\_protocols/line\_protocol\_tutorial/](https://docs.influxdata.com/influxdb/v1.6/write_protocols/line_protocol_tutorial/)
+### Metadata
+
+All messages containing meta data you publish to or receive from the MQTT broker must strictly adhere to [JSON](https://www.json.org/json-en.html) format.
+
+Each received metadata message is related to exactly one device or datapoint in the following manner:
+
+* The topic on which the message is received determines exactly one project. If that project does not exist, the message is silently dropped.
+* The message is parsed for key `name` . The value of this key must identify exactly one device or datapoint in the project depending on the value of second key `objtype`. If no such device or datapoint is found, the message is silently dropped.
+
+When the metadata message has been associated to a device or datapoint, all top level key-value pairs \(including `objtype` but excluding `name`\) are initialized as tags on the associated device or datapoint. Values that contain nested structures are not unfolded but saved as is into the value of the tag. Since tag values on the aedifion.io platform can be text of any length, it is possible to save whole nested JSON objects as tag values.
+
+Let's consider this example of a metadata message on the topic `META/lbg1/buildinginc_headquarter`. The displayed metadata was collected from a BACnet datapoint - metadata for datapoints from Modbus, LON etc. will look different.
+
+```javascript
+{
+  "name": "PXSite1'AS03-2098179_C'Geb1952'Mtr03'TRCUMVL-trendLog18",
+  "notifyType": "event", 
+  "logInterval": "6000", 
+  "recordCount": "5000", 
+  "lastNotifyRecord": "1749389", 
+  "totalRecordCount": "1749433", 
+  "units": "", 
+  "recordsSinceNotification": "44", 
+  "stopWhenFull": "False", 
+  "reliability": "noFaultDetected", 
+  "startTime": "{'time': (255, 255, 255, 255), 'date': 'Date(*-*-* *)'}", 
+  "eventTimeStamps": "[{'dateTime': {'time': (255, 255, 255, 255), 'date': (255, 255, 255, 255)}}, {'dateTime': {'time': (255, 255, 255, 255), 'date': (255, 255, 255, 255)}}, {'dateTime': {'time': (255, 255, 255, 255), 'date': (255, 255, 255, 255)}}]", 
+  "objtype": "trendLog", 
+  "eventEnable": "[1, 1, 1]", 
+  "intervalOffset": "0", 
+  "address": "xxx.xxx.xxx.xxx",
+  "covResubscriptionInterval": "1800", 
+  "objinstance": 18, 
+  "ackedTransitions": "[1, 1, 1]", 
+  "notificationClass": "61", 
+  "enable": "True", 
+  "notificationThreshold": "80", 
+  "clientCovIncrement": "{'defaultIncrement': ()}", 
+  "stopTime": "{'time': (255, 255, 255, 255), 'date': 'Date(*-*-* *)'}", 
+  "alignIntervals": "True", 
+  "logDeviceObjectProperty": "{'deviceIdentifier': ('device', 2098179), 'objectIdentifier': ('pulseConverter', 8), 'propertyIdentifier': 'presentValue'}", 
+  "eventState": "normal", 
+  "description": "Trend Kumuliertes Volumen", 
+  "statusFlags": "[0, 0, 0, 0]", 
+  "bufferSize": "5000", 
+  "bacnet_id": "239291", 
+  "trigger": "False", 
+  "loggingType": "polled"
+}
+```
+
+* The topic prefix `META/` identifies this message as a metadata message and we expect JSON format. `buildinginc_heatquarter`is the unique project handle assigned by aedifion to this project \(It is usually formed from a shorthand for the customer and a shorthand for the project. It is not used as display name\).
+* In this case, `objtype` is not `device` so we assume that this relates to a datapoint. Which datapoint is determined by the `name` key, i.e., here we associate the message to the datapoint `PXSite1'AS03-2098179_C'Geb1952'Mtr03'TRCUMVL-trendLog18`
+* All fields \(except `name`\) are initialized as tags. In this example, 32 new tags are created from this message on datapoint `PXSite1'AS03-2098179_C'Geb1952'Mtr03'TRCUMVL-trendLog18`.
+
+### Controls
+
+Under construction 👷🏻‍♂️
 
 ## Fair use 
 
