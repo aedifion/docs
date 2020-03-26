@@ -9,8 +9,6 @@ description: >-
 ## Available component data models
 
 * [Boiler](component-data-models.md#boiler)
-  * [Condensing Boiler](component-data-models.md#condensing-boiler)
-  * [Low-Temperature Boiler](component-data-models.md#low-temperature-boiler)
 * [Combined Heat and Power](component-data-models.md#combined-heat-and-power)
 * [Fan](component-data-models.md#heat-pump)
 * [Heat Meter](component-data-models.md#heat-meter)
@@ -100,7 +98,7 @@ Exemplary specification of the function, if applied to this component.
 
 ## Boiler
 
-The **Boiler** is the basic model of the heat conversion plant boiler. Further component data models like the [Condensing Boiler](component-data-models.md#condensing-boiler) and [Low-Temperature Boiler ](component-data-models.md#low-temperature-boiler)inherit this component_._ Boilers __burn fuels like oil, natural gas, pallets etc. to heat up a heat carrier fluid \(water in general\).
+The **Boiler** is the component model of the heat conversion plant boiler including subcategories of boilers like condensing boilers.
 
 {% tabs %}
 {% tab title="Component Identifier" %}
@@ -122,55 +120,16 @@ Mind the units.
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left">exhaust co</td>
-      <td style="text-align:left">Carbon monoxide concentration in exhaust gas.</td>
-      <td style="text-align:left">ppm</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">exhaust nox</td>
-      <td style="text-align:left">Nitrogen oxide concentration in exhaust gas.</td>
-      <td style="text-align:left">ppm</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">exhaust o2</td>
-      <td style="text-align:left">Oxygen concentration in exhaust gas.</td>
-      <td style="text-align:left">%</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">exhaust temperature</td>
-      <td style="text-align:left">Temperature of exhaust gas.</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">heat flow</td>
-      <td style="text-align:left">Thermal power transferred to heat carrier fluid (water).</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">heat meter</td>
-      <td style="text-align:left">Thermal energy transferred to heat carrier fluid (water). Cumulating counter.</td>
-      <td
-      style="text-align:left">kWh</td>
-    </tr>
-    <tr>
       <td style="text-align:left">inlet temperature</td>
       <td style="text-align:left">Temperature of heat carrier fluid (water) entering the component. Also
-        referred to as <b>return temperature</b>.</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">malfunction message</td>
-      <td style="text-align:left">
-        <p>Informs about technical availability of component.</p>
-        <p>1 = malfunction</p>
-        <p>0 = no malfunction</p>
+        referred to as <b>return temperature</b>
       </td>
-      <td style="text-align:left">binary</td>
+      <td style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
       <td style="text-align:left">operating message</td>
       <td style="text-align:left">
-        <p>Informs about operational state of component.</p>
+        <p>Informs about operational state of component</p>
         <p>1 = operating</p>
         <p>0 = switched-off</p>
       </td>
@@ -179,286 +138,131 @@ Mind the units.
     <tr>
       <td style="text-align:left">outlet temperature</td>
       <td style="text-align:left">Temperature of heat carrier fluid (water) exiting the component. Also
-        referred to as <b>supply temperature</b>.</td>
+        referred to as <b>supply temperature</b>
+      </td>
       <td style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
-      <td style="text-align:left">power consumption</td>
-      <td style="text-align:left">Fuel power consumed by component.</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">power consumption meter</td>
-      <td style="text-align:left">Fuel energy consumed. Cumulating counter.</td>
-      <td style="text-align:left">kWh</td>
-    </tr>
-    <tr>
       <td style="text-align:left">volume flow</td>
-      <td style="text-align:left">Volume flow of heat carrier fluid (water).</td>
-      <td style="text-align:left">l/s</td>
+      <td style="text-align:left">Volume flow of heat carrier fluid (water)</td>
+      <td style="text-align:left">
+        <p>default: l/s</p>
+        <p>use component attribute to adjust</p>
+      </td>
     </tr>
   </tbody>
 </table>
 {% endtab %}
 
 {% tab title="Attributes" %}
-No attributes defined for this component data model.
-{% endtab %}
+## Custom Day Schedules
 
-{% tab title="Available Functions" %}
-## [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
+Overwrites basic schedule for specific days with an individual schedule. The json is flexibly expandable for any number of days
 
-Checks for appropriate cycle behavior and provides recommendation on how to improve.
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| custom\_day\_schedules | json | { "2020-02-28":{"start":"09:00", "end":"18:00"}, "2020-02-29":{"start":"09:00", "end":"18:00"} } |
 
-## [Schedule Analysis](analytics.md#schedule-analysis)
+## Custom Holiday
 
-Checks if plant is operated according to a provided schedule.
-{% endtab %}
-{% endtabs %}
+Overwrites basic schedule for specific days. On a holiday plant operation is considered as unintentional. Add holidays to this parameter
 
-### Condensing Boiler
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| custom\_holiday | json | \["2020-01-02", "2020-01-28", "2020-04-07"\] |
 
-The **Condensing Boiler** is a specific type of [boiler](component-data-models.md#boiler). One of the flue gas components of fuel combustion is gaseous water. A condensing boiler liquefies the water from the flue gases. The condensate heat released is used to heat the heat carrier fluid.
+## Preconditioning
 
-{% tabs %}
-{% tab title="Component Identifier" %}
-### **condensing\_boiler**
-{% endtab %}
+If the basic schedule is inherited from building usage times or opening hours, add a preconditioning attribute and thus a preconditioning period to the start time of the basic schedule. The operation of a particular plant before the start time is therefore evaluated as intended in the scope of the preconditioning time
 
-{% tab title="Pins" %}
-{% hint style="danger" %}
-Mind the units.
-{% endhint %}
+| Key | Type | Example Value | Unit |
+| :--- | :--- | :--- | :--- |
+| preconditioning | float \(int is tolerated\) | 30.0 | min |
+
+## Regional Key
+
+  
+The regional key is used to automatically load regional holidays and overwrite the basic schedule with holidays accordingly. On a holiday plant operation is considered as unintentional. Utilize regional keys according ISO 3166-2
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| regional\_key | string | DE-NW |
+
+## Schedule
+
+Weekly repeated basic schedule the plant is intended to execute. Workday individual schedule. If a workday has none intentional operating times, do not add it to the schedule json
+
+| `Key` | Type | Example Value |
+| :--- | :--- | :--- |
+| schedule | json | {"Mon":{"start":"10:00", "end":"20:00"},"Tue":{"start":"10:00", "end":"20:00"},"Wed":{"start":"10:00", "end":"20:00"}, "Thu":{"start":"10:00", "end":"20:00"},"Fri":{"start":"10:00", "end":"20:00"},"Sat":{"start":"10:00", "end":"20:00"},"Sun":{"start":"10:00","end":"20:00"}} |
+
+## Schedule Timezone
+
+Timezone of the schedule provided in IANA timezone codes. Default: UTC
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| schedule\_timezone | string | Europe/Berlin |
+
+## Shutdown Flexibility
+
+If the basic schedule is inherited from building usage times or opening hours, add a shutdown flexibility attribute and thus a shutdown flexibility period to the end time of the basic schedule. A shutdown of a plant prior to the end of the usage times of the building allows to consume the buffers of conditioned rooms within the limits of comfort or thermal energy of heat storages. The operation of a particular plant before the schedule end time is therefore evaluated as unintended in the scope of the shutdown flexibility
+
+| Key | Type | Example Value | Unit |
+| :--- | :--- | :--- | :--- |
+| shutdown\_flexibility | float \(int is tolerated\) | 30.0 | min |
+
+## Volume flow unit
+
+This attribute allows to adapt the unit of the volume flow pin.
 
 <table>
   <thead>
     <tr>
-      <th style="text-align:left">Name</th>
-      <th style="text-align:left">Info</th>
-      <th style="text-align:left">Unit</th>
+      <th style="text-align:left">Key</th>
+      <th style="text-align:left">Type</th>
+      <th style="text-align:left">Available Values</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left">exhaust co</td>
-      <td style="text-align:left">Carbon monoxide concentration in exhaust gas.</td>
-      <td style="text-align:left">ppm</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">exhaust nox</td>
-      <td style="text-align:left">Nitrogen oxide concentration in exhaust gas.</td>
-      <td style="text-align:left">ppm</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">exhaust o2</td>
-      <td style="text-align:left">Oxygen concentration in exhaust gas.</td>
-      <td style="text-align:left">%</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">exhaust temperature</td>
-      <td style="text-align:left">Temperature of exhaust gas.</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">heat flow</td>
-      <td style="text-align:left">Thermal power transferred to heat carrier fluid (water).</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">heat meter</td>
-      <td style="text-align:left">Thermal energy transferred to heat carrier fluid (water). Cumulating counter.</td>
-      <td
-      style="text-align:left">kWh</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">inlet temperature</td>
-      <td style="text-align:left">Temperature of heat carrier fluid (water) entering the component. Also
-        referred to as <b>return temperature</b>.</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">malfunction message</td>
+      <td style="text-align:left">volume_flow_unit</td>
+      <td style="text-align:left">string</td>
       <td style="text-align:left">
-        <p>Informs about technical availability of component.</p>
-        <p>1 = malfunction</p>
-        <p>0 = no malfunction</p>
+        <p>litersPerSecond
+          <br />litersPerMinute</p>
+        <p>litersPerHour
+          <br />cubicMetersPerSecond</p>
+        <p>cubicMetersPerMinute</p>
+        <p>cubicMetersPerHour</p>
       </td>
-      <td style="text-align:left">binary</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">
-        <p>Informs about operational state of component.</p>
-        <p>1 = operating</p>
-        <p>0 = switched-off</p>
-      </td>
-      <td style="text-align:left">binary</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature</td>
-      <td style="text-align:left">Temperature of heat carrier fluid (water) exiting the component. Also
-        referred to as <b>supply temperature</b>.</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">power consumption</td>
-      <td style="text-align:left">Fuel power consumed by component.</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">power consumption meter</td>
-      <td style="text-align:left">Fuel energy consumed. Cumulating counter.</td>
-      <td style="text-align:left">kWh</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">volume flow</td>
-      <td style="text-align:left">Volume flow of heat carrier fluid (water).</td>
-      <td style="text-align:left">l/s</td>
     </tr>
   </tbody>
 </table>
 {% endtab %}
 
-{% tab title="Attributes" %}
-No attributes defined for this component data model.
-{% endtab %}
-
 {% tab title="Available Functions" %}
-## [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
+### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
-Checks for appropriate cycle behavior and provides recommendation on how to improve.
+### [Reduced Load Analysis](analytics.md#reduced-load-analysis)
 
-## [Schedule Analysis](analytics.md#schedule-analysis)
+### [Schedule Analysis](analytics.md#schedule-analysis)
 
-Checks if plant is operated according to a provided schedule.
-{% endtab %}
-{% endtabs %}
+### [Setpoint Deviation Analysis](analytics.md#setpoint-deviation-analysis)
 
-### Low-Temperature Boiler
+### [Temperature Spread Analysis](analytics.md#temperature-spread-analysis)
 
-The **Low-Temperature Boiler** is a specific type of [boiler](component-data-models.md#boiler). It is defined by the low temperature level of the supply temperature output provided by the boiler.
-
-{% tabs %}
-{% tab title="Component Identifier" %}
-### low-temperature\_boiler
-{% endtab %}
-
-{% tab title="Pins" %}
-{% hint style="danger" %}
-Mind the units.
-{% endhint %}
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Name</th>
-      <th style="text-align:left">Info</th>
-      <th style="text-align:left">Unit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">exhaust co</td>
-      <td style="text-align:left">Carbon monoxide concentration in exhaust gas.</td>
-      <td style="text-align:left">ppm</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">exhaust nox</td>
-      <td style="text-align:left">Nitrogen oxide concentration in exhaust gas.</td>
-      <td style="text-align:left">ppm</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">exhaust o2</td>
-      <td style="text-align:left">Oxygen concentration in exhaust gas.</td>
-      <td style="text-align:left">%</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">exhaust temperature</td>
-      <td style="text-align:left">Temperature of exhaust gas.</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">heat flow</td>
-      <td style="text-align:left">Thermal power transferred to heat carrier fluid (water).</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">heat meter</td>
-      <td style="text-align:left">Thermal energy transferred to heat carrier fluid (water). Cumulating counter.</td>
-      <td
-      style="text-align:left">kWh</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">inlet temperature</td>
-      <td style="text-align:left">Temperature of heat carrier fluid (water) entering the component. Also
-        referred to as <b>return temperature</b>.</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">malfunction message</td>
-      <td style="text-align:left">
-        <p>Informs about technical availability of component.</p>
-        <p>1 = malfunction</p>
-        <p>0 = no malfunction</p>
-      </td>
-      <td style="text-align:left">binary</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">
-        <p>Informs about operational state of component.</p>
-        <p>1 = operating</p>
-        <p>0 = switched-off</p>
-      </td>
-      <td style="text-align:left">binary</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature</td>
-      <td style="text-align:left">Temperature of heat carrier fluid (water) exiting the component. Also
-        referred to as <b>supply temperature</b>.</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">power consumption</td>
-      <td style="text-align:left">Fuel power consumed by component.</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">power consumption meter</td>
-      <td style="text-align:left">Fuel energy consumed. Cumulating counter.</td>
-      <td style="text-align:left">kWh</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">volume flow</td>
-      <td style="text-align:left">Volume flow of heat carrier fluid (water).</td>
-      <td style="text-align:left">l/s</td>
-    </tr>
-  </tbody>
-</table>
-{% endtab %}
-
-{% tab title="Attributes" %}
-No attributes defined for this component data model.
-{% endtab %}
-
-{% tab title="Available Functions" %}
-## [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
-
-Checks for appropriate cycle behavior and provides recommendation on how to improve.
-
-## [Schedule Analysis](analytics.md#schedule-analysis)
-
-Checks if plant is operated according to a provided schedule.
+### [ Virtual Heat Meter Analysis](analytics.md#virtual-heat-meter)
 {% endtab %}
 {% endtabs %}
 
 ## Combined Heat and Power
 
-The **Combined Heat and Power** component data model represents various kinds of combined heat and power generation. It does not differ in the method of energy conversion.
+The **Combined Heat and Power** component data model represents various kinds of combined heat and power generation.
 
 {% tabs %}
 {% tab title="Component Identifier" %}
-### **combined\_heat\_and\_power**
+### **combined heat and power**
 {% endtab %}
 
 {% tab title="Pins" %}
@@ -476,50 +280,10 @@ Mind the units.
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left">exhaust co</td>
-      <td style="text-align:left">Carbon monoxide concentration in exhaust gas.</td>
-      <td style="text-align:left">ppm</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">exhaust nox</td>
-      <td style="text-align:left">Nitrogen oxide concentration in exhaust gas.</td>
-      <td style="text-align:left">ppm</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">exhaust o2</td>
-      <td style="text-align:left">Oxygen concentration in exhaust gas.</td>
-      <td style="text-align:left">%</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">exhaust temperature</td>
-      <td style="text-align:left">Temperature of exhaust gas.</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">heat flow</td>
-      <td style="text-align:left">Thermal power transferred to heat carrier fluid (water).</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">heat meter</td>
-      <td style="text-align:left">Thermal energy transferred to heat carrier fluid (water). Cumulating counter.</td>
-      <td
-      style="text-align:left">kWh</td>
-    </tr>
-    <tr>
       <td style="text-align:left">inlet temperature</td>
       <td style="text-align:left">Temperature of heat carrier fluid (water) entering the component. Also
         referred to as <b>return temperature</b>.</td>
       <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">malfunction message</td>
-      <td style="text-align:left">
-        <p>Informs about technical availability of component.</p>
-        <p>1 = malfunction</p>
-        <p>0 = no malfunction</p>
-      </td>
-      <td style="text-align:left">binary</td>
     </tr>
     <tr>
       <td style="text-align:left">operating message</td>
@@ -537,46 +301,114 @@ Mind the units.
       <td style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
-      <td style="text-align:left">power consumption</td>
-      <td style="text-align:left">Fuel power consumed by component.</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">power consumption meter</td>
-      <td style="text-align:left">Fuel energy consumed. Cumulating counter.</td>
-      <td style="text-align:left">kWh</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">power generation</td>
-      <td style="text-align:left">Net electrical power generation by component.</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">power generation meter</td>
-      <td style="text-align:left">Net electricity production. Cumulating counter.</td>
-      <td style="text-align:left">kWh</td>
-    </tr>
-    <tr>
       <td style="text-align:left">volume flow</td>
       <td style="text-align:left">Volume flow of heat carrier fluid (water).</td>
-      <td style="text-align:left">l/s</td>
+      <td style="text-align:left">
+        <p>default: l/s</p>
+        <p>use component attribute to adjust</p>
+      </td>
     </tr>
   </tbody>
 </table>
 {% endtab %}
 
 {% tab title="Attributes" %}
-No attributes defined for this component data model.
+## Custom Day Schedules
+
+Overwrites basic schedule for specific days with an individual schedule. The json is flexibly expandable for any number of days
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| custom\_day\_schedules | json | { "2020-02-28":{"start":"09:00", "end":"18:00"}, "2020-02-29":{"start":"09:00", "end":"18:00"} } |
+
+## Custom Holiday
+
+Overwrites basic schedule for specific days. On a holiday plant operation is considered as unintentional. Add holidays to this parameter
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| custom\_holiday | json | \["2020-01-02", "2020-01-28", "2020-04-07"\] |
+
+## Preconditioning
+
+If the basic schedule is inherited from building usage times or opening hours, add a preconditioning attribute and thus a preconditioning period to the start time of the basic schedule. The operation of a particular plant before the start time is therefore evaluated as intended in the scope of the preconditioning time
+
+| Key | Type | Example Value | Unit |
+| :--- | :--- | :--- | :--- |
+| preconditioning | float \(int is tolerated\) | 30.0 | min |
+
+## Regional Key
+
+  
+The regional key is used to automatically load regional holidays and overwrite the basic schedule with holidays accordingly. On a holiday plant operation is considered as unintentional. Utilize regional keys according ISO 3166-2
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| regional\_key | string | DE-NW |
+
+## Schedule
+
+Weekly repeated basic schedule the plant is intended to execute. Workday individual schedule. If a workday has none intentional operating times, do not add it to the schedule json
+
+| `Key` | Type | Example Value |
+| :--- | :--- | :--- |
+| schedule | json | {"Mon":{"start":"10:00", "end":"20:00"},"Tue":{"start":"10:00", "end":"20:00"},"Wed":{"start":"10:00", "end":"20:00"}, "Thu":{"start":"10:00", "end":"20:00"},"Fri":{"start":"10:00", "end":"20:00"},"Sat":{"start":"10:00", "end":"20:00"},"Sun":{"start":"10:00","end":"20:00"}} |
+
+## Schedule Timezone
+
+Timezone of the schedule provided in IANA timezone codes. Default: UTC
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| schedule\_timezone | string | Europe/Berlin |
+
+## Shutdown Flexibility
+
+If the basic schedule is inherited from building usage times or opening hours, add a shutdown flexibility attribute and thus a shutdown flexibility period to the end time of the basic schedule. A shutdown of a plant prior to the end of the usage times of the building allows to consume the buffers of conditioned rooms within the limits of comfort or thermal energy of heat storages. The operation of a particular plant before the schedule end time is therefore evaluated as unintended in the scope of the shutdown flexibility
+
+| Key | Type | Example Value | Unit |
+| :--- | :--- | :--- | :--- |
+| shutdown\_flexibility | float \(int is tolerated\) | 30.0 | min |
+
+## Volume flow unit
+
+This attribute allows to adapt the unit of the volume flow pin.
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Key</th>
+      <th style="text-align:left">Type</th>
+      <th style="text-align:left">Available Values</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">volume_flow_unit</td>
+      <td style="text-align:left">string</td>
+      <td style="text-align:left">
+        <p>litersPerSecond
+          <br />litersPerMinute</p>
+        <p>litersPerHour
+          <br />cubicMetersPerSecond</p>
+        <p>cubicMetersPerMinute</p>
+        <p>cubicMetersPerHour</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 {% endtab %}
 
 {% tab title="Available Functions" %}
-## [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
+### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
-Checks for appropriate cycle behavior and provides recommendation on how to improve.
+### [Setpoint Deviation Analysis](analytics.md#setpoint-deviation-analysis)
 
-## [Schedule Analysis](analytics.md#schedule-analysis)
+### [Schedule Analysis](analytics.md#schedule-analysis)
 
-Checks if plant is operated according to a provided schedule.
+### [Temperature Spread Analysis](analytics.md#temperature-spread-analysis)
+
+### [ Virtual Heat Meter Analysis](analytics.md#virtual-heat-meter)
 {% endtab %}
 {% endtabs %}
 
@@ -604,64 +436,81 @@ Mind the units.
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left">differential pressure</td>
-      <td style="text-align:left">Pressure increase by fan. static pressure difference.</td>
-      <td style="text-align:left">Pa</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">inverter speed</td>
-      <td style="text-align:left">Represents fan speed and ventilation partial load.</td>
-      <td style="text-align:left">%</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">malfunction message</td>
-      <td style="text-align:left">
-        <p>Informs about technical availability of component.</p>
-        <p>1 = malfunction</p>
-        <p>0 = no malfunction</p>
-      </td>
-      <td style="text-align:left">binary</td>
-    </tr>
-    <tr>
       <td style="text-align:left">operating message</td>
       <td style="text-align:left">
-        <p>Informs about operational state of component.</p>
+        <p>Informs about operational state of component</p>
         <p>1 = operating</p>
         <p>0 = switched-off</p>
       </td>
       <td style="text-align:left">binary</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">power consumption</td>
-      <td style="text-align:left">Electrical power consumed by component.</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">power consumption meter</td>
-      <td style="text-align:left">Electrical energy consumed. Cumulating counter.</td>
-      <td style="text-align:left">kWh</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">volume flow</td>
-      <td style="text-align:left">Air flow rate.</td>
-      <td style="text-align:left">m&#xB3;/h</td>
     </tr>
   </tbody>
 </table>
 {% endtab %}
 
 {% tab title="Attributes" %}
-No attributes defined for this component data model.
+## Custom Day Schedules
+
+Overwrites basic schedule for specific days with an individual schedule. The json is flexibly expandable for any number of days
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| custom\_day\_schedules | json | { "2020-02-28":{"start":"09:00", "end":"18:00"}, "2020-02-29":{"start":"09:00", "end":"18:00"} } |
+
+## Custom Holiday
+
+Overwrites basic schedule for specific days. On a holiday plant operation is considered as unintentional. Add holidays to this parameter
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| custom\_holiday | json | \["2020-01-02", "2020-01-28", "2020-04-07"\] |
+
+## Preconditioning
+
+If the basic schedule is inherited from building usage times or opening hours, add a preconditioning attribute and thus a preconditioning period to the start time of the basic schedule. The operation of a particular plant before the start time is therefore evaluated as intended in the scope of the preconditioning time
+
+| Key | Type | Example Value | Unit |
+| :--- | :--- | :--- | :--- |
+| preconditioning | float \(int is tolerated\) | 30.0 | min |
+
+## Regional Key
+
+  
+The regional key is used to automatically load regional holidays and overwrite the basic schedule with holidays accordingly. On a holiday plant operation is considered as unintentional. Utilize regional keys according ISO 3166-2
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| regional\_key | string | DE-NW |
+
+## Schedule
+
+Weekly repeated basic schedule the plant is intended to execute. Workday individual schedule. If a workday has none intentional operating times, do not add it to the schedule json
+
+| `Key` | Type | Example Value |
+| :--- | :--- | :--- |
+| schedule | json | {"Mon":{"start":"10:00", "end":"20:00"},"Tue":{"start":"10:00", "end":"20:00"},"Wed":{"start":"10:00", "end":"20:00"}, "Thu":{"start":"10:00", "end":"20:00"},"Fri":{"start":"10:00", "end":"20:00"},"Sat":{"start":"10:00", "end":"20:00"},"Sun":{"start":"10:00","end":"20:00"}} |
+
+## Schedule Timezone
+
+Timezone of the schedule provided in IANA timezone codes. Default: UTC
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| schedule\_timezone | string | Europe/Berlin |
+
+## Shutdown Flexibility
+
+If the basic schedule is inherited from building usage times or opening hours, add a shutdown flexibility attribute and thus a shutdown flexibility period to the end time of the basic schedule. A shutdown of a plant prior to the end of the usage times of the building allows to consume the buffers of conditioned rooms within the limits of comfort or thermal energy of heat storages. The operation of a particular plant before the schedule end time is therefore evaluated as unintended in the scope of the shutdown flexibility
+
+| Key | Type | Example Value | Unit |
+| :--- | :--- | :--- | :--- |
+| shutdown\_flexibility | float \(int is tolerated\) | 30.0 | min |
 {% endtab %}
 
 {% tab title="Available Functions" %}
-## [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
+### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
-Checks for appropriate cycle behavior and provides recommendation on how to improve.
-
-## [Schedule Analysis](analytics.md#schedule-analysis)
-
-Checks if plant is operated according to a provided schedule.
+### [Schedule Analysis](analytics.md#schedule-analysis)
 {% endtab %}
 {% endtabs %}
 
@@ -671,43 +520,7 @@ The **Heat Meter** component data model represents a heat meter. It can be physi
 
 {% tabs %}
 {% tab title="Component Identifier" %}
-### heat\_meter
-{% endtab %}
-
-{% tab title="Pins" %}
-{% hint style="danger" %}
-Mind the units.
-{% endhint %}
-
-| Name | Info | Unit |
-| :--- | :--- | :--- |
-| heat flow |  | kW |
-| heat meter | Thermal energy transferred to heat carrier fluid \(water\). Cumulating counter. | kWh |
-| inlet temperature | Temperature of heat carrier fluid \(water\) entering the heat meter. | °C |
-| outlet temperature | Temperature of heat carrier fluid \(water\) exiting the heat meter. | °C |
-| volume flow | Volume flow of heat carrier fluid \(water\). | l/s |
-{% endtab %}
-
-{% tab title="Attributes" %}
-{% hint style="danger" %}
-Mind the units.
-{% endhint %}
-
-No attributes defined for this component data model.
-{% endtab %}
-
-{% tab title="Available Functions" %}
-under construction
-{% endtab %}
-{% endtabs %}
-
-## Heat Pump
-
-The **Heat Pump** component data model is representative for components which are able to raise the temperature level between two heat carrier loops \(water/water\) via thermal compression.
-
-{% tabs %}
-{% tab title="Component Identifier" %}
-### **heat\_pump**
+### heat meter
 {% endtab %}
 
 {% tab title="Pins" %}
@@ -725,109 +538,245 @@ Mind the units.
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left">condenser heat flow</td>
-      <td style="text-align:left">Thermal power transferred to heat carrier fluid (water). Condenser side.</td>
+      <td style="text-align:left">inlet temperature</td>
+      <td style="text-align:left">Temperature of heat carrier fluid (water) entering the heat meter</td>
       <td
-      style="text-align:left">kW</td>
+      style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
-      <td style="text-align:left">condenser heat meter</td>
-      <td style="text-align:left">Thermal energy transferred to heat carrier fluid (water). Cumulating counter.
-        Condenser side.</td>
-      <td style="text-align:left">kWh</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">condenser inlet temperature</td>
-      <td style="text-align:left">Temperature of heat carrier fluid (water) entering the component. Also
-        referred to as <b>return temperature</b>. Condenser side.</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">condenser outlet temperature</td>
-      <td style="text-align:left">Temperature of heat carrier fluid (water) exiting the component. Also
-        referred to as <b>supply temperature</b>. Condenser side.</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">condenser volume flow</td>
-      <td style="text-align:left">Volume flow of heat carrier fluid (water). Condenser side.</td>
-      <td style="text-align:left">l/s</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">evaporator heat flow</td>
-      <td style="text-align:left">Thermal power transferred to heat carrier fluid (water). Condenser side.</td>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">Temperature of heat carrier fluid (water) exiting the heat meter</td>
       <td
-      style="text-align:left">kW</td>
+      style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
-      <td style="text-align:left">evaporator heat meter</td>
-      <td style="text-align:left">Thermal energy transferred to heat carrier fluid (water). Cumulating counter.
-        Condenser side.</td>
-      <td style="text-align:left">kWh</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">evaporator inlet temperature</td>
-      <td style="text-align:left">Temperature of heat carrier fluid (water) entering the component. Also
-        referred to as <b>return temperature</b>. Condenser side.</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">evaporator outlet temperature</td>
-      <td style="text-align:left">Temperature of heat carrier fluid (water) exiting the component. Also
-        referred to as <b>supply temperature</b>. Condenser side.</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">evaporator volume flow</td>
-      <td style="text-align:left">Volume flow of heat carrier fluid (water). Condenser side.</td>
-      <td style="text-align:left">l/s</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">malfunction message</td>
+      <td style="text-align:left">volume flow</td>
+      <td style="text-align:left">Volume flow of heat carrier fluid (water)</td>
       <td style="text-align:left">
-        <p>Informs about technical availability of component.</p>
-        <p>1 = malfunction</p>
-        <p>0 = no malfunction</p>
+        <p>default: l/s</p>
+        <p>use component attribute to adjust</p>
       </td>
-      <td style="text-align:left">binary</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">
-        <p>Informs about operational state of component.</p>
-        <p>1 = operating</p>
-        <p>0 = switched-off</p>
-      </td>
-      <td style="text-align:left">binary</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">power consumption</td>
-      <td style="text-align:left">Electrical power consumed by component.</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">power consumption meter</td>
-      <td style="text-align:left">Electrical energy consumed. Cumulating counter.</td>
-      <td style="text-align:left">kWh</td>
     </tr>
   </tbody>
 </table>
 {% endtab %}
 
 {% tab title="Attributes" %}
-No attributes defined for this component data model.
+## Volume flow unit
+
+This attribute allows to adapt the unit of the volume flow pin.
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Key</th>
+      <th style="text-align:left">Type</th>
+      <th style="text-align:left">Available Values</th>
+      <th style="text-align:left">Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">volume_flow_unit</td>
+      <td style="text-align:left">string</td>
+      <td style="text-align:left">
+        <p>litersPerSecond
+          <br />litersPerMinute</p>
+        <p>litersPerHour
+          <br />cubicMetersPerSecond</p>
+        <p>cubicMetersPerMinute</p>
+        <p>cubicMetersPerHour</p>
+      </td>
+      <td style="text-align:left">None</td>
+    </tr>
+  </tbody>
+</table>
 {% endtab %}
 
 {% tab title="Available Functions" %}
-## [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
+### [ Virtual Heat Meter Analysis](analytics.md#virtual-heat-meter)
+{% endtab %}
+{% endtabs %}
 
-Checks for appropriate cycle behavior and provides recommendation on how to improve.
+## Heat Pump
 
+The **Heat Pump** component data model is representative for components which are able to raise the temperature level between two heat carrier loops \(water/water\) via thermal compression.
 
+{% tabs %}
+{% tab title="Component Identifier" %}
+### **heat pump**
+{% endtab %}
 
-## [Schedule Analysis](analytics.md#schedule-analysis)
+{% tab title="Pins" %}
+{% hint style="danger" %}
+Mind the units.
+{% endhint %}
 
-Checks if plant is operated according to a provided schedule.
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Name</th>
+      <th style="text-align:left">Info</th>
+      <th style="text-align:left">Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">condenser inlet temperature</td>
+      <td style="text-align:left">Temperature of heat carrier fluid (water) entering the component. Also
+        referred to as <b>return temperature</b>. Condenser side</td>
+      <td style="text-align:left">&#xB0;C</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">condenser outlet temperature</td>
+      <td style="text-align:left">Temperature of heat carrier fluid (water) exiting the component. Also
+        referred to as <b>supply temperature</b>. Condenser side</td>
+      <td style="text-align:left">&#xB0;C</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">condenser volume flow</td>
+      <td style="text-align:left">Volume flow of heat carrier fluid (water). Condenser side.</td>
+      <td style="text-align:left">
+        <p>default: l/s</p>
+        <p>use component attribute to adjust</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator inlet temperature</td>
+      <td style="text-align:left">Temperature of heat carrier fluid (water) entering the component. Also
+        referred to as <b>return temperature</b>. Evaporator side</td>
+      <td style="text-align:left">&#xB0;C</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator outlet temperature</td>
+      <td style="text-align:left">Temperature of heat carrier fluid (water) exiting the component. Also
+        referred to as <b>supply temperature</b>. Evaporator side</td>
+      <td style="text-align:left">&#xB0;C</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator volume flow</td>
+      <td style="text-align:left">Volume flow of heat carrier fluid (water). Evaporator side</td>
+      <td style="text-align:left">
+        <p>default: l/s</p>
+        <p>use component attribute to adjust</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">
+        <p>Informs about operational state of component</p>
+        <p>1 = operating</p>
+        <p>0 = switched-off</p>
+      </td>
+      <td style="text-align:left">binary</td>
+    </tr>
+  </tbody>
+</table>
+{% endtab %}
+
+{% tab title="Attributes" %}
+## Custom Day Schedules
+
+Overwrites basic schedule for specific days with an individual schedule. The json is flexibly expandable for any number of days
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| custom\_day\_schedules | json | { "2020-02-28":{"start":"09:00", "end":"18:00"}, "2020-02-29":{"start":"09:00", "end":"18:00"} } |
+
+## Custom Holiday
+
+Overwrites basic schedule for specific days. On a holiday plant operation is considered as unintentional. Add holidays to this parameter
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| custom\_holiday | json | \["2020-01-02", "2020-01-28", "2020-04-07"\] |
+
+## Preconditioning
+
+If the basic schedule is inherited from building usage times or opening hours, add a preconditioning attribute and thus a preconditioning period to the start time of the basic schedule. The operation of a particular plant before the start time is therefore evaluated as intended in the scope of the preconditioning time
+
+| Key | Type | Example Value | Unit |
+| :--- | :--- | :--- | :--- |
+| preconditioning | float \(int is tolerated\) | 30.0 | min |
+
+## Regional Key
+
+  
+The regional key is used to automatically load regional holidays and overwrite the basic schedule with holidays accordingly. On a holiday plant operation is considered as unintentional. Utilize regional keys according ISO 3166-2
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| regional\_key | string | DE-NW |
+
+## Schedule
+
+Weekly repeated basic schedule the plant is intended to execute. Workday individual schedule. If a workday has none intentional operating times, do not add it to the schedule json
+
+| `Key` | Type | Example Value |
+| :--- | :--- | :--- |
+| schedule | json | {"Mon":{"start":"10:00", "end":"20:00"},"Tue":{"start":"10:00", "end":"20:00"},"Wed":{"start":"10:00", "end":"20:00"}, "Thu":{"start":"10:00", "end":"20:00"},"Fri":{"start":"10:00", "end":"20:00"},"Sat":{"start":"10:00", "end":"20:00"},"Sun":{"start":"10:00","end":"20:00"}} |
+
+## Schedule Timezone
+
+Timezone of the schedule provided in IANA timezone codes. Default: UTC
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| schedule\_timezone | string | Europe/Berlin |
+
+## Shutdown Flexibility
+
+If the basic schedule is inherited from building usage times or opening hours, add a shutdown flexibility attribute and thus a shutdown flexibility period to the end time of the basic schedule. A shutdown of a plant prior to the end of the usage times of the building allows to consume the buffers of conditioned rooms within the limits of comfort or thermal energy of heat storages. The operation of a particular plant before the schedule end time is therefore evaluated as unintended in the scope of the shutdown flexibility
+
+| Key | Type | Example Value | Unit |
+| :--- | :--- | :--- | :--- |
+| shutdown\_flexibility | float \(int is tolerated\) | 30.0 | min |
+
+## Volume flow unit
+
+This attribute allows to adapt the unit of the volume flow pin.
+
+{% hint style="info" %}
+The attribute adjusts the volume flow pin unit on the condenser as well as the evaporator side of the heat pump.
+{% endhint %}
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Key</th>
+      <th style="text-align:left">Type</th>
+      <th style="text-align:left">Available Values</th>
+      <th style="text-align:left">Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">volume_flow_unit</td>
+      <td style="text-align:left">string</td>
+      <td style="text-align:left">
+        <p>litersPerSecond
+          <br />litersPerMinute</p>
+        <p>litersPerHour
+          <br />cubicMetersPerSecond</p>
+        <p>cubicMetersPerMinute</p>
+        <p>cubicMetersPerHour</p>
+      </td>
+      <td style="text-align:left">None</td>
+    </tr>
+  </tbody>
+</table>
+{% endtab %}
+
+{% tab title="Available Functions" %}
+### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
+
+### [Setpoint Deviation Analysis](analytics.md#setpoint-deviation-analysis)
+
+### [Schedule Analysis](analytics.md#schedule-analysis)
+
+### [Temperature Spread Analysis](analytics.md#temperature-spread-analysis)
+
+### [ Virtual Heat Meter Analysis](analytics.md#virtual-heat-meter)
 {% endtab %}
 {% endtabs %}
 
@@ -856,46 +805,22 @@ Mind the units.
   <tbody>
     <tr>
       <td style="text-align:left">co2</td>
-      <td style="text-align:left">CO2 concentration in the room air.</td>
+      <td style="text-align:left">CO2 concentration in the room air</td>
       <td style="text-align:left">ppm</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">co2 setpoint</td>
-      <td style="text-align:left">Setpoint of the CO2 concentration in the room air.</td>
-      <td style="text-align:left">ppm</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">dew point alarm</td>
-      <td style="text-align:left">
-        <p>Alarm in case room conditions reach dew risk.</p>
-        <p>0 = no alarm</p>
-        <p>1 = alarm</p>
-      </td>
-      <td style="text-align:left">binary</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">humidity</td>
-      <td style="text-align:left">Relative humidity of the room air.</td>
-      <td style="text-align:left">%</td>
     </tr>
     <tr>
       <td style="text-align:left">operating message</td>
       <td style="text-align:left">
-        <p>Operating message of room control.</p>
+        <p>Operating message of room control</p>
         <p>1 = operating</p>
         <p>0 = switched-off</p>
       </td>
       <td style="text-align:left">binary</td>
     </tr>
     <tr>
-      <td style="text-align:left">outside air temperature</td>
-      <td style="text-align:left">Temperature of outside air.</td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
       <td style="text-align:left">presence</td>
       <td style="text-align:left">
-        <p>Presence of one or more persons inside the room.</p>
+        <p>Presence of one or more persons inside the room</p>
         <p>1 = presence</p>
         <p>0 = no presence</p>
       </td>
@@ -903,50 +828,93 @@ Mind the units.
     </tr>
     <tr>
       <td style="text-align:left">temperature</td>
-      <td style="text-align:left">Inside air temperature in the room.</td>
+      <td style="text-align:left">Inside air temperature in the room</td>
       <td style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
       <td style="text-align:left">temperature setpoint</td>
-      <td style="text-align:left">Setpoint of the inside air temperature in the room.</td>
+      <td style="text-align:left">Setpoint of the inside air temperature in the room</td>
       <td style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">voc</td>
-      <td style="text-align:left">Volatile organic compound concentration in the room air.</td>
-      <td style="text-align:left">ppm</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">window opening</td>
-      <td style="text-align:left">
-        <p>Status if window is opened or not.</p>
-        <p>1 = window open</p>
-        <p>0 = window closed</p>
-      </td>
-      <td style="text-align:left">binary</td>
     </tr>
   </tbody>
 </table>
 {% endtab %}
 
 {% tab title="Attributes" %}
-{% hint style="danger" %}
-Mind the units.No attributes defined for this component data model.
-{% endhint %}
+## Custom Day Schedules
+
+Overwrites basic schedule for specific days with an individual schedule. The json is flexibly expandable for any number of days
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| custom\_day\_schedules | json | { "2020-02-28":{"start":"09:00", "end":"18:00"}, "2020-02-29":{"start":"09:00", "end":"18:00"} } |
+
+## Custom Holiday
+
+Overwrites basic schedule for specific days. On a holiday plant operation is considered as unintentional. Add holidays to this parameter
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| custom\_holiday | json | \["2020-01-02", "2020-01-28", "2020-04-07"\] |
+
+## Preconditioning
+
+If the basic schedule is inherited from building usage times or opening hours, add a preconditioning attribute and thus a preconditioning period to the start time of the basic schedule. The operation of a particular plant before the start time is therefore evaluated as intended in the scope of the preconditioning time
+
+| Key | Type | Example Value | Unit |
+| :--- | :--- | :--- | :--- |
+| preconditioning | float \(int is tolerated\) | 30.0 | min |
+
+## Regional Key
+
+  
+The regional key is used to automatically load regional holidays and overwrite the basic schedule with holidays accordingly. On a holiday plant operation is considered as unintentional. Utilize regional keys according ISO 3166-2
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| regional\_key | string | DE-NW |
+
+## Schedule
+
+Weekly repeated basic schedule the plant is intended to execute. Workday individual schedule. If a workday has none intentional operating times, do not add it to the schedule json
+
+| `Key` | Type | Example Value |
+| :--- | :--- | :--- |
+| schedule | json | {"Mon":{"start":"10:00", "end":"20:00"},"Tue":{"start":"10:00", "end":"20:00"},"Wed":{"start":"10:00", "end":"20:00"}, "Thu":{"start":"10:00", "end":"20:00"},"Fri":{"start":"10:00", "end":"20:00"},"Sat":{"start":"10:00", "end":"20:00"},"Sun":{"start":"10:00","end":"20:00"}} |
+
+## Schedule Timezone
+
+Timezone of the schedule provided in IANA timezone codes. Default: UTC
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| schedule\_timezone | string | Europe/Berlin |
+
+## Shutdown Flexibility
+
+If the basic schedule is inherited from building usage times or opening hours, add a shutdown flexibility attribute and thus a shutdown flexibility period to the end time of the basic schedule. A shutdown of a plant prior to the end of the usage times of the building allows to consume the buffers of conditioned rooms within the limits of comfort or thermal energy of heat storages. The operation of a particular plant before the schedule end time is therefore evaluated as unintended in the scope of the shutdown flexibility
+
+| Key | Type | Example Value | Unit |
+| :--- | :--- | :--- | :--- |
+| shutdown\_flexibility | float \(int is tolerated\) | 30.0 | min |
 {% endtab %}
 
 {% tab title="Available Functions" %}
-under construction
+### [Reduced Load Analysis](analytics.md#reduced-load-analysis)
+
+### [Room Air Quality Analysis](analytics.md#room-air-quality-analysis)
+
+### [Schedule Analysis](analytics.md#schedule-analysis)
 {% endtab %}
 {% endtabs %}
 
 ## Thermal Control Loop
 
-The **Thermal Control Loop** component data model is representative for thermal control loops. It is not agnostic of its controller output like valve position or pump revolution speed.
+The **Thermal Control Loop** component data model is representative for thermal control loops. It can be utilized to model thermal control loops of the conversion, distribution, and acceptance layer.
 
 {% tabs %}
 {% tab title="Component Identifier" %}
-### thermal\_control\_loop
+### thermal control loop
 {% endtab %}
 
 {% tab title="Description" %}
@@ -968,27 +936,16 @@ Mind the units.
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left">heat flow</td>
-      <td style="text-align:left">Thermal power transferred to consumer circuit.</td>
-      <td style="text-align:left">kW</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">heat meter</td>
-      <td style="text-align:left">Thermal energy transferred to consumer circuit. Cumulating counter.</td>
-      <td
-      style="text-align:left">kWh</td>
-    </tr>
-    <tr>
       <td style="text-align:left">inlet temperature</td>
       <td style="text-align:left">Temperature of heat carrier fluid (water, brine) entering the control
         loop. Also referred to as <b>uncontrolled supply temperature</b> of the control
-        loop.</td>
+        loop</td>
       <td style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
       <td style="text-align:left">operating message</td>
       <td style="text-align:left">
-        <p>Informs about operational state of component.</p>
+        <p>Informs about operational state of component</p>
         <p>1 = operating</p>
         <p>0 = switched-off</p>
       </td>
@@ -997,47 +954,37 @@ Mind the units.
     <tr>
       <td style="text-align:left">outlet temperature</td>
       <td style="text-align:left">Temperature of heat carrier fluid (water, brine) exiting the control loop.
-        Also referred to as <b>controlled supply temperature</b>, or <b>consumer supply temperature</b>.</td>
-      <td
-      style="text-align:left">&#xB0;C</td>
+        Also referred to as <b>controlled supply temperature</b>, or <b>consumer supply temperature</b>
+      </td>
+      <td style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
       <td style="text-align:left">outlet temperature setpoint</td>
       <td style="text-align:left">Setpoint temperature of heat carrier fluid (water, brine) exiting the
-        control loop. Also referred to as <b>setpoint of supply temperature</b>.</td>
-      <td
-      style="text-align:left">&#xB0;C</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outside air temperature</td>
-      <td style="text-align:left">Temperature of outside air.</td>
+        control loop. Also referred to as <b>setpoint of supply temperature</b>
+      </td>
       <td style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
       <td style="text-align:left">pump operating message</td>
       <td style="text-align:left">
-        <p>Operating message of pump within the control loop.</p>
+        <p>Operating message of pump within the control loop</p>
         <p>1 = operating</p>
         <p>0 = switched-off</p>
       </td>
       <td style="text-align:left">binary</td>
     </tr>
     <tr>
-      <td style="text-align:left">pump revolution speed</td>
-      <td style="text-align:left">Revolution speed of pump within the control loop.</td>
-      <td style="text-align:left">rpm</td>
-    </tr>
-    <tr>
       <td style="text-align:left">return temperature</td>
       <td style="text-align:left">Temperature of heat carrier fluid (water, brine) returning from consumer
-        circuit. Also referred to as <b>consumer return temperature</b>.</td>
-      <td
-      style="text-align:left">&#xB0;C</td>
+        circuit. Also referred to as <b>consumer return temperature</b>
+      </td>
+      <td style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
       <td style="text-align:left">valve position</td>
       <td style="text-align:left">
-        <p>Degree of valve opening.</p>
+        <p>Degree of valve opening</p>
         <p>0 = fully closed</p>
         <p>100 = fully opened</p>
       </td>
@@ -1046,112 +993,89 @@ Mind the units.
     <tr>
       <td style="text-align:left">valve position setpoint</td>
       <td style="text-align:left">
-        <p>Setpoint for degree of valve opening.</p>
+        <p>Setpoint for degree of valve opening</p>
         <p>0 = fully closed</p>
         <p>100 = fully opened</p>
       </td>
       <td style="text-align:left">%</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">volume flow</td>
-      <td style="text-align:left">Volume flow of heat carrier fluid (water, brine).</td>
-      <td style="text-align:left">l/s</td>
     </tr>
   </tbody>
 </table>
 {% endtab %}
 
 {% tab title="Attributes" %}
-{% hint style="danger" %}
-Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../glossary.md#instanced-component).
-{% endhint %}
+## Custom Day Schedules
 
-{% hint style="danger" %}
-Mind the units.
-{% endhint %}
+Overwrites basic schedule for specific days with an individual schedule. The json is flexibly expandable for any number of days
 
-## Reference curve
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| custom\_day\_schedules | json | { "2020-02-28":{"start":"09:00", "end":"18:00"}, "2020-02-29":{"start":"09:00", "end":"18:00"} } |
 
-In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: The **Reference curve** represents the dependency of outlet temperature setpoint on outside air temperature. It can be used for cooling as well as heating. In case the _Thermal Control Loop_ is used for heating, the reference curve is also referred to as **heat curve**.
+## Custom Holiday
 
-![Definition Reference Curve](../.gitbook/assets/thermal_control_loop_reference_curve.png)
+Overwrites basic schedule for specific days. On a holiday plant operation is considered as unintentional. Add holidays to this parameter
 
-The _Reference curve_ is created from two points. It is a linear curve. Copy-past the example json and fill in the numbers to specify the _Reference curve_ for the instanced _Thermal Control Loop._
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| custom\_holiday | json | \["2020-01-02", "2020-01-28", "2020-04-07"\] |
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Key</th>
-      <th style="text-align:left">Type</th>
-      <th style="text-align:left">Default Value</th>
-      <th style="text-align:left">Unit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">reference_curve</td>
-      <td style="text-align:left">json</td>
-      <td style="text-align:left">
-        <p>{</p>
-        <p>&quot;p1_outside_air_temperature&quot;: &quot;-12.0&quot;, &quot;p1_outlet_temperature_setpoint&quot;:
-          &quot;70.0&quot;, &quot;p2_outside_air_temperature&quot;: &quot;18&quot;,
-          &quot;p2_outlet_temperature_setpoint&quot;: &quot;35&quot;</p>
-        <p>}</p>
-      </td>
-      <td style="text-align:left">&#xB0;C</td>
-    </tr>
-  </tbody>
-</table>{% hint style="warning" %}
-The json values are float formatted strings.
-{% endhint %}
+## Preconditioning
 
-## Cooling activation limit
+If the basic schedule is inherited from building usage times or opening hours, add a preconditioning attribute and thus a preconditioning period to the start time of the basic schedule. The operation of a particular plant before the start time is therefore evaluated as intended in the scope of the preconditioning time
 
-In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: Cooling is activated for outside air temperature above the threshold mapped to the attribute **Cooling activation limit**. Mapping this attribute implicitly defines the component as _Cooling Loop._ Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../glossary.md#instanced-component).
-
-| Key | Type | Default Value | Unit |
+| Key | Type | Example Value | Unit |
 | :--- | :--- | :--- | :--- |
-| cooling\_activation\_limit | float or integer | 26.0 | °C |
+| preconditioning | float \(int is tolerated\) | 30.0 | min |
 
-## Heating activation limit
+## Regional Key
 
-In case the _Thermal Control Loop_ is controlled in respect to the outside air temperature: Heating is activated for outside air temperature below this threshold. Mapping this attribute implicitly defines the component as _Heating Loop._ Do not map the attribute **Cooling activation limit** and **Heating activation limit** for the same [instanced component](../glossary.md#instanced-component).
+  
+The regional key is used to automatically load regional holidays and overwrite the basic schedule with holidays accordingly. On a holiday plant operation is considered as unintentional. Utilize regional keys according ISO 3166-2
 
-![Definition Heating activation limit](../.gitbook/assets/thermal_control_loop_heating_act_lim.png)
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| regional\_key | string | DE-NW |
 
-| Key | Type | Default Value | Unit |
+## Schedule
+
+Weekly repeated basic schedule the plant is intended to execute. Workday individual schedule. If a workday has none intentional operating times, do not add it to the schedule json
+
+| `Key` | Type | Example Value |
+| :--- | :--- | :--- |
+| schedule | json | {"Mon":{"start":"10:00", "end":"20:00"},"Tue":{"start":"10:00", "end":"20:00"},"Wed":{"start":"10:00", "end":"20:00"}, "Thu":{"start":"10:00", "end":"20:00"},"Fri":{"start":"10:00", "end":"20:00"},"Sat":{"start":"10:00", "end":"20:00"},"Sun":{"start":"10:00","end":"20:00"}} |
+
+## Schedule Timezone
+
+Timezone of the schedule provided in IANA timezone codes. Default: UTC
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| schedule\_timezone | string | Europe/Berlin |
+
+## Shutdown Flexibility
+
+If the basic schedule is inherited from building usage times or opening hours, add a shutdown flexibility attribute and thus a shutdown flexibility period to the end time of the basic schedule. A shutdown of a plant prior to the end of the usage times of the building allows to consume the buffers of conditioned rooms within the limits of comfort or thermal energy of heat storages. The operation of a particular plant before the schedule end time is therefore evaluated as unintended in the scope of the shutdown flexibility
+
+| Key | Type | Example Value | Unit |
 | :--- | :--- | :--- | :--- |
-| heating\_activation\_limit | float or integer | 18.0 | °C |
-
-### Upper/Lower deviation tolerance
-
-![Definition Upper/Lower deviation tolerance](../.gitbook/assets/thermal_control_loop_deviation_lim.png)
-
-## Upper deviation tolerance
-
-The **Upper deviation tolerance** is an **optional** parameter to override the default values for tolerable overshoots of the actual outlet temperature above its setpoint. The default value is 2.0 °C.
-
-| Key | Type | Default Value | Unit |
-| :--- | :--- | :--- | :--- |
-| upper\_deviation\_tolerance | float or integer | 5.0 | °C |
-
-## Lower deviation tolerance
-
-The **Lower deviation tolerance** is an **optional** parameter to override the default values for tolerable undercuts of the actual outlet temperature below its setpoint. The default value is 2.0 °C.
-
-| Key | Type | Default Value | Unit |
-| :--- | :--- | :--- | :--- |
-| lower\_deviation\_tolerance | float or integer | 5.0 | °C |
+| shutdown\_flexibility | float \(int is tolerated\) | 30.0 | min |
 {% endtab %}
 
 {% tab title="Available Functions" %}
-## [Heating Curve Analysis](analytics.md#heating-curve-analysis)
+### [Control Loop Oscillation Analysis](analytics.md#control-loop-oscillation-analysis)
 
-Checks for quality of heat curve control and provides recommendation on how to improve.
+### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
-## [Schedule Analysis](analytics.md#schedule-analysis)
+### [Reduced Load Analysis](analytics.md#reduced-load-analysis)
 
-Checks if control loop is operated according to a provided schedule.
+### [Setpoint Deviation Analysis](analytics.md#setpoint-deviation-analysis)
+
+### [Schedule Analysis](analytics.md#schedule-analysis)
+
+### [Synchronized Operation Analysis](analytics.md#synchronized-operation-analysis)
+
+### [Temperature Spread Analysis](analytics.md#temperature-spread-analysis)
 {% endtab %}
 {% endtabs %}
 
@@ -1161,7 +1085,7 @@ The **Weather Station** component data model links weather sensors and correlati
 
 {% tabs %}
 {% tab title="Component Identifier" %}
-### **weather\_station**
+### **weather station**
 {% endtab %}
 
 {% tab title="Pins" %}
@@ -1171,25 +1095,16 @@ Mind the units.
 
 | Name | Info | Unit |
 | :--- | :--- | :--- |
-| cloud cover | Percent of sky covered by clouds. Measurement in order to e.g. differentiate between direct and indirect solar irradiation. | % |
-| co2 | CO2 concentration of outside air. | ppm |
-| dew point | Dew point temperature of outside air. | °C |
-| global solar irradiation | Current lobal solar irradiation. | W/m² |
-| humidity | Relative humidity of outside air. | % |
-| temperature | Temperature of outside air. | °C |
-| voc | Volatile organic compounds concentration of outside air. | ppm |
+| temperature | Temperature of outside air | °C |
+| reference temperature | Reference temperature from online databases which is used for outdoor air temperature sensor checkup | °C |
 {% endtab %}
 
 {% tab title="Attributes" %}
-{% hint style="danger" %}
-Mind the units.
-{% endhint %}
-
 ## Latitude
 
 Geographical latitude of weather station.
 
-| Key | Type | Default Value | Unit |
+| Key | Type | Example Value | Unit |
 | :--- | :--- | :--- | :--- |
 | latitude | float | 6.9403 | ° |
 
@@ -1197,15 +1112,13 @@ Geographical latitude of weather station.
 
 Geographical longitude of weather station.
 
-| Key | Type | Default Value | Unit |
+| Key | Type | Example Value | Unit |
 | :--- | :--- | :--- | :--- |
 | longitude | float | 50.9407 | ° |
 {% endtab %}
 
 {% tab title="Available Functions" %}
-{% hint style="info" %}
-Outside air sensor checkup is under construction.
-{% endhint %}
+### [Weather Station Analysis](analytics.md#weather-station-analysis)
 {% endtab %}
 {% endtabs %}
 
