@@ -773,57 +773,40 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
     <tr>
       <td style="text-align:left">custom_day_schedules</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Overwrites basic schedule for specific days with an individual for this
-        day</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">custom_holiday</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Overwrites basic schedule for specific days. The component is considered
-        to be disengageable during local holidays</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
-      <td style="text-align:left">
-        <p></p>
-        <p>preconditioning</p>
-      </td>
+      <td style="text-align:left">preconditioning</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>If basic schedule is inherited from building usage times and shall be
-          individualized for this component:</p>
-        <p>Adds a preconditioning period to the start time of the basic schedule,
-          perceiving operation prior to the start time as intended to the extend
-          of the preconditioning time</p>
-      </td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">regional_key</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">If regional_key is mapped, local holidays overwrite the basic schedule.
-        The component is considered to be disengageable during local holidays</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">schedule</td>
       <td style="text-align:left">yes</td>
-      <td style="text-align:left">Weekly repeated basic schedule the analysis tests against</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">schedule_timezone</td>
       <td style="text-align:left">no</td>
       <td style="text-align:left">
-        <p>Timezone of the schedule provided</p>
+        <p>Strongly recommended</p>
         <p>Default: UTC</p>
       </td>
     </tr>
     <tr>
       <td style="text-align:left">shutdown_flexibility</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>If basic schedule is inherited from building usage times and shall be
-          individualized for this component:</p>
-        <p>Pulls the end time of the basic schedule forward by the duration of the
-          shutdown flexibility</p>
-      </td>
+      <td style="text-align:left"></td>
     </tr>
   </tbody>
 </table>## [combined heat and power](component-data-models.md#combined-heat-and-power)
@@ -844,57 +827,40 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
     <tr>
       <td style="text-align:left">custom_day_schedules</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Overwrites basic schedule for specific days with an individual for this
-        day</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">custom_holiday</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Overwrites basic schedule for specific days. The component is considered
-        to be disengageable during local holidays</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
-      <td style="text-align:left">
-        <p></p>
-        <p>preconditioning</p>
-      </td>
+      <td style="text-align:left">preconditioning</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>If basic schedule is inherited from building usage times and shall be
-          individualized for this component:</p>
-        <p>Adds a preconditioning period to the start time of the basic schedule,
-          perceiving operation prior to the start time as intended to the extend
-          of the preconditioning time</p>
-      </td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">regional_key</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">If regional_key is mapped, local holidays overwrite the basic schedule.
-        The component is considered to be disengageable during local holidays</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">schedule</td>
       <td style="text-align:left">yes</td>
-      <td style="text-align:left">Weekly repeated basic schedule the analysis tests against</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">schedule_timezone</td>
       <td style="text-align:left">no</td>
       <td style="text-align:left">
-        <p>Timezone of the schedule provided</p>
+        <p>Strongly recommended</p>
         <p>Default: UTC</p>
       </td>
     </tr>
     <tr>
       <td style="text-align:left">shutdown_flexibility</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>If basic schedule is inherited from building usage times and shall be
-          individualized for this component:</p>
-        <p>Pulls the end time of the basic schedule forward by the duration of the
-          shutdown flexibility</p>
-      </td>
+      <td style="text-align:left"></td>
     </tr>
   </tbody>
 </table>## [fan](component-data-models.md#thermal-control-loop)
@@ -915,57 +881,40 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
     <tr>
       <td style="text-align:left">custom_day_schedules</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Overwrites basic schedule for specific days with an individual for this
-        day</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">custom_holiday</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Overwrites basic schedule for specific days. The component is considered
-        to be disengageable during local holidays</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
-      <td style="text-align:left">
-        <p></p>
-        <p>preconditioning</p>
-      </td>
+      <td style="text-align:left">preconditioning</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>If basic schedule is inherited from building usage times and shall be
-          individualized for this component:</p>
-        <p>Adds a preconditioning period to the start time of the basic schedule,
-          perceiving operation prior to the start time as intended to the extend
-          of the preconditioning time</p>
-      </td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">regional_key</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">If regional_key is mapped, local holidays overwrite the basic schedule.
-        The component is considered to be disengageable during local holidays</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">schedule</td>
       <td style="text-align:left">yes</td>
-      <td style="text-align:left">Weekly repeated basic schedule the analysis tests against</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">schedule_timezone</td>
       <td style="text-align:left">no</td>
       <td style="text-align:left">
-        <p>Timezone of the schedule provided</p>
+        <p>Strongly recommended</p>
         <p>Default: UTC</p>
       </td>
     </tr>
     <tr>
       <td style="text-align:left">shutdown_flexibility</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>If basic schedule is inherited from building usage times and shall be
-          individualized for this component:</p>
-        <p>Pulls the end time of the basic schedule forward by the duration of the
-          shutdown flexibility</p>
-      </td>
+      <td style="text-align:left"></td>
     </tr>
   </tbody>
 </table>## [heat pump](component-data-models.md#heat-pump)
@@ -986,57 +935,40 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
     <tr>
       <td style="text-align:left">custom_day_schedules</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Overwrites basic schedule for specific days with an individual for this
-        day</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">custom_holiday</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Overwrites basic schedule for specific days. The component is considered
-        to be disengageable during local holidays</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
-      <td style="text-align:left">
-        <p></p>
-        <p>preconditioning</p>
-      </td>
+      <td style="text-align:left">preconditioning</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>If basic schedule is inherited from building usage times and shall be
-          individualized for this component:</p>
-        <p>Adds a preconditioning period to the start time of the basic schedule,
-          perceiving operation prior to the start time as intended to the extend
-          of the preconditioning time</p>
-      </td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">regional_key</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">If regional_key is mapped, local holidays overwrite the basic schedule.
-        The component is considered to be disengageable during local holidays</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">schedule</td>
       <td style="text-align:left">yes</td>
-      <td style="text-align:left">Weekly repeated basic schedule the analysis tests against</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">schedule_timezone</td>
       <td style="text-align:left">no</td>
       <td style="text-align:left">
-        <p>Timezone of the schedule provided</p>
+        <p>Strongly recommended</p>
         <p>Default: UTC</p>
       </td>
     </tr>
     <tr>
       <td style="text-align:left">shutdown_flexibility</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>If basic schedule is inherited from building usage times and shall be
-          individualized for this component:</p>
-        <p>Pulls the end time of the basic schedule forward by the duration of the
-          shutdown flexibility</p>
-      </td>
+      <td style="text-align:left"></td>
     </tr>
   </tbody>
 </table>## [thermal control loop](component-data-models.md#thermal-control-loop)
@@ -1058,57 +990,40 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
     <tr>
       <td style="text-align:left">custom_day_schedules</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Overwrites basic schedule for specific days with an individual for this
-        day</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">custom_holiday</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Overwrites basic schedule for specific days. The component is considered
-        to be disengageable during local holidays</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
-      <td style="text-align:left">
-        <p></p>
-        <p>preconditioning</p>
-      </td>
+      <td style="text-align:left">preconditioning</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>If basic schedule is inherited from building usage times and shall be
-          individualized for this component:</p>
-        <p>Adds a preconditioning period to the start time of the basic schedule,
-          perceiving operation prior to the start time as intended to the extend
-          of the preconditioning time</p>
-      </td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">regional_key</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">If regional_key is mapped, local holidays overwrite the basic schedule.
-        The component is considered to be disengageable during local holidays</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">schedule</td>
       <td style="text-align:left">yes</td>
-      <td style="text-align:left">Weekly repeated basic schedule the analysis tests against</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">schedule_timezone</td>
       <td style="text-align:left">no</td>
       <td style="text-align:left">
-        <p>Timezone of the schedule provided</p>
+        <p>Strongly recommended</p>
         <p>Default: UTC</p>
       </td>
     </tr>
     <tr>
       <td style="text-align:left">shutdown_flexibility</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>If basic schedule is inherited from building usage times and shall be
-          individualized for this component:</p>
-        <p>Pulls the end time of the basic schedule forward by the duration of the
-          shutdown flexibility</p>
-      </td>
+      <td style="text-align:left"></td>
     </tr>
   </tbody>
 </table>## [room](component-data-models.md#room)
@@ -1130,57 +1045,40 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
     <tr>
       <td style="text-align:left">custom_day_schedules</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Overwrites basic schedule for specific days with an individual for this
-        day</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">custom_holiday</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Overwrites basic schedule for specific days. The component is considered
-        to be disengageable during local holidays</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
-      <td style="text-align:left">
-        <p></p>
-        <p>preconditioning</p>
-      </td>
+      <td style="text-align:left">preconditioning</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>If basic schedule is inherited from building usage times and shall be
-          individualized for this component:</p>
-        <p>Adds a preconditioning period to the start time of the basic schedule,
-          perceiving operation prior to the start time as intended to the extend
-          of the preconditioning time</p>
-      </td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">regional_key</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">If regional_key is mapped, local holidays overwrite the basic schedule.
-        The component is considered to be disengageable during local holidays</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">schedule</td>
       <td style="text-align:left">yes</td>
-      <td style="text-align:left">Weekly repeated basic schedule the analysis tests against</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">schedule_timezone</td>
       <td style="text-align:left">no</td>
       <td style="text-align:left">
-        <p>Timezone of the schedule provided</p>
+        <p>Strongly recommended</p>
         <p>Default: UTC</p>
       </td>
     </tr>
     <tr>
       <td style="text-align:left">shutdown_flexibility</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>If basic schedule is inherited from building usage times and shall be
-          individualized for this component:</p>
-        <p>Pulls the end time of the basic schedule forward by the duration of the
-          shutdown flexibility</p>
-      </td>
+      <td style="text-align:left"></td>
     </tr>
   </tbody>
 </table>
