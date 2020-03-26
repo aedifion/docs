@@ -293,9 +293,15 @@ As you can see, the expiry date of the MQTT user account was extended by 7200 se
 
 ### Client Identifiers
 
-Clients are identified by their `client_id`. There can only be one connection per `client_id` per Broker and older connections are terminated in favor of newer connections. While you can just open multiple connections using the same login credentials, you must use a different `client_id` for each parallel connection. 
+Clients are identified by a unique `client_id`.  
 
-The `client_id` usually consist of the companyname and the projectname, for example `NewCo_simu01`. It is good practice to append a random integer to your `client_id` as part of your individual postfix.
+As per [MQTT 3.1.1 specification](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html) \(Section 3.1.3.1\), client identifiers are between 1 and 23 alphanumeric characters \(0-9, a-z, A-Z\). Most MQTT brokers support longer client identifiers from the the full range of UTF-8 characters except characters `/`, `+`, and `#` which have a special meaning in MQTT.
+
+There can only be _one_ connection per `client_id` per Broker. If two clients connect with the same `client_id`the older connection is terminated in favor of the newer. This restriction does not extend to your login credentials. You can open multiple connections using the same login credentials as long as you use a different `client_id` for each concurrent connection. 
+
+{% hint style="success" %}
+Choose a `client_id` and avoid special characters. Postfix the `client_id` with a random string oder integer to ensure it is unique across concurrent connections.
+{% endhint %}
 
 ### **Authorization**
 
