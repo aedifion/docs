@@ -342,6 +342,13 @@ Switch-off time KPIs evaluate the shutdown times of the closed cycles observed d
 | Pin | Required | Mapping info |
 | :--- | :--- | :--- |
 | operating message | yes |  |
+
+### [thermal control loop](component-data-models.md#thermal-control-loop)
+
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | no | Mapping of either **operating message \(preferred\)** or **pump operating message** is **mandatory**. If both pins are mapped, operating message is used |
+| pump operating message | no | Mapping of either **operating message \(preferred\)** or **pump operating message** is **mandatory**. If both pins are mapped, operating message is used |
 {% endtab %}
 
 {% tab title="Application" %}
@@ -1455,8 +1462,9 @@ General information KPIs to give further insight into the setpoint compliance ov
       <td style="text-align:left">operating message</td>
       <td style="text-align:left">no</td>
       <td style="text-align:left">
-        <p>Mapping strongly recommended. If operating message and pump operating
-          message are mapped, operating message will be used</p>
+        <p>Mapping of either <b>operating message (preferred)</b> or <b>pump operating message </b>is
+          strongly recommended. If operating message and pump operating message are
+          mapped, operating message will be used</p>
         <p>Default: Always operating</p>
       </td>
     </tr>
@@ -1468,9 +1476,12 @@ General information KPIs to give further insight into the setpoint compliance ov
     <tr>
       <td style="text-align:left">pump operating message</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Mapping recommended in case no operating message is available. If operating
-        message and pump operating message are mapped, operating message will be
-        used</td>
+      <td style="text-align:left">
+        <p>Mapping of either <b>operating message (preferred)</b> or <b>pump operating message </b>is
+          strongly recommended. If operating message and pump operating message are
+          mapped, operating message will be used</p>
+        <p>Default: Always operating</p>
+      </td>
     </tr>
   </tbody>
 </table>
