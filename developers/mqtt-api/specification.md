@@ -318,7 +318,7 @@ All MQTT topics _on aedifion.io_ have a hierarchy that consists of two main part
 The prefix has two hierarchies and is assigned by aedifion:
 
 ```text
-load-balancing-group/project-handle/
+load-balancing-group/project-handle
 ```
 
 * The top level hierarchy, the `load-balancing-group`, is fixed and assigned by aedifion.
@@ -366,16 +366,14 @@ The payload format depends on type of the topic published to or subscribed from.
 All messages containing timeseries data you publish to or receive from the MQTT broker must strictly adhere to [Influx Line Protocol](https://docs.influxdata.com/influxdb/v1.7/write_protocols/line_protocol_tutorial/) format:
 
 ```text
-RoomTemperature,outOfOrder=true,label=deviceRestart value=20.3 1465839830100400200
-    |          ------------------------------------ ---------- -------------------
-    |                             |                 |           |
-    |                             |                 |           |
-+---------+----------------------------+-+-----------+-+---------+
-|datapoint|,tag_set....................| |observation| |timestamp|
-+---------+----------------------------+-+-----------+-+---------+
+RoomTemperature value=20.3 1465839830100400200
+--------------- ---------- -------------------
+    |               |              |
+    |               |              |
++---------+  +-------------+   +---------+
+|datapoint|  | observation |   |timestamp|
++---------+  +-------------+   +---------+
 ```
-
-We highlight only the most important points in the following:
 
 * `datapoint` is an arbitrary non-empty UTF-8 string that identifies your datapoint.
 
@@ -383,27 +381,20 @@ We highlight only the most important points in the following:
 
   The reported `observation` will be stored on aedifion.io in a time series with exactly this name as you will see when logging in to the [frontend](https://www.aedifion.io).
 
-* `tag_set` is separated by a `,` from the `datapoint id`.
+* `observation` is the reported measurement and must have the form of `value=<float>` where `<float>` is parsable as a floating point number. `observation` must be separated from the `datapoint` by a single blank.
+* `timestamp` is the timestamp of your reported observation in nanosecond-precision Unix time, i.e., the number of nanoseconds since January 1st, 1970, 00:00:00 UTC. It must be separated from the `observation` by a single blank. If your timestamp is in millisecond or microsecond precision you must append 6 or 3 zeros, respectively.
 
-  It is itself a comma-separated list of `key=value` pairs that are attached to this reported measurement at this certain timestamp. The `tag_set` can be empty. It is stored in the timeseries database but is not available via API right now.   
-  To define time-consistent tags like location, units etc. use the HTTP API [endpoints](https://docs.aedifion.io/docs/developers/api-documentation/guides-and-tutorials/tagging#adding-tags) or [contact us](https://docs.aedifion.io/docs/contact#support) for information on how to send it via MQTT.
+[Influx Line Protocol](https://docs.influxdata.com/influxdb/v1.7/write_protocols/line_protocol_tutorial/) additionally allows to concatenate an _optional_ tag set after `datapoint` . The tag set is a comma-separated list of tags \( `key=value` pairs\) that are associated with this observation. It is stored in the timeseries database together with the reported observation but is currently not yet [available via the API](../api-documentation/guides-and-tutorials/data-import.md#exporting-data). Tags sent with the observation in the tag set are regarded as dynamic and time-dependent, e.g., they can be used to mark maintenance or test periods. To define static time-independent tags, e.g., a fixed location or the unit of the datapoint, use [metadata messages](specification.md#metadata) or the [HTTP API](../api-documentation/guides-and-tutorials/tagging.md#tags).
 
-* `observation` is the reported measurement and must have the form of `value=<float>` where `<float>` is parsable as a floating point number. `observation` must be separated from the \(potentially empty\) `tag_set` by a single blank character.
-* `timestamp` is the timestamp of your reported observation in nanosecond-precision Unix time, i.e., the number of nanoseconds since January 1st, 1970, 00:00:00 UTC.
+Influx Line Protocol allows publishing multiple datapoints in a single message. You have to separate them by a line brake with \n, for example:
 
-  It must be separated from the `observation` by a single blank.
-
-  If your timestamp is in millisecond or microsecond precision you must append 6 or 3 zeros, respectively.
-
-According to the documentation of _Influx Line Protocol_ it is possible to publish multiple datapoints in a single message. You have to separate them by a line brake with \n, for example:
-
-`RoomTemperature,location=office20.32,unit=C value=20.3 1465839830100400200  
-ExtTemperature,location=office20.32,unit=C value=14.7 1465839830100400200  
-RoomTemperature,location=office22.34,unit=C value=22.3 1465839830100400200  
-ExtTemperature,location=office22.34,unit=C value=14.9 1465839830100400200  
+`RoomTemperature value=20.3 1465839830100400200  
+ExtTemperature value=14.7 1465839830100400200  
+RoomTemperature value=22.3 1465839830100400200  
+ExtTemperature value=14.9 1465839830100400200  
 ...`
 
-The outcome of this is a small performance gain, the disadvantage is that it is not possible to publish each datapoint to its own topic, as described above.
+The outcome of this is a small performance gain, the disadvantage is that it is not possible to publish each datapoint to its own topic, as [described above](specification.md#topic-hierarchy).
 
 {% hint style="warning" %}
 Timeseries data in messages that do not strictly adhere to this format will be received but will not be stored in the aedifion.io platform.
@@ -461,12 +452,26 @@ Let's consider this example of a metadata message on the topic `META/lbg1/buildi
 ```
 
 * The topic prefix `META/` identifies this message as a metadata message and we expect JSON format. `buildinginc_heatquarter`is the unique project handle assigned by aedifion to this project \(It is usually formed from a shorthand for the customer and a shorthand for the project. It is not used as display name\).
-* In this case, `objtype` is not `device` so we assume that this relates to a datapoint. Which datapoint is determined by the `name` key, i.e., here we associate the message to the datapoint `PXSite1'AS03-2098179_C'Geb1952'Mtr03'TRCUMVL-trendLog18`
-* All fields \(except `name`\) are initialized as tags. In this example, 32 new tags are created from this message on datapoint `PXSite1'AS03-2098179_C'Geb1952'Mtr03'TRCUMVL-trendLog18`.
+* In this case, `objtype` is not `device` so we assume that this relates to a datapoint. Which datapoint is determined by the `name` key, i.e., here we associate the message to the datapoint `PXSite1'AS03-239291_C'Btr06'TRCUMVL-trendLog18`
+* All fields \(except `name`\) are initialized as tags. In this example, 32 new tags are created from this message on datapoint `PXSite1'AS03-239291_C'Btr06'TRCUMVL-trendLog18`.
 
 ### Controls
 
-Under construction 👷🏻‍♂️
+On all `CONTROLS/...` topics, the format and flow of messages is defined by the [SWOP protocol](http://aedifion.gitlab.io/swop). SWOP is a simple JSON-based protocol for setpoint and schedule writing specified and released open-source by aedifion. It decouples the aedifion edge device from the platform and allows anyone to implement and use their own edge device.
+
+Writing a setpoint is as simple as sending the following exemplary message to the edge device:
+
+```javascript
+{
+    "type": "NEWSPT",
+    "swop_version": 0.1,
+    "datapoint": "bacnet93-4120-External-Room-Set-Temperature-RTs",
+    "value": 20.3,
+    "priority": 13
+}
+```
+
+Head over to the [SWOP protocol specifications](https://aedifion.gitlab.io/swop) for more examples. 
 
 ## Fair use 
 
