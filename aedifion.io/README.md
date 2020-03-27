@@ -12,7 +12,7 @@ aedifion.io is an IoT platform tailored to monitoring and optimizing heating, ve
 
 We introduce the main ingredients of the aedifion.io platform in the following, along the schematic overview of the aedifion.io ecosystem illustrated in the figure above. 
 
-The core aedifion.io platform \(middle\) provides data filing and processing, AI & domain specific [analytics](../aedifion.analytics.md), [control functionalities & algorithms](../aedifion.controls.md), data management and structuring, role-based user and access management, as well as other [features](features.md), all dedicated to the operation and optimization of energy system.
+The core aedifion.io platform \(middle\) provides data filing and processing, AI & domain specific [analytics](../aedifion.analytics/), [control functionalities & algorithms](../aedifion.controls.md), data management and structuring, role-based user and access management, as well as other [features](features.md), all dedicated to the operation and optimization of energy system.
 
 The aedifion [edge device](gateway.md) \(middle left\) provides plug-and-play connectivity to building automation and control systems \(far left\) and to automation systems of energy-related plants, such as e.g. larger scale combined heat and power plants, air handling units, heat pumps, etc.
 
@@ -28,7 +28,7 @@ aedifion.io integrates various 3rd party data sources such as [weather predictio
 
 Beyond the native features of the aedifion.io platform [outlined above](./#overview), aedifion is building the following further products that all use aedifion.io as their base technology.
 
-[aedifion.analytics](../aedifion.analytics.md) features deep analytics for technical equipment within your [plant](../glossary.md#plant). It focuses on the calculation of key performance indicators for [components ](../glossary.md#component)within local plants and the derivation of recommendations for action. See [aedifion.analytics](../aedifion.analytics.md) for detailed information.
+[aedifion.analytics](../aedifion.analytics/) features deep analytics for technical equipment within your [plant](../glossary.md#plant). It focuses on the calculation of key performance indicators for [components ](../glossary.md#component)within local plants and the derivation of recommendations for action. See [aedifion.analytics](../aedifion.analytics/) for detailed information.
 
 [aedifion.controls](../aedifion.controls.md) provides a framework of basic control functionalities that are a prerequisite for modern controls as well as predefined control algorithms, such as optimizer for air handling unit operations or MS Exchange augmented room controls. See [aedifion.controls](../aedifion.controls.md) for detailed information
 
