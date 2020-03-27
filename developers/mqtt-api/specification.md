@@ -388,10 +388,10 @@ RoomTemperature value=20.3 1465839830100400200
 
 Influx Line Protocol allows publishing multiple datapoints in a single message. You have to separate them by a line brake with \n, for example:
 
-`RoomTemperature value=20.3 1465839830100400200  
+`RoomTemperature value=20.9 1465839830100400200  
 ExtTemperature value=14.7 1465839830100400200  
-RoomTemperature value=22.3 1465839830100400200  
-ExtTemperature value=14.9 1465839830100400200  
+OfficeTemperature value=21.3 1465839830100400200  
+HallTemperature value=17.9 1465839830100400200  
 ...`
 
 The outcome of this is a small performance gain, the disadvantage is that it is not possible to publish each datapoint to its own topic, as [described above](specification.md#topic-hierarchy).
@@ -415,7 +415,7 @@ Let's consider this example of a metadata message on the topic `META/lbg1/buildi
 
 ```javascript
 {
-  "name": "PXSite1'AS11-239291_C'Btr06'TRCUMVL-trendLog18",
+  "name": "AS11-239291_C'Btr06'TempHall",
   "notifyType": "event", 
   "logInterval": "6000", 
   "recordCount": "5000", 
@@ -447,13 +447,15 @@ Let's consider this example of a metadata message on the topic `META/lbg1/buildi
   "bufferSize": "5000", 
   "bacnet_id": "239291", 
   "trigger": "False", 
-  "loggingType": "polled"
+  "loggingType": "polled",
+  "source": "BACnet"
 }
 ```
 
 * The topic prefix `META/` identifies this message as a metadata message and we expect JSON format. `buildinginc_heatquarter`is the unique project handle assigned by aedifion to this project \(It is usually formed from a shorthand for the customer and a shorthand for the project. It is not used as display name\).
-* In this case, `objtype` is not `device` so we assume that this relates to a datapoint. Which datapoint is determined by the `name` key, i.e., here we associate the message to the datapoint `PXSite1'AS03-239291_C'Btr06'TRCUMVL-trendLog18`
-* All fields \(except `name`\) are initialized as tags. In this example, 32 new tags are created from this message on datapoint `PXSite1'AS03-239291_C'Btr06'TRCUMVL-trendLog18`.
+* In this case, `objtype` is not `device` so we assume that this relates to a datapoint. Which datapoint is determined by the `name` key, i.e., here we associate the message to the datapoint `AS11-239291_C'Btr06'TempHall`
+* All fields \(except `name` and `source`\) are initialized as tags. In this example, 32 new tags are created from this message on datapoint `AS11-239291_C'Btr06'TempHall`.
+* The field `source` is special, since it describes the origin of the whole metadata message. Every tag association to the device or datapoint gets this source identifier as you can see in the [frontend](https://www.aedifion.io/).
 
 ### Controls
 
