@@ -4,22 +4,85 @@ description: aedifion .io versioning
 
 # Release
 
-## aedifion.io 1.0.0 - 2020-03-20
+## aedifion.io 1.0.0 - 2020-03-30
 
-### Edge device
+### Edge device hardware
 
-* Purpose
-  * Secure gateway between local hardware, sensors and actuators to cloud platforms 
-* Bridging function for non-Internet-accessible IP networks
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Topic</th>
+      <th style="text-align:left">Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>Chassis</b>
+      </td>
+      <td style="text-align:left">Aluminum special profile</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>Dimensions (WxHxD)</b>
+      </td>
+      <td style="text-align:left">150x52,27x105 mm</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>Weight</b>
+      </td>
+      <td style="text-align:left">0,86 kg</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>Temperatures</b>
+      </td>
+      <td style="text-align:left">
+        <p>Operating temperature: PowerBox 100x: 0 &#xB0;C to +45&#xB0;C</p>
+        <p>Storage temperature: -40&#xB0;C to +80&#xB0;C</p>
+        <p>Relative humidity: 10% to 95%, non condensing</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>Processor</b>
+      </td>
+      <td style="text-align:left">Intel&#xAE; Celeron&#xAE; J1900 Quad Core 2,0 GHz</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>Network</b>
+      </td>
+      <td style="text-align:left">2x Gigabit LAN RJ-45</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>HDD</b>
+      </td>
+      <td style="text-align:left">64 GB</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>RAM</b>
+      </td>
+      <td style="text-align:left">4 GB</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>Display port</b>
+      </td>
+      <td style="text-align:left">yes</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>Mounting</b>
+      </td>
+      <td style="text-align:left">Wall mount, opt. side board, VESA or DIN rail mounting kits</td>
+    </tr>
+  </tbody>
+</table>### Multi logger software
+
+* Plug-and-play commissioning from the customer's perspective 
+  * After transmitting the local IP configuration 
+  * Local installation by customer 
+  * Setup support via manual and online documentation 
+* Bridging function for non-internet-accessible IP networks
   * Routing via second network card 
 * Communication 
   * Unidirectional communication from customer network to platforms 
   * Exclusive use of standard ports of the protocols HTTPS, MQTT, SSH and NTP 
   * No firewall opening required for incoming communication 
-* Plug-and-play commissioning from the customer's perspective 
-  * After transmitting the local IP configuration 
-  * Local installation by customer 
-  * Setup support via manual and online documentation 
 * Vendor-neutral, local data-ingress of IP-based networks
   * BACnet \(including plug-and-play BACnet auto-discovery\) 
   * Modbus \(after transmission of corresponding register lists\) 
@@ -58,70 +121,7 @@ description: aedifion .io versioning
   * Status of device and automation protocol, datapoint scanning, etc.
 * Hardware specifications:
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Topic</th>
-      <th style="text-align:left">Comment</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left"><b>Chassis</b>
-      </td>
-      <td style="text-align:left">Aluminum special profile</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><b>Dimensions (WxHxD)</b>
-      </td>
-      <td style="text-align:left">150x52,27x105 mm</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><b>Weight</b>
-      </td>
-      <td style="text-align:left">0,86 kg</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><b>Temperatures</b>
-      </td>
-      <td style="text-align:left">
-        <p>Operating temperature: PowerBox 100x: 0 &#xB0;C to +45&#xB0;C</p>
-        <p>Storage temperature: -40&#xB0;C to +80&#xB0;C</p>
-        <p>Relative humidity: 10% to 95%, non condensing</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><b>Prozessor</b>
-      </td>
-      <td style="text-align:left">Intel&#xAE; Celeron&#xAE; J1900 Quad Core 2,0 GHz</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><b>Network</b>
-      </td>
-      <td style="text-align:left">2x Gigabit LAN RJ-45</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><b>HDD</b>
-      </td>
-      <td style="text-align:left">64 GB</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><b>RAM</b>
-      </td>
-      <td style="text-align:left">4 GB</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><b>Display-Anschluss</b>
-      </td>
-      <td style="text-align:left">ja</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><b>Mounting</b>
-      </td>
-      <td style="text-align:left">Wall mount, opt. side board, VESA or DIN rail mounting kits</td>
-    </tr>
-  </tbody>
-</table>### Backend
+### Backend
 
 * Data ingress 
   * Connection of aedifion Edge Devices if commissioned 
