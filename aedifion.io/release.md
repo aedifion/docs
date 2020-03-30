@@ -73,12 +73,8 @@ description: aedifion .io versioning
   </tbody>
 </table>### Multi logger software
 
-* Plug-and-play commissioning from the customer's perspective 
-  * After transmitting the local IP configuration 
-  * Local installation by customer 
-  * Setup support via manual and online documentation 
 * Bridging function for non-internet-accessible IP networks
-  * Routing via second network card 
+* Routing via second network card 
 * Communication 
   * Unidirectional communication from customer network to platforms 
   * Exclusive use of standard ports of the protocols HTTPS, MQTT, SSH and NTP 
@@ -197,11 +193,9 @@ description: aedifion .io versioning
 
 ### Dashboard 
 
-* Extensive visualization options
-* Individually designable and flexible
-* Application of histograms and heat maps, among others
-* Freely integrable and expandable
-* Sharing created dashboards
+* Various visualization options \(line graphs, histograms, gauges, heat maps, augmented pictures, and many more\)
+* Freely adaptable and expandable
+* Sharing of dashboards
 * Deposit of slideshows \(e.g. for promotion displays\)
 * Self-administration
 
@@ -211,7 +205,17 @@ description: aedifion .io versioning
 * Alarm classification, assignment, tracking, prioritization and forwarding capabilities
 * Customer self-administration
 
-#### 
+### aedifion.io service level
 
+#### Standard service included in aedifion.io small, medium and premium
 
+* Clarification and configuration of IP settings
+* Boxing and shipping of edge device
+* \(Customer-sided installation of edge device\)
+* Remote commissioning of multi logger software
+* Set up of platform features according to purchased package
+* Provision of set up documentation, including
+  * list of integrated data points
+  * user accounts
+* Set up of set point management \(medium - up to 100 datapoints,  premium - up to 500 datapoints\)
 
