@@ -12,13 +12,13 @@ After your company administrator created your personal user account at the aedif
 
 At your initial attempt to access the services, please use the `Forgot Password?`-functionality below the login information:
 
-![](../../.gitbook/assets/image%20%2827%29.png)
+![](../../.gitbook/assets/image%20%2839%29.png)
 
 You will get forwarded to a page, where you have to provide your mail address. 
 
-![](../../.gitbook/assets/image%20%2833%29.png)
+![](../../.gitbook/assets/image%20%2846%29.png)
 
-![](../../.gitbook/assets/image%20%285%29.png)
+![](../../.gitbook/assets/image%20%289%29.png)
 
 After that you will receive an email to update your personal password. Please check your Spam Folder in case the mail is not in your inbox. The email is only valid for five minutes. 
 
@@ -42,29 +42,29 @@ aedifion's authentication method allows an easy setup of a second factor via a m
 
 Login to the authentication server: [https://auth.aedifion.io/auth/realms/aedifion/account](https://auth.aedifion.io/auth/realms/aedifion/account) with your known credentials.
 
-![](../../.gitbook/assets/image%20%2823%29.png)
+![](../../.gitbook/assets/image%20%2833%29.png)
 
 #### Navigate to Authenticator
 
 Click on the left bar on _Authenticator._ The new page will show a QR code.
 
-![](../../.gitbook/assets/image%20%2814%29.png)
+![](../../.gitbook/assets/image%20%2820%29.png)
 
 #### Scan the QR Code
 
 Open _"Scan this QR Code"_ with your application and point your phone's camera at the screen. A new account will be shown in the account list with the name _Aedifion_. When you click on the account, it will generate a six-digit number.
 
-![](../../.gitbook/assets/image%20%2818%29.png)
+![](../../.gitbook/assets/image%20%2826%29.png)
 
 #### Enter this number
 
 Enter this number in the form-field and click save. The code refreshes every 30 seconds. If the time ran out, just generate a new code by clicking on the account in the mobile application.
 
-![](../../.gitbook/assets/image%20%2836%29.png)
+![](../../.gitbook/assets/image%20%2849%29.png)
 
 #### Done
 
 Congratulations, you now have enabled two-factor authentication for your account. Every time you log in, you will be requested to enter the current six-digit code from your mobile application.
 
-![](../../.gitbook/assets/image%20%2816%29.png)
+![](../../.gitbook/assets/image%20%2822%29.png)
 

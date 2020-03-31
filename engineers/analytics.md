@@ -568,7 +568,7 @@ The _Room Air Quality Analysis_ checks and interprets the compliance of carbon d
 
 The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a room component model was instanced and the respective datapoints mapped to this component.
 
-![Figure 1: CO2 concentration trajectory for an average office day](../.gitbook/assets/image%20%2819%29.png)
+![Figure 1: CO2 concentration trajectory for an average office day](../.gitbook/assets/image%20%2827%29.png)
 
 In this scenario, figure 1 shows the timeseries recorded for an exemplary period of 12 hours on a working day in August. The CO2 concentration in the air remained between what is considered "good" and "medium" for most of the day. However, for about 7 percent of the period, air quality was poor, with a maximum CO2 concentration of 1463 ppm, so that a complete evaluation on that day indicates poor air quality. The results provide an advanced set of KPIs that provide quantitative insights into the air quality of the rooms and support the human reasoning for analysis. A number of suggestions for possible countermeasures are given, and further investigation of the root cause of air quality problems is possible through the aedifion front-end data visualization.
 {% endtab %}
@@ -1773,7 +1773,7 @@ Heat and cold conversion or distribution systems, such as
 
 The _Virtual Heat Meter_ ****was tested in the field, on a boilder at the E.ON Energy Research Center, RWTH Aachen University. Thus, a [boiler ](component-data-models.md#heat-pump)was instanced and the respective datapoints pinned to it. __Figure 1 shows the inlet- and outlet timeseries recorded for an exemplary period, along with the heat flow calculated. The volume flow during the observed period was constant.
 
-![Figure 1: Heat flow determined by the virtual heat meter](../.gitbook/assets/image%20%2821%29.png)
+![Figure 1: Heat flow determined by the virtual heat meter](../.gitbook/assets/image%20%2829%29.png)
 {% endtab %}
 
 {% tab title="Results" %}

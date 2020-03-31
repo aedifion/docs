@@ -1,64 +1,66 @@
 ---
-description: >-
-  Overview and documentation of the beta-frontend of the aedifion.io cloud
-  platform.
+description: Overview and documentation of the frontend of the aedifion.io cloud platform.
 ---
 
 # Frontend
 
 ## Overview
 
-At the moment, aedifion provides a beta version of its web frontend offering access to some functionalities of aedifion.io, i.e. data exploration and limited data management, such as plotting, saving and calling saved plots, so-called views, adding favorites, adding [datapoint keys](../glossary.md#datapointkey) and renaming [datapoints](../glossary.md#datapoint).
+With every project aedifion provides a web-based frontend offering access to some functionalities of aedifion.io, i.e. company- and user-management, data exploration, data management, tagging and filtering functionality, setpoint writing, schedule writing, component mapping or analytics results viewing. These functionalities are described below as an overview.
 
-{% hint style="info" %}
-aedifion is currently developing an all-new frontend for holistic platform management and data access. 
-{% endhint %}
+![landing page with project overview](../.gitbook/assets/image%20%2834%29.png)
 
-## Data exploration
+It is developed and tested for current standard-browsers like Chrome, Firefox, Safari and Edge. It is optimized Desktop PCs, Notebooks and Tablets.
 
-The frontend visualizes historical data and almost real time data using line and heat map plots. It plots up to seven lines in one line plot. One datapoint at a time can be plotted as heat map.
+## Company- and user-management
 
-![Beta frontend with multiple lines plot](../.gitbook/assets/screenshot-beta-frontend.JPG)
+From every subpage accessible are the account-management functionalities. Depending on the logged-in user's rights, configurations on company and user-level can be done, like creating new users, granting access to projects, creating and deleting projects and so on. Also you can switch between two languages, english and german.
 
-![Beta frontend with heatmap plot of a CO2 time series over multiple weeks](../.gitbook/assets/screenshot-beta-frontend_heatmap.JPG)
+![](../.gitbook/assets/image%20%2837%29.png)
 
-The datapoint list is searchable.
+## Data exploration and data management
 
-![Searched datapoints list and multiple CO2 time series as line plot](../.gitbook/assets/screenshot-beta-frontend_search-co2.JPG)
+The frontend visualizes historical data and real time data using line and heat map plots. Up to seven lines can be plotted in one line plot. One datapoint at a time can be plotted as heat map.
 
-## Overall Handling
+![Line plotting of two datapoints, metrics of the timeseries in the picked interval below, multiple y-axis](../.gitbook/assets/image%20%2823%29.png)
 
-In this beta frontend the screen is mainly devided in three windows. Starting from left to right, first of all there is the Home-Window with user information and overall project handling, then the list of available datapoints and finally the visualisation of the selected datapoints. The three buttons on the left edge of the screen belong to those three windows. By clicking on one of them the respective window will close and the remaining windows share the whole screen.
+![heatmap plot of a CO2 time series over multiple weeks](../.gitbook/assets/image%20%2825%29.png)
 
-### Home Window
+## Tagging and filtering functionality
 
-Company and user information of the logged-in user are provided on top of this window. The frontend supports switching projects as soon as one user has access to multiple projects. By clicking on the drawing pin all selected datapoints get deselected and the visualisation window is empty again. By clicking on the star the datapoints list gets sorted by the selected favorites.
+Beside a plain text datapoint search, filtering via tags is provided. AI-classification tags, user-added tags and Building Automation protocol-tags are used. Access the list of tags of each datapoint by clicking on the pen-symbol next to the datapoint's name.
 
-#### Datapoint keys
+![tags of a single datapoint; the list of datapoints can filtered by single tag or by a combination of tags](../.gitbook/assets/image%20%284%29.png)
 
-The frontend supports multiple [datapoint keys](../glossary.md#datapointkey). A user can add new datapoint keys and can rename each datapoint. He can alter the datapoints list by datapoint keys.
+Plotviews are a list of saved views of specific datapoints and can easibily be accessed by the bookmark-button next to the user's menu. Beside of that is also a star-button for prominent filtering of the list of datapoints after user's favourised datapoints. Add a new plotview by clicking on the plus-button in the lower right corner of each plotting window.
 
-#### Saved views
+![list of plotviews](../.gitbook/assets/image%20%2814%29.png)
 
-After a user has generated a certain plot, he can add this plot to his so-called "saved views". This guarantees for easy-access to the most important views.
+## Setpoint writing
 
-### Window with List of datapoints
+By clicking on the pen-symbol next to a writeable datapoint, setpoint writing options are shown above the datapoint's specific tags.
 
-Select up to seven datapoints to be plotted in one view. In order to do so, click on the drawing pin on the left hand side of the datapoint ID. The selected datapoints are shown in the visualisation window. The datapoint list is searchable.
+![priority based writing functionality including a writing history](../.gitbook/assets/image%20%2831%29.png)
 
-#### Favorites
+## Schedule writing
 
-A datapoint can be marked as favorite by clicking on the star on the right hand side of the datapoints ID. Once marked, the datapoint list can be sorted by favorites by clicking on the star-button in the home-window as described above. Each favorite will be pinned at the top end of the list. This serves for easy access to the most important datapoints.
+Possibility to setup and configure schedules regardless of the used building automation protocol. For example, this can be used to switch on an Air Handling Unit in the morning, switch it off in the evening and make it recurring daily.
 
-#### Meta data
+![Setup and track schedules on specific datapoints](../.gitbook/assets/image%20%281%29.png)
 
-Within the datapoint list, the frontend shows available meta data for each datapoint. 
+## Component mapping
 
-![Meta data access](../.gitbook/assets/screenshot-beta-frontend_meta.JPG)
+Choose one of the existing, generic components and map the related pins to your project specific datapoints by the use of the AI classification results. Mapped components are the basis for further analytics and automatically created dashboards, just to name two of many usecases.
 
-### Visualisation Window
+![component thermal control loop with four already mapped pins](../.gitbook/assets/image%20%2815%29.png)
 
-In the top left corner of this window you can select a line plot view with up to seven timeseries or a heat map plot for one selected datapoint. In the top right corner select the start and end time of the respective view. It is always possible to zoom in a certain time period by dragging over visualisation with the mouse. By hovering over the timeline the timestamp, value and ID of the datapoint is shown. By clicking on the chart context menu it is possible to print the actual visualisation or download it in your favourite format such as .png, .jpeg, .pdf or .svg.
+![Mapping of the pin temperature of the component weather station with the use of AI classification results ](../.gitbook/assets/image%20%282%29.png)
+
+## Analytics results
+
+Get an overview of your components. They are sorted according to the quality of the belonging analysis results. By selecting one component you see the timeseries plots of the mapped datapoints and a list of belonging analysis results. By clicking on each results you get an interpretation with the underlying KPIs and a recommendation, what could be improved.
+
+![sorted list of components on the left hand side and analytics results, interpretations and recommendations](../.gitbook/assets/image%20%2841%29.png)
 
 _This documentation continues with an introduction of the used data models in aedifion.io_
 
