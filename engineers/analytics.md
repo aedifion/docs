@@ -1573,7 +1573,6 @@ _temperature spread.minimum_ will be _evaporator temperature spread.minimum_
 | KPI Identifier | Description | Value Range | Unit |
 | :--- | :--- | :--- | :--- |
 | temperature spread.median | Median of temperature spread | -inf to inf | °C |
-| temperature spread.median | Time-weighted average of temperature spread | -inf to inf | °C |
 | temperature spread.minimum | Minimum of temperature spread | -inf to inf | °C |
 | temperature spread.maximum | Maximum of temperature spread | -inf to inf | °C |
 {% endtab %}
