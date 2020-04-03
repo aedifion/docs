@@ -115,7 +115,6 @@ description: aedifion .io versioning
   * Status, restart, publisher management and more available... 
 * aedifion edge device frontend
   * Status of device and automation protocol, datapoint scanning, etc.
-* Hardware specifications:
 
 ### Backend
 
