@@ -128,30 +128,124 @@ The time series based on the virtual datapoint's result exactly handles the same
 
 The aedifion.io platform uses state-of-the-art machine learning and AI techniques to augment the already provided data. From the already given observations and metadata collected from the edge devices it regularly predicts additional tags \(e.g. the type of the data point\) and provides them via the API or the frontend. The AI system is able to learn and is therefore expanded perpetually to further improve the quality of the annotations.
 
-The latest classifier we provide, classifies the datapoints with a set of 22 classes used in [current research](http://dx.doi.org/10.1016/j.egypro.2017.07.428). Each class represents a type of datapoint commonly found within building automation systems, these are:
+The latest classifier we provide, is able to classify the data into five sets of classes: `L1_analog_digital`, `L2_virtual`, `L3_direction`, `L4_type` and `L5_unit`. All sets of classes are ordered in a tree like structure separated by slashes \(like a directory structure or paths on a website\). For example within L4\_type `/position/damper position` is closely related to `/position/valve position` and not related to `/temperature/liquid/hot/return flow`. A full list of the classes is shown below.
 
-1. Alarm message
-2. Counter 
-3. CO2 concentration
-4. Heat flow
-5. Operational message
-6. Power
-7. Pressure
-8. Revolutions
-9. Relative humidity
-10. Setpoint for operation
-11. Set Point in percent
-12. Setpoint of temperature
-13. Setpoint of temperature of potential meter
-14. Temperature of gas
-15. Temperature of liquid
-16. Volume flow for gases
-17. Volume flow for liquids
-18. Volatile organic compounds
-19. Valve Position
-20. Electric work
-21. Working set point in percent
-22. Working set point for temperature.
+1. `L1_analog_digital`
+
+   1. `/analog`
+   2. `/digital`
+   3. `/multi-state`
+
+   \`\`
+
+2. `L2_virtual:` 
+
+   1. `/physical` 
+   2. `/virtual`
+
+   \`\`
+
+3. `L3_direction:`
+
+   1. `/input`
+   2. `/output`
+
+   \`\`
+
+4. `L4_type:`
+
+   1. `/counter`
+   2. `/electric/current`
+   3. `/electric/frequency`
+   4. `/electric/power factor`
+   5. `/electric/resistor`
+   6. `/electric/voltage`
+   7. `/energy/chill energy`
+   8. `/energy/electrical energy`
+   9. `/energy/heat energy`
+   10. `/gas concentration/CO2`
+   11. `/gas concentration/VOC`
+   12. `/global radiation`
+   13. `/illumination intensity`
+   14. `/message/alarm`
+   15. `/message/available`
+   16. `/message/modus`
+   17. `/message/operating`
+   18. `/message/presence`
+   19. `/message/switch command`
+   20. `/misc /operating time`
+   21. `/parameter/parameter`
+   22. `/parameter/setpoint`
+   23. `/position/damper position`
+   24. `/position/misc`
+   25. `/position/valve position`
+   26. `/power/electric`
+   27. `/power/thermal`
+   28. `/pressure/gaseous/absolute`
+   29. `/pressure/gaseous/differential`
+   30. `/pressure/liquid/absolute`
+   31. `/pressure/liquid/differential`
+   32. `/relative humidity /rotational speed`
+   33. `/temperature/difference`
+   34. `/temperature/gaseous/exhaust`
+   35. `/temperature/gaseous/extract`
+   36. `/temperature/gaseous/indoor`
+   37. `/temperature/gaseous/misc`
+   38. `/temperature/gaseous/outdoor`
+   39. `/temperature/gaseous/recirculation`
+   40. `/temperature/gaseous/supply`
+   41. `/temperature/liquid/cold/input flow`
+   42. `/temperature/liquid/cold/return flow`
+   43. `/temperature/liquid/cold/storage tank`
+   44. `/temperature/liquid/hot/input flow`
+   45. `/temperature/liquid/hot/return flow`
+   46. `/temperature/liquid/hot/storage tank`
+   47. `/temperature/liquid/warm/input flow`
+   48. `/temperature/liquid/warm/return flow`
+   49. `/temperature/liquid/warm/storage tank`
+   50. `/volume flow/gaseous`
+   51. `/volume flow/liquid`
+   52. `/wind speed`
+
+   \`\`
+
+5. `L5_unit:`
+   1. `/electric/Ampere`
+   2. `/electric/Ohm`
+   3. `/electric/Volt`
+   4. `/energy/Joule`
+   5. `/energy/KiloBTU`
+   6. `/energy/KiloWattHours`
+   7. `/energy/TonHours`
+   8. `/energy/WattHours`
+   9. `/frequency/Hertz`
+   10. `/frequency/rpm`
+   11. `/light/Candela`
+   12. `/light/Lumen`
+   13. `/light/Lux`
+   14. `/power/KiloBTUsPerHour`
+   15. `/power/Kilowatt`
+   16. `/power/TonsRefrigeration`
+   17. `/power/Watt`
+   18. `/pressure/Pascal`
+   19. `/pressure/bar`
+   20. `/scalar/degrees`
+   21. `/scalar/generic`
+   22. `/scalar/percent`
+   23. `/scalar/ppm`
+   24. `/scalar/radiant`
+   25. `/speed/kmPerHour`
+   26. `/speed/meterPerSecond`
+   27. `/temperature/Celsius`
+   28. `/temperature/Fahrenheit`
+   29. `/temperature/Kelvin`
+   30. `/time/hours`
+   31. `/time/minutes`
+   32. `/time/seconds`
+   33. `/volume flow/cubicMetersPerHour`
+   34. `/volume flow/gallonsPerMinute`
+   35. `/volume flow/litersPerMinute`
+   36. `/volume flow/litersPerSecond`
 
 Each time the classifier runs, a tag for the datapoint is created, which looks as follows:
 
@@ -159,16 +253,16 @@ Each time the classifier runs, a tag for the datapoint is created, which looks a
 ```javascript
 {
   "id": 92807,
-  "key": "ClassesV1",
+  "key": "L4_type",
   "probability": 0.857322,
   "protected": true,
   "source": "ai",
-  "value": "CO2 concentration"
+  "value": "/gas concentration/CO2"
 }
 ```
 {% endcode %}
 
-The _key_ of the tag is "ClassesV1", which indicates the classification system it is using. The _value_ of this tag is "CO2 concentration", which indicates that the analyzed datapoint is recognized as a CO2 sensor. A complete list of all the possible values and their meaning you can find within the [engineers' specification section](https://docs.aedifion.io/docs/engineers/specifications/artificial-intelligence). With just those properties you can easily filter the set of datapoints. 
+The _key_ of the tag is one of the class sets e.g. "L4\_type". The _value_ of this tag is `/gas concentration/CO2`, which indicates that the analyzed datapoint is recognized as a CO2 sensor. A complete list of all the possible values and their meaning you can find within the [engineers' specification](https://docs.aedifion.io/docs/engineers/artificial-intelligence) section. With just those properties you can easily filter the set of datapoints. 
 
 The tag has as _source_ "ai", since it is originating from an AI-based classifier. Each classifier also provides the property _probability._ In this example the classifier has a confidence of 85.73% that the given classification is correct.
 

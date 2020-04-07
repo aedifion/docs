@@ -1,96 +1,409 @@
 ---
 description: >-
-  The list of classes used in the ClassesV1 classification scheme as well as a
+  The list of classes used in the current classification scheme as well as a
   short description of each of them.
 ---
 
 # Artificial intelligence
 
-1. **Alarm message**
+1. `L1_analog_digital`
 
-   This class represents an error in the system. A component might trigger this alarm by switching the signal from 0 to 1. Therefore, the signal is binary. 
+   1. `/analog`
 
-2. **Counter**
+      The datapoint is providing analog values.
 
-   A datapoint annotated with this class is counting events. Counters usually are a monotonous signal counting events inside a component \(e.g. amount of rain, cumulative energy usage\). Some counters do reset at a specified maximum value. 
+   2. `/digital`
 
-3. **CO2 concentration**
+      The datapoint is providing binary \(0 and 1\) values.
 
-   This class denotes a sensor measuring the CO\_2 concentration \(usually in ppm\). The CO\_2 concentration is an indicator for air quality. 
+   3. `/multi-state`
 
-4. **Heat flow**
+      The datapoint is providing a set of different discrete values \(e.g. 1,2,3,4\). This is frequently done for status messages where each id represents a status message.
 
-   The heat flow between different circuits \(e.g. within AC units\) are annotated with this class. 
+2. `L2_virtual:` 
 
-5. **Operational message**
+   1. `/physical` 
 
-   The datapoint labeled with this class represents messages of components. These messages can represent binary modes \(e.g. on/off, or summer/winter mode\) or multistate modes \(modeA/modeB/modeC\). These datapoints are digital. 
+      The datapoint reflects a real physical measurement. Replicated datapoints of physical measurements are also physical.
 
-6. **Power meter**
+   2. `/virtual`
 
-   The current power consumption of a component is annotated with this class. 
+      The datapoint represents a purely virtual timeseries.
 
-7. **Pressure**
+   \`\`
 
-   This datapoint denotes pressure sensors \(e.g. Air pressure from weather stations or pressure of liquids\). 
+3. `L3_direction:`
 
-8. **Revolution counter**
+   1. `/input`
 
-   Revolutions or frequencies of rotors or pumps are annotated with this class. 
+      Datapoint is an input to a control instance.
 
-9. **Relative humidity**
+   2. `/output`
 
-   A datapoint measuring the relative humidity in the air. The value ranges from 0 to 100 percent.
+      Datapoint is an output to a control instance.
 
-10. **Setpoint for operation**
+   \`\`
 
-    This datapoint is a user defined set point for an operational mode. For example, a user can switch a component on or off. 
+4. `L4_type:`
 
-11. **Setpoint in percent**
+   1. `/counter`
 
-    A user defined set point similar to _Setpoint for operation_ for a percental variable \(e.g. valve position\). 
+      Accumulating counter. Monotonically increasing.
 
-12. **Setpoint of temperature**
+   2. `/electric/current`
 
-    This datapoint is similar to _Setpoint for operation_. It denotes the output of a controller for temperature. Inside offices the temperature can be regulated \(within constraints\) to maximize the user comfort. 
+      Measurand for the current
 
-13. **Setpoint of temperature offset**
+   3. `/electric/frequency`
 
-    This datapoint is similar to _Setpoint of temperature_ and also annotates a user defined setpoint for temperature. However, this datapoint is regulated by a device which only allows small adjustments to the temperature in the comfortable range.
+      Measurand for the utility frequency.
 
-14. **Temperature of gaseous fluid**
+   4. `/electric/power factor`
 
-    This datapoint shows the temperature of a gas \(e.g. air, …\). It is usually annotated in Degree Celsius, Degree Fahrenheit or Kelvin. 
+      Measurand for the power factor \(cos phi\).
 
-15. **Temperature of liquid fluid**
+   5. `/electric/resistor`
 
-    This datapoint shows the temperature of a liquid \(e.g. water, …\). It is usually annotated in Degree Celsius, Degree Fahrenheit or Kelvin. 
+      Measurand for electrical resistance.
 
-16. **Volume flow for gaseous fluid**
+   6. `/electric/voltage`
 
-    This datapoint denotes the differential flow of a gas \(e.g. air inside AC units\). 
+      Measurand for the voltage
 
-17. **Volume flow for liquid fluid**
+   7. `/energy/chill energy`
 
-    This datapoint is similar to _Volume flow for gaseous fluid_. However, this datapoint annotates the differential flow of a liquid \(e.g. water\).
+      Measurand for chill energy e.g. in an AC unit.
 
-18. **Volatile organic compound**
+   8. `/energy/electrical energy`
 
-    Volatile organic compounds \(CO\_2, …\) influence the air quality. This datapoint shows a combined concentration of these compounds.
+      Measurand for electrical energy.
 
-19. **Valve Position**
+   9. `/energy/heat energy`
 
-    This datapoint indicates the position of a valve. Its values ranges from 0 to 100 and show the current close/open status of the underlying valve. 
+      Measurand for heat energy e.g. in a radiator.
 
-20. **Electric work counter**
+   10. `/gas concentration/CO2`
 
-    This datapoint describes the electrical work of a component, I.e. the cumulative electrical power over time. 
+       Measurand for the CO2 concentration.
 
-21. **Working set point in percent**
+   11. `/gas concentration/VOC`
 
-    This datapoint denotes a working set point \(i.e. the current target of a control algorithm\) for percentual measurements, e.g. valve positions\). The control algorithm tries to match the actual valve position as close as possible to this working set point. 
+       Measurand for the concentration of Volatile Organic compounds.
 
-22. **Working set point for temperature**
+   12. `/global radiation`
 
-    This datapoint is similar to _Working set point in percent_. However, this datapoint specifies target temperatures for a control algorithm. Its unit is either Degree Celsius, Degree Fahrenheit or Kelvin.
+       Global ambient radiation.
+
+   13. `/illumination intensity`
+
+       Measures total luminous flux incident on a surface.
+
+   14. `/message/alarm`
+
+       The datapoint displays error states of a device.
+
+   15. `/message/available`
+
+       A message indicating that a device is ready to be enabled.
+
+   16. `/message/modus`
+
+       A notification on the current operation mode of a device.
+
+   17. `/message/operating`
+
+       The datapoint displays messages about a devices' operation.
+
+   18. `/message/presence`
+
+       A binary notification of a presence sensor.
+
+   19. `/message/switch command`
+
+       A request to turn a device on or off.
+
+   20. `/operating time`
+
+       Datapoint displays the cumulative operation time of a device.
+
+   21. `/parameter/parameter`
+
+       System parameters e.g. maximum valve opening. Basically do not change.
+
+   22. `/parameter/setpoint`
+
+       Set points, e.g. pressure set points.
+
+   23. `/position/damper position`
+
+       Position of air duct dampers
+
+   24. `/position/misc`
+
+       Position of all other actuators.
+
+   25. `/position/valve position`
+
+       Position of a valve.
+
+   26. `/power/electric`
+
+       Electric consumption or production.
+
+   27. `/power/thermal`
+
+       Thermal power, i.e. enthalpy flux or power transferred over a heat exchanger.
+
+   28. `/pressure/gaseous/absolute`
+
+       Measurand of absolute pressure in a gas.
+
+   29. `/pressure/gaseous/differential`
+
+       Measurand of differential pressure in a gas.
+
+   30. `/pressure/liquid/absolute`
+
+       Measurand of absolute pressure in a liquid.
+
+   31. `/pressure/liquid/differential`
+
+       Measurand of differential pressure in a liquid.
+
+   32. `/relative humidity`
+
+       Measurand of relative humidity.
+
+   33. `/rotational speed`
+
+       The datapoint represents a rotational speed of rotating equipment \(e.g. fans or pumps\).
+
+   34. `/temperature/difference`
+
+       This datapoint represents a temperature difference between to locations.
+
+   35. `/temperature/gaseous/exhaust`
+
+       The temperature represents a temperature in a gas leaving the building.
+
+   36. `/temperature/gaseous/extract`
+
+       The temperature represents a temperature in a gas leaving a room.
+
+   37. `/temperature/gaseous/indoor`
+
+       The temperature represents a temperature in a gas inside the building.
+
+   38. `/temperature/gaseous/misc`
+
+       The temperature represents a temperature in a gas which does not fall into any other category.
+
+   39. `/temperature/gaseous/outdoor`
+
+       The temperature represents a temperature in a gas outside or gas coming directly from outside..
+
+   40. `/temperature/gaseous/recirculation`
+
+       The temperature represents a temperature in a gas which is the output of a system and being reintroduced into a system.
+
+   41. `/temperature/gaseous/supply`
+
+       The temperature represents a temperature in a gas flowing into a room or a system.
+
+   42. `/temperature/liquid/cold/input flow`
+
+       The datapoint represents a temperature of a cold input flow of a liquid.
+
+   43. `/temperature/liquid/cold/return flow`
+
+       The datapoint represents a temperature of a cold return flow of a liquid.
+
+   44. `/temperature/liquid/cold/storage tank`
+
+       The datapoint represents a temperature in a cold storage tank for liquid.
+
+   45. `/temperature/liquid/hot/input flow`
+
+       The datapoint represents a temperature of a hot input flow of a liquid.
+
+   46. `/temperature/liquid/hot/return flow`
+
+       The datapoint represents a temperature of a hot return flow of a liquid.
+
+   47. `/temperature/liquid/hot/storage tank`
+
+       The datapoint represents a temperature in a hot storage tank for liquid.
+
+   48. `/temperature/liquid/warm/input flow`
+
+       The datapoint represents a temperature of a warm input flow of a liquid.
+
+   49. `/temperature/liquid/warm/return flow`
+
+       The datapoint represents a temperature of a warm return flow of a liquid.
+
+   50. `/temperature/liquid/warm/storage tank`
+
+       The datapoint represents a temperature in a warm storage tank for liquid.
+
+   51. `/volume flow/gaseous`
+
+       Measurand of a volume flow inside a gas.
+
+   52. `/volume flow/liquid`
+
+       Measurand of a volume flow inside a liquid medium.
+
+   53. `/wind speed`
+
+       Measurand of the windspeed usually from a weather station.
+
+   \`\`
+
+5. `L5_unit:`
+   1. `/electric/Ampere`
+
+      The datapoints observations are measured in Ampere.
+
+   2. `/electric/Ohm`
+
+      The datapoints observations are measured in Ohm.
+
+   3. `/electric/Volt`
+
+      The datapoints observations are measured in Volt.
+
+   4. `/energy/Joule`
+
+      The datapoints observations are measured in Joule.
+
+   5. `/energy/KiloBTU`
+
+      The datapoints observations are measured in 1000 British thermal units.
+
+   6. `/energy/KiloWattHours`
+
+      The datapoints observations are measured in Kilowatt hours.
+
+   7. `/energy/TonHours`
+
+      The datapoints observations are measured in Ton hours \(of refrigeration\).
+
+   8. `/energy/WattHours`
+
+      The datapoints observations are measured in Watt hours.
+
+   9. `/frequency/Hertz`
+
+      The datapoints observations are measured in Hertz.
+
+   10. `/frequency/rpm`
+
+       The datapoints observations are measured in revolutions per minute.
+
+   11. `/light/Candela`
+
+       The datapoints observations are measured in Candela.
+
+   12. `/light/Lumen`
+
+       The datapoints observations are measured in Lumen.
+
+   13. `/light/Lux`
+
+       The datapoints observations are measured in Lux.
+
+   14. `/power/KiloBTUsPerHour`
+
+       The datapoints observations are measured in 1000 British thermal units per hour.
+
+   15. `/power/Kilowatt`
+
+       The datapoints observations are measured in Kilowatt.
+
+   16. `/power/TonsRefrigeration`
+
+       The datapoints observations are measured in tons of refrigeration.
+
+   17. `/power/Watt`
+
+       The datapoints observations are measured in Watt.
+
+   18. `/pressure/Pascal`
+
+       The datapoints observations are measured in Pascal.
+
+   19. `/pressure/bar`
+
+       The datapoints observations are measured in bar.
+
+   20. `/scalar/degrees`
+
+       The datapoints observations are angle measured in degrees.
+
+   21. `/scalar/generic`
+
+       The datapoints observations are generic without unit \(e.g. counts, status messages, ...\).
+
+   22. `/scalar/percent`
+
+       The datapoints observations are percentage values.
+
+   23. `/scalar/ppm`
+
+       The datapoints observations are parts per million counts.
+
+   24. `/scalar/radiant`
+
+       The datapoints observations are angle measured in radians.
+
+   25. `/speed/kmPerHour`
+
+       The datapoints observations are measured in kilometers per hour.
+
+   26. `/speed/meterPerSecond`
+
+       The datapoints observations are measured in meters per seconds.
+
+   27. `/temperature/Celsius`
+
+       The datapoints observations are measured in degrees Celsius.
+
+   28. `/temperature/Fahrenheit`
+
+       The datapoints observations are measured in degrees Fahrenheit.
+
+   29. `/temperature/Kelvin`
+
+       The datapoints observations are measured in Kelvin.
+
+   30. `/time/hours`
+
+       The datapoints observations are measured in hours.
+
+   31. `/time/minutes`
+
+       The datapoints observations are measured in minutes.
+
+   32. `/time/seconds`
+
+       The datapoints observations are measured in seconds.
+
+   33. `/volume flow/cubicMetersPerHour`
+
+       The datapoints observations are measured in cubic meters per hour.
+
+   34. `/volume flow/gallonsPerMinute`
+
+       The datapoints observations are measured in cubic gallons per minute.
+
+   35. `/volume flow/litersPerMinute`
+
+       The datapoints observations are measured in cubic liters per minute.
+
+   36. `/volume flow/litersPerSecond`
+
+       The datapoints observations are measured in liters per second.
+
+\*\*\*\*
 
