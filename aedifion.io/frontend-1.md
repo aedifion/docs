@@ -8,7 +8,7 @@ description: Overview and documentation of the frontend of the aedifion.io cloud
 
 With every project aedifion provides a web-based frontend offering access to some functionalities of aedifion.io, i.e. company- and user-management, data exploration, data management, tagging and filtering functionality, setpoint writing, schedule writing, component mapping or analytics results viewing. These functionalities are described below as an overview.
 
-![landing page with project overview](../.gitbook/assets/image%20%2834%29.png)
+![landing page with project overview](../.gitbook/assets/image%20%2836%29.png)
 
 It is developed and tested for current standard-browsers like Chrome, Firefox, Safari and Edge. It is optimized Desktop PCs, Notebooks and Tablets.
 
@@ -16,7 +16,7 @@ It is developed and tested for current standard-browsers like Chrome, Firefox, S
 
 From every subpage accessible are the account-management functionalities. Depending on the logged-in user's rights, configurations on company and user-level can be done, like creating new users, granting access to projects, creating and deleting projects and so on. Also you can switch between two languages, english and german.
 
-![](../.gitbook/assets/image%20%2837%29.png)
+![](../.gitbook/assets/image%20%2840%29.png)
 
 ## Data exploration and data management
 
@@ -40,7 +40,7 @@ Plotviews are a list of saved views of specific datapoints and can easibily be a
 
 By clicking on the pen-symbol next to a writeable datapoint, setpoint writing options are shown above the datapoint's specific tags.
 
-![priority based writing functionality including a writing history](../.gitbook/assets/image%20%2831%29.png)
+![priority based writing functionality including a writing history](../.gitbook/assets/image%20%2833%29.png)
 
 ## Schedule writing
 
@@ -60,7 +60,7 @@ Choose one of the existing, generic components and map the related pins to your 
 
 Get an overview of your components. They are sorted according to the quality of the belonging analysis results. By selecting one component you see the timeseries plots of the mapped datapoints and a list of belonging analysis results. By clicking on each results you get an interpretation with the underlying KPIs and a recommendation, what could be improved.
 
-![sorted list of components on the left hand side and analytics results, interpretations and recommendations](../.gitbook/assets/image%20%2841%29.png)
+![sorted list of components on the left hand side and analytics results, interpretations and recommendations](../.gitbook/assets/image%20%2845%29.png)
 
 _This documentation continues with an introduction of the used data models in aedifion.io_
 

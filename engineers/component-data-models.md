@@ -6,7 +6,7 @@ description: >-
 
 # Component data models
 
-## Available component data models
+Available component data models
 
 * [Boiler](component-data-models.md#boiler)
 * [Combined Heat and Power](component-data-models.md#combined-heat-and-power)

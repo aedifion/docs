@@ -568,7 +568,7 @@ The _Room Air Quality Analysis_ checks and interprets the compliance of carbon d
 
 The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a room component model was instanced and the respective datapoints mapped to this component.
 
-![Figure 1: CO2 concentration trajectory for an average office day](../.gitbook/assets/image%20%2827%29.png)
+![Figure 1: CO2 concentration trajectory for an average office day](../.gitbook/assets/image%20%2828%29.png)
 
 In this scenario, figure 1 shows the timeseries recorded for an exemplary period of 12 hours on a working day in August. The CO2 concentration in the air remained between what is considered "good" and "medium" for most of the day. However, for about 7 percent of the period, air quality was poor, with a maximum CO2 concentration of 1463 ppm, so that a complete evaluation on that day indicates poor air quality. The results provide an advanced set of KPIs that provide quantitative insights into the air quality of the rooms and support the human reasoning for analysis. A number of suggestions for possible countermeasures are given, and further investigation of the root cause of air quality problems is possible through the aedifion front-end data visualization.
 {% endtab %}
@@ -1773,7 +1773,7 @@ Heat and cold conversion or distribution systems, such as
 
 The _Virtual Heat Meter_ ****was tested in the field, on a boilder at the E.ON Energy Research Center, RWTH Aachen University. Thus, a [boiler ](component-data-models.md#heat-pump)was instanced and the respective datapoints pinned to it. __Figure 1 shows the inlet- and outlet timeseries recorded for an exemplary period, along with the heat flow calculated. The volume flow during the observed period was constant.
 
-![Figure 1: Heat flow determined by the virtual heat meter](../.gitbook/assets/image%20%2829%29.png)
+![Figure 1: Heat flow determined by the virtual heat meter](../.gitbook/assets/image%20%2831%29.png)
 {% endtab %}
 
 {% tab title="Results" %}
@@ -2061,7 +2061,7 @@ In figure 1 you can see a significant difference between sensor and weather refe
 
 | Available | Info |
 | :--- | :--- |
-| Yes | Either the operational rule checks of the analysis were tested positive or not |
+| Yes | Either the operational rule checks of the analysis were tested positive or not. |
 
 ## Recommendations
 
@@ -2108,6 +2108,133 @@ In figure 1 you can see a significant difference between sensor and weather refe
 * After maintenance or replacements
 {% endtab %}
 {% endtabs %}
+
+
+
+## Alarm State Analysis
+
+The _Alarm State Analysis_ assess the occurrences and duration of alarm messages of a component.  It is particularly useful for notifying the user when alarm messages have been overseen, as it summarizes the alarm messages over a given time period. Additionally, the _Alarm State Analysis_ considers the most recent alarm message to determine whether the error has been resolved. 
+
+{% tabs %}
+{% tab title="Summary" %}
+## Value
+
+* Avoids of alarm messages being overseen
+* Identifies faulty components
+* Can reduce component wear-and-tear 
+* Can increase energy efficiency
+
+## Recommended for components
+
+Any component, subsystem or room which could have an alarm or error message such as:
+
+* Fans
+* Heat pumps
+* Thermal control loops
+* Rooms
+
+## Checked conditions
+
+* Final state of alarm message
+* Duration of alarm state
+* Daily occurrence of alarm message
+{% endtab %}
+
+{% tab title="Example" %}
+The _Alarm State Analysis_ was performed on a component for February 2020. The error message becomes active during the first week of February and stays active for most of the remaining month as shown in figure 1. 
+
+![Figure 1: Component error message for the month of February ](../.gitbook/assets/component_test_plot.png)
+
+The analysis returns a _red_ warning message to indicate that the error message over the time period is suboptimal. This is because the error message is active at the end of the assessed period and the duration of the active alarm message is higher than the components threshold. 
+
+| KPI | Value | Unit |
+| :--- | :--- | :--- |
+| alarm message.final | 1 | binary |
+| alarm message.relative | 87.8 | % |
+| alarm message.frequency | 0.481 | /day |
+{% endtab %}
+
+{% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | Yes | The alarm message is currently active and the daily occurrences or alarm message duration is unacceptable. |
+| yellow | Yes | The alarm message is currently active but the daily occurrences and alarm state are acceptable.  |
+| green | Yes | The alarm message is currently not active.  |
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Either the operational rule checks of the analysis were tested positive or not |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Check component for physical damage and consider changing component setting. |
+
+## KPIs
+
+### Summary of alarm messages
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| alarm message.final | Last available alarm message. | 0 or 1 | binary |
+| alarm message.relative | Time of active alarm message as a percentage of total time.  | 0 to 100 | % |
+| alarm message.frequency | Daily occurrence of alarm message. | 0 to inf | /day |
+{% endtab %}
+
+{% tab title="Components" %}
+## [fan](component-data-models.md#fan)
+
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| alarm message | yes |  |
+
+## [heat pump](component-data-models.md#heat-pump)
+
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| alarm message | yes |  |
+
+## [thermal control loop](component-data-models.md#thermal-control-loop)
+
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| alarm message | yes |  |
+
+## [room](component-data-models.md#room)
+
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| alarm message | yes |  |
+
+|  |
+| :--- |
+{% endtab %}
+
+{% tab title="Application" %}
+## Recommended Time Span
+
+### 1 month
+
+## **Recommended Repetition**
+
+### Every month
+
+* After changes of operational modes, e.g. transfers to heating mode
+* After changes in the control system
+* After maintenance of replacements
+{% endtab %}
+{% endtabs %}
+
+
+
+
+
+
+
+
 
 ## Information
 
