@@ -1330,12 +1330,12 @@ General information KPIs to give further insight into the setpoint compliance ov
       </td>
     </tr>
     <tr>
-      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">temperature</td>
       <td style="text-align:left">yes</td>
       <td style="text-align:left"></td>
     </tr>
     <tr>
-      <td style="text-align:left">outlet temperature setpoint</td>
+      <td style="text-align:left">temperature setpoint</td>
       <td style="text-align:left">yes</td>
       <td style="text-align:left"></td>
     </tr>
