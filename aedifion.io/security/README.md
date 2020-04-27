@@ -118,9 +118,8 @@ Communication on the above listed ports only has to be opened towards a fixed se
     </tr>
     <tr>
       <td style="text-align:left">8884/TCP - MQTTS</td>
-      <td style="text-align:left">mqtt.aedifion.io
-        <br />mqtt3.aedifion.io</td>
-      <td style="text-align:left">mqtt-dev.aedifion.io</td>
+      <td style="text-align:left">mqtt2.aedifion.io</td>
+      <td style="text-align:left">mqtt3.aedifion.io</td>
     </tr>
   </tbody>
 </table>{% hint style="info" %}
