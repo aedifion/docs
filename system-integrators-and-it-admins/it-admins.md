@@ -53,9 +53,9 @@ The following information is needed to preconfigure the aedifion edge device:
 **Minimum firewall requirements**
 
 * Outgoing connections on the following ports need to be allowed:
-  * Port 443 \(HTTPS\): discovery2.aedifion.io, discovery3.aedifion.io
+  * Port 443 \(HTTPS\): discovery2.aedifion.io, discovery3.aedifion.io, auth.aedifion.io, auth3.aedifion.io
   * Port 22 \(SSH\): ssh2.aedifion.io, ssh3.aedifion.io
-  * Port 8884 \(MQTT over TLS\): mqtt.aedifion.io, mqtt2.aedifion.io
+  * Port 8884 \(MQTT over TLS\): mqtt2.aedifion.io, mqtt3.aedifion.io
   * Port 123 \(NTP to Ubuntu standard timeservers - not necessary if NTP servers are locally available\)
 * Outgoing connections can be limited from the edge device to the mentioned server addresses.
 

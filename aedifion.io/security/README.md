@@ -107,6 +107,9 @@ Communication on the above listed ports only has to be opened towards a fixed se
         <p>discovery2.aedifion.io
           <br />IP: 94.130.225.123
           <br />
+          <br />auth.aedifion.io
+          <br />IP: 94.130.225.123
+          <br />
         </p>
         <p>security.ubuntu.com</p>
         <p>archive.ubuntu.com</p>
@@ -114,12 +117,21 @@ Communication on the above listed ports only has to be opened towards a fixed se
       <td style="text-align:left">
         <p>discovery3.aedifion.io</p>
         <p>IP: 88.99.34.202</p>
+        <p></p>
+        <p>auth3.aedifion.io</p>
+        <p>IP: 78.46.145.51</p>
       </td>
     </tr>
     <tr>
       <td style="text-align:left">8884/TCP - MQTTS</td>
-      <td style="text-align:left">mqtt2.aedifion.io</td>
-      <td style="text-align:left">mqtt3.aedifion.io</td>
+      <td style="text-align:left">
+        <p>mqtt2.aedifion.io</p>
+        <p>94.130.225.123</p>
+      </td>
+      <td style="text-align:left">
+        <p>mqtt3.aedifion.io</p>
+        <p>IP: 78.46.145.51</p>
+      </td>
     </tr>
   </tbody>
 </table>{% hint style="info" %}
