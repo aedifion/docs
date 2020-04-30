@@ -934,9 +934,10 @@ Mind the units.
       <td style="text-align:left">binary</td>
     </tr>
     <tr>
-      <td style="text-align:left">return temperature</td>
+      <td style="text-align:left">inlet temperature recirculation</td>
       <td style="text-align:left">Temperature of heat carrier fluid (water, brine) returning from consumer
-        circuit. Also referred to as <b>consumer return temperature</b>
+        circuit. Also referred to as <b>consumer return temperature </b>and modeled
+        as <b>inlet temperature recirculation</b>
       </td>
       <td style="text-align:left">&#xB0;C</td>
     </tr>

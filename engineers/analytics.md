@@ -1716,7 +1716,7 @@ _temperature spread.minimum_ will be _evaporator temperature spread.minimum_
       </td>
     </tr>
     <tr>
-      <td style="text-align:left">return temperature</td>
+      <td style="text-align:left">inlet temperature recirculation</td>
       <td style="text-align:left">yes</td>
       <td style="text-align:left"></td>
     </tr>
