@@ -53,7 +53,7 @@ The tab lists all available pins for the specific component data model. Mind the
 
 An attribute is a generic placeholder for meta data[ ](../glossary.md#datapoint)of a [component data model](../glossary.md#component-data-model). An attribute is used to [map](../glossary.md#mapping) a meta data value to an [instanced component ](../glossary.md#instanced-component)within a specific [project](../glossary.md#project). Attributes are designed in analogy to [tags](../glossary.md#tag).
 
-The tab lists all available attributes for the specific component data model. Map attributs in respect to the analysis, which shall be run on an instanced component.
+The tab lists all available attributes for the specific component data model. Map attributes in respect to the analysis, which shall be run on an instanced component.
 
 ### Analysis
 
@@ -102,6 +102,13 @@ Mind the units.
       <td style="text-align:left">outlet temperature</td>
       <td style="text-align:left">Temperature of heat carrier fluid (water) exiting the component. Also
         referred to as <b>supply temperature</b>
+      </td>
+      <td style="text-align:left">&#xB0;C</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature setpoint</td>
+      <td style="text-align:left">Setpoint temperature for heat carrier fluid ( water) exiting the component.
+        Also referred to as <b>supply temperature</b>
       </td>
       <td style="text-align:left">&#xB0;C</td>
     </tr>
@@ -261,6 +268,12 @@ Mind the units.
       <td style="text-align:left">outlet temperature</td>
       <td style="text-align:left">Temperature of heat carrier fluid (water) exiting the component. Also
         referred to as <b>supply temperature</b>.</td>
+      <td style="text-align:left">&#xB0;C</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature setpoint</td>
+      <td style="text-align:left">Setpoint temperature of heat carrier fluid (water) exiting the component.
+        Also referred to as <b>supply temperature</b>.</td>
       <td style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
@@ -597,6 +610,12 @@ Mind the units.
       <td style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
+      <td style="text-align:left">condenser outlet temperature setpoint</td>
+      <td style="text-align:left">Setpoint temperature of heat carrier fluid (water) exiting the component.
+        Also referred to as <b>supply temperature</b>. Condenser side</td>
+      <td style="text-align:left">&#xB0;C</td>
+    </tr>
+    <tr>
       <td style="text-align:left">condenser volume flow</td>
       <td style="text-align:left">Volume flow of heat carrier fluid (water). Condenser side.</td>
       <td style="text-align:left">
@@ -615,6 +634,12 @@ Mind the units.
       <td style="text-align:left">Temperature of heat carrier fluid (water) exiting the component. Also
         referred to as <b>supply temperature</b>. Evaporator side</td>
       <td style="text-align:left">&#xB0;C</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator outlet temperature setpoint</td>
+      <td style="text-align:left">Setpoint temperature of heat carrier fluid (water) exiting the component.
+        Also referred to as <b>supply temperature</b>. Evaporator side</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">evaporator volume flow</td>
@@ -868,6 +893,8 @@ If the basic schedule is inherited from building usage times or opening hours, a
 ### [Room Air Quality Analysis](analytics.md#room-air-quality-analysis)
 
 ### [Schedule Analysis](analytics.md#schedule-analysis)
+
+### [Setpoint Deviation Analysis](analytics.md#setpoint-deviation-analysis)
 {% endtab %}
 {% endtabs %}
 
