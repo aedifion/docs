@@ -4,7 +4,20 @@ description: aedfion .analytics  versioning
 
 # Release
 
-## 1.0.0. - 2020-03-20
+## 1.0.1
+
+#### Release date: 2020-05-08
+
+#### What's new in v1.0.1?
+
+* Fixed setpoint deviation analysis sensibility to operating message
+* More tolerant signal color thresholds for temperature spread analysis on CHPs
+* Added KPI _co2.minimum_ to room air quality analysis
+* Renamed pin of thermal control loop: _return temperature_ to _inlet temperature recirculation_, the component therefore approaches 3-way valves in its definition
+
+## 1.0.0.
+
+#### Release date: 2020-03-20
 
 ### Analytics framework
 
