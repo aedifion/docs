@@ -1,5 +1,5 @@
 ---
-description: aedfion .analytics  versioning
+description: aedfion.analytics  versioning
 ---
 
 # Release
@@ -10,10 +10,10 @@ description: aedfion .analytics  versioning
 
 #### What's new in v1.0.1?
 
-* Fixed setpoint deviation analysis sensibility to operating message
-* More tolerant signal color thresholds for temperature spread analysis on CHPs
-* Added KPI _co2.minimum_ to room air quality analysis
-* Renamed pin of thermal control loop: _return temperature_ to _inlet temperature recirculation_, the component therefore approaches 3-way valves in its definition
+* Fixed [setpoint deviation analysis](../engineers/analytics.md#setpoint-deviation-analysis) sensibility to operating message
+* More tolerant signal color thresholds for [temperature spread analysis](../engineers/analytics.md#temperature-spread-analysis) on CHPs
+* Added KPI _co2.minimum_ to [room air quality analysis](../engineers/analytics.md#room-air-quality-analysis)
+* Renamed pin of [thermal control loop](../engineers/component-data-models.md#thermal-control-loop): _return temperature_ to _inlet temperature recirculation_, the component therefore approaches 3-way valves in its definition
 
 ## 1.0.0.
 
