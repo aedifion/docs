@@ -208,7 +208,9 @@ Writing bounds can be configured through the `PUT /v2/datapoint` endpoint which 
       <td style="text-align:left">25</td>
     </tr>
   </tbody>
-</table>Here is an example of configuring writing bounds for a room temperature setpoint. A range of 15° to 25° Celsius seems reasonable in this example:
+</table>
+
+Here is an example of configuring writing bounds for a room temperature setpoint. A range of 15° to 25° Celsius seems reasonable in this example:
 
 {% tabs %}
 {% tab title="Python" %}
@@ -525,7 +527,9 @@ A new schedule is created through the `POST /v2/datapoint/schedule` endpoint. Th
         &apos;value&apos;:&apos;21.0&apos;}]</td>
     </tr>
   </tbody>
-</table>The different options for defining a schedule deserve some more explanation. The example schedule in the above table realizes a very simple weekend override for the office temperature in winter. In detail, it would do the following:
+</table>
+
+The different options for defining a schedule deserve some more explanation. The example schedule in the above table realizes a very simple weekend override for the office temperature in winter. In detail, it would do the following:
 
 * Operate on datapoint `bacnet100-4120-Real-room-temperature-setpoint-RTs_real` of project `1`at priority `15`.
 * Start on 9.11.2018 18:00h \(a Friday afternoon\) by setting the desired room temperature to `18.5` °C \(to save energy when no one is in on the weekend\).
@@ -783,7 +787,9 @@ All schedules that are not in state `failed` or `terminated` \(such as our secon
         &apos;value&apos;:&apos;20&apos;}]</td>
     </tr>
   </tbody>
-</table>Let's post this update which changes the schedule's name, its reset value and heartbeat, adds one setpoint, modifies two setpoints, and deletes the newly added setpoint. 
+</table>
+
+Let's post this update which changes the schedule's name, its reset value and heartbeat, adds one setpoint, modifies two setpoints, and deletes the newly added setpoint. 
 
 {% tabs %}
 {% tab title="Python" %}

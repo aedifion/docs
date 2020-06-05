@@ -175,7 +175,9 @@ Threshold alarms are defined through the following parameters.
       <td style="text-align:left">2h</td>
     </tr>
   </tbody>
-</table>Have you noted the gap between the _threshold\_ok_ and _threshold\_crit?_ This is called a hysteresis. The alarm will enter critical state once observations exceed the _threshold\_crit_ then fire warnings every 2 hours until observations fall below _threshold\_ok._ Of course, you can set _threshold\_ok_ equal to _threshold\_crit_ if you want alarms to recover immediately when observations fall below the critical threshold.
+</table>
+
+Have you noted the gap between the _threshold\_ok_ and _threshold\_crit?_ This is called a hysteresis. The alarm will enter critical state once observations exceed the _threshold\_crit_ then fire warnings every 2 hours until observations fall below _threshold\_ok._ Of course, you can set _threshold\_ok_ equal to _threshold\_crit_ if you want alarms to recover immediately when observations fall below the critical threshold.
 
 Let's add the above alarm and see what happens.
 
@@ -390,7 +392,9 @@ Throughput alarms are defined through the following parameters.
       <td style="text-align:left">10m</td>
     </tr>
   </tbody>
-</table>{% tabs %}
+</table>
+
+{% tabs %}
 {% tab title="Python" %}
 ```python
 project_id = 4

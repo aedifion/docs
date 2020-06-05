@@ -209,7 +209,9 @@ Maybe that _datapoint\_within\_your\_office_ is not that important, after all. R
         </td>
     </tr>
   </tbody>
-</table>{% tabs %}
+</table>
+
+{% tabs %}
 {% tab title="Python" %}
 ```python
 query_params = {'project_id': project_id, 'dataPointID': 'datapoint_within_your_office'}
@@ -326,7 +328,9 @@ Before we can rename any datapoints, we need to create a datapointkey that bundl
       <td style="text-align:left">Translation into german language.</td>
     </tr>
   </tbody>
-</table>To create the new datapointkey, we pass the _project\_id_ in the path of the request and the details of the new datapointkey in the request's body encoded as a [JSON object](https://www.json.org/).
+</table>
+
+To create the new datapointkey, we pass the _project\_id_ in the path of the request and the details of the new datapointkey in the request's body encoded as a [JSON object](https://www.json.org/).
 
 {% tabs %}
 {% tab title="Python" %}
@@ -444,7 +448,9 @@ A renaming of a datapoint is added through the `POST /v2/datapoint/renaming` end
         <br />_deinem_b&#xFC;ro</td>
     </tr>
   </tbody>
-</table>{% tabs %}
+</table>
+
+{% tabs %}
 {% tab title="Python" %}
 ```python
 query_params = {"project_id": project_id,
@@ -546,7 +552,9 @@ An existing renaming can be changed using the `PUT /v2/datapoint/renaming/{renam
       <td style="text-align:left">Datenpunkt in deinem B&#xFC;ro</td>
     </tr>
   </tbody>
-</table>We provide the _renaming\_id_ in the path and the updated name in the request's body.
+</table>
+
+We provide the _renaming\_id_ in the path and the updated name in the request's body.
 
 {% tabs %}
 {% tab title="Python" %}
@@ -920,7 +928,9 @@ The API allows to create tags as key-value pairs. Subsequently, you can assign t
       <td style="text-align:left">Office A113</td>
     </tr>
   </tbody>
-</table>_project\_id_ is a path parameter, i.e., it is entered directly in the requests path while the parameters _key_ and _value_ must be encoded as a valid [JSON](https://www.json.org/) and sent in the body of the request.
+</table>
+
+_project\_id_ is a path parameter, i.e., it is entered directly in the requests path while the parameters _key_ and _value_ must be encoded as a valid [JSON](https://www.json.org/) and sent in the body of the request.
 
 {% tabs %}
 {% tab title="Python" %}
@@ -1038,7 +1048,9 @@ For now, our newly created tag is not assigned to any datapoint. Let's now assig
       <td style="text-align:left">42</td>
     </tr>
   </tbody>
-</table>Note that all parameters are _query parameters_, i.e., they're added in [url-encoded form](https://de.wikipedia.org/wiki/URL-Encoding) to the query part of the requested URL \(the part following the domain and path separated by a question mark\).
+</table>
+
+Note that all parameters are _query parameters_, i.e., they're added in [url-encoded form](https://de.wikipedia.org/wiki/URL-Encoding) to the query part of the requested URL \(the part following the domain and path separated by a question mark\).
 
 {% tabs %}
 {% tab title="Python" %}
@@ -1323,7 +1335,9 @@ You can also modify the tag assignment to a datapoint \(here: confirm or reject 
       <td style="text-align:left">&quot;true&quot;</td>
     </tr>
   </tbody>
-</table>With this method we can now confirm our created tag as an example.
+</table>
+
+With this method we can now confirm our created tag as an example.
 
 {% tabs %}
 {% tab title="Python" %}
@@ -1525,7 +1539,9 @@ Let us now delete the assignment of the created location tag from the datapoint.
       </td>
     </tr>
   </tbody>
-</table>{% tabs %}
+</table>
+
+{% tabs %}
 {% tab title="Python" %}
 ```python
 import requests

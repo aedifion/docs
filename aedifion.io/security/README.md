@@ -134,7 +134,9 @@ Communication on the above listed ports only has to be opened towards a fixed se
       </td>
     </tr>
   </tbody>
-</table>{% hint style="info" %}
+</table>
+
+{% hint style="info" %}
 All communication is established unidirectionally, i.e., from the edge device to the aedifion.io platform, and can be cleared or blocked accordingly in your firewalls. No external access to your network ever takes place. Your networks can remain completely closed and thus protected against external access by your existing firewalls. Thus there is no direct connection of the building automation network and hardware to the Internet.
 {% endhint %}
 

@@ -71,7 +71,9 @@ description: aedifion .io versioning
       <td style="text-align:left">Wall mount, opt. side board, VESA or DIN rail mounting kits</td>
     </tr>
   </tbody>
-</table>### Multi logger software
+</table>
+
+### Multi logger software
 
 * Bridging function for non-internet-accessible IP networks
 * Routing via second network card 

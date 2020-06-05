@@ -14,6 +14,10 @@ Analytics peruses only one goal: Guide technicians and building users to improve
 * Higher **energy efficiency** providing comfort and energy services.
 * Lower effort **maintaining** and **servicing** complex technical facilities.
 
+{% hint style="warning" %}
+aedifion explicitly points out that all analyses have been prepared with the greatest possible care, but are only to be understood as recommendations for action and should in no case replace the concrete notes or instructions of the respective component and system manufacturers. The execution of the recommended action is at your own risk unless the execution is carried out by our company or our subcontractors on a contractual basis.
+{% endhint %}
+
 ## How to read the docs?
 
 Each analysis function documentation starts with a short description. Specifications for the application of the analysis are ordered in tabs
@@ -452,7 +456,9 @@ This example shows the results of a R_educed Load Analysis_ performed on a heati
       <td style="text-align:left">binary</td>
     </tr>
   </tbody>
-</table>### Statistics of temperature level shift
+</table>
+
+### Statistics of temperature level shift
 
 <table>
   <thead>
@@ -476,7 +482,9 @@ This example shows the results of a R_educed Load Analysis_ performed on a heati
       <td style="text-align:left">&#xB0;C</td>
     </tr>
   </tbody>
-</table>## Timeserieses
+</table>
+
+## Timeserieses
 
 <table>
   <thead>
@@ -809,7 +817,9 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
       <td style="text-align:left"></td>
     </tr>
   </tbody>
-</table>## [combined heat and power](component-data-models.md#combined-heat-and-power)
+</table>
+
+## [combined heat and power](component-data-models.md#combined-heat-and-power)
 
 | Pin | Required | Mapping info |
 | :--- | :--- | :--- |
@@ -863,7 +873,9 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
       <td style="text-align:left"></td>
     </tr>
   </tbody>
-</table>## [fan](component-data-models.md#thermal-control-loop)
+</table>
+
+## [fan](component-data-models.md#thermal-control-loop)
 
 | Pin | Required | Mapping info |
 | :--- | :--- | :--- |
@@ -917,7 +929,9 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
       <td style="text-align:left"></td>
     </tr>
   </tbody>
-</table>## [heat pump](component-data-models.md#heat-pump)
+</table>
+
+## [heat pump](component-data-models.md#heat-pump)
 
 | Pin | Required | Mapping info |
 | :--- | :--- | :--- |
@@ -971,7 +985,9 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
       <td style="text-align:left"></td>
     </tr>
   </tbody>
-</table>## [thermal control loop](component-data-models.md#thermal-control-loop)
+</table>
+
+## [thermal control loop](component-data-models.md#thermal-control-loop)
 
 | Pin | Required | Mapping info |
 | :--- | :--- | :--- |
@@ -1026,7 +1042,9 @@ The following KPIs show that a reduction of ~9% of the total operating time is p
       <td style="text-align:left"></td>
     </tr>
   </tbody>
-</table>## [room](component-data-models.md#room)
+</table>
+
+## [room](component-data-models.md#room)
 
 | Pin | Required | Mapping info |
 | :--- | :--- | :--- |
@@ -1237,7 +1255,9 @@ General information KPIs to give further insight into the setpoint compliance ov
       <td style="text-align:left"></td>
     </tr>
   </tbody>
-</table>## [combined heat and power](component-data-models.md#combined-heat-and-power)
+</table>
+
+## [combined heat and power](component-data-models.md#combined-heat-and-power)
 
 <table>
   <thead>
@@ -1267,7 +1287,9 @@ General information KPIs to give further insight into the setpoint compliance ov
       <td style="text-align:left"></td>
     </tr>
   </tbody>
-</table>## [heat pump](component-data-models.md#heat-pump)
+</table>
+
+## [heat pump](component-data-models.md#heat-pump)
 
 <table>
   <thead>
@@ -1310,7 +1332,9 @@ General information KPIs to give further insight into the setpoint compliance ov
       </td>
     </tr>
   </tbody>
-</table>## [**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
+</table>
+
+## [**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
 
 <table>
   <thead>
@@ -1340,7 +1364,9 @@ General information KPIs to give further insight into the setpoint compliance ov
       <td style="text-align:left"></td>
     </tr>
   </tbody>
-</table>## \*\*\*\*[**thermal control loop**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#thermal-control-loop)\*\*\*\*
+</table>
+
+## \*\*\*\*[**thermal control loop**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#thermal-control-loop)\*\*\*\*
 
 <table>
   <thead>
@@ -1609,7 +1635,9 @@ _temperature spread.minimum_ will be _evaporator temperature spread.minimum_
       <td style="text-align:left"></td>
     </tr>
   </tbody>
-</table>## [combined heat and power](component-data-models.md#combined-heat-and-power)
+</table>
+
+## [combined heat and power](component-data-models.md#combined-heat-and-power)
 
 <table>
   <thead>
@@ -1639,7 +1667,9 @@ _temperature spread.minimum_ will be _evaporator temperature spread.minimum_
       <td style="text-align:left"></td>
     </tr>
   </tbody>
-</table>## [heat pump](component-data-models.md#heat-pump)
+</table>
+
+## [heat pump](component-data-models.md#heat-pump)
 
 <table>
   <thead>
@@ -1682,7 +1712,9 @@ _temperature spread.minimum_ will be _evaporator temperature spread.minimum_
       </td>
     </tr>
   </tbody>
-</table>## [thermal control loop](component-data-models.md#thermal-control-loop)
+</table>
+
+## [thermal control loop](component-data-models.md#thermal-control-loop)
 
 <table>
   <thead>
@@ -1866,7 +1898,9 @@ _heat flux.maximum_ will be _evaporator heat flux.maximum_
       <td style="text-align:left"></td>
     </tr>
   </tbody>
-</table>| **Attribute** | Required | Mapping info |
+</table>
+
+| **Attribute** | Required | Mapping info |
 | :--- | :--- | :--- |
 | volume\_flow\_unit | no | Default: l/s |
 
@@ -1905,7 +1939,9 @@ _heat flux.maximum_ will be _evaporator heat flux.maximum_
       <td style="text-align:left"></td>
     </tr>
   </tbody>
-</table>| **Attribute** | Required | Mapping info |
+</table>
+
+| **Attribute** | Required | Mapping info |
 | :--- | :--- | :--- |
 | volume\_flow\_unit | no | Default: l/s |
 
@@ -1978,7 +2014,9 @@ The Virtual Heat Meter is determined on the condenser and evaporator side depend
       </td>
     </tr>
   </tbody>
-</table>| **Attribute** | Required | Mapping info |
+</table>
+
+| **Attribute** | Required | Mapping info |
 | :--- | :--- | :--- |
 | volume\_flow\_unit | no | Default: l/s |
 

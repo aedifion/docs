@@ -280,7 +280,9 @@ Let's imagine there was an error in the project name and description and we want
       <td style="text-align:left">My second simulation project.</td>
     </tr>
   </tbody>
-</table>As in [the previous example](administration.md#adding-projects), we encode the body parameters in a single [JSON-formatted](https://www.json.org/) object.
+</table>
+
+As in [the previous example](administration.md#adding-projects), we encode the body parameters in a single [JSON-formatted](https://www.json.org/) object.
 
 ```javascript
 { 
@@ -481,7 +483,9 @@ New users are created by user with company-roles through the `POST /v2/company/u
       <td style="text-align:left">ch4ng3m3s00n</td>
     </tr>
   </tbody>
-</table>A [valid JSON](https://jsonlint.com/) encoding looks like this:
+</table>
+
+A [valid JSON](https://jsonlint.com/) encoding looks like this:
 
 ```javascript
 {
@@ -574,7 +578,9 @@ The new user, Jane Doe, should change her password after she receives her accoun
       <td style="text-align:left">my0wnsup3rs3cr3tpw</td>
     </tr>
   </tbody>
-</table>The new user, Jane Doe, must put this request herself as only she is allowed to change her personal details. Regarding the previous examples, we thus have to change the authorization. 
+</table>
+
+The new user, Jane Doe, must put this request herself as only she is allowed to change her personal details. Regarding the previous examples, we thus have to change the authorization. 
 
 A [valid JSON](https://jsonlint.com/) for this endpoint:
 
@@ -902,7 +908,9 @@ In many use cases, we would, however, like to restrict access to our new _TestPr
         &quot;read&quot;: true, &quot;write&quot;: false}]</td>
     </tr>
   </tbody>
-</table>We do not care about _authed\_tags_ at this point since the specified endpoints do not touch datapoint resources. The request is then built as follows:
+</table>
+
+We do not care about _authed\_tags_ at this point since the specified endpoints do not touch datapoint resources. The request is then built as follows:
 
 {% tabs %}
 {% tab title="Python" %}

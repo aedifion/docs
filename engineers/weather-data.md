@@ -109,7 +109,9 @@ This list provides the meteorological conditions which can be integrated by defa
       <td style="text-align:left">Horizontal wind speed.</td>
     </tr>
   </tbody>
-</table>We store every meteorological condition as a separate datapoint on the aedifion.io platform to historicize its state. More on this in the subchapter [Datapoint and observation convention](../aedifion.io/integrations.md#datapoint-and-observation-convention).
+</table>
+
+We store every meteorological condition as a separate datapoint on the aedifion.io platform to historicize its state. More on this in the subchapter [Datapoint and observation convention](../aedifion.io/integrations.md#datapoint-and-observation-convention).
 
 
 

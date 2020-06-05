@@ -85,7 +85,9 @@ The `POST /v2/project/{project_id}/importTimeseries` endpoint allows uploading t
       </td>
     </tr>
   </tbody>
-</table>{% hint style="info" %}
+</table>
+
+{% hint style="info" %}
 **CSV Format**
 
 The preferred CSV format for the uploaded data uses `,` as delimiter and `"` as quote character and has exactly the following three columns:
