@@ -341,7 +341,19 @@ The postfix matching the `#` can generally have arbitrary length or structure as
 
   Via MQTT, you thus have datapoint-level publish/subscribe access to the datapoints of your building.
 
-  For efficiency reasons, the edge device uses short 4 to 12 characters long base62-encoded hash identifiers generated from the full datapoint names, for example: `load-balancing-group/project-handle/0OHgK8nP`
+  For efficiency reasons, the edge device uses short 4 to 12 characters long identifiers generated from the full datapoint names, for example: `load-balancing-group/project-handle/0OHgK8nP`. aedifion's hash identifiers are built as follows:
+
+  1. Built SHA1 hash of the UTF-8 encoded datapoint id.
+  2. Cut the first `hash_id_length` characters where `hash_id_length` is configured individually per project \(default = 8\).
+  3. base62-encode the shortened hash.  
+  
+     Here's a sample implementation in Python using the [pybase62](https://pypi.org/project/pybase62/) module.
+
+     ```text
+     import base62
+     def base62id(s: str, length: int = 8):
+         return base62.encodebytes(hashlib.sha1(s.encode('utf-8')).digest())[:length] 
+     ```
 
 * If you ingest data yourself, you can publish to arbitrary postfixes since the `#` wildcard of your topic authorization matches any number of sublevels.
 
