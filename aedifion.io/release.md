@@ -198,12 +198,12 @@ description: aedifion .io versioning
 * Freely adaptable and expandable
 * Sharing of dashboards
 * Deposit of slideshows \(e.g. for promotion displays\)
-* Self-administration
+* Customer self-administration
 
 ### Alarm dashboard 
 
 * High-level alarm management
-* Alarm classification, assignment, tracking, prioritization and forwarding capabilities
+* Alarm categorization, tracking, prioritization, plotting, and forwarding capabilities
 * Customer self-administration
 
 ### aedifion.io service level
