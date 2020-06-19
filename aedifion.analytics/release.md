@@ -6,7 +6,7 @@ description: aedfion.analytics  versioning
 
 ## 1.1.0
 
-#### Release date: 2020-06-02
+#### Release date: 2020-06-19
 
 #### What's new in v1.1.0?
 
@@ -42,6 +42,8 @@ description: aedfion.analytics  versioning
   * Added comparison of heat meter to virtually determined heat
 
 ### 1.0.1
+
+#### Release date: 2020-05-08
 
 #### What's new in v1.0.1?
 
