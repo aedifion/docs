@@ -4,9 +4,44 @@ description: aedfion.analytics  versioning
 
 # Release
 
-## 1.0.1
+## 1.1.0
 
-#### Release date: 2020-05-08
+#### Release date: 2020-06-02
+
+#### What's new in v1.1.0?
+
+#### Analysis framework
+
+* Analytics API endpoints were simplified and are henceforth downward compatible
+  * Response model of API endpoint get [GET](https://api3.aedifion.io/ui/#!/Analytics/get_instance_result) [/v2/analytics/instance/{instance\_id}/result/{result\_id}](https://api3.aedifion.io/ui/#!/Analytics/get_instance_result) was simplified
+  * [POST](https://api3.aedifion.io/ui/#!/Analytics/post_analysis_instance) [/v2/analytics/instance](https://api3.aedifion.io/ui/#!/Analytics/post_analysis_instance) and [PUT](https://api3.aedifion.io/ui/#!/Analytics/put_analysis_instance) [/v2/analytics/instance/{instance\_id}](https://api3.aedifion.io/ui/#!/Analytics/put_analysis_instance) were updated to enforce a one-to-one linking between _componentInProject_ and _analysisfunctions_
+* Analytics endpoint [GET](https://api3.aedifion.io/ui/#!/Analytics/get_analysis_functions) [/v2/analytics/functions](https://api3.aedifion.io/ui/#!/Analytics/get_analysis_functions) was extended by accepting _component\_id_ as a ****query parameter to query available functions
+
+#### Component models
+
+* Further pins were added to component models to enable new analysis
+  * [Boiler](../engineers/component-data-models.md#boiler): _alarm message_, _heat_ and _heat flow_
+  * [Combined heat and power](../engineers/component-data-models.md#combined-heat-and-power): _alarm message_, _heat_ and _heat flow_
+  * [Fan](../engineers/component-data-models.md#fan): _alarm message_
+  * [Heat meter](../engineers/component-data-models.md#heat-meter): _heat_ and _heat flow_
+  * [Heat pump](../engineers/component-data-models.md#heat-pump): _alarm message_, _condenser heat, condenser heat flow, evaporator heat,_ and _evaporator heat flow_
+  * \_\_[Room](../engineers/component-data-models.md#room): _dew point alarm, humidity_ and _outside air temperature_
+  * [Thermal control loop](../engineers/component-data-models.md#thermal-control-loop): _alarm message_
+
+#### Analysis function library
+
+* New analysis functions
+  * [Alarm state analysis](../engineers/analytics.md#alarm-state-analysis)
+  * [Dew point alert analysis](../engineers/analytics.md#dew-point-alert-analysis)
+  * [Sensor outage analysis](../engineers/analytics.md#sensor-outage-analysis)
+  * [Thermal comfort analysis](../engineers/analytics.md#thermal-comfort-analysis)
+* Extended [reduced load analysis](../engineers/analytics.md#reduced-load-analysis)
+  * Added schedule analysis of load reduction
+  * Refinement of _temperature level shift_ of load reduction, limiting load reduction analysis to the pin _temperature setpoint_ for higher accuracy
+* Extended [virtual heat meter](../engineers/analytics.md#virtual-heat-meter)
+  * Added comparison of heat meter to virtually determined heat
+
+### 1.0.1
 
 #### What's new in v1.0.1?
 
@@ -19,7 +54,7 @@ description: aedfion.analytics  versioning
 
 #### Release date: 2020-03-20
 
-### Analytics framework
+#### Analytics framework
 
 * Abstract component models
   * aedifion provides a library of curated component models that abstractly model the functioning of various physical or virtual technical equipment such as boilers, heat pumps, control loops, rooms, etc.
@@ -40,7 +75,7 @@ description: aedfion.analytics  versioning
   * Analytics framework utilizable to the full extend via API. Comprehensive guides and tutorials available.
   * The aedifion.io frontend offers the display signal colors, interpretations, recommendations and key performance indicators of the most recent analysis results for each analysis instance, including instancing and mapping of component models.
 
-### Component models
+#### Component models
 
 * [Boiler](../engineers/component-data-models.md#boiler)
 * [Combined heat and power](../engineers/component-data-models.md#combined-heat-and-power)
@@ -51,7 +86,7 @@ description: aedfion.analytics  versioning
 * [Thermal control loop](../engineers/component-data-models.md#thermal-control-loop)
 * [Weather station](../engineers/component-data-models.md#weather-station)
 
-### Analysis functions library
+#### Analysis functions library
 
 * [Control loop oscillation analysis](../engineers/analytics.md#control-loop-oscillation-analysis)
 * [Operating cycle analysis](../engineers/analytics.md#operating-cycle-analysis)
@@ -64,7 +99,7 @@ description: aedfion.analytics  versioning
 * [Virtual heat meter](../engineers/analytics.md#temperature-spread-analysis)
 * [Weather station analysis](../engineers/analytics.md#weather-station-analysis)
 
-### Serviced analytics
+#### Serviced analytics
 
 * Serviced analytics is an optionally bookable add-on to the .analytics basic license.
 * Minimal service level:

@@ -28,7 +28,7 @@ Hints for a smooth application of [component data models](../glossary.md#compone
 If unit conventions are disregarded, this can lead to errors and even misleading results of algorithms.
 {% endhint %}
 
-* **Incomplete mapping:** [Pins ](../glossary.md#pin)and [attributes](../glossary.md#attribute), are placeholders which might or might not be [mapped ](../glossary.md#mapping)to data. Algorithms will work on incomplete mapped components, they require mapping for specific placeholders though. Check the [algorithm documentation](analytics.md) for required mappings.
+* **Incomplete mapping:** [Pins ](../glossary.md#pin)and [attributes](../glossary.md#attribute), are placeholders which might or might not be [mapped ](../glossary.md#mapping)to data. Algorithms will work on incomplete mapped components, they require mapping for specific placeholders though. Check the [algorithm documentation](analytics.md) for the required mappings.
 
 ## How to read the docs?
 
@@ -51,9 +51,9 @@ The tab lists all available pins for the specific component data model. Mind the
 
 ### Attributes
 
-An attribute is a generic placeholder for meta data[ ](../glossary.md#datapoint)of a [component data model](../glossary.md#component-data-model). An attribute is used to [map](../glossary.md#mapping) a meta data value to an [instanced component ](../glossary.md#instanced-component)within a specific [project](../glossary.md#project). Attributes are designed in analogy to [tags](../glossary.md#tag).
+An attribute is a generic placeholder for metadata[ ](../glossary.md#datapoint)of a [component data model](../glossary.md#component-data-model). An attribute is used to [map](../glossary.md#mapping) a metadata value to an [instanced component ](../glossary.md#instanced-component)within a specific [project](../glossary.md#project). Attributes are designed in analogy to [tags](../glossary.md#tag).
 
-The tab lists all available attributes for the specific component data model. Map attributes in respect to the analysis, which shall be run on an instanced component.
+The tab lists all available attributes for the specific component data model. Map attributes with respect to the analysis, which shall be run on an instanced component.
 
 ### Analysis
 
@@ -83,6 +83,25 @@ Mind the units.
   </thead>
   <tbody>
     <tr>
+      <td style="text-align:left">alarm message</td>
+      <td style="text-align:left">
+        <p>Any boolean alarm message, critical alerts are preferred</p>
+        <p>1 = alarm</p>
+        <p>0 = no alarm</p>
+      </td>
+      <td style="text-align:left">binary</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">heat</td>
+      <td style="text-align:left">Measured heat delivered by boiler to heating loop</td>
+      <td style="text-align:left">MWh</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">heat flow</td>
+      <td style="text-align:left">Measured heat flow delivered by boiler to heating loop</td>
+      <td style="text-align:left">kW</td>
+    </tr>
+    <tr>
       <td style="text-align:left">inlet temperature</td>
       <td style="text-align:left">Temperature of heat carrier fluid (water) entering the component. Also
         referred to as <b>return temperature</b>
@@ -107,8 +126,8 @@ Mind the units.
     </tr>
     <tr>
       <td style="text-align:left">outlet temperature setpoint</td>
-      <td style="text-align:left">Setpoint temperature for heat carrier fluid ( water) exiting the component.
-        Also referred to as <b>supply temperature</b>
+      <td style="text-align:left">Setpoint temperature of heat carrier fluid (water) exiting the component.
+        Also referred to as <b>supply temperature setpoint</b>
       </td>
       <td style="text-align:left">&#xB0;C</td>
     </tr>
@@ -176,7 +195,7 @@ Timezone of the schedule provided in IANA timezone codes. Default: UTC
 
 ## Shutdown Flexibility
 
-If the basic schedule is inherited from building usage times or opening hours, add a shutdown flexibility attribute and thus a shutdown flexibility period to the end time of the basic schedule. A shutdown of a plant prior to the end of the usage times of the building allows to consume the buffers of conditioned rooms within the limits of comfort or thermal energy of heat storages. The operation of a particular plant before the schedule end time is therefore evaluated as unintended in the scope of the shutdown flexibility
+If the basic schedule is inherited from building usage times or opening hours, add a shutdown flexibility attribute and thus a shutdown flexibility period to the end time of the basic schedule. A shutdown of a plant prior to the end of the usage times of the building allows to consume the buffers of conditioned rooms within the limits of comfort or thermal energy of the heat storages. The operation of a particular plant before the scheduled end time is therefore evaluated as unintended in the scope of the shutdown flexibility
 
 | Key | Type | Example Value | Unit |
 | :--- | :--- | :--- | :--- |
@@ -212,11 +231,15 @@ This attribute allows to adapt the unit of the volume flow pin.
 {% endtab %}
 
 {% tab title="Analysis" %}
+### [Alarm State Analysis](analytics.md#alarm-state-analysis)
+
 ### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 ### [Reduced Load Analysis](analytics.md#reduced-load-analysis)
 
 ### [Schedule Analysis](analytics.md#schedule-analysis)
+
+### [Sensor Outage Analysis](analytics.md#sensor-outage-analysis)
 
 ### [Setpoint Deviation Analysis](analytics.md#setpoint-deviation-analysis)
 
@@ -250,15 +273,35 @@ Mind the units.
   </thead>
   <tbody>
     <tr>
+      <td style="text-align:left">alarm message</td>
+      <td style="text-align:left">
+        <p>Any boolean alarm message, critical alerts are preferred</p>
+        <p>1 = alarm</p>
+        <p>0 = no alarm</p>
+      </td>
+      <td style="text-align:left">binary</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">heat</td>
+      <td style="text-align:left">Measured heat delivered by chp to heating loop</td>
+      <td style="text-align:left">MWh</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">heat flow</td>
+      <td style="text-align:left">Measured heat flow delivered by chp to heating loop</td>
+      <td style="text-align:left">kW</td>
+    </tr>
+    <tr>
       <td style="text-align:left">inlet temperature</td>
       <td style="text-align:left">Temperature of heat carrier fluid (water) entering the component. Also
-        referred to as <b>return temperature</b>.</td>
+        referred to as <b>return temperature</b>
+      </td>
       <td style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
       <td style="text-align:left">operating message</td>
       <td style="text-align:left">
-        <p>Informs about operational state of component.</p>
+        <p>Informs about operational state of component</p>
         <p>1 = operating</p>
         <p>0 = switched-off</p>
       </td>
@@ -267,13 +310,15 @@ Mind the units.
     <tr>
       <td style="text-align:left">outlet temperature</td>
       <td style="text-align:left">Temperature of heat carrier fluid (water) exiting the component. Also
-        referred to as <b>supply temperature</b>.</td>
+        referred to as <b>supply temperature</b>
+      </td>
       <td style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
       <td style="text-align:left">outlet temperature setpoint</td>
       <td style="text-align:left">Setpoint temperature of heat carrier fluid (water) exiting the component.
-        Also referred to as <b>supply temperature</b>.</td>
+        Also referred to as <b>supply temperature setpoint</b>
+      </td>
       <td style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
@@ -376,11 +421,15 @@ This attribute allows to adapt the unit of the volume flow pin.
 {% endtab %}
 
 {% tab title="Analysis" %}
+### [Alarm State Analysis](analytics.md#alarm-state-analysis)
+
 ### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 ### [Setpoint Deviation Analysis](analytics.md#setpoint-deviation-analysis)
 
 ### [Schedule Analysis](analytics.md#schedule-analysis)
+
+### [Sensor Outage Analysis](analytics.md#sensor-outage-analysis)
 
 ### [Temperature Spread Analysis](analytics.md#temperature-spread-analysis)
 
@@ -411,6 +460,15 @@ Mind the units.
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td style="text-align:left">alarm message</td>
+      <td style="text-align:left">
+        <p>Any boolean alarm message, critical alerts are preferred</p>
+        <p>1 = alarm</p>
+        <p>0 = no alarm</p>
+      </td>
+      <td style="text-align:left">binary</td>
+    </tr>
     <tr>
       <td style="text-align:left">operating message</td>
       <td style="text-align:left">
@@ -514,6 +572,16 @@ Mind the units.
   </thead>
   <tbody>
     <tr>
+      <td style="text-align:left">heat</td>
+      <td style="text-align:left">Measured heat</td>
+      <td style="text-align:left">MWh</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">heat flow</td>
+      <td style="text-align:left">Measured heat flow</td>
+      <td style="text-align:left">kW</td>
+    </tr>
+    <tr>
       <td style="text-align:left">inlet temperature</td>
       <td style="text-align:left">Temperature of heat carrier fluid (water) entering the heat meter</td>
       <td
@@ -576,7 +644,7 @@ This attribute allows to adapt the unit of the volume flow pin.
 
 ## Heat Pump
 
-The **Heat Pump** component data model is representative for components which are able to raise the temperature level between two heat carrier loops \(water/water\) via thermal compression.
+The **Heat Pump** component data model is representative of components that are able to raise the temperature level between two heat carrier loops \(water/water\) via thermal compression.
 
 {% tabs %}
 {% tab title="Component Identifier" %}
@@ -598,6 +666,27 @@ Mind the units.
   </thead>
   <tbody>
     <tr>
+      <td style="text-align:left">alarm message</td>
+      <td style="text-align:left">
+        <p>Any boolean alarm message, critical alerts are preferred</p>
+        <p>1 = alarm</p>
+        <p>0 = no alarm</p>
+      </td>
+      <td style="text-align:left">binary</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">condenser heat</td>
+      <td style="text-align:left">Measured heat delivered by the condenser to heating/recooling loop</td>
+      <td
+      style="text-align:left">MWh</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">condenser heat flow</td>
+      <td style="text-align:left">Measured heat flow delivered by the condenser to heating/recooling loop</td>
+      <td
+      style="text-align:left">kW</td>
+    </tr>
+    <tr>
       <td style="text-align:left">condenser inlet temperature</td>
       <td style="text-align:left">Temperature of heat carrier fluid (water) entering the component. Also
         referred to as <b>return temperature</b>. Condenser side</td>
@@ -612,8 +701,9 @@ Mind the units.
     <tr>
       <td style="text-align:left">condenser outlet temperature setpoint</td>
       <td style="text-align:left">Setpoint temperature of heat carrier fluid (water) exiting the component.
-        Also referred to as <b>supply temperature</b>. Condenser side</td>
-      <td style="text-align:left">&#xB0;C</td>
+        Also referred to as <b>supply temperature setpoint</b>. Condenser side</td>
+      <td
+      style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
       <td style="text-align:left">condenser volume flow</td>
@@ -622,6 +712,16 @@ Mind the units.
         <p>default: l/s</p>
         <p>use component attribute to adjust</p>
       </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator heat</td>
+      <td style="text-align:left">Measured heat taken from cooling/heat source loop</td>
+      <td style="text-align:left">MWh</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator heat flow</td>
+      <td style="text-align:left">Measured heat flow taken from cooling/heat source loop</td>
+      <td style="text-align:left">kW</td>
     </tr>
     <tr>
       <td style="text-align:left">evaporator inlet temperature</td>
@@ -639,7 +739,7 @@ Mind the units.
       <td style="text-align:left">evaporator outlet temperature setpoint</td>
       <td style="text-align:left">Setpoint temperature of heat carrier fluid (water) exiting the component.
         Also referred to as <b>supply temperature</b>. Evaporator side</td>
-      <td style="text-align:left"></td>
+      <td style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
       <td style="text-align:left">evaporator volume flow</td>
@@ -756,11 +856,15 @@ The attribute adjusts the volume flow pin unit on the condenser as well as the e
 {% endtab %}
 
 {% tab title="Analysis" %}
+### [Alarm State Analysis](analytics.md#alarm-state-analysis)
+
 ### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
-### [Setpoint Deviation Analysis](analytics.md#setpoint-deviation-analysis)
-
 ### [Schedule Analysis](analytics.md#schedule-analysis)
+
+### [Sensor Outage Analysis](analytics.md#sensor-outage-analysis)
+
+### [Setpoint Deviation Analysis](analytics.md#setpoint-deviation-analysis)
 
 ### [Temperature Spread Analysis](analytics.md#temperature-spread-analysis)
 
@@ -770,7 +874,7 @@ The attribute adjusts the volume flow pin unit on the condenser as well as the e
 
 ## Room
 
-The **Room** component data model is the basis component model for rooms.
+The **Room** component data model is the basic component model for rooms.
 
 {% tabs %}
 {% tab title="Component Identifier" %}
@@ -797,6 +901,11 @@ Mind the units.
       <td style="text-align:left">ppm</td>
     </tr>
     <tr>
+      <td style="text-align:left">humidity</td>
+      <td style="text-align:left">Relative humidity of indoor air</td>
+      <td style="text-align:left">%</td>
+    </tr>
+    <tr>
       <td style="text-align:left">operating message</td>
       <td style="text-align:left">
         <p>Operating message of room control</p>
@@ -804,6 +913,12 @@ Mind the units.
         <p>0 = switched-off</p>
       </td>
       <td style="text-align:left">binary</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outside air temperature</td>
+      <td style="text-align:left">Outside air temperature, datapoint can be mapped from a weather station
+        on site</td>
+      <td style="text-align:left">&#xB0;C</td>
     </tr>
     <tr>
       <td style="text-align:left">presence</td>
@@ -888,19 +1003,25 @@ If the basic schedule is inherited from building usage times or opening hours, a
 {% endtab %}
 
 {% tab title="Analysis" %}
+### [Dew Point Alert Analysis](analytics.md#dew-point-alert-analysis)
+
 ### [Reduced Load Analysis](analytics.md#reduced-load-analysis)
 
 ### [Room Air Quality Analysis](analytics.md#room-air-quality-analysis)
 
 ### [Schedule Analysis](analytics.md#schedule-analysis)
 
+### [Sensor Outage Analysis](analytics.md#sensor-outage-analysis)
+
 ### [Setpoint Deviation Analysis](analytics.md#setpoint-deviation-analysis)
+
+### [Thermal Comfort Analysis](analytics.md#thermal-comfort-analysis)
 {% endtab %}
 {% endtabs %}
 
 ## Thermal Control Loop
 
-The **Thermal Control Loop** component data model is representative for thermal control loops. It can be utilized to model thermal control loops of the conversion, distribution, and acceptance layer.
+The **Thermal Control Loop** component data model is representative of thermal control loops. It can be utilized to model thermal control loops of the conversion, distribution, and acceptance layer.
 
 {% tabs %}
 {% tab title="Component Identifier" %}
@@ -921,6 +1042,15 @@ Mind the units.
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td style="text-align:left">alarm message</td>
+      <td style="text-align:left">
+        <p>Any boolean alarm message, critical alerts are preferred</p>
+        <p>1 = alarm</p>
+        <p>0 = no alarm</p>
+      </td>
+      <td style="text-align:left">binary</td>
+    </tr>
     <tr>
       <td style="text-align:left">inlet temperature</td>
       <td style="text-align:left">Temperature of heat carrier fluid (water, brine) entering the control
@@ -1050,11 +1180,15 @@ If the basic schedule is inherited from building usage times or opening hours, a
 {% endtab %}
 
 {% tab title="Analysis" %}
+### [Alarm State Analysis](analytics.md#alarm-state-analysis)
+
 ### [Control Loop Oscillation Analysis](analytics.md#control-loop-oscillation-analysis)
 
 ### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 ### [Reduced Load Analysis](analytics.md#reduced-load-analysis)
+
+### [Sensor Outage Analysis](analytics.md#sensor-outage-analysis)
 
 ### [Setpoint Deviation Analysis](analytics.md#setpoint-deviation-analysis)
 
