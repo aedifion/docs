@@ -12,7 +12,7 @@ Available component data models
 * [Combined Heat and Power](component-data-models.md#combined-heat-and-power)
 * [Fan](component-data-models.md#heat-pump)
 * [Heat Meter](component-data-models.md#heat-meter)
-* [Heat Pump](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)
+* [Heat Pump](component-data-models.md#heat-pump)
 * [Room](component-data-models.md#room)
 * [Thermal Control Loop](component-data-models.md#thermal-control-loop)
 * [Weather Station](component-data-models.md#weather-station)

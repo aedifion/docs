@@ -2978,45 +2978,52 @@ The Virtual Heat Meter is determined on the condenser and evaporator side depend
     <tr>
       <td style="text-align:left">condenser inlet temperature</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if condenser shall be analysed</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">condenser outlet temperature</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if condenser shall be analysed</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
-      <td style="text-align:left">
-        <p></p>
-        <p>condenser volume flow</p>
-      </td>
+      <td style="text-align:left">condenser volume flow</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if condenser shall be analysed</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
-      <td style="text-align:left">condenser heat flow</td>
+      <td style="text-align:left">condenser heat</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if condenser shall be analysed</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">condenser heat flow</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if condenser shall be analysed</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">evaporator inlet temperature</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">evaporator outlet temperature</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">evaporator volume flow</td>
       <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator heat</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator heat flow</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
       <td style="text-align:left">operating message</td>
