@@ -97,6 +97,19 @@ Threshold alarms are defined through the following parameters.
       </td>
     </tr>
     <tr>
+      <td style="text-align:left"><b>alarm_dashboard</b>
+      </td>
+      <td style="text-align:center">bool</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">Whether the alerts should be posted to Alarm Dashboard (alerta). Alarm
+        Dasboard must be enabled for the company for this option.</td>
+      <td style="text-align:left">false</td>
+    </tr>
+    <tr>
       <td style="text-align:left"><b>dataPointID</b>
       </td>
       <td style="text-align:center">string</td>
@@ -313,6 +326,19 @@ Throughput alarms are defined through the following parameters.
         <p>john.doe@aedifion.com, jane.doe@aedifion.com,</p>
         <p>alarm@aedifion.com</p>
       </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>alarm_dashboard</b>
+      </td>
+      <td style="text-align:center">bool</td>
+      <td style="text-align:center">
+        <p>body</p>
+        <p>(JSON)</p>
+      </td>
+      <td style="text-align:center">no</td>
+      <td style="text-align:left">Whether the alerts should be posted to Alarm Dashboard (alerta). Alarm
+        Dasboard must be enabled for the company for this option.</td>
+      <td style="text-align:left">false</td>
     </tr>
     <tr>
       <td style="text-align:left"><b>dataPointID</b>
@@ -688,6 +714,30 @@ The response confirms the deletion and returns the details of the deleted alarm.
 ```
 
 Go ahead and delete also the throughput alarm then call `GET /v2/project/{project_id}/alerts`  to verify that both alarms are really gone.
+
+## Enabling Alarm Dashboard
+
+To enable option for posting alerts to our Alarm Dashboard, some prerequisites have to be met.
+
+### Setting up customer on Alarm Dashboard
+
+Head over to the Admin Dashboard corresponding to the HTTP API deployment and navigate to "Customers":
+
+![Customer dashboard](../../../.gitbook/assets/screenshot-2020-07-03-at-14.30.31.png)
+
+Add a new Customer, the name should typically correspond to the company.
+
+### Enabling Alarm Dashboard for a company on the API
+
+A config has to be added to the Company's `master_data` column. Currently it is only possible to add this information via postgres, but will be possible via admin-dashboard in the future.
+
+The following is an example config, just replace `Customer name on Alarm Dashboard` with the customer name added in the previous step.
+
+```javascript
+{"alarm_dashboard": {"customer_name": "Customer name on Alarm Dashboard"}}
+```
+
+
 
  
 
