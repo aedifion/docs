@@ -1227,7 +1227,7 @@ Geographical latitude of weather station.
 
 | Key | Type | Example Value | Unit |
 | :--- | :--- | :--- | :--- |
-| latitude | float | 6.9403 | ° |
+| latitude | float | 50.9407 | ° |
 
 ## Longitude
 
@@ -1235,7 +1235,7 @@ Geographical longitude of weather station.
 
 | Key | Type | Example Value | Unit |
 | :--- | :--- | :--- | :--- |
-| longitude | float | 50.9407 | ° |
+| longitude | float | 6.9403 | ° |
 {% endtab %}
 
 {% tab title="Analysis" %}
