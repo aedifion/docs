@@ -10,9 +10,11 @@ Available component data models
 
 * [Boiler](component-data-models.md#boiler)
 * [Combined Heat and Power](component-data-models.md#combined-heat-and-power)
-* [Fan](component-data-models.md#heat-pump)
+* [Fan](component-data-models.md#fan)
+* [Filter](component-data-models.md#filter)
 * [Heat Meter](component-data-models.md#heat-meter)
-* [Heat Pump](component-data-models.md#heat-pump)
+* [Heat Pump](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)
+* [Humidity Conditioner](component-data-models.md#humidity-conditioner)
 * [Room](component-data-models.md#room)
 * [Thermal Control Loop](component-data-models.md#thermal-control-loop)
 * [Weather Station](component-data-models.md#weather-station)
@@ -478,6 +480,12 @@ Mind the units.
       </td>
       <td style="text-align:left">binary</td>
     </tr>
+    <tr>
+      <td style="text-align:left">speed</td>
+      <td style="text-align:left">Current fan speed in relation to the nominal speed of the fan</td>
+      <td
+      style="text-align:left">%</td>
+    </tr>
   </tbody>
 </table>
 {% endtab %}
@@ -498,6 +506,22 @@ Overwrites basic schedule for specific days. On a holiday plant operation is con
 | Key | Type | Example Value |
 | :--- | :--- | :--- |
 | custom\_holiday | json | \["2020-01-02", "2020-01-28", "2020-04-07"\] |
+
+## Electricity Price
+
+Electricity price, utilized e.g. to estimate savings potentials. In €/kWh.
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| electricity\_price | float \(int is tolerated\) | 0.20 |
+
+## Nominal Power Consumption
+
+Nominal power consumption of the fan. In kW
+
+| Key | Type | Example Value |
+| :--- | :--- | :--- |
+| nominal\_power\_consumption | float \(int is tolerated\) | 0.20 |
 
 ## Preconditioning
 
@@ -542,9 +566,88 @@ If the basic schedule is inherited from building usage times or opening hours, a
 {% endtab %}
 
 {% tab title="Analysis" %}
+### [Fan Speed Analysis](analytics.md#fan-speed-analysis)
+
 ### [Operating Cycle Analysis](analytics.md#operating-cycle-analysis)
 
 ### [Schedule Analysis](analytics.md#schedule-analysis)
+{% endtab %}
+{% endtabs %}
+
+## Filter
+
+The **Filter** component data model represents various kinds of filters.
+
+{% tabs %}
+{% tab title="Component Identifier" %}
+### filter
+{% endtab %}
+
+{% tab title="Pins" %}
+{% hint style="danger" %}
+Mind the units.
+{% endhint %}
+
+| Name | Info | Unitf |
+| :--- | :--- | :--- |
+| filter contamination | The extent to which a filter is contaminated measured from 0% \(uncontaminated\) to 100% \(fully contaminated\) | % |
+| pressure difference | Pressure difference over the filter | Pa |
+{% endtab %}
+
+{% tab title="Attributes" %}
+## Filter type
+
+This attribute sets the filter type.
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Key</th>
+      <th style="text-align:left">Type</th>
+      <th style="text-align:left">Available values</th>
+      <th style="text-align:left">Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">filter_type</td>
+      <td style="text-align:left">string</td>
+      <td style="text-align:left">
+        <p>F7</p>
+        <p>F9</p>
+        <p>E11</p>
+        <p>H13</p>
+        <p>G4</p>
+        <p>M5</p>
+        <p>M6</p>
+      </td>
+      <td style="text-align:left">
+        <p></p>
+        <p>None</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Pressure difference final
+
+The pressure difference when the filter is fully contaminated. 
+
+| Key | Type | Example Value | Unit |
+| :--- | :--- | :--- | :--- |
+| pressure\_difference\_final | float | 150.0 | Pa |
+
+## Pressure difference initial
+
+The pressure difference when the filter is uncontaminated 
+
+| Key | Type | Example Value | Unit |
+| :--- | :--- | :--- | :--- |
+| pressure\_difference\_initial | float | 50.0 | Pa |
+{% endtab %}
+
+{% tab title="Analysis" %}
+### [Filter Servicing Analysis](analytics.md#filter-servicing-analysis)
 {% endtab %}
 {% endtabs %}
 
@@ -869,6 +972,73 @@ The attribute adjusts the volume flow pin unit on the condenser as well as the e
 ### [Temperature Spread Analysis](analytics.md#temperature-spread-analysis)
 
 ### [ Virtual Heat Meter Analysis](analytics.md#virtual-heat-meter)
+{% endtab %}
+{% endtabs %}
+
+## Humidity Conditioner
+
+The **Humidity Conditioner** component data model is representative for a subset of an AHU with humidity conditioning. It is usefull to analyse AHU performance regarding the change of the air flow water load / humidity.
+
+{% tabs %}
+{% tab title="Component Identifier" %}
+### humidity conditioner
+{% endtab %}
+
+{% tab title="Pins" %}
+{% hint style="danger" %}
+Mind the units.
+{% endhint %}
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Name</th>
+      <th style="text-align:left">Info</th>
+      <th style="text-align:left">Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">
+        <p>Informs about operational state of component</p>
+        <p>1 = operating</p>
+        <p>0 = switched-off</p>
+      </td>
+      <td style="text-align:left">binary</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outside air relative humidity</td>
+      <td style="text-align:left">Relative humidity of the inlet air flow. Typically the relative humidity
+        of the outside air</td>
+      <td style="text-align:left">%</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outside air temperature</td>
+      <td style="text-align:left">Temperature of the inlet air flow. Typically the temperature outside of
+        the outside air</td>
+      <td style="text-align:left">&#xB0;C</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">supply air relative humidity</td>
+      <td style="text-align:left">Relative humidity of the supply air flow</td>
+      <td style="text-align:left">%</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">supply air temperature</td>
+      <td style="text-align:left">Temperature of the supply air flow</td>
+      <td style="text-align:left">&#xB0;C</td>
+    </tr>
+  </tbody>
+</table>
+{% endtab %}
+
+{% tab title="Attributes" %}
+No Attributes on this compoenent.
+{% endtab %}
+
+{% tab title="Analysis" %}
+### [Humidity Conditioning Analysis](analytics.md#humidity-conditioning-analysis)
 {% endtab %}
 {% endtabs %}
 
@@ -1218,6 +1388,8 @@ Mind the units.
 | :--- | :--- | :--- |
 | temperature | Temperature of outside air | °C |
 | reference temperature | Reference temperature from online databases which is used for outdoor air temperature sensor checkup | °C |
+| relative humidity | Relative humidity of outside air | % |
+| reference relative humidity | Reference relative humidity from online databases which is used for outdoor air relative humidity sensor checkup | % |
 {% endtab %}
 
 {% tab title="Attributes" %}

@@ -4,6 +4,30 @@ description: aedfion.analytics  versioning
 
 # Release
 
+## 1.2.0
+
+#### Release date: 2020-07-23
+
+#### What's new in v1.2.0?
+
+#### Component models
+
+* New component models
+  * [Filter](../engineers/component-data-models.md#filter)
+  * [Humidity conditioner](../engineers/component-data-models.md#humidity-conditioner)
+* Further pins were added to component models to enable new analysis
+  * [Fan](../engineers/component-data-models.md#fan): _speed_
+  * [Weather station](../engineers/component-data-models.md#weather-station)_: relative humidity, reference relative humidity_
+
+#### Analysis function library
+
+* New analysis functions
+  * [Fan speed analysis](../engineers/analytics.md#fan-speed-analysis)
+  * [Filter servicing analysis](../engineers/analytics.md#filter-servicing-analysis)
+  * [Humidity conditioning analysis](../engineers/analytics.md#humidity-conditioning-analysis)
+* Extendet [weather station analysis](../engineers/analytics.md#weather-station-analysis)
+  * Added offset analysis of humidity sensor
+
 ## 1.1.0
 
 #### Release date: 2020-06-19

@@ -6,7 +6,7 @@ description: >-
 
 # Analytics
 
-## Introduction
+Introduction
 
 Analytics pursues only one goal: Guide technicians and building users to improve the operational performance of buildings and energy systems, while the benefits of improved operational performance are multilateral:
 
@@ -211,6 +211,8 @@ The analysis returns a _red_ warning message to indicate that the error message 
 {% endtab %}
 {% endtabs %}
 
+## Fan Speed Analysis
+
 ## **Control Loop Oscillation Analysis**
 
 The _Control Loop Oscillation Analysis_ checks the process value of a control loop for oscillation. Oscillating process values are an indicator for suboptimal parameterization or structural dimensioning of the control loop.
@@ -414,6 +416,347 @@ The condensation risk is evaluated as moderate if the room temperature is betwee
 {% endtabs %}
 
 
+
+## Operating Cycle Analysis
+
+The _Fan Speed Analysis_ evaluates whether a fan is controlled, based on its fan speed. This helps to identify problems with the fan control and ensures that fans are implemented more energy efficiently.
+
+{% tabs %}
+{% tab title="Summary" %}
+## Value
+
+* Detect AHU fans that are not controlled
+* Reduce costs through better fan speed control
+
+## Recommended for components
+
+* Fan
+
+## Checked conditions
+
+* Stationary fan speed
+{% endtab %}
+
+{% tab title="Example" %}
+In this example we look at a _Fan Speed Analysis of_  the historic 7 day fan speed. While the Operating Message \(grey in the plot below\) show the times when the fan was operated, the fan speed \(blue in the plot below\) corresponds to the speed or load setting of the fan.
+
+![](../.gitbook/assets/fanspeedanalysis.png)
+
+From the analysis results we can see that the fan was operated for 6 hours out of the 168 hours of the week or 3.57 % of the week. Additionally we get statistics of the fan speed, f.e. the fan was operated at an average of 40 % load.
+
+This corresponds to a static fan speed setting that is currently not controlled. To improve energy efficiency and thermal comfort you can consider different control strategies outlined in the recommendations.
+
+#### KPI - Statistics
+
+| KPI | Value | Unit |
+| :--- | :--- | :--- |
+| operating time | 6 | h |
+| operating time.relative | 3.57 | % |
+| speed.maximum | 40 | % |
+| speed.minimum | 40 | % |
+| speed.mean | 40 | % |
+| speed.median | 40 | % |
+{% endtab %}
+
+{% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | No |  |
+| yellow | Yes | Fan speed is not controlled |
+| green | Yes | Fan speed is controlled |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes |  Information about the fan speed |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Recommendations to look into the different control options for this fan to save energy. |
+
+## KPIs
+
+### Statistics
+
+{% hint style="info" %}
+statistics for "speed" will be calculated for all measured values that are not 0 %
+{% endhint %}
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| operating time | Total time of operation | 0 to inf | h |
+| operating time.relative | Time of operation in relation to analysis period | 0 to 100 | % |
+| speed.maximum | Largest observation recorded for fan speed during analysis period | 0 to 100 | % |
+| speed.minimum | Smallest observation recorded for fan speed during analysis period | 0 to 100 | % |
+| speed.mean | Time-weighted average of fan speed | 0 to 100 | % |
+| speed.median | Time-weighted median of fan speed | 0 to 100 | % |
+{% endtab %}
+
+{% tab title="Components" %}
+## ​[fan](https://docs.aedifion.io/docs/engineers/component-data-models#thermal-control-loop)​ <a id="fan-1"></a>
+
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | No | ​​ |
+| speed | Yes | Use this pin to connect the datapoint that reflects fan speed settings from 0 - 100 % load |
+{% endtab %}
+
+{% tab title="Application" %}
+## Recommended Time Span
+
+### 1 week
+
+## **Recommended Repetition**
+
+### Every month
+{% endtab %}
+{% endtabs %}
+
+## Filter Servicing Analysis
+
+The _Filter Servicing Analysis_ predicts when a filter is due to be serviced or replaced, based on filter contamination or the pressure difference over the filter. This ensures that filters always function optimally and maintained or replaced as required.
+
+{% tabs %}
+{% tab title="Summary" %}
+## Value
+
+* Ensures filter is serviced when required
+* Improves energy efficiency
+
+## Recommended for components
+
+* Filter
+
+## Checked conditions
+
+* Filter contamination
+* Expected time till filter service or replacement 
+{% endtab %}
+
+{% tab title="Example" %}
+In this example, the filter contamination of an exhaust air filter in a combined heat and power plant was analyzed for a period of four months. As can be seen in figure 1, the filter contamination gradually increases over the analyzed period.
+
+![Figure 1: Filter contamination over a four month period](../.gitbook/assets/image%20%2862%29.png)
+
+The signal analysis returns a green signal color since there is a significant amount of time before the filter is fully contaminated.
+
+| KPI | Value | Unit |
+| :--- | :--- | :--- |
+| days until filter service  | 35 | d |
+| expected date of filter service | 2020-05-20 | date |
+| filter contamination | 79.3 | % |
+{% endtab %}
+
+{% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | Yes | The filter is fully contaminated and should be serviced soon. |
+| yellow | Yes | The filter is almost contaminated,  a filter service should scheduled. |
+| green | Yes | The filter is in a good condition and does not need to be serviced. |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes |  Information regarding the filter condition and whether the filter needs to be serviced.  |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Make necessary arrangements for filter to be serviced. No recommendation if the filter does not need servicing within two weeks and the filter contamination is below 95%. |
+
+## KPIs
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| days until filter service | Number of days until filter expected filter service. | 0 to inf | d |
+| expected date of filter service | Date on which filter is expected to require a service \(format: YYYY-MM-DD\) |  | date |
+| filter contamination | Relative extent to which filter is contaminated. | 0 to 100 | % |
+{% endtab %}
+
+{% tab title="Components" %}
+## ​filter  <a id="fan-1"></a>
+
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| filter contamination | No | Either **filter contamination \(preferred\)** or **pressure difference** must be mapped. If ~~~~both pins are mapped, **filter contamination** is used.  |
+| pressure difference | No | Either **filter contamination \(preferred\)** or **pressure difference** must be mapped. If both pins are mapped, **filter contamination** is used.  |
+
+| Attribute | Required | Mapping info |
+| :--- | :--- | :--- |
+| filter\_class | no | Default: F9 |
+| initial\_pressure\_difference | no | Default: initial pressure difference of filter class \(50 Pa for filter class F9\). |
+| final\_pressure\_difference | no | Default: final pressure difference of filter class \(300 Pa for filter class F9\). Setting this attribute is **highly recommended**.  |
+{% endtab %}
+
+{% tab title="Application" %}
+## Recommended Time Span
+
+### 1 month to 6 months
+
+## **Recommended Repetition**
+
+### Twice a month
+{% endtab %}
+{% endtabs %}
+
+## Humidity Conditioning Analysis 
+
+The _Humidity Conditioning Analysis_ compares the outside air humidy with the actual supply air humidity of the a Air Handling Unit \(AHU\). 
+
+{% hint style="info" %}
+This analysis does not take into account air recirculation and humidity recovery modes. Make sure that the system is operated without such operational modes.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Summary" %}
+## Value
+
+* Detect operating conditions of AHUs that are not appropriate to the outside air conditions
+* Avoids unnecessary changes in humidity, which cost a lot of energy
+* Verifies sufficient supply air humidity
+
+## Recommended for components
+
+* Air handling units with humidity conditioning
+
+## Checked conditions
+
+* Compare actual operated hours with humidification, dehumidification and no operation with the corresponding expected hours
+{% endtab %}
+
+{% tab title="Example" %}
+This example shows a week of analysis for a summer scenario in July. The AHU is operating throughout the week. Relative humidity conditions are displayed in red and orange, green and blue are temperature conditions and brown and purple are the water load conditions.
+
+![](../.gitbook/assets/humidifier_analysis.png)
+
+The analysis uses two positions, intake \(outside conditions\) and outlet \(supply conditions\) to calculate water loads. A difference of these water loads corresponds to the pink line at the bottom. The operating hours will now be divided into three categories. Hours of humidification, hours of dehumidification and hours of neither humidification nor dehumidification. These values are then compared to the expected hours in these categories derived from outside conditions. The total hours of correct operation \(according to the expectation\) and then evaluated for a recommendation.
+
+| KPI | Value | Unit |
+| :--- | :--- | :--- |
+| operating time | 168 | h |
+| operating time.relative | 100 | % |
+| humidification detected | 135 | h |
+| dehumidification detected | 18 | h |
+| humidification necessary | 0 | h |
+| dehumidification necessary | 49 | h |
+| humidification missing | 0 | h |
+| dehumidification missing | 49 | h |
+| humidification unnecessary | 135 | h |
+| dehumidification unnecessary | 18 | h |
+| total hours savings possible.relative | 91.1 | % |
+| total hours increase air quality.relative | 92.3 | % |
+{% endtab %}
+
+{% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | No |   |
+| yellow | Yes |  |
+| green | Yes | The AHU operates in accordance to the expected operating conditions. |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Either the expected operating conditions are met by the operation of the AHU or the operating conditions do not fit. |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Recommendations regarding which operating mode \(humidification, dehumidification\) should be looked into to change the operating modes of the AHU. |
+
+## KPIs
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| operating time | Total time of operation | 0 to inf | h |
+| operating time.relative | Total time component was operated compared to analysis period | 0 to 100 | % |
+
+### Operating Conditions
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| humidification detected | The amount of time the component operates in humidification mode according to inflow / outflow analysis | 0 to inf | h |
+| dehumidification detected | The amount of time the component operates in dehumidification mode according to inflow / outflow analysis | 0 to inf | h |
+| humidification necessary | The amount of time the component should operate in humidification mode according to outside air conditions | 0 to inf | h |
+| dehumidification necessary | The amount of time the component should operate in dehumidification mode according to outside air conditions | 0 to inf | h |
+| humidification missing | The amount of time the component did not operate in humidification mode but should | 0 to inf | h |
+| dehumidification missing | The amount of time the component did not operate in dehumidification mode but should | 0 to inf | h |
+| humidification unnecessary | The amount of time the component operated in humidification mode but should not | 0 to inf | h |
+| dehumidification unnecessary | The amount of time the component operated in dehumidification mode but should not | 0 to inf | h |
+| total hours savings possible.relative | Percentage of time de- or humidification can be switched off according to outside air conditions relative to operating time | 0 to 100 | % |
+| total hours increase air quality.relative | Percentage of time de- or humidification should be switched on according to outside air conditons relative to operating time | 0 to 100 | % |
+{% endtab %}
+
+{% tab title="Components" %}
+## [humidity conditioner](component-data-models.md#humidity-conditioner)
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">supply air temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left">conditioned air at supply side exit of AHU</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">supply air relative humidity</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left">conditioned air at supply side exit of AHU</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outside air temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left">intake air conditions</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outside air relative humidity</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left">intake air conditions</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping of <b>operating message </b>is strongly recommended.</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+{% endtab %}
+
+{% tab title="Application" %}
+## Recommended Time Span
+
+### 1 week
+
+## **Recommended Repetition**
+
+### Every month
+
+* After changes of operational modes
+* After changes in the control system
+{% endtab %}
+{% endtabs %}
 
 ## Operating Cycle Analysis
 
@@ -938,888 +1281,6 @@ KPIs of this category analyse if the load reduction is in accordance to a schedu
 {% endtab %}
 {% endtabs %}
 
-## Room Air Quality Analysis
-
-The _Room Air Quality Analysis_ checks and interprets the compliance of carbon dioxide concentration in the air to the recommendations of DIN EN 13776: 2007-09. In the case of poor air quality, measures for improvement are recommended. Human performance is significantly influenced by air quality. In addition, the algorithm identifies calibration errors by physical plausibility checks.
-
-{% tabs %}
-{% tab title="Summary" %}
-## Value
-
-* Higher occupant comfort, health, and performance
-
-## Recommended for components
-
-* Rooms
-* Occupied indoor areas
-
-## **Checked conditions**
-
-* Indoor CO2 concentration evaluation based on DIN EN 13776: 2007-09
-* Identification of higher room ventilation needs
-* Sensor calibration check by the plausibility of minimal measured concentration levels
-* Condition checks on times of components operation
-{% endtab %}
-
-{% tab title="Example" %}
-
-
-The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a room component model was instanced and the respective datapoints mapped to this component.
-
-![Figure 1: CO2 concentration trajectory for an average office day](../.gitbook/assets/image%20%2829%29.png)
-
-In this scenario, figure 1 shows the timeseries recorded for an exemplary period of 12 hours on a working day in August. The CO2 concentration in the air remained between what is considered "good" and "medium" for most of the day. However, for about 7 percent of the period, air quality was poor, with a maximum CO2 concentration of 1463 ppm, so that a complete evaluation on that day indicates poor air quality. The results provide an advanced set of KPIs that provide quantitative insights into the air quality of the rooms and support the human reasoning for analysis. A number of suggestions for possible countermeasures are given, and further investigation of the root cause of air quality problems is possible through the aedifion front-end data visualization.
-{% endtab %}
-
-{% tab title="Results" %}
-## Signal colors
-
-| Signal color | Available | Info |
-| :--- | :--- | :--- |
-| red | Yes | CO2 concentrations critical for human health |
-| yellow | Yes | CO2 concentrations reducing human comfort, decisiveness, and performance or wrongly calibrated CO2 sensors |
-| green | Yes | CO2 concentrations sufficient for high comfort |
-
-## Interpretations
-
-| Available | Info |
-| :--- | :--- |
-| Yes | Either the operational rule checks of the analysis were tested positive or not |
-
-## Recommendations
-
-| Available | Info |
-| :--- | :--- |
-| Yes | Recommendations to improve fresh air supply, if necessary or re-calibrate the sensor, if physically implausible measures are observed. No recommendation, in case of sufficient air quality |
-
-## KPIs
-
-### Air quality classification
-
-How long was the air quality in the room \(based on carbon dioxide concentrations\) considered “good”, “medium”, “moderate” or “poor”? Assessments are based on EU regulation classifications of Indoor Air Quality \(IDA\) classes 1 \(“good”\) to 4 \(“poor”\).
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| co2 duration.IDA1.relative | Duration with “good“ indoor air quality | 0 to 100 | % |
-| co2 duration.IDA2.relative | Duration with “medium “ indoor air quality | 0 to 100 | % |
-| co2 duration.IDA3.relative | Duration with “moderate “ indoor air quality | 0 to 100 | % |
-| co2 duration.IDA4.relative | Duration with “poor “ indoor air quality | 0 to 100 | % |
-| co2 duration.IDA1 | Duration with “good“ indoor air quality | 0 to inf | h |
-| co2 duration.IDA2 | Duration with “medium “ indoor air quality | 0 to inf | h |
-| co2  duration.IDA3 | Duration with “moderate “ indoor air quality | 0 to inf | h |
-| co2 duration.IDA4 | Duration with “poor “ indoor air quality | 0 to inf | h |
-
-### Statistics of CO2 concentration
-
-Providing deeper insights to the carbon dioxide concentrations over the analysed period.
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| co2.maximum | Largest CO2 concentrations | 0 to inf | ppm |
-| co2.minimum | Smallest CO2 concentrations | 0 to inf | ppm |
-| co2.mean | Average CO2 concentrations | 0 to inf | ppm |
-| co2.median | Median CO2 concentrations | 0 to inf | ppm |
-{% endtab %}
-
-{% tab title="Components" %}
-## \*\*\*\*[**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">co2</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping of either <b>presence (preferred)</b> or <b>operating message</b> is
-          strongly recommended. If both pins are mapped, pressence is used</p>
-        <p>Default: Always presence</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">presence</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping of either <b>presence (preferred)</b> or <b>operating message</b> is
-          strongly recommended. If both pins are mapped, pressence is used</p>
-        <p>Default: Always presence</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-{% endtab %}
-
-{% tab title="Application" %}
-##  Recommended Time Span
-
-### 1 days to 1 week
-
-* Utilize on days with room occupation
-
-## **Recommended Repetition** <a id="recommended-repetition-1-1"></a>
-
-### Every month
-
-* After changes of room occupation or usage
-* After changes of operational modes, e.g. transfers to heating mode
-* After changes in the control system of the ventilation systems
-* After maintenance or replacements in ventilation systems
-{% endtab %}
-{% endtabs %}
-
-## Schedule Analysis
-
-The _Schedule Analysis_ is used to compare the actual occurred switch on/switch off times of the component with a schedule/timetable stored inside analytics. This analysis aims at identifying the amount of hours the component is active outside of the scheduled times. In addition to a one-time check, the analysis is suitable for permanent checks, e.g. to identify manual overwriting of the operating schedule. The analysis allows to respect holidays and exceptional day schedules.
-
-{% tabs %}
-{% tab title="Summary" %}
-## Value
-
-* Lower operating times of HVAC components
-* Lower energy consumption
-* Lower maintenance costs due to less component operating time
-
-## Recommended for components
-
-Any HVAC component or room whose usage follows a recurrent schedule, such as
-
-* Fans
-* Thermal control loops
-* Office rooms
-* Sales rooms
-
-## Checked conditions
-
-* Component operation outside a user-defined schedule
-* Component operation during a user-defined schedule
-* Condition checks on times of components operation
-{% endtab %}
-
-{% tab title="Example" %}
-This example shows a **schedule analysis** for a component "[fan](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#fan)" connected to a supply fan operating message of a HVAC machine. The switch on/off times of the machine are shown as a blue line in figure 1, blue regions in the background correspond to the anticipated schedule.
-
-![Figure 1: Operating times of component and reference schedule](../.gitbook/assets/example_scheduleanalysis.png)
-
-The following KPIs show that a reduction of ~9% of the total operating time is possible. With the help of the plot we can also see, that the times were we can reduce the operating time are distributed over the workdays of the week.
-
-| KPI | Value | Unit |
-| :--- | :--- | :--- |
-| operating time | 74 | h |
-| operating time.reducible | 6.94 | h |
-| operating time.reducible.relative | 9.38 | % |
-| operating time.scheduled | 67.1 | h |
-{% endtab %}
-
-{% tab title="Results" %}
-## Signal colors
-
-| Signal color | Available | Info |
-| :--- | :--- | :--- |
-| red | Yes | Significant operation times outside of the parameterized schedule identified |
-| yellow | Yes | Partial operation times outside of the parameterized schedule identified |
-| green | Yes | Sufficient operation according to the parameterized schedule |
-
-## Interpretations
-
-| Available | Info |
-| :--- | :--- |
-| Yes | Either the operational rule checks of the analysis were tested positive or not |
-
-## Recommendations
-
-| Available | Info |
-| :--- | :--- |
-| Yes | Recommendations to improve scheduled operation of the component. No recommendation, in case of sufficient measurement quality |
-
-## KPIs
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| operating time | Total time of operation | 0 to inf | h |
-| operating time.reducible | Total time component was operated outside the reviewed schedule and therefor could be saved | 0 to inf | h |
-| operating time.reducible.relative | Percentage of reducible time relative to the total operating time | 0 to 100 | % |
-| operating time.scheduled | Total time of operation during schedule | 0 to inf | h |
-{% endtab %}
-
-{% tab title="Components" %}
-## [boiler](component-data-models.md#boiler)
-
-| Pin | Required | Mapping info |
-| :--- | :--- | :--- |
-| operating message | yes |  |
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Attribute</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">custom_day_schedules</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">custom_holiday</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">preconditioning</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">regional_key</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">schedule</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">schedule_timezone</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Strongly recommended</p>
-        <p>Default: UTC</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">shutdown_flexibility</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>
-
-## [combined heat and power](component-data-models.md#combined-heat-and-power)
-
-| Pin | Required | Mapping info |
-| :--- | :--- | :--- |
-| operating message | yes |  |
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Attribute</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">custom_day_schedules</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">custom_holiday</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">preconditioning</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">regional_key</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">schedule</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">schedule_timezone</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Strongly recommended</p>
-        <p>Default: UTC</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">shutdown_flexibility</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>
-
-## [fan](component-data-models.md#thermal-control-loop)
-
-| Pin | Required | Mapping info |
-| :--- | :--- | :--- |
-| operating message | yes |  |
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Attribute</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">custom_day_schedules</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">custom_holiday</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">preconditioning</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">regional_key</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">schedule</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">schedule_timezone</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Strongly recommended</p>
-        <p>Default: UTC</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">shutdown_flexibility</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>
-
-## [heat pump](component-data-models.md#heat-pump)
-
-| Pin | Required | Mapping info |
-| :--- | :--- | :--- |
-| operating message | yes |  |
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Attribute</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">custom_day_schedules</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">custom_holiday</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">preconditioning</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">regional_key</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">schedule</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">schedule_timezone</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Strongly recommended</p>
-        <p>Default: UTC</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">shutdown_flexibility</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>
-
-## [thermal control loop](component-data-models.md#thermal-control-loop)
-
-| Pin | Required | Mapping info |
-| :--- | :--- | :--- |
-| operating message | no | Mapping of either **operating message \(preferred\)** or **pump operating message** is **mandatory**. If both pins are mapped, operating message is used |
-| pump operating message | no | Mapping of either **operating message \(preferred\)** or **pump operating message** is **mandatory**. If both pins are mapped, operating message is used |
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Attribute</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">custom_day_schedules</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">custom_holiday</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">preconditioning</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">regional_key</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">schedule</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">schedule_timezone</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Strongly recommended</p>
-        <p>Default: UTC</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">shutdown_flexibility</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>
-
-## [room](component-data-models.md#room)
-
-{% hint style="warning" %}
-Applying a schedule analysis on rooms is recommended to check for a scheduled room control operation. Utilize the reduced load analysis if a scheduled load reduction of heating or cooling utilities shall be analyzed.
-{% endhint %}
-
-| Pin | Required | Mapping info |
-| :--- | :--- | :--- |
-| operating message | yes |  |
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left"><b>Attribute</b>
-      </th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">custom_day_schedules</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">custom_holiday</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">preconditioning</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">regional_key</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">schedule</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">schedule_timezone</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Strongly recommended</p>
-        <p>Default: UTC</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">shutdown_flexibility</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>
-{% endtab %}
-
-{% tab title="Application" %}
-## Recommended Time Span
-
-### 1 week
-
-## **Recommended Repetition** <a id="recommended-repetition-1-1"></a>
-
-### Every week
-
-* After adjustment of usage times of the analyzed component
-* After changes of operational modes, e.g. transfers to heating mode
-* After changes in the control system
-* After maintenance or replacements
-{% endtab %}
-{% endtabs %}
-
-## Setpoint Deviation Analysis
-
-The _Setpoint Deviation Analysis_ identifies insufficient setpoint attainment by comparing the actual value of a controlled system to its setpoint value. Insufficient setpoint attainment is a symptom that can be traced back to plenty of different causes. E.g., insufficient supply of a controlled system with the required temperature level, suboptimal controller software, and parameters, or a blocked valve. The Setpoint Deviation Analysis supports narrowing down the root cause of insufficient setpoint attainment and is especially recommended in complex energy systems.
-
-{% tabs %}
-{% tab title="Summary" %}
-## Value
-
-Setpoint deviation is a strong symptom for faulty control loop operation, e.g. caused by
-
-* Technical defects in the control loop supply,
-* Control loop malfunctions, and
-* Faulty control loop parameter settings.
-
-Benefits of improving insufficient setpoint value attainment are:
-
-* Higher occupant comfort, health, and performance
-* Lower operating costs
-* Higher energy efficiency
-
-## Recommended for components
-
-Control loops, such as
-
-* Heating systems
-* Ventilation systems
-* Air-conditioning systems
-
-## Checked conditions
-
-* Process value value overshooting its setpoint, evaluated component specific
-* Process value value undershooting its setpoint, evaluated component specific
-* Process value value sufficiently achieving its setpoint, evaluated component specific
-* Condition checks on times of components operation
-{% endtab %}
-
-{% tab title="Example" %}
-The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a thermal control loop component model was instanced and the respective datapoints mapped to this component.
-
-![Figure 1: Example of a process value \(actual value\) undershooting its setpoint](../.gitbook/assets/sda%20%281%29.svg)
-
-In this scenario,  figure 1 shows the time series recorded for an exemplary period of 36 hours on a November workday. The temperature setpoint and the actual measured value started to drift apart around 12 am on the 19th. Since then, the control loop did not comply with the setpoint temperatures although the control loop was operating.
-
-The automated interpretation confirms our visual analysis of the time series shown in the figure, summed up by the qualitative warning level "red". The recommendations provide further instruction on how to isolate and fix the cause for the inadequate setpoint compliance. Further, the result offers an advanced set of KPIs, providing additional insights into the control loop behaviour. They support human reasoning for a case-by-case analysis.
-
-For example, the drop in temperatures is peculiar and could point to a technical defect or malfunction, such as a blocked valve. Another cause might be a sudden drop in the temperatures supplied to the distribution system, such as an heat-pump or boiler issue. Further investigation of the root cause is possible via data visualization on the aedifion front-end.
-{% endtab %}
-
-{% tab title="Results" %}
-## Signal colors
-
-| Signal color | Available | Info |
-| :--- | :--- | :--- |
-| red | No | The analysis identifies the symptom and recommends measures to investigate the root cause of the setpoint deviation. _Red_ as a signal for a low cost measure with high impact on the building operation will not be provided. |
-| yellow | Yes | Setpoint deviation is a strong symptom for suboptimal control and system performance. Investing the extra effort to identify the root cause and fixing it is strongly recommended. |
-| green | Yes | Sufficient setpoint compliance in respect to usual tolerances in buildings |
-
-## Interpretations
-
-| Available | Info |
-| :--- | :--- |
-| Yes | Either the operational rule checks of the analysis were tested positive or not |
-
-## Recommendations
-
-| Available | Info |
-| :--- | :--- |
-| Yes | Recommendations on how to investigate the root cause of a setpoint deviation. No recommendation, if setpoint compliance is sufficient |
-
-## KPIs
-
-### Incidence of setpoint deviation
-
-Duration of the setpoint deviations, bundled by threshold value ranges.
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| setpoint deviation.lower threshold | Component specific lower threshold for evaluation of the extent of the setpoint deviation | 0 to inf | unit of setpoint |
-| setpoint deviation.upper threshold | Component specific upper threshold for evaluation of the extent of the setpoint deviation | 0 to inf | unit of setpoint |
-| setpoint deviation.above lower threshold and below upper threshold | Duration with absolute value of setpoint deviation between lower and upper threshold | 0 to inf | h |
-| setpoint deviation.above lower threshold and below upper threshold.relative | Duration with absolute value of setpoint deviation between lower and upper threshold relative to total time of analysis | 0 to 100 | % |
-| setpoint deviation.above upper threshold | Duration with absolute value of setpoint higher than upper threshold | 0 to inf | h |
-| setpoint deviation.above upper threshold.relative | Duration with absolute value of setpoint higher than upper threshold relative to total time of analysis | 0 to 100 | % |
-| setpoint deviation.below lower threshold | Duration with absolute value of setpoint smaller than lower threshold | 0 to inf | h |
-| setpoint deviation.below lower threshold.relative | Duration with absolute value of setpoint smaller than lower threshold relative to total time of analysis | 0 to 100 | % |
-
-### Operating time
-
-Operating time KPIs provide information on the total time of operation of the analysed component during the analysed time frame.
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| operating time | Total operating time | 0 to inf | h |
-| operating time.relative | Relative operating time | 0 to 100 | % |
-
-### Statistics of setpoint deviation
-
-General information KPIs to give further insight into the setpoint compliance over the analysed time frame.
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| setpoint deviation.maximum | Largest setpoint deviation | -inf to inf | unit of setpoint |
-| setpoint deviation.mean | Average setpoint deviation | -inf to inf | unit of setpoint |
-| setpoint deviation.median | Median setpoint deviation | -inf to inf | unit of setpoint |
-{% endtab %}
-
-{% tab title="Components" %}
-## [boiler](component-data-models.md#boiler)
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping strongly recommended</p>
-        <p>Default: Always operating</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature setpoint</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>
-
-## [combined heat and power](component-data-models.md#combined-heat-and-power)
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping strongly recommended</p>
-        <p>Default: Always operating</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature setpoint</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>
-
-## [heat pump](component-data-models.md#heat-pump)
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">condenser outlet temperature</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if condenser shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">
-        <p></p>
-        <p>condenser outlet temperature setpoint</p>
-      </td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if condenser shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">evaporator outlet temperature</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if evaporator shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">evaporator outlet temperature setpoint</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">Required, if evaporator shall be analysed</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping strongly recommended</p>
-        <p>Default: Always operating</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-## [**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping strongly recommended</p>
-        <p>Default: Always operating</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">temperature setpoint</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>
-
-## \*\*\*\*[**thermal control loop**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#thermal-control-loop)\*\*\*\*
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">inlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping of either <b>operating message (preferred)</b> or <b>pump operating message </b>is
-          strongly recommended. If operating message and pump operating message are
-          mapped, operating message will be used</p>
-        <p>Default: Always operating</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outlet temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">pump operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping of either <b>operating message (preferred)</b> or <b>pump operating message </b>is
-          strongly recommended. If operating message and pump operating message are
-          mapped, operating message will be used</p>
-        <p>Default: Always operating</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-{% endtab %}
-
-{% tab title="Application" %}
-## Recommended Time Span
-
-### 1 day to 1 week
-
-## **Recommended Repetition** <a id="recommended-repetition-1"></a>
-
-### Every week
-
-* After changes of operational modes, e.g. transfers to heating mode
-* After changes in the control system
-* After maintenance or replacements
-{% endtab %}
-{% endtabs %}
-
 ## Sensor Outage Analysis
 
 The _Sensor Outage Analysis_ uses the time series data of the sensor to detect irregularities on observations. This implies manual overwriting of the sensor values, constant observations for expected volatile trajectories of the data points observations and also value plausibility checks by types of sensors.
@@ -2176,6 +1637,1145 @@ PIN\_NAME refers to the actual pin on the component that the KPI belongs to.
 {% endtab %}
 {% endtabs %}
 
+## Room Air Quality Analysis
+
+The _Room Air Quality Analysis_ checks and interprets the compliance of carbon dioxide concentration in the air to the recommendations of DIN EN 13776: 2007-09. In the case of poor air quality, measures for improvement are recommended. Human performance is significantly influenced by air quality. In addition, the algorithm identifies calibration errors by physical plausibility checks.
+
+{% tabs %}
+{% tab title="Summary" %}
+## Value
+
+* Higher occupant comfort, health, and performance
+
+## Recommended for components
+
+* Rooms
+* Occupied indoor areas
+
+## **Checked conditions**
+
+* Indoor CO2 concentration evaluation based on DIN EN 13776: 2007-09
+* Identification of higher room ventilation needs
+* Sensor calibration check by the plausibility of minimal measured concentration levels
+* Condition checks on times of components operation
+{% endtab %}
+
+{% tab title="Example" %}
+
+
+The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a room component model was instanced and the respective datapoints mapped to this component.
+
+![Figure 1: CO2 concentration trajectory for an average office day](../.gitbook/assets/image%20%2829%29.png)
+
+In this scenario, figure 1 shows the timeseries recorded for an exemplary period of 12 hours on a working day in August. The CO2 concentration in the air remained between what is considered "good" and "medium" for most of the day. However, for about 7 percent of the period, air quality was poor, with a maximum CO2 concentration of 1463 ppm, so that a complete evaluation on that day indicates poor air quality. The results provide an advanced set of KPIs that provide quantitative insights into the air quality of the rooms and support the human reasoning for analysis. A number of suggestions for possible countermeasures are given, and further investigation of the root cause of air quality problems is possible through the aedifion front-end data visualization.
+{% endtab %}
+
+{% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | Yes | CO2 concentrations critical for human health |
+| yellow | Yes | CO2 concentrations reducing human comfort, decisiveness, and performance or wrongly calibrated CO2 sensors |
+| green | Yes | CO2 concentrations sufficient for high comfort |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Either the operational rule checks of the analysis were tested positive or not |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Recommendations to improve fresh air supply, if necessary or re-calibrate the sensor, if physically implausible measures are observed. No recommendation, in case of sufficient air quality |
+
+## KPIs
+
+### Air quality classification
+
+How long was the air quality in the room \(based on carbon dioxide concentrations\) considered “good”, “medium”, “moderate” or “poor”? Assessments are based on EU regulation classifications of Indoor Air Quality \(IDA\) classes 1 \(“good”\) to 4 \(“poor”\).
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| co2 duration.IDA1.relative | Duration with “good“ indoor air quality | 0 to 100 | % |
+| co2 duration.IDA2.relative | Duration with “medium “ indoor air quality | 0 to 100 | % |
+| co2 duration.IDA3.relative | Duration with “moderate “ indoor air quality | 0 to 100 | % |
+| co2 duration.IDA4.relative | Duration with “poor “ indoor air quality | 0 to 100 | % |
+| co2 duration.IDA1 | Duration with “good“ indoor air quality | 0 to inf | h |
+| co2 duration.IDA2 | Duration with “medium “ indoor air quality | 0 to inf | h |
+| co2  duration.IDA3 | Duration with “moderate “ indoor air quality | 0 to inf | h |
+| co2 duration.IDA4 | Duration with “poor “ indoor air quality | 0 to inf | h |
+
+### Statistics of CO2 concentration
+
+Providing deeper insights to the carbon dioxide concentrations over the analysed period.
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| co2.maximum | Largest CO2 concentrations | 0 to inf | ppm |
+| co2.minimum | Smallest CO2 concentrations | 0 to inf | ppm |
+| co2.mean | Average CO2 concentrations | 0 to inf | ppm |
+| co2.median | Median CO2 concentrations | 0 to inf | ppm |
+{% endtab %}
+
+{% tab title="Components" %}
+## \*\*\*\*[**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">co2</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping of either <b>presence (preferred)</b> or <b>operating message</b> is
+          strongly recommended. If both pins are mapped, pressence is used</p>
+        <p>Default: Always presence</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">presence</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping of either <b>presence (preferred)</b> or <b>operating message</b> is
+          strongly recommended. If both pins are mapped, pressence is used</p>
+        <p>Default: Always presence</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+{% endtab %}
+
+{% tab title="Application" %}
+##  Recommended Time Span
+
+### 1 days to 1 week
+
+* Utilize on days with room occupation
+
+## **Recommended Repetition** <a id="recommended-repetition-1-1"></a>
+
+### Every month
+
+* After changes of room occupation or usage
+* After changes of operational modes, e.g. transfers to heating mode
+* After changes in the control system of the ventilation systems
+* After maintenance or replacements in ventilation systems
+{% endtab %}
+{% endtabs %}
+
+## Schedule Analysis
+
+The _Schedule Analysis_ is used to compare the actual occurred switch on/switch off times of the component with a schedule/timetable stored inside analytics. This analysis aims at identifying the amount of hours the component is active outside of the scheduled times. In addition to a one-time check, the analysis is suitable for permanent checks, e.g. to identify manual overwriting of the operating schedule. The analysis allows to respect holidays and exceptional day schedules.
+
+{% tabs %}
+{% tab title="Summary" %}
+## Value
+
+* Lower operating times of HVAC components
+* Lower energy consumption
+* Lower maintenance costs due to less component operating time
+
+## Recommended for components
+
+Any HVAC component or room whose usage follows a recurrent schedule, such as
+
+* Fans
+* Thermal control loops
+* Office rooms
+* Sales rooms
+
+## Checked conditions
+
+* Component operation outside a user defined schedule
+* Component operation during a user defined schedule
+* Condition checks on times of components operation
+{% endtab %}
+
+{% tab title="Example" %}
+This example shows a **schedule analysis** for a component "[fan](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#fan)" connected to a supply fan operating message of a HVAC machine. The switch on/off times of the machine are shown as a blue line in figure 1, blue regions in the background correspond to the anticipated schedule.
+
+![Figure 1: Operating times of component and reference schedule](../.gitbook/assets/example_scheduleanalysis.png)
+
+The following KPIs show that a reduction of ~9% of the total operating time is possible. With the help of the plot we can also see, that the times were we can reduce the operating time are distributed over the workdays of the week.
+
+| KPI | Value | Unit |
+| :--- | :--- | :--- |
+| operating time | 74 | h |
+| operating time.reducible | 6.94 | h |
+| operating time.reducible.relative | 9.38 | % |
+| operating time.scheduled | 67.1 | h |
+| savings.daily | 1.53 | €/d |
+{% endtab %}
+
+{% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | Yes | Significant operation times outside of the parameterized schedule identified |
+| yellow | Yes | Partial operation times outside of the parameterized schedule identified |
+| green | Yes | Sufficient operation according to the parameterized schedule |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Either the operational rule checks of the analysis were tested positive or not |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Recommendations to improve scheduled operation of the component. No recommendation, in case of sufficient measurement quality |
+
+## KPIs
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">KPI Identifier</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Value Range</th>
+      <th style="text-align:left">Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">operating time</td>
+      <td style="text-align:left">Total time of operation</td>
+      <td style="text-align:left">0 to inf</td>
+      <td style="text-align:left">h</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating time.reducible</td>
+      <td style="text-align:left">Total time component was operated outside the reviewed schedule and therefor
+        could be saved</td>
+      <td style="text-align:left">0 to inf</td>
+      <td style="text-align:left">h</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating time.reducible.relative</td>
+      <td style="text-align:left">Percentage of reducible time relative to the total operating time</td>
+      <td
+      style="text-align:left">0 to 100</td>
+        <td style="text-align:left">%</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating time.scheduled</td>
+      <td style="text-align:left">Total time of operation during schedule</td>
+      <td style="text-align:left">0 to inf</td>
+      <td style="text-align:left">h</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">savings.daily</td>
+      <td style="text-align:left">
+        <p>Identified savings potential for adjusting components operation to the
+          schedule.</p>
+        <p>Provided as savings per day. Available for component fan only.</p>
+      </td>
+      <td style="text-align:left">0 to inf</td>
+      <td style="text-align:left">&#x20AC;/d</td>
+    </tr>
+  </tbody>
+</table>
+{% endtab %}
+
+{% tab title="Components" %}
+## [boiler](component-data-models.md#boiler)
+
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | yes |  |
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Attribute</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">custom_day_schedules</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">custom_holiday</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">preconditioning</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">regional_key</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule_timezone</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Strongly recommended</p>
+        <p>Default: UTC</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">shutdown_flexibility</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
+
+## [combined heat and power](component-data-models.md#combined-heat-and-power)
+
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | yes |  |
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Attribute</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">custom_day_schedules</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">custom_holiday</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">preconditioning</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">regional_key</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule_timezone</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Strongly recommended</p>
+        <p>Default: UTC</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">shutdown_flexibility</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
+
+## [fan](component-data-models.md#thermal-control-loop)
+
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | yes |  |
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Attribute</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">custom_day_schedules</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">custom_holiday</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">preconditioning</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">regional_key</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule_timezone</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Strongly recommended</p>
+        <p>Default: UTC</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">shutdown_flexibility</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
+
+## [heat pump](component-data-models.md#heat-pump)
+
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | yes |  |
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Attribute</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">custom_day_schedules</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">custom_holiday</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">preconditioning</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">regional_key</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule_timezone</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Strongly recommended</p>
+        <p>Default: UTC</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">shutdown_flexibility</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
+
+## [thermal control loop](component-data-models.md#thermal-control-loop)
+
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | no | Mapping of either **operating message \(preferred\)** or **pump operating message** is **mandatory**. If both pins are mapped, operating message is used |
+| pump operating message | no | Mapping of either **operating message \(preferred\)** or **pump operating message** is **mandatory**. If both pins are mapped, operating message is used |
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Attribute</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">custom_day_schedules</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">custom_holiday</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">preconditioning</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">regional_key</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule_timezone</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Strongly recommended</p>
+        <p>Default: UTC</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">shutdown_flexibility</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
+
+## [room](component-data-models.md#room)
+
+| Pin | Required | Mapping info |
+| :--- | :--- | :--- |
+| operating message | yes |  |
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left"><b>Attribute</b>
+      </th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">custom_day_schedules</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">custom_holiday</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">preconditioning</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">regional_key</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">schedule_timezone</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Strongly recommended</p>
+        <p>Default: UTC</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">shutdown_flexibility</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
+{% endtab %}
+
+{% tab title="Application" %}
+## Recommended Time Span
+
+### 1 week
+
+## **Recommended Repetition** <a id="recommended-repetition-1-1"></a>
+
+### Every week
+
+* After adjustment of usage times of the analyzed component
+* After changes of operational modes, e.g. transfers to heating mode
+* After changes in the control system
+* After maintenance or replacements
+{% endtab %}
+{% endtabs %}
+
+## Thermal Comfort Analysis
+
+The _Thermal Comfort Analysis_ evaluates the comfort level of a room by determining the indicators PMV \(Predicted Mean Vote\) and PPD \(Predicted Percentage of Dissatisfied\). They are calculated from room air temperature, room air humidity, and expected level of clothing depending on the outdoor temperature. Influences on thermal comfort in rooms like thermal exchange by radiation and influences of drafts are simplified in the determination.
+
+{% tabs %}
+{% tab title="Summary" %}
+## Value
+
+* Check and evaluate the room comfort level
+* Higher occupant comfort, health and performance
+
+## Recommended for components
+
+* Rooms with usual conditioning like offices, schools, salesrooms
+
+## Checked conditions
+
+* Sufficient thermal comfort 
+{% endtab %}
+
+{% tab title="Example" %}
+For this example we look at a room for an analysis period of two days. In this time we can categorize the room comfort level according to the comfort level categories in the table below. The PMV level stayes inside the neutral category for the whole 48 hours.
+
+![](../.gitbook/assets/thermal_comfort_analysis.png)
+
+| KPI | Value | Unit |
+| :--- | :--- | :--- |
+| operating time | 48 | h |
+| operating time.relative | 100 | % |
+| predicted percentage of dissatisfied.mean | 11.3 | % |
+| predicted percentage of dissatisfied.median | 9.66 | % |
+| predicted percentage of dissatisfied.maximum | 41.1 | % |
+| predicted percentage of dissatisfied.minimum | 5.0 | % |
+| predicted mean vote.mean | -0.483 | - |
+| predicted mean vote.median | -0.472 | - |
+| predicted mean vote.maximum | 0.0831 | - |
+| predicted mean vote.minimum | -1.32 | - |
+| duration.predicted mean vote.hot | 0 | h |
+| duration.predicted mean vote.warm | 0 | h |
+| duration.predicted mean vote.warmish | 0 | h |
+| duration.predicted mean vote.neutral | 25 | h |
+| duration.predicted mean vote.coolish | 23 | h |
+| duration.predicted mean vote.cool | 0 | h |
+| duration.predicted mean vote.cold | 0 | h |
+| duration.category A.relative | 8.33 | % |
+| duration.category B.relative | 43.8 | % |
+| duration.category C.relative | 22.9 | % |
+| duration.no category.relative | 25.0 | % |
+| duration.predicted mean vote.neutral | 48 | h |
+{% endtab %}
+
+{% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | Yes | Room comfort level is insufficient |
+| yellow | Yes | Room comfort level is sufficient |
+| green | Yes | Room comfort level is good |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Evaluation of the room comfort level for peak and average values  |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Recommendations to improve the room comfort level |
+
+## KPIs
+
+### Temperatures
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| room.temperature.mean | Average room temperature during presence and analysis period | inf | °C |
+| room.relative humidity.mean | Average relative humidity for room during presence and analysis period | 0 to 100 | % |
+| outdoor temperature.mean | Average outdoor temperature during presence and analysis period | inf | °C |
+
+### Operating time
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| operating time | Duration of presence, respectively active room control if presence is not measured | 0 to inf | h |
+| operating time.relative | Duration of presence, respectively active room control if presence is not measured, relative to analysed time | 0 to 100 | % |
+
+### Predicted Mean Vote - PMV
+
+Following the Climate Assessment Scale of DIN EN ISO 7730, 2006 with
+
+| PMV Value | classification |
+| :--- | :--- |
+| pmv &gt; 2.5 | hot |
+| 1.5 &lt; pmv &lt;= 2.5 | warm |
+| 0.5 &lt; pmv &lt;= 1.5 | warmish |
+| -0.5 &lt;= pmv &lt;= 0.5 | neutral |
+| -1.5 &lt;= pmv &lt; -0.5 | coolish |
+| -2.5 &lt;= pmv &lt; -1.5 | cool |
+| pmv &lt; -2.5 | cold |
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| predicted mean vote.mean | Average of PMV for analysis period | -3 to 3 | - |
+| predicted mean vote.median | Median of PMV for analysis period | -3 to 3 | - |
+| predicted mean vote.maximum | Maximum PMV reached during analysis period | -3 to 3 | - |
+| predicted mean vote.minimum | Minimum PMV reached during analysis period | -3 to 3 | - |
+| duration.predicted mean vote.hot | Duration the PMV is classfied as hot | 0 to inf | h |
+| duration.predicted mean vote.warm | Duration the PMV is classfied as warm | 0 to inf | h |
+| duration.predicted mean vote.warmish | Duration the PMV is classfied as warmish | 0 to inf | h |
+| duration.predicted mean vote.neutral | Duration the PMV is classfied as neutral | 0 to inf | h |
+| duration.predicted mean vote.coolish | Duration the PMV is classfied as coolish | 0 to inf | h |
+| duration.predicted mean vote.cool | Duration the PMV is classfied as cool | 0 to inf | h |
+| duration.predicted mean vote.cold | Duration the PMV is classfied as cold | 0 to inf | h |
+
+### Predicted Percentage of Dissatisfied - PPD
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| predicted percentage of dissatisfied.mean | Average of PPD for analysis period | 0 to 100 | % |
+| predicted percentage of dissatisfied.median | Median of PPD for analysis period | 0 to 100 | % |
+| predicted percentage of dissatisfied.maximum | Maximum PPD reached during analysis period | 0 to 100 | % |
+| predicted percentage of dissatisfied.minimum | Minimum PPD reached during analysis period | 0 to 100 | % |
+
+### Comfort Level Categories
+
+According to norm DIN EN 15251, 2007
+
+| Category | PMV |
+| :--- | :--- |
+| A | -0,2 &lt; PMV &lt; +0,2 |
+| B | -0,5 &lt; PMV &lt; +0,5 |
+| C | -0,7 &lt; PMV &lt; +0,7 |
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| duration.category A.relative | Percentage of time the room comfort level corresponds to category A  | 0 to 100 | % |
+| duration.category A | Duration that the room comfort level corresponds to category A  | 0 to inf | h |
+| duration.category B.relative | Percentage of time the room comfort level corresponds to category B | 0 to 100 | % |
+| duration.category B | Duration that the room comfort level corresponds to category B | 0 to inf | h |
+| duration.category C.relative | Percentage of time the room comfort level corresponds to category C | 0 to 100 | % |
+| duration.category C | Duration that the room comfort level corresponds to category C | 0 to inf | h |
+| duration.no category.relative | Percentage of time the room comfort level corresponds to no category | 0 to 100 | % |
+| duration.no category | Duration that the room comfort level corresponds to no category | 0 to inf | h |
+
+## Timeseries
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| predicted mean vote.timeseries | Timeseries with the PMV value for each observation | -3 to 3 | - |
+| predicted percentage of dissatisfied.timeseries | Timeseries with the PPD value for each observation | 0 to 100 | % |
+| category.timeseries | Timeseries with a category classification for each observation | A, B, C, NOCAT | string |
+{% endtab %}
+
+{% tab title="Components" %}
+## [**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">humdity</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outside temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping of either <b>presence (preferred)</b> or <b>operating message</b> is
+          strongly recommended. If both pins are mapped, pressence is used</p>
+        <p>Default: Always presence</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">presence</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping of either <b>presence (preferred)</b> or <b>operating message</b> is
+          strongly recommended. If both pins are mapped, pressence is used</p>
+        <p>Default: Always presence</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+{% endtab %}
+
+{% tab title="Application" %}
+## Recommended Time Span
+
+### 1 week
+
+## **Recommended Repetition**
+
+### Every month
+
+* After changes of presence or room schedules
+{% endtab %}
+{% endtabs %}
+
+## Setpoint Deviation Analysis
+
+The _Setpoint Deviation Analysis_ identifies insufficient setpoint attainment by comparing the actual value of a controlled system to its setpoint value. Insufficient setpoint attainment is a symptom that can be traced back to plenty of different causes. E.g., insufficient supply of a controlled system with the required temperature level, suboptimal controller software, and parameters, or a blocked valve. The Setpoint Deviation Analysis supports narrowing down the root cause of insufficient setpoint attainment and is especially recommended in complex energy systems.
+
+{% tabs %}
+{% tab title="Summary" %}
+## Value
+
+Setpoint deviation is a strong symptom for faulty control loop operation, e.g. caused by
+
+* Technical defects in the control loop supply,
+* Control loop malfunctions, and
+* Faulty control loop parameter settings.
+
+Benefits of improving insufficient setpoint value attainment are:
+
+* Higher occupant comfort, health, and performance
+* Lower operating costs
+* Higher energy efficiency
+
+## Recommended for components
+
+Control loops, such as
+
+* Heating systems
+* Ventilation systems
+* Air-conditioning systems
+
+## Checked conditions
+
+* Process value value overshooting its setpoint, evaluated component specific
+* Process value value undershooting its setpoint, evaluated component specific
+* Process value value sufficiently achieving its setpoint, evaluated component specific
+* Condition checks on times of components operation
+{% endtab %}
+
+{% tab title="Example" %}
+The setpoint deviation analysis was applied to a real test bench, a heating system at the E.ON Energy Research Center, RWTH Aachen University. Thus, a thermal control loop component model was instanced and the respective datapoints mapped to this component.
+
+![Figure 1: Example of a process value \(actual value\) undershooting its setpoint](../.gitbook/assets/sda%20%281%29.svg)
+
+In this scenario,  figure 1 shows the time series recorded for an exemplary period of 36 hours on a November workday. The temperature setpoint and the actual measured value started to drift apart around 12 am on the 19th. Since then, the control loop did not comply with the setpoint temperatures although the control loop was operating.
+
+The automated interpretation confirms our visual analysis of the time series shown in the figure, summed up by the qualitative warning level "red". The recommendations provide further instruction on how to isolate and fix the cause for the inadequate setpoint compliance. Further, the result offers an advanced set of KPIs, providing additional insights into the control loop behaviour. They support human reasoning for a case-by-case analysis.
+
+For example, the drop in temperatures is peculiar and could point to a technical defect or malfunction, such as a blocked valve. Another cause might be a sudden drop in the temperatures supplied to the distribution system, such as an heat-pump or boiler issue. Further investigation of the root cause is possible via data visualization on the aedifion front-end.
+{% endtab %}
+
+{% tab title="Results" %}
+## Signal colors
+
+| Signal color | Available | Info |
+| :--- | :--- | :--- |
+| red | No | The analysis identifies the symptom and recommends measures to investigate the root cause of the setpoint deviation. _Red_ as a signal for a low cost measure with high impact on the building operation will not be provided. |
+| yellow | Yes | Setpoint deviation is a strong symptom for suboptimal control and system performance. Investing the extra effort to identify the root cause and fixing it is strongly recommended. |
+| green | Yes | Sufficient setpoint compliance in respect to usual tolerances in buildings |
+
+## Interpretations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Either the operational rule checks of the analysis were tested positive or not |
+
+## Recommendations
+
+| Available | Info |
+| :--- | :--- |
+| Yes | Recommendations on how to investigate the root cause of a setpoint deviation. No recommendation, if setpoint compliance is sufficient |
+
+## KPIs
+
+### Incidence of setpoint deviation
+
+Duration of the setpoint deviations, bundled by threshold value ranges.
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| setpoint deviation.lower threshold | Component specific lower threshold for evaluation of the extent of the setpoint deviation | 0 to inf | unit of setpoint |
+| setpoint deviation.upper threshold | Component specific upper threshold for evaluation of the extent of the setpoint deviation | 0 to inf | unit of setpoint |
+| setpoint deviation.above lower threshold and below upper threshold | Duration with absolute value of setpoint deviation between lower and upper threshold | 0 to inf | h |
+| setpoint deviation.above lower threshold and below upper threshold.relative | Duration with absolute value of setpoint deviation between lower and upper threshold relative to total time of analysis | 0 to 100 | % |
+| setpoint deviation.above upper threshold | Duration with absolute value of setpoint higher than upper threshold | 0 to inf | h |
+| setpoint deviation.above upper threshold.relative | Duration with absolute value of setpoint higher than upper threshold relative to total time of analysis | 0 to 100 | % |
+| setpoint deviation.below lower threshold | Duration with absolute value of setpoint smaller than lower threshold | 0 to inf | h |
+| setpoint deviation.below lower threshold.relative | Duration with absolute value of setpoint smaller than lower threshold relative to total time of analysis | 0 to 100 | % |
+
+### Operating time
+
+Operating time KPIs provide information on the total time of operation of the analysed component during the analysed time frame.
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| operating time | Total operating time | 0 to inf | h |
+| operating time.relative | Relative operating time | 0 to 100 | % |
+
+### Statistics of setpoint deviation
+
+General information KPIs to give further insight into the setpoint compliance over the analysed time frame.
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| setpoint deviation.maximum | Largest setpoint deviation | -inf to inf | unit of setpoint |
+| setpoint deviation.mean | Average setpoint deviation | -inf to inf | unit of setpoint |
+| setpoint deviation.median | Median setpoint deviation | -inf to inf | unit of setpoint |
+{% endtab %}
+
+{% tab title="Components" %}
+## [boiler](component-data-models.md#boiler)
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature setpoint</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
+
+## [combined heat and power](component-data-models.md#combined-heat-and-power)
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature setpoint</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
+
+## [heat pump](component-data-models.md#heat-pump)
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">condenser outlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if condenser shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">
+        <p></p>
+        <p>condenser outlet temperature setpoint</p>
+      </td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if condenser shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator outlet temperature</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">evaporator outlet temperature setpoint</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">Required, if evaporator shall be analysed</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## [**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping strongly recommended</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">temperature setpoint</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
+
+## \*\*\*\*[**thermal control loop**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#thermal-control-loop)\*\*\*\*
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Pin</th>
+      <th style="text-align:left">Required</th>
+      <th style="text-align:left">Mapping info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">inlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping of either <b>operating message (preferred)</b> or <b>pump operating message </b>is
+          strongly recommended. If operating message and pump operating message are
+          mapped, operating message will be used</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">outlet temperature</td>
+      <td style="text-align:left">yes</td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left">pump operating message</td>
+      <td style="text-align:left">no</td>
+      <td style="text-align:left">
+        <p>Mapping of either <b>operating message (preferred)</b> or <b>pump operating message </b>is
+          strongly recommended. If operating message and pump operating message are
+          mapped, operating message will be used</p>
+        <p>Default: Always operating</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+{% endtab %}
+
+{% tab title="Application" %}
+## Recommended Time Span
+
+### 1 day to 1 week
+
+## **Recommended Repetition** <a id="recommended-repetition-1"></a>
+
+### Every week
+
+* After changes of operational modes, e.g. transfers to heating mode
+* After changes in the control system
+* After maintenance or replacements
+{% endtab %}
+{% endtabs %}
+
 ## Synchronized Operation Analysis
 
 The _Synchronized Operatio_n _Analysis_ detects whether the operation of the analyzed components is synchronized correctly. E.g., the pump of a thermal control loop is operating while the 2-way valve is closed or rather almost closed. If pumps continue to be operated with the valve closed, this leads to unnecessary power consumption and higher wear of the pump due to the additional running time. A valve opening of 10 % or less is considered as closed.
@@ -2522,224 +3122,6 @@ _temperature spread.minimum_ will be _evaporator temperature spread.minimum_
 {% endtab %}
 {% endtabs %}
 
-## Thermal Comfort Analysis
-
-The _Thermal Comfort Analysis_ evaluates the comfort level of a room by determining the indicators PMV \(Predicted Mean Vote\) and PPD \(Predicted Percentage of Dissatisfied\). They are calculated from room air temperature, room air humidity, and expected level of clothing depending on the outdoor temperature. Influences on thermal comfort in rooms like thermal exchange by radiation and influences of drafts are simplified in the determination.
-
-{% tabs %}
-{% tab title="Summary" %}
-## Value
-
-* Check and evaluate the room comfort level
-* Higher occupant comfort, health and performance
-
-## Recommended for components
-
-* Rooms with usual conditioning like offices, schools, salesrooms
-
-## Checked conditions
-
-* Sufficient thermal comfort 
-{% endtab %}
-
-{% tab title="Example" %}
-For this example we look at a room for an analysis period of two days. In this time we can categorize the room comfort level according to the comfort level categories in the table below. The PMV level stayes inside the neutral category for the whole 48 hours.
-
-![](../.gitbook/assets/thermal_comfort_analysis.png)
-
-| KPI | Value | Unit |
-| :--- | :--- | :--- |
-| operating time | 48 | h |
-| operating time.relative | 100 | % |
-| predicted percentage of dissatisfied.mean | 11.3 | % |
-| predicted percentage of dissatisfied.median | 9.66 | % |
-| predicted percentage of dissatisfied.maximum | 41.1 | % |
-| predicted percentage of dissatisfied.minimum | 5.0 | % |
-| predicted mean vote.mean | -0.483 | - |
-| predicted mean vote.median | -0.472 | - |
-| predicted mean vote.maximum | 0.0831 | - |
-| predicted mean vote.minimum | -1.32 | - |
-| duration.predicted mean vote.hot | 0 | h |
-| duration.predicted mean vote.warm | 0 | h |
-| duration.predicted mean vote.warmish | 0 | h |
-| duration.predicted mean vote.neutral | 25 | h |
-| duration.predicted mean vote.coolish | 23 | h |
-| duration.predicted mean vote.cool | 0 | h |
-| duration.predicted mean vote.cold | 0 | h |
-| duration.category A.relative | 8.33 | % |
-| duration.category B.relative | 43.8 | % |
-| duration.category C.relative | 22.9 | % |
-| duration.no category.relative | 25.0 | % |
-| duration.predicted mean vote.neutral | 48 | h |
-{% endtab %}
-
-{% tab title="Results" %}
-## Signal colors
-
-| Signal color | Available | Info |
-| :--- | :--- | :--- |
-| red | Yes | Room comfort level is insufficient |
-| yellow | Yes | Room comfort level is sufficient |
-| green | Yes | Room comfort level is good |
-
-## Interpretations
-
-| Available | Info |
-| :--- | :--- |
-| Yes | Evaluation of the room comfort level for peak and average values  |
-
-## Recommendations
-
-| Available | Info |
-| :--- | :--- |
-| Yes | Recommendations to improve the room comfort level |
-
-## KPIs
-
-### Temperatures
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| room.temperature.mean | Average room temperature during presence and analysis period | inf | °C |
-| room.relative humidity.mean | Average relative humidity for room during presence and analysis period | 0 to 100 | % |
-| outdoor temperature.mean | Average outdoor temperature during presence and analysis period | inf | °C |
-
-### Operating time
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| operating time | Duration of presence, respectively active room control if presence is not measured | 0 to inf | h |
-| operating time.relative | Duration of presence, respectively active room control if presence is not measured, relative to analysed time | 0 to 100 | % |
-
-### Predicted Mean Vote - PMV
-
-Following the Climate Assessment Scale of DIN EN ISO 7730, 2006 with
-
-| PMV Value | classification |
-| :--- | :--- |
-| pmv &gt; 2.5 | hot |
-| 1.5 &lt; pmv &lt;= 2.5 | warm |
-| 0.5 &lt; pmv &lt;= 1.5 | warmish |
-| -0.5 &lt;= pmv &lt;= 0.5 | neutral |
-| -1.5 &lt;= pmv &lt; -0.5 | coolish |
-| -2.5 &lt;= pmv &lt; -1.5 | cool |
-| pmv &lt; -2.5 | cold |
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| predicted mean vote.mean | Average of PMV for analysis period | -3 to 3 | - |
-| predicted mean vote.median | Median of PMV for analysis period | -3 to 3 | - |
-| predicted mean vote.maximum | Maximum PMV reached during analysis period | -3 to 3 | - |
-| predicted mean vote.minimum | Minimum PMV reached during analysis period | -3 to 3 | - |
-| duration.predicted mean vote.hot | Duration the PMV is classfied as hot | 0 to inf | h |
-| duration.predicted mean vote.warm | Duration the PMV is classfied as warm | 0 to inf | h |
-| duration.predicted mean vote.warmish | Duration the PMV is classfied as warmish | 0 to inf | h |
-| duration.predicted mean vote.neutral | Duration the PMV is classfied as neutral | 0 to inf | h |
-| duration.predicted mean vote.coolish | Duration the PMV is classfied as coolish | 0 to inf | h |
-| duration.predicted mean vote.cool | Duration the PMV is classfied as cool | 0 to inf | h |
-| duration.predicted mean vote.cold | Duration the PMV is classfied as cold | 0 to inf | h |
-
-### Predicted Percentage of Dissatisfied - PPD
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| predicted percentage of dissatisfied.mean | Average of PPD for analysis period | 0 to 100 | % |
-| predicted percentage of dissatisfied.median | Median of PPD for analysis period | 0 to 100 | % |
-| predicted percentage of dissatisfied.maximum | Maximum PPD reached during analysis period | 0 to 100 | % |
-| predicted percentage of dissatisfied.minimum | Minimum PPD reached during analysis period | 0 to 100 | % |
-
-### Comfort Level Categories
-
-According to norm DIN EN 15251, 2007
-
-| Category | PMV |
-| :--- | :--- |
-| A | -0,2 &lt; PMV &lt; +0,2 |
-| B | -0,5 &lt; PMV &lt; +0,5 |
-| C | -0,7 &lt; PMV &lt; +0,7 |
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| duration.category A.relative | Percentage of time the room comfort level corresponds to category A  | 0 to 100 | % |
-| duration.category A | Duration that the room comfort level corresponds to category A  | 0 to inf | h |
-| duration.category B.relative | Percentage of time the room comfort level corresponds to category B | 0 to 100 | % |
-| duration.category B | Duration that the room comfort level corresponds to category B | 0 to inf | h |
-| duration.category C.relative | Percentage of time the room comfort level corresponds to category C | 0 to 100 | % |
-| duration.category C | Duration that the room comfort level corresponds to category C | 0 to inf | h |
-| duration.no category.relative | Percentage of time the room comfort level corresponds to no category | 0 to 100 | % |
-| duration.no category | Duration that the room comfort level corresponds to no category | 0 to inf | h |
-
-## Timeseries
-
-| KPI Identifier | Description | Value Range | Unit |
-| :--- | :--- | :--- | :--- |
-| predicted mean vote.timeseries | Timeseries with the PMV value for each observation | -3 to 3 | - |
-| predicted percentage of dissatisfied.timeseries | Timeseries with the PPD value for each observation | 0 to 100 | % |
-| category.timeseries | Timeseries with a category classification for each observation | A, B, C, NOCAT | string |
-{% endtab %}
-
-{% tab title="Components" %}
-## [**room**](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#room)\*\*\*\*
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Pin</th>
-      <th style="text-align:left">Required</th>
-      <th style="text-align:left">Mapping info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">humdity</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">outside temperature</td>
-      <td style="text-align:left">yes</td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left">operating message</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping of either <b>presence (preferred)</b> or <b>operating message</b> is
-          strongly recommended. If both pins are mapped, pressence is used</p>
-        <p>Default: Always presence</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">presence</td>
-      <td style="text-align:left">no</td>
-      <td style="text-align:left">
-        <p>Mapping of either <b>presence (preferred)</b> or <b>operating message</b> is
-          strongly recommended. If both pins are mapped, pressence is used</p>
-        <p>Default: Always presence</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-{% endtab %}
-
-{% tab title="Application" %}
-## Recommended Time Span
-
-### 1 week
-
-## **Recommended Repetition**
-
-### Every month
-
-* After changes of presence or room schedules
-{% endtab %}
-{% endtabs %}
-
 ## Virtual Heat Meter Analysis
 
 The _Virtual Heat Meter_ determines the heat flow and energy delivered in heating/cooling piping networks such as thermal control loops or energy conversion plants. The determination is either based on the temperature difference and volume flow over measurement point, or on the readings from a physical heat meter in the field. It substitutes physical heat meters and enables energy flow tracing.
@@ -3067,16 +3449,16 @@ The unit used in this datapoint needs to be specified in order for the analysis 
 
 ## Weather Station Analysis
 
-The outdoor air temperature sensor is one of the most important sensors for HVAC system control, since many control decisions, e.g. which amount of heat provided or switching between heating and cooling mode, are made based on the measured outdoor air temperature. Outdoor air temperature sensors wear out over the lifetime of the building. Further, the sensor is often influenced by sun radiation or heat emitting components in its surrounding. Wrongly measured outside air temperature directly corresponds to a thermal over or undersupply of the building, often leads to poor user comfort and exaggerated energy consumption. 
+Two important sensors for HVAC system control are the outdoor air temperature sensor and the outdoor air humidity sensor. Many control decisions, e.g. what amount of heat/humidity is it to be provided and the switching between heating and cooling modes, are made based on the measured outdoor temperature and humidity. The sensors are prone to wear out over the life time of the building. Furthermore, the sensors are often influenced by solar radiation or heat emitted from components in its surrounding. Wrongly measured outside air temperature or humidity directly corresponds to a thermal over/under supply of the building or incorrect indoor humidity, often leading to poor user comfort and an increased energy consumption.
 
-The _Weather Station Analysis_ identifies installation errors and measurement offsets of the outdoor air temperature sensor and derives optimization measures for better outdoor air temperature measuring.
+The _Weather Station Analysis_ identifies installation errors and measurement offsets of the outdoor air temperature and humidity sensors in order to improve measurements.
 
 {% tabs %}
 {% tab title="Summary" %}
 ## Value
 
 * Higher operational performance due to reliable information about outside air conditions
-* Higher occupant comfort, health, and performance
+* Higher occupant comfort, health and performance
 * Lower operating costs
 * Better system coordination in systems with redundant sensors
 
@@ -3087,17 +3469,18 @@ The _Weather Station Analysis_ identifies installation errors and measurement of
 ## Checked conditions
 
 * Offset between measured outdoor air temperature and weather service reference data
-* Outdoor air temperature sensor is mistakenly influenced by solar radiation
-* Outdoor air temperature sensor is mistakenly influenced by it's surrounding, e.g. exhaust gases
-* Outdoor air temperature measures are compliant to weather service reference data
+* Offset between measured outdoor air humidity and weather service reference data
+* Outdoor air temperature sensor is influenced by solar radiation
+* Outdoor air temperature sensor is influenced by it's surrounding, e.g. exhaust gases
+* Outdoor air measures are compliant to weather service reference data
 {% endtab %}
 
 {% tab title="Example" %}
-For this _Weather Station Analysis_ we instantiated a "[weather station](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#weather-station)" component and analyzed a week of weather data. The following plot shows the measured temperature of a sensor located at a building facade. During the reviewed period in the summer the sensor is influenced in the afternoon.
+For this _Weather Station Analysis_ we instantiated a [weather station](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#weather-station) component and analyzed a week of weather data. The following plot shows the measured temperature of a sensor located at a building facade. During the reviewed period in the summer the sensor is influenced in the afternoon.
 
 ![Figure 1: Measured data outdoor air temperature and reference outdoor air temperature](../.gitbook/assets/example_outdoortemperaturesensoranalysis.png)
 
-In figure 1 you can see a significant difference between sensor and weather reference. This is also reflected in the value of the calculated KPIs. During the analysis period all 7 days are recognized by the KPI "radiation influenced days". Additionally the offset at night is elevated and thus a larger "sensor offset squared error" is present.
+In figure 1 you can see a significant difference between sensor and weather reference data. This is also reflected in the value of the calculated KPIs. During the analysis period all 7 days are recognized by the KPI "radiation influenced days". Additionally the offset at night is elevated and thus a larger "sensor offset squared error" is present. The humidity sensor is checked accordingly. 
 
 | KPI | Value | Unit |
 | :--- | :--- | :--- |
@@ -3112,9 +3495,9 @@ In figure 1 you can see a significant difference between sensor and weather refe
 
 | Signal color | Available | Info |
 | :--- | :--- | :--- |
-| red | Yes | Significant solar radiation influence and/or offset identified |
-| yellow | Yes | Partial solar radiation influence and/or moderate offset identified |
-| green | Yes | Sufficient accuracy of outdoor air temperature measurements |
+| red | Yes | The comparison with the reference weather data indicates that a sensor is impaired or influenced by solar radiation.  |
+| yellow | Yes | The comparison with the reference weather data indicates that a sensor may be impaired or influenced by solar radiation.  |
+| green | Yes | Sensor offset is negligible. No influence of solar radiation detected.  |
 
 ## Interpretations
 
@@ -3126,7 +3509,7 @@ In figure 1 you can see a significant difference between sensor and weather refe
 
 | Available | Info |
 | :--- | :--- |
-| Yes | Recommendations to improve outdoor air temperature measurement, if necessary or re-calibrate the sensor, if physically implausible measures are observed. No recommendation, in case of sufficient measurement quality |
+| Yes | Recommendations to improve outdoor air temperature/humidity measurement, if necessary or re-calibrate the sensor, if physically implausible measurements are observed. |
 
 ## KPIs
 
@@ -3136,8 +3519,15 @@ In figure 1 you can see a significant difference between sensor and weather refe
 | :--- | :--- | :--- | :--- |
 | radiation influenced days.relative | Ratio of days with more than one hour of sun radiation influence to days analyzed | 0 to 100 | % |
 | radiation influenced days | Days with more than one hour of sun radiation influence | 0 - inf | days |
-| offset RMSE | Root mean square error of the offset between measured outdoor air temperature and the reference data set. | 0 to inf | K |
-|  offset ME | Mean error of the offset between measured outdoor air temperature and the reference data set. | -inf to inf | K |
+
+### Sensor errors
+
+| KPI Identifier | Description | Value Range | Unit |
+| :--- | :--- | :--- | :--- |
+| Temperature RMSE | Root mean square error between the measured outdoor air temperature and the reference data set. | 0 to inf | K |
+| Temperature ME | Mean error between the measured outdoor air temperature and the reference data set. | -inf to inf | K |
+| Humidity RMSE | Root mean square error between the measured outdoor relative humidity and the reference data set. | 0 to 100 | % |
+| Humidity ME | Mean error between the measured outdoor relative humidity and the reference data set. | -100 to 100 | % |
 {% endtab %}
 
 {% tab title="Components" %}
@@ -3145,7 +3535,8 @@ In figure 1 you can see a significant difference between sensor and weather refe
 
 | Pin | Required | Mapping info |
 | :--- | :--- | :--- |
-| temperature | yes |  |
+| temperature | no | Mandatory for outside air temperature checkup |
+| humidity | no | Mandatory for outside air humidity checkup |
 
 | Attribute | Required | Mapping info |
 | :--- | :--- | :--- |
@@ -3167,8 +3558,6 @@ In figure 1 you can see a significant difference between sensor and weather refe
 * After maintenance or replacements
 {% endtab %}
 {% endtabs %}
-
-
 
 ## Information
 
