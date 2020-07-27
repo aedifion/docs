@@ -13,7 +13,7 @@ Available component data models
 * [Fan](component-data-models.md#fan)
 * [Filter](component-data-models.md#filter)
 * [Heat Meter](component-data-models.md#heat-meter)
-* [Heat Pump](https://docs.aedifion.io/docs/engineers/specifications/component-data-models#heat-pump)
+* [Heat Pump](component-data-models.md#heat-pump)
 * [Humidity Conditioner](component-data-models.md#humidity-conditioner)
 * [Room](component-data-models.md#room)
 * [Thermal Control Loop](component-data-models.md#thermal-control-loop)

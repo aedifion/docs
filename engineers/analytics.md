@@ -211,8 +211,6 @@ The analysis returns a _red_ warning message to indicate that the error message 
 {% endtab %}
 {% endtabs %}
 
-## Fan Speed Analysis
-
 ## **Control Loop Oscillation Analysis**
 
 The _Control Loop Oscillation Analysis_ checks the process value of a control loop for oscillation. Oscillating process values are an indicator for suboptimal parameterization or structural dimensioning of the control loop.
@@ -417,7 +415,7 @@ The condensation risk is evaluated as moderate if the room temperature is betwee
 
 
 
-## Operating Cycle Analysis
+## Fan Speed Analysis
 
 The _Fan Speed Analysis_ evaluates whether a fan is controlled, based on its fan speed. This helps to identify problems with the fan control and ensures that fans are implemented more energy efficiently.
 
