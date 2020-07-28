@@ -25,7 +25,7 @@ description: aedfion.analytics  versioning
   * [Fan speed analysis](../engineers/analytics.md#fan-speed-analysis)
   * [Filter servicing analysis](../engineers/analytics.md#filter-servicing-analysis)
   * [Humidity conditioning analysis](../engineers/analytics.md#humidity-conditioning-analysis)
-* Extendet [weather station analysis](../engineers/analytics.md#weather-station-analysis)
+* Extended [weather station analysis](../engineers/analytics.md#weather-station-analysis)
   * Added offset analysis of humidity sensor
 
 ## 1.1.0
