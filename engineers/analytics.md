@@ -581,7 +581,7 @@ The signal analysis returns a green signal color since there is a significant am
 {% endtab %}
 
 {% tab title="Components" %}
-## ​filter  <a id="fan-1"></a>
+## ​[filter ](component-data-models.md#filter) <a id="fan-1"></a>
 
 | Pin | Required | Mapping info |
 | :--- | :--- | :--- |
