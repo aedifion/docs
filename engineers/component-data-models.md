@@ -588,7 +588,7 @@ The **Filter** component data model represents various kinds of filters.
 Mind the units.
 {% endhint %}
 
-| Name | Info | Unitf |
+| Name | Info | Unit |
 | :--- | :--- | :--- |
 | filter contamination | The extent to which a filter is contaminated measured from 0% \(uncontaminated\) to 100% \(fully contaminated\) | % |
 | pressure difference | Pressure difference over the filter | Pa |
