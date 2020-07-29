@@ -1034,7 +1034,7 @@ Mind the units.
 {% endtab %}
 
 {% tab title="Attributes" %}
-No Attributes on this compoenent.
+No Attributes on this component.
 {% endtab %}
 
 {% tab title="Analysis" %}
