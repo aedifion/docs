@@ -15,7 +15,7 @@ Analytics pursues only one goal: Guide technicians and building users to improve
 * Lower effort **maintaining** and **servicing** complex technical facilities.
 
 {% hint style="warning" %}
-aedifion explicitly points out that all analyses have been prepared with the greatest possible care, but are only to be understood as recommendations for action and should in no case replace the concrete notes or instructions of the respective component and system manufacturers. The execution of the recommended action is at your own risk unless the execution is carried out by our company or our subcontractors on a contractual basis.
+aedifion.io and any add-ons do not include energy consulting. All data calculated, analysed and/or displayed by aedifion.io and any add-ons, especially setting values \(e.g. room temperature\) or the mappings of data points, are non-binding recommendations that have to be carefully checked by the user's qualified personnel in each individual case before implementation \("human-in-the-loop principle"\).
 {% endhint %}
 
 ## How to read the docs?
