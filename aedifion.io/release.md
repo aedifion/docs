@@ -1,10 +1,25 @@
 ---
-description: aedifion .io versioning
+description: aedifion.io versioning
 ---
 
 # Release
 
-## aedifion.io 1.0.0 - 2020-03-30
+## 1.0.1
+
+**Release date: 2020-09-02**
+
+**What's new in 1.0.1?**
+
+* **Frontend: Geographic position of projects 🗺** Locate the geographic position of your projects by placing a marker on a map.
+  * Update the address of your projects by just typing it into your project settings.
+  * Use your local geographic position and assign it to your project.
+* **Frontend: Component models ⚙️** Component attributes are now editable.
+  * Manage attribute values of components in your project.
+  * Get support by automatic type-checking of your attribute values.
+
+## 1.0.0
+
+**Release date: 2020-03-30**
 
 ### Edge device hardware
 
